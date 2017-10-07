@@ -1,0 +1,89 @@
+ul#list-area table {
+  width: 100%;
+}
+
+div#areas-content {
+  width: 88%;
+}
+
+label.area-name {
+  color: $footer-word;
+}
+
+form#areas-form {
+  margin-top: 30px;
+}
+
+button#btn-area {
+  margin-top: 30px;
+}
+
+ul#list-area, 
+li.area-items {
+	position: relative;
+}
+
+li.area-items {
+	height: 50px;
+}
+
+label:before {
+	content: "";
+	width: 15px;
+	height: 15px;
+	background: $footer-word;
+	position: absolute;
+	left: -23px;
+  top: 7px;
+	box-sizing: border-box;
+	border-radius: 50%;
+}
+
+input[type="radio"] {
+	opacity: 0;
+	-webkit-appearance: none;
+	display: inline-block;
+	vertical-align: middle;
+	z-index: 100;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 30px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	cursor: pointer;
+}
+
+.bullet {
+	position: relative;
+	width: 27px;
+	height: 27px;
+	left: -29px;
+	top: 1px;
+	border: 5px solid $footer-word;
+	opacity: 0;
+	border-radius: 50%;
+}
+
+input[type="radio"]:checked ~ .bullet {
+	position:absolute;
+	opacity: 1;
+	animation-name: explode;
+	animation-duration: 0.350s;
+}
+
+@keyframes explode {
+	0%{
+		opacity: 0;
+		transform: scale(10);
+	}
+	60%{
+		opacity: 1;
+		transform: scale(0.5);
+	}
+	100%{
+		opacity: 1;
+		transform: scale(1);
+	}
+}

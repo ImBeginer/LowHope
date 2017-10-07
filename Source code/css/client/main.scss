@@ -1,0 +1,470 @@
+@import 'fonts';
+@import 'color';
+@import 'default';
+@import 'functions';
+@import 'datepickerCustom';
+@import 'areaCustome';
+@import 'highchartDarkTheme';
+@import 'googleChartCustom';
+
+/*********************NAV BAR************************/
+a.register {
+  font-size: 84%;
+}
+
+button.user-name {
+  font-size: 84%;
+}
+
+nav#my-navbar {
+  a {
+    color: $white;
+  }
+  background-color: $footer !important;
+  border-bottom: 1px solid $border-color;
+  width: 100%;
+}
+
+ul#user-func-dropdown {
+  li a {
+    color: $black !important;
+  }
+}
+
+li.top-bar-items {
+  position: relative;
+}
+
+.notifi-num {
+  position: absolute;
+  top: 0;
+  right: -7px;
+  background-color: $notifi-color;
+  padding: 2px 7px;
+  border-radius: 19px;
+  p {
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+li.func-items a {
+  font-size: 90%;
+}
+
+li.func-items:hover {
+  background-color: $footer-word;
+}
+
+ul#user-func-dropdown {
+  background-color: $footer;
+  border-bottom: 3px solid $break-line;
+  border-top: 3px solid $break-line;
+  li a {
+  color: $white !important;
+  }
+}
+
+li.func-items a {
+  font-size: 83%;
+  padding-left: 18px;
+}
+
+/*********************LOGO************************/
+.my-panel {
+  background-color: $white;
+  width: 65%;
+  padding: 27px 36px 50px;
+  @include border-radius(5px);
+  box-shadow: -2px 3px 26px $black;
+  h2 {
+    color: $black;
+  }
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.content-area {
+  padding: 100px 100px 0 100px;
+}
+
+.facebook-button,
+.google-button {
+  text-align: center;
+  border: 1px solid $footer-word;
+  border-radius: 23px;
+  margin: 0 25px;  
+}
+
+.facebook-button {
+  padding: 4px 50px;
+}
+
+.facebook-button:hover {
+  border-color: $facebook-color;
+  background-color: $facebook-color;
+}
+
+.google-button {
+  padding: 4px 36px 4px 48px;
+}
+
+.google-button:hover {
+  border-color: $google-color;
+  background-color: $google-color;
+}
+
+.content-area {
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-color: $white;
+}
+
+#login-des {
+  margin-top: 20px;
+  font-size: 69%;
+  text-align: center;
+}
+
+.panel-des {
+  color: $footer-word;
+}
+
+.btn-area {
+  width: 35%;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  min-width: 300px;
+}
+
+/*********************CONTENT AREA************************/
+#BTC, #SCJ, #PNJ {
+  width: 32%;
+  p {
+    font-size: 130%;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: $gold-color;    
+  }
+  span {
+    font-size: 83%;
+  }
+}
+
+.special-index {
+  margin-top: 50px;
+}
+
+.card-items p, 
+.card-items span, 
+.card-items a.title {
+  color: $black !important;
+  margin: 0;
+}
+
+.card-items {
+  border-radius: 5px;
+  vertical-align: top;
+  background-color: $white;
+  display: inline-block;
+  margin: 0 0 1em;
+  width: 100%;}
+
+p.game-opening, 
+p.game-closing {
+  margin: 0;
+  font-size: 55%;
+  display: inline;
+  padding: 5px 15px;
+  color: $white !important;  
+  text-shadow: none;
+  font-weight: 100;
+  position: relative;
+  top: -4px;
+  left: -20px;  
+}
+
+.game-opening {
+  background-color: $opening-color;
+}
+
+.game-closing {
+  background-color: $closing-color;
+}
+
+a.title {
+  font-weight: bold;
+  word-break: break-word;
+  color: $black !important;
+  line-height: initial;
+  font-size: 90%;
+}
+
+p.total-transaction {
+  font-size: 270%;
+  color: $transaction-color !important;
+}
+
+span.currency-name {
+  font-size: 26%;
+  color: $black !important;
+}
+
+p.end-time {
+  font-size: 60%;
+  color: $footer-word !important;
+}
+
+.end-time-div {
+  border-top: 1px solid $footer-word-op;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.google-button, .facebook-button, .game-name {
+  transition: background-color 0.5s;
+}
+/*********************GAMES************************/
+#games-area {
+  padding: 30px 0 0 0;  
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(36, 36, 58, 1));
+}
+
+span.game-name {
+  a {
+    font-size: 69%;
+    padding: 0 10px 0;
+  }
+}
+
+span.game-name:hover a {
+  color: $gold-color !important;
+}
+
+.game-types {
+  border-bottom: 1px solid $footer-word;
+  padding-bottom: 3px;
+}
+
+.card-area {
+  margin-top: 20px;
+}
+
+.card-grid {
+  -moz-column-count: 4;
+  -webkit-column-count: 4;
+  column-count: 4;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em;
+  column-gap: 1em;
+}
+
+.content-game-area {
+  padding: 0 40px;
+}
+
+.card-content {
+  background-color: $white;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.danhmuc {
+  border-bottom: 1px solid $footer-word-op;
+  a {
+    span {
+      font-size: 69%;
+      color: $white;
+    }
+  }
+}
+
+.danhmuc a span:hover, 
+.hienlen span {
+  color: $gold-color !important;
+}
+
+/*********************FOOTER************************/
+footer {
+  border-top: 1px solid $footer-word-op;
+  padding: 19px 0;
+  text-align: center;
+  margin-top: 32px;
+}
+
+ul#contact-item {
+  li {
+    padding: 0 15px;
+    i {
+      font-size: 35px;
+    }       
+  }
+}
+
+p.copy-right {
+  text-align: center;
+}
+
+ul#contact-item {
+  margin: 0;
+  padding: 0;
+}
+
+.break-line {
+  width: 12%;
+  height: 1px;
+  background-color: $break-line;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+div#about-us {
+  margin-top: 20px;
+  p a {
+    margin: 0 30px;
+  }
+}
+
+div#about-us p a, 
+p.copy-right {
+  font-family: $font-default-L;
+}
+
+/*********************UPDATE INFO************************/
+span.sub-cap {
+  font-size: 69%;
+}
+
+button.my-btn {
+  background-color: $notifi-color !important;
+  cursor: pointer;
+}
+
+/*********************NOTIFICATION************************/
+input.notifi-checkbox {
+  width: 15px;
+}
+
+h4.panel-title {
+  font-size: 100%;
+  a {
+    color: $black !important;
+    font-weight: bold;
+  }
+}
+
+.notifi-items {
+  background-color: $white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.panel-body {
+  color: $black;
+  font-size: 90%;
+  padding: 20px;
+  border-top: 1px solid $footer-word;
+  margin-top: 20px;
+}
+
+input.notifi-checkbox,
+input#check-all-box {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  width: 21px;
+  height: 21px;
+  border: 2px dotted $notifi-color;
+  outline: none;
+}
+
+input#checkbox-all-box {
+
+  border-color: #fff;
+}
+
+input.notifi-checkbox:hover {
+  border: 2px solid $notifi-color;
+}
+
+input.notifi-checkbox:checked {
+  background-color: $notifi-color;
+}
+
+.sign {
+  color: $footer-word;
+  font-size: 75%;
+  font-weight: bold;
+}
+
+.green-circle {
+  width: 10px;
+  height: 10px;
+  background-color: $green-circle;
+  border-radius: 5px;
+  border: 1px solid $green-circle;
+}
+
+.already-read {
+  background-color: initial;
+}
+
+/*********************SIDEBAR************************/
+.side-bar-content {
+  margin-right: 60px;
+}
+
+.icon-des {
+  text-align: center;
+}
+
+ul.side-bar-menu {
+  margin: 0;
+  padding: 40px 0;
+  border: 2px solid $border-sidebar;
+  border-radius: 9px;
+  position: relative;
+  left: -24px;  
+  min-width: 135px;
+  max-width: 135px;
+  li {
+    margin: 30px 0;
+  }
+}
+
+li.side-bar-items a:hover div.icon-des, 
+li.side-bar-items a:hover div.icon-des i {
+  color: $green-circle;
+}
+
+li.side-bar-items a:hover input#checkbox-all-box {
+  border-color: $green-circle;
+}
+
+.page-title {
+  margin-bottom: 27px;
+}
+
+/*********************PAGINATION************************/
+
+a#previous, a#next {
+  font-size: 81%;
+  text-decoration: underline !important;
+}
+
+.pagination-area {
+  padding: 10px;
+}
+
