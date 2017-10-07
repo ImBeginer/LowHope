@@ -11,11 +11,7 @@
 @import 'userUpdateInfo';
 
 /*********************NAV BAR************************/
-a.register {
-  font-size: 84%;
-}
-
-button.user-name {
+a.register, button.user-name {
   font-size: 84%;
 }
 
@@ -456,7 +452,7 @@ input#check-all-box {
 
 input#checkbox-all-box {
 
-  border-color: #fff;
+  border-color: $white;
 }
 
 input.notifi-checkbox:hover {
