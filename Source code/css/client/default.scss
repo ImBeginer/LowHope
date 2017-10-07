@@ -6,14 +6,27 @@
 	color: $white
 }
 
-body {
-	background-color: #24243A !important;
+html, body {
+	background-color: $body-color !important;
 }
+
 #main-index {
-	background-image: linear-gradient(transparent, #24243a),url('../../images/client/new-background.jpg');
+	background-image: linear-gradient(transparent, $body-color),url('../../images/client/new-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 0;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.user-btn-close,
+.update-btn,
+.notifi-btn,
+.user-name {
+	cursor: pointer;
 }
 
 ul {
@@ -90,5 +103,9 @@ a:hover {
 
 .card {
 	padding: 0 7px;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
     

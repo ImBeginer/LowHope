@@ -1,4 +1,3 @@
-$.noConflict();
 $(function() {
 
   $currentYear = new Date().getFullYear();
@@ -95,7 +94,7 @@ $(function() {
 
   // select all notifi
   $('input#checkbox-all-box').on ('click', function () {
-    console.log ($(this).prop('checked'));
+    // console.log ($(this).prop('checked'));
     $('input.notifi-checkbox').prop ('checked', $(this).prop('checked'));
   });
 
@@ -109,4 +108,5 @@ $(function() {
   $('h4.panel-title').on ('click', function (e) {
     is_read (e.currentTarget.id);
   });
+
 });

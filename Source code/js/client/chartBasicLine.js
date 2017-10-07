@@ -9,7 +9,7 @@ Highcharts.chart('chart', {
   },
 
 	title: {
-    text: '*Giá chung cư tại khu vực Cầu Giấy',
+    text: '*Giá Bitcoin',
   },
   subtitle: {
 		text: document.ontouchstart === undefined ?
@@ -17,11 +17,13 @@ Highcharts.chart('chart', {
   },
   xAxis: {
     maxPadding: 3,
-    type: 'date',
-    title: {
-    	enabled: true,
-    	text: 'Ngày'
-    }
+    type: 'datetime',
+    maxZoom: 48 * 3600 * 1000,
+    tickInterval: 3600 * 1000
+    // title: {
+    // 	enabled: true,
+    // 	text: 'Ngày'
+    // }
   },
   yAxis: {
     title: {
@@ -52,19 +54,18 @@ Highcharts.chart('chart', {
   },
   series: [
   {
-    name: 'Giá thấp nhất',
-    data: [1.25 , 1.5, 1.3  , 1.7, 2.0, 1.75 , 2.75 , 1.88, 2.2, 2.1, 2.3, 2.01]
-  }, {
-    name: 'Giá trung bình',
-    data: [4.375, 4.5, 4.775, 5.1, 5.4, 5.625, 5.975, 4.94, 5  , 5.3, 5.9, 6.005]
-  }, {
-    name: 'Giá cao nhất',
-    data: [7.5  , 7.5, 8.25 , 8.5, 8.8, 9.5  , 9.2  , 8.0, 7.8 , 8.5, 9.5, 10.0]
+    name: 'Giá BTC',
+    data: [4.375, 4.5, 4.775, 5.1, 5.4, 5.625, 5.975, 4.94, 5, 5.3, 5.9, 6.005],
+    pointStart: Date.now(),
+    pointInterval: 24 * 3600 * 1000 // one day
   }]
 });
 
 Highcharts.setOptions({
   lang: {
-    resetZoom: "Trở về"
+    resetZoom: "Trở về",
+    months: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',  'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+    shortMonths: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',  'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+    weekdays: ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7']
   }
 });

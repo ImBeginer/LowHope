@@ -6,6 +6,9 @@
 @import 'areaCustome';
 @import 'highchartDarkTheme';
 @import 'googleChartCustom';
+@import 'infiniteSlideShow';
+@import 'scrollBar';
+@import 'userUpdateInfo';
 
 /*********************NAV BAR************************/
 a.register {
@@ -20,8 +23,8 @@ nav#my-navbar {
   a {
     color: $white;
   }
-  background-color: $footer !important;
-  border-bottom: 1px solid $border-color;
+  background-color: $infinite-color !important;
+  border-bottom: 1px solid $footer-word-op;
   width: 100%;
 }
 
@@ -37,11 +40,11 @@ li.top-bar-items {
 
 .notifi-num {
   position: absolute;
-  top: 0;
-  right: -7px;
+  top: 2px;
+  right: 4px;
+  padding: 3px 7px;
+  border-radius: 30px;
   background-color: $notifi-color;
-  padding: 2px 7px;
-  border-radius: 19px;
   p {
     font-size: 11px;
     padding: 0;
@@ -49,26 +52,30 @@ li.top-bar-items {
   }
 }
 
-li.func-items a {
-  font-size: 90%;
+li.func-items:hover,
+li.noti-items:hover {
+  background-color: $body-color;
 }
 
-li.func-items:hover {
-  background-color: $footer-word;
-}
-
-ul#user-func-dropdown {
+ul#user-func-dropdown,
+ul#user-notifi {
   background-color: $footer;
   border-bottom: 3px solid $break-line;
   border-top: 3px solid $break-line;
   li a {
-  color: $white !important;
+    color: $white !important;
   }
 }
 
-li.func-items a {
+li.func-items a,
+li.noti-items a {
   font-size: 83%;
   padding-left: 18px;
+}
+
+.user-name-btn {
+  position: relative;
+  top: 4px;
 }
 
 /*********************LOGO************************/
@@ -90,11 +97,23 @@ li.func-items a {
 }
 
 .facebook-button,
-.google-button {
+.google-button,
+.bitcoin-game-btn {
   text-align: center;
   border: 1px solid $footer-word;
   border-radius: 23px;
   margin: 0 25px;  
+}
+
+.bitcoin-game-btn {
+  width: 10%;
+  margin: 0 auto;
+  min-width: 135px;
+}
+
+.bitcoin-game-btn:hover {
+  border-color: $gold-color;
+  background-color: $gold-color;
 }
 
 .facebook-button {
@@ -125,7 +144,8 @@ li.func-items a {
   background-color: $white;
 }
 
-#login-des {
+#login-des,
+#bitcoin-game-des {
   margin-top: 20px;
   font-size: 69%;
   text-align: center;
@@ -226,7 +246,14 @@ p.end-time {
   padding-bottom: 5px !important;
 }
 
-.google-button, .facebook-button, .game-name {
+.google-button, 
+.facebook-button, 
+.game-name, 
+.bitcoin-game-btn, 
+.hot-item,
+button.update-btn, 
+li.func-items,
+li.noti-items {
   transition: background-color 0.5s;
 }
 /*********************GAMES************************/
@@ -352,6 +379,43 @@ button.my-btn {
 }
 
 /*********************NOTIFICATION************************/
+span.angle-down {
+  font-size: 18px;
+}
+
+.noti-content {
+  padding: 0 10px;
+  a {
+    padding: 0 !important;
+  }
+}
+
+.time-area span.send-date, 
+.time-area span.time-icon {
+  font-size: 12px;
+}
+
+.time-area span.send-date, 
+.time-area span.time-icon i {
+  color: $footer-word;
+}
+
+ul#user-notifi {
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+p.notifi-title {
+  margin: 0;
+  font-size: 100%;
+}
+
+i.fa.fa-trophy {
+  position: relative;
+  top: -4px;
+}
+
 input.notifi-checkbox {
   width: 15px;
 }
@@ -415,10 +479,17 @@ input.notifi-checkbox:checked {
   background-color: $green-circle;
   border-radius: 5px;
   border: 1px solid $green-circle;
+  margin-right: 3px;
 }
 
 .already-read {
   background-color: initial;
+}
+
+div#notifi-popup h5, 
+div#notifi-popup .close span,
+.notifi-message {
+  color: $black;
 }
 
 /*********************SIDEBAR************************/
@@ -428,12 +499,13 @@ input.notifi-checkbox:checked {
 
 .icon-des {
   text-align: center;
+  font-size: 86%;
 }
 
 ul.side-bar-menu {
   margin: 0;
-  padding: 40px 0;
-  border: 2px solid $border-sidebar;
+  padding: 10px 0;
+  border: 1px solid $footer-word-op;
   border-radius: 9px;
   position: relative;
   left: -24px;  
@@ -468,3 +540,62 @@ a#previous, a#next {
   padding: 10px;
 }
 
+/*********************CHAT************************/
+button#chat-btn {
+  border-radius: 53px;
+  background-color: $chat-color !important;
+  width: 50px !important;
+  height: 50px !important;
+  position: fixed;
+  right: 50px;
+  top: 550px;  
+}
+
+.chat-content {
+  background-color: $chat-content;
+}
+
+.close {
+  float: right;
+  font-size: initial;
+  font-weight: 100;
+  line-height: 1;
+  color: $black;
+  text-shadow: none;
+  opacity: .5;
+}
+
+.chat-title {
+  font-size: 100%;
+}
+
+.chat-header {
+  border-bottom: 1px solid $footer-word-op !important;
+}
+
+.chat-footer {
+  border-top: 1px solid $footer-word-op !important; 
+}
+
+.chat-message textarea {
+  resize: none;
+  outline: none;
+  border: none;
+  background-color: transparent !important;
+  line-height: initial;
+  font-size: 84%;
+}
+
+.chat-message-area {
+  padding: 0;
+}
+
+.scroller-wrap {
+  overflow: hidden;
+}
+
+button#chat-btn i.fa.fa-paper-plane {
+  position: relative;
+  left: -1px;
+  top: -1px;
+}
