@@ -1,5 +1,7 @@
 $(function() {
 
+  $('[data-toggle="tooltip"]').tooltip();
+
   $currentYear = new Date().getFullYear();
   $currentYear -= 18;
     $("#dateOfBirth").datepicker({
@@ -92,6 +94,31 @@ $(function() {
     $('a#read-all-btn').addClass ('not-active');
   }
 
+/**
+ * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
+ */
+  function user_percent_in_de () {
+    $percent_width = parseInt($('.percent-panel').css('width'), 10);
+
+    $in_div = $('#increase');
+    $de_div = $('#decrease');
+    $in_user = $in_div.attr('data-user-num');
+    $de_user = $de_div.attr('data-user-num');
+    $total_user = parseInt($in_user) + parseInt($de_user);
+
+    $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+    $de_div_width = $percent_width - $in_div_width;
+
+    $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
+    $de_per_string = 100 - $in_per_string;
+
+    $in_div.css({'width': $in_div_width + 'px'});
+    $de_div.css({'width': $de_div_width + 'px'});
+
+    $('span.in-num-percent').text($in_per_string + '%');
+    $('span.de-num-percent').text($de_per_string + '%');
+  }
+
   // select all notifi
   $('input#checkbox-all-box').on ('click', function () {
     // console.log ($(this).prop('checked'));
@@ -108,5 +135,7 @@ $(function() {
   $('h4.panel-title').on ('click', function (e) {
     is_read (e.currentTarget.id);
   });
+
+  user_percent_in_de ();
 
 });

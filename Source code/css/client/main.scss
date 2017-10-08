@@ -242,16 +242,6 @@ p.end-time {
   padding-bottom: 5px !important;
 }
 
-.google-button, 
-.facebook-button, 
-.game-name, 
-.bitcoin-game-btn, 
-.hot-item,
-button.update-btn, 
-li.func-items,
-li.noti-items {
-  transition: background-color 0.5s;
-}
 /*********************GAMES************************/
 #games-area {
   padding: 30px 0 0 0;  
@@ -316,6 +306,59 @@ span.game-name:hover a {
 .danhmuc a span:hover, 
 .hienlen span {
   color: $gold-color !important;
+}
+
+.percent-panel {
+  width: 100%;
+  div {
+    display: inline-block;
+  }
+  div#increase, 
+  div#decrease {
+    height: 3px;    
+  }
+}
+
+div#increase {
+  background-color: $increase-color;
+  float: left;
+}
+
+div#decrease {
+  float: right;
+  background-color: $decrease-color;
+}
+
+span.in-num-percent {
+  float: left;
+}
+
+span.de-num-percent {
+  float: right;
+}
+
+span.in-num-percent, 
+span.de-num-percent  {
+  position: relative;
+  top: 3px;
+}
+
+label:before {
+  display: none;
+}
+
+span.time-label, label.input-title {
+  font-size: 73%;
+}
+
+form.bet-form input {
+  width: 100%;
+  background-color: $bet-input-color;
+  color: $black;
+  height: 35px;
+  padding: 0 10px;
+  -webkit-appearance: none;
+  border: 0;
 }
 
 /*********************FOOTER************************/

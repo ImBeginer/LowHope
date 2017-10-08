@@ -54,6 +54,18 @@ a:hover {
 	font-weight: bold;
 }
 
+.google-button, 
+.facebook-button, 
+.game-name, 
+.bitcoin-game-btn, 
+.hot-item,
+button.update-btn, 
+li.func-items,
+li.noti-items,
+button.c-button {
+  transition: background-color 0.5s;
+}
+
 /**********************BUTTON************************/
 .btn {
 	background-color: transparent !important;
@@ -107,5 +119,18 @@ a:hover {
 
 .dropdown-toggle::after {
   display: none;
+}
+
+/**********************BUTTON************************/
+button.c-button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid $footer-word-op;
+  cursor: pointer;
+}
+
+button#c-bet-btn:hover {
+	background-color: $bet-btn-color;
+	border-color: $bet-btn-color;
 }
     

@@ -233,7 +233,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-              <!-- dropdown button -->
+              <!-- info dropdown button -->
               <div class="dropdown">
                 <button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                   Thông tin
@@ -246,7 +246,7 @@
                   <li class="func-items"><a href="#!">Về chúng tôi</a></li>
                   <li class="func-items"><a href="#!">Câu hỏi</a></li>
                 </ul>
-              </div>
+              </div> <!-- /.info dropdown button -->
             </li> 
             <li class="nav-item active top-bar-items">
               <a class="nav-link" href="#"><i class="fa fa-trophy" aria-hidden="true"></i></a>
@@ -366,53 +366,65 @@
               </div>              
             </li>            
             <li class="nav-item">
-              <!-- dropdown button -->
-              <div class="user-name-btn">
-                <button class="btn btn-primary user-name" data-toggle="modal" data-target=".bd-example-modal-lg">
+              <!-- user dropdown button -->
+              <div class="dropdown">
+                <button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                   Username
+                  <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </button>
-                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">                  
-                    <!-- modal content -->
-                    <div id="user-update-info" class="modal-content">
-                      <div class="modal-header user-header">
-                        <h5 class="user-func-title">Cập nhật thông tin</h5>
-                        <button type="button" class="close user-btn-close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-<!-- user update info -->
-<form class="user-form" action="#!">
-  <div class="row">
-    <div class="user-info-left col-3">
+                <ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
+                  <li class="func-items user-name-btn">
+                    <button class="btn btn-primary user-name" data-toggle="modal" data-target="#user-update-info">
+                      Sửa thông tin
+                    </button>     
+                  </li>
+                  <li class="func-items"><a href="#!">Tạo mini game</a></li>
+                  <li class="func-items"><a href="#!">Đăng xuất</a></li>
+                </ul>
+              </div> <!-- /.user dropdown button -->
+              <!-- user update form -->
+              <div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog">                  
+                  <!-- modal content -->
+                  <div id="user-update-info" class="modal-content">
+                    <div class="modal-header user-header">
+                      <h5 class="user-func-title">Cập nhật thông tin</h5>
+                      <button type="button" class="close user-btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                      <!-- user update info -->
+                      <form class="user-form" action="#!">
+                        <div class="row">
+                          <div class="user-info-left col-3">
 
-      <!-- user avatar -->
-      <div class="user-ava-area">
-        <img class="user-avatar" src="../images/client/ava-default.png" alt="User's avatar">
-        <p class="username ellipsis">Pé muội</p>
-      </div><!-- /.user avatar -->
+                            <!-- user avatar -->
+                            <div class="user-ava-area">
+                              <img class="user-avatar" src="../images/client/ava-default.png" alt="User's avatar">
+                              <p class="username ellipsis">Pé muội</p>
+                            </div><!-- /.user avatar -->
 
-    </div>
-    <div class="user-info-right col-8 col-centered">
+                          </div>
+                          <div class="user-info-right col-8 col-centered">
 
-      <!-- user info -->
-      <div class="input-area">
-        <input id="username" type="text" name='username' placeholder="Họ và tên *" value="" required="">
-        <input id="userphone" type="text" name='userphone' placeholder="Số điện thoại *" value="" required="">
-        <input id="useraddress" type="text" name='useraddress' placeholder="Địa chỉ *" value="" required="">
-      </div><!-- /.user info -->
+                            <!-- user info -->
+                            <div class="input-area">
+                              <input id="username" type="text" name='username' placeholder="Họ và tên *" value="" required="">
+                              <input id="userphone" type="text" name='userphone' placeholder="Số điện thoại *" value="" required="">
+                              <input id="useraddress" type="text" name='useraddress' placeholder="Địa chỉ *" value="" required="">
+                            </div><!-- /.user info -->
 
-    </div>
-  </div>
-  <div class="submit-area">
-    <button type="submit" class="update-btn" name="update-btn">Cập nhật</button>
-  </div>                     
-</form><!-- /.user update info -->
+                          </div>
+                        </div>
+                        <div class="submit-area">
+                          <button type="submit" class="update-btn" name="update-btn">Cập nhật</button>
+                        </div>                     
+                      </form><!-- /.user update info -->
 
-                    </div><!-- /.modal content -->
-                  </div>
+                  </div><!-- /.modal content -->
+
                 </div>
-              </div>
+              </div><!-- /.user update form -->
             </li>             
 
           </ul>
@@ -421,13 +433,51 @@
       <!-- /.navbar -->    
     </div>
   </div> <!-- /.big div on top -->
+
   <!-- content -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 col-lg-12 col-xl-12">
         <div class="content">
-          <div class="chart-panel">
-            <div id="chart"></div>
+          <div class="row">
+            <!-- chart -->
+            <div class="chart-panel col-md-10 col-lg-10 col-xl-10">
+              <div id="chart"></div>
+            </div><!-- /.chart -->
+            <!-- bet -->
+            <div class="bet-panel mt-4 col-md-2 col-lg-2 col-xl-2">
+              <!-- bet percent -->
+              <div class="percent-panel center mt-3">
+                <div id="increase" class="user-percent" data-toggle="tooltip" data-placement="top" title="Tăng" data-user-num="276">
+                  <span class="in-num-percent">50%</span>
+                </div>
+                <div id="decrease" class="user-percent" data-toggle="tooltip" data-placement="top" title="Giảm" data-user-num="224">
+                  <span class="de-num-percent">50%</span>
+                </div>
+              </div><!-- /.bet percent -->
+
+              <div class="time-remaining-area mt-5">
+                <span class="time-label">Thời gian còn lại</span><br/>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span class="time-remaining">21:54:55</span>
+              </div>
+              
+              <!-- bet form -->
+              <div class="bet-form-area mt-3">
+                <form class="bet-form" name="#!">
+                  <div class="form-group">
+                    <label class="input-title" for="point-input">Đặt cược (point)</label>
+                    <input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0">
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="form-control c-button" id="c-bet-btn" name="bet-btn">
+                      Đặt cược
+                    </button>
+                  </div>
+                </form>
+              </div><!-- /.bet form -->
+
+            </div><!-- /.bet -->
           </div>
         </div>
       </div>      
@@ -436,15 +486,14 @@
 
   <div class="chat-icon-area">
     <!-- Button trigger modal -->
-    <button id="chat-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+    <button id="chat-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#chat-panel">
       <i class="fa fa-paper-plane" aria-hidden="true"></i>
     </button>
     <div class="container">
       <div class="row">
         <!-- Modal -->
-        <div class="modal fade bd-example-modal-lg" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+        <div class="modal fade" id="chat-panel" tabindex="-1" role="dialog" aria-labelledby="chat-panel" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
-            <!-- modal -->
             <div class="modal-content chat-content">
               <div class="modal-header chat-header">
                 <h5 class="modal-title chat-title" id="exampleModal3Label">Trò chuyện</h5>
@@ -462,10 +511,9 @@
                   </form>
                 </div>
               </div>
-            </div><!-- /.modal -->
-
+            </div>
           </div>
-        </div><!-- /Modal -->
+        </div><!-- /.Modal -->
 
         </div>
       </div>
