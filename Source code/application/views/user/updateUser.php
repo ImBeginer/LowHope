@@ -17,16 +17,7 @@
 
 </script>
 </head>
-<body>
-	<?php 
-		if($this->session->userdata('loggedInGooge')){
-			$userGGData = $this->session->userdata('userGGData');	
-						 
-		}else if($this->session->userdata('loggedInFB')){
-			$userFBData = $this->session->userdata('userFBData');
-			
-		}	
-	?>
+<body>	
 	<script>	
 		var base_url = "<?php echo base_url(); ?>";
 		window.fbAsyncInit = function() {			
@@ -45,37 +36,6 @@
 			js.src = "//connect.facebook.net/en_US/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-
-		function logoutFB(){
-			FB.getLoginStatus(function(response) {
-
-				if(response.status === 'connected'){
-					var uid = response.authResponse.userID;
-		            var accessToken = response.authResponse.accessToken;
-
-		            FB.api('/'+ uid +'/permissions', 'delete', function(response){
-		            	//console.log(response);
-	            	});
-				}
-
-	            $.ajax({
-	            	url: '/login/fb_Logout',
-	            	type: 'POST',
-	            	dataType: 'JSON',		            	
-	            })
-	            .done(function() {
-	            	console.log("success");
-	            })
-	            .fail(function() {
-	            	console.log("error");
-	            })
-	            .always(function() {
-	            	console.log("complete");
-	            	window.location = base_url;
-	            });
-    		});
-		}
-
 	</script>
 	<!-- navbar -->
 	<nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
@@ -100,31 +60,21 @@
 					<div class="dropdown">
 						<button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 							<span class="caret"></span>
-							<?php 
-								if($this->session->userdata('loggedInGooge')){
-									echo $userGGData['USER_NAME'];
-								}else if($this->session->userdata('loggedInFB')){
-									echo $userFBData['USER_NAME'];
-								}
-							?>
+							<?php echo $this->session->userdata('userData')['USER_NAME']; ?>
 						</button>
 						<ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
-							
-							<?php if($this->session->userdata('loggedInGooge')){ ?>
-								<!-- <li class="func-items text-center"><a href="" target="_blank">About me</a></li> -->
+							<?php if($this->session->userdata('loggedInGooge')){ ?>							
 								<li class="func-items text-center"><a href="<?php echo base_url().'login/logoutGoogle'; ?>">Đăng xuất</a></li>
-							<?php } else if($this->session->userdata('loggedInFB')){ ?>
-								<!-- <li class="func-items text-center"><a href="" target="_blank">About me</a></li> -->
-								<li class="func-items text-center"><a href="#" onclick="logoutFB()">Đăng xuất</a></li>
+							<?php } else if($this->session->userdata('loggedInFB')){ ?>							
+								<li class="func-items text-center"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
 							<?php } ?>
 						</ul>
 					</div>
 					<!-- dropdown button -->
-				</div>
-			</li>
-		</ul>
-	</div>
-</nav>  
+				</li>
+			</ul>
+		</div>
+	</nav>  
 
 <!-- content -->
 <div class="container">
@@ -135,17 +85,7 @@
 				<span class="sub-cap panel-des" style="color:red; font-weight:bold">Lưu ý: Hãy điền thông tin chính xác để chúng tôi liên hệ với bạn khi trúng thưởng</span>
 				<form name="updateInfo" action="<?php echo base_url().'userController/addUser'; ?>" method="POST">
 					<div class="form-group">
-						<input type="text" class="form-control" name="USER_NAME" id="fullName" placeholder="Họ và tên*" required>
-						<?php 
-							if($this->session->userdata('loggedInGooge')){
-						?>
-							<input type="hidden" class="form-control" name="USER_CIF" value="<?php echo $userGGData['USER_CIF']; ?>">
-							<input type="hidden" class="form-control" name="USER_EMAIL" value="<?php echo $userGGData['USER_EMAIL']; ?>">
-						
-						<?php }else if($this->session->userdata('loggedInFB')){ ?>
-							<input type="hidden" class="form-control" name="USER_CIF" value="<?php echo $userFBData['USER_CIF']; ?>">
-							<input type="hidden" class="form-control" name="USER_EMAIL" value="<?php echo $userFBData['USER_EMAIL']; ?>">
-						<?php } ?>
+						<input type="text" class="form-control" name="USER_NAME" id="fullName" placeholder="Họ và tên*" required>						
 					</div>
 					<div class="form-group">
 						<input type="number" class="form-control" name="USER_PHONE" id="phoneNumber" placeholder="Số điện thoại*" required>
@@ -184,7 +124,37 @@
 		<p class="copy-right">&copy; 9/2017</p>     
 	</div>
 </footer> <!-- end footer -->
+<script>
+	function logoutFB(){		
+		FB.getLoginStatus(function(response) {
 
+			if(response.status === 'connected'){
+				var uid = response.authResponse.userID;
+	            var accessToken = response.authResponse.accessToken;
+
+	            FB.api('/'+ uid +'/permissions', 'delete', function(response){
+	            	//console.log(response);
+            	});
+			}
+
+            $.ajax({
+            	url: '/login/fb_Logout',
+            	type: 'POST',
+            	dataType: 'JSON',		            	
+            })
+            .done(function() {
+            	console.log("success");
+            })
+            .fail(function() {
+            	console.log("error");
+            })
+            .always(function() {
+            	console.log("complete");
+            	window.location = base_url;
+            });
+		});
+	}
+</script>
 <!-- jquery -->
 <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>

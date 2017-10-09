@@ -46,7 +46,7 @@ class User extends CI_Model {
 	 * @param  [type] $USER_CIF [description]
 	 * @return [boolean]           [description]
 	 */
-	public function checkUserExist($USER_EMAIL)
+	public function checkGGUserExist($USER_EMAIL)
 	{
 		$this->db->select('*');
 		$this->db->where('USER_EMAIL', $USER_EMAIL);
@@ -58,14 +58,44 @@ class User extends CI_Model {
 	}
 
 	/**
-	 * [updateUser description]
-	 * @return [type] [description]
+	 * [checkFBUserExist description]
+	 * @param  [type] $USER_CIF [description]
+	 * @return [type]           [description]
 	 */
-	public function updateUser()
+	public function checkFBUserExist($USER_CIF)
 	{
-		
+		$this->db->select('*');
+		$this->db->where('USER_CIF', $USER_CIF);
+
+		$result = $this->db->get('USER');
+		$rows = $result->num_rows();
+
+		return ($rows>0)?true:false;
 	}
 
+	/**
+	 * [updateFBUser description] when informations of user was changed
+	 * @param  [type] $USER_CIF   [description]
+	 * @param  [type] $USER_NAME  [description]
+	 * @param  [type] $USER_EMAIL [description]
+	 * @return [type]             [description]
+	 */
+	public function updateFBUser($USER_CIF,$USER_NAME,$USER_EMAIL)
+	{
+		$user = array(
+			'USER_NAME' => $USER_NAME,
+			'USER_EMAIL' => $USER_EMAIL
+		);
+
+		$this->db->where('USER_CIF', $USER_CIF);
+		$this->db->update('USER', $user);
+	}
+
+	/**
+	 * [getUserByMail description]
+	 * @param  [type] $USER_EMAIL [description]
+	 * @return [type]             [description]
+	 */
 	public function getUserByMail($USER_EMAIL)
 	{
 		$this->db->select('*');
@@ -76,14 +106,24 @@ class User extends CI_Model {
 		return $user;
 	}
 
-	public function getAllUsers()
+	/**
+	 * [updateUser description]     google + facebook
+	 * @param  [type] $USER_ID      [description]
+	 * @param  [type] $USER_NAME    [description]
+	 * @param  [type] $USER_PHONE   [description]
+	 * @param  [type] $USER_ADDRESS [description]
+	 * @return [type]               [description]
+	 */
+	public function updateUser($USER_ID,$USER_NAME,$USER_PHONE,$USER_ADDRESS)
 	{
-		$this->db->select('*');
-		$this->db->where('ATTENDANCE', true);
-		$listUsers = $this->db->get('user');
-		$listUsers = $listUsers->result_array();
-		return $listUsers;
+		$user = array(
+			'USER_NAME' => $USER_NAME,
+			'USER_PHONE' => $USER_PHONE,
+			'USER_ADDRESS' => $USER_ADDRESS
+		);
 
+		$this->db->where('USER_ID', $USER_ID);
+		$this->db->update('USER', $user);
 	}
 
 }

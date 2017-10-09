@@ -1,52 +1,57 @@
 $(document).ready(function() {
-	// $('#msg_block').hide();
-
-	// $('#nickname').keyup(function(event) {
-	// 	/* Act on the event */
-	// 	var nickname = $(this).val();
-	// 	if(nickname == ''){
-	// 		$('#msg_block').hide();
-	// 	}else{
-	// 		$('#msg_block').show();
-	// 	}
-
-	// 	// initial nickname check
-	// 	$('#nickname').trigger('keyup');
-	// });
+	/**
+	 * update informations of user, (click Cập nhật thông tin -> popup update)
+	 */
 	
-
-	// setInterval(function (){
-	// 	update_chats();
-	// }, 1500);
-	
-	// alert(google_id);
-
-
-});
-
-var update_chats = function () {
-	
-	$.getJSON('http://localhost:8888/project_final/chat_controller/getMessage', function (data){
-		//append_chat_data(data);			
-	});      
-}
-
-var append_chat_data = function (chat_data) {
-	chat_data.forEach(function (data) {		
+	$('.update-btn').on('click', function(event) {
+		event.preventDefault();
+		/* Act on the event */
 		
-			var html = '<li class="left clearfix">';				
-			html += '	<div class="chat-body clearfix">';
-			html += '		<div class="header">';
-			html += '			<strong class="primary-font">' + data.user_id + '</strong>';
-			html += '			<small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + parseTimestamp(data.timestamp) + '</small>';
-			
-			html += '		</div>';
-			html += '		<p>' + data.message + '</p>';
-			html += '	</div>';
-			html += '	</li>';
+		var username = $('#username').val();
+		var userphone = $('#userphone').val();
+		var useraddress = $('#useraddress').val();
+
+		//alert(username + ' - ' + userphone + ' - ' + useraddress);
+		$.ajax({
+			url: base_url + 'userController/updateUser',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				userId:userId,
+				username: username,
+				userphone: userphone,
+				useraddress: useraddress
+			},
+		})
+		.done(function(respone) {
+			console.log("success");
+			if(respone == 1){
+				$('#user_name').text(username);
+				$.toast({
+					heading: 'Success',
+					text: 'Chúc mừng bạn đã cập nhật thông tin thành công !',
+					showHideTransition: 'slide',
+					icon: 'info',
+					position: 'bottom-right',
+					hideAfter: 3000
+				})
+			}else {
+				$.toast({
+					heading: 'Warning',
+					text: 'Bạn không có quyền thay đổi thông tin !!!',
+					showHideTransition: 'slide',
+					icon: 'info',
+					position: 'bottom-right',
+					hideAfter: 3000
+				})
+			}
+		})
+		.fail(function(respone) {
+			console.log("error");
+		})
+		.always(function(respone) {
+			console.log("complete");
+		});
 		
-		$("#received").html( $("#received").html() + html);
 	});
-  
-	$('#received').animate({ scrollTop: $('#received').height()}, 1000);
-}
+});

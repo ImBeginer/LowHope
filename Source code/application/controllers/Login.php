@@ -37,17 +37,16 @@ class Login extends CI_Controller {
             $userGGData['USER_EMAIL']     = $gpInfo['email'];
             $userGGData['USER_LINK']      = !empty($gpInfo['link'])?$gpInfo['link']:'';
             $userGGData['USER_AVATAR']    = !empty($gpInfo['picture'])?$gpInfo['picture']:'';
-            $userGGData['GOOGLE_USER']    = true;
             
             //check user if exist in DB -> redirect to choose screen
             
             //kiểm tra xem đã có email tồn tại trong hệ thống chưa
-            $userGGExist = $this->user->checkUserExist($userGGData['USER_EMAIL']);            
+            $userGGExist = $this->user->checkGGUserExist($userGGData['USER_EMAIL']);            
 
             //store status & user info in session
             $this->session->set_userdata('loggedInGooge', true);
             $this->session->set_userdata('userGGExist', $userGGExist);
-            $this->session->set_userdata('userGGData', $userGGData);
+            $this->session->set_userdata('userData', $userGGData);
             
             //redirect to profile page
             redirect('login/user/');
@@ -73,7 +72,11 @@ class Login extends CI_Controller {
             //neu user ton tai roi thi chuyen sang man hinh chon loai choi
             if($this->session->userdata('userGGExist')){
                 //load user profile view
-                $user = $this->user->getUserByMail($this->session->userdata('userGGData')['USER_EMAIL']);
+                $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+
+                //set session for userID
+                $this->session->set_userdata('sessionUserId', $user->USER_ID);
+
                 $data['USER_NAME'] = $user->USER_NAME;
                 $this->load->view('user/home', $data);
             }else{
@@ -90,7 +93,8 @@ class Login extends CI_Controller {
         //delete login status & user info from session
         $this->session->set_userdata('loggedInGooge', false);
         $this->session->unset_userdata('loggedInGooge');
-        $this->session->unset_userdata('userGGData');
+        $this->session->unset_userdata('userData');
+        $this->session->unset_userdata('sessionUserId');
         $this->session->sess_destroy();        
         
         redirect(base_url());
@@ -103,7 +107,6 @@ class Login extends CI_Controller {
      */
     public function fb_CheckUserExist()
     {
-
         //set session logged by fb
         $this->session->set_userdata('loggedInFB', true);
         
@@ -112,13 +115,14 @@ class Login extends CI_Controller {
         $userFBData['USER_EMAIL'] = $this->input->post('fb_email');
         $userFBData['USER_LINK'] = $this->input->post('fb_link');
         $userFBData['USER_AVATAR'] = $this->input->post('fb_avatar');
-        $userFBData['FB_USER']    = true;
 
-        $this->session->set_userdata('userFBData', $userFBData);
+        $this->session->set_userdata('userData', $userFBData);
 
-        $userFBExist = $this->user->checkUserExist($userFBData['USER_EMAIL']);
+        $userFBExist = $this->user->checkFBUserExist($userFBData['USER_CIF']);
 
         if($userFBExist){
+            //update lại người dùng facebook (dựa vào ID_Facebook), vì có thể họ đã thay đổi thông tin: email, tên hiển thị.
+            $this->user->updateFBUser($userFBData['USER_CIF'],$userFBData['USER_NAME'],$userFBData['USER_EMAIL']);
             echo json_encode("1");
         }else{
             echo json_encode("0");
@@ -140,7 +144,11 @@ class Login extends CI_Controller {
      */
     public function fb_goHome()
     {
-        $user = $this->user->getUserByMail($this->session->userdata('userFBData')['USER_EMAIL']);
+        $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+
+        //set sessionUserID
+        $this->session->set_userdata('sessionUserId', $user->USER_ID);
+
         $data['USER_NAME'] = $user->USER_NAME;
         $this->load->view('user/home', $data);
     }   
@@ -152,7 +160,8 @@ class Login extends CI_Controller {
     {
         $this->session->set_userdata('loggedInFB', false);
         $this->session->unset_userdata('loggedInFB');
-        $this->session->unset_userdata('userFBData');
+        $this->session->unset_userdata('userData');
+        $this->session->unset_userdata('sessionUserId');
         $this->session->sess_destroy();
     }
 

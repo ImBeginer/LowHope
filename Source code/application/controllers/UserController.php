@@ -17,19 +17,20 @@ class UserController extends CI_Controller {
 	 */
 	public function addUser()
 	{
-		$USER_CIF = $this->input->post('USER_CIF');
+		$USER_CIF = $this->session->userdata('userData')['USER_CIF'];
 		$USER_NAME = $this->input->post('USER_NAME');
-		$USER_EMAIL = $this->input->post('USER_EMAIL');
+		$USER_EMAIL = $this->session->userdata('userData')['USER_EMAIL'];
 		$USER_PHONE = $this->input->post('USER_PHONE');
 		$USER_ADDRESS = $this->input->post('USER_ADDRESS');
 
 		//validate
-		$USER_CIF = str_replace('/[^0-9]/', '', $USER_CIF);
 		$USER_PHONE = str_replace('/[^0-9]/', '', $USER_PHONE);
 
 		$id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS);
 
 		if($id > 0){
+			//set sessionUserID
+        	$this->session->set_userdata('sessionUserId', $id);
 			$data['USER_NAME'] = $USER_NAME;
 			$this->load->view('user/home', $data);
 		}else {
@@ -42,9 +43,20 @@ class UserController extends CI_Controller {
 	 * @param  [type] $USER_CIF [description]
 	 * @return [type]           [description]
 	 */
-	public function updateUser($USER_CIF)
+	public function updateUser()
 	{
-		
+		$USER_ID = $this->input->post('userId');	
+
+		if((int)$USER_ID === (int)$this->session->userdata('sessionUserId')){
+			$USER_NAME = $this->input->post('username');	
+			$USER_PHONE = $this->input->post('userphone');	
+			$USER_ADDRESS = $this->input->post('useraddress');
+
+			$this->user->updateUser($USER_ID,$USER_NAME,$USER_PHONE,$USER_ADDRESS);	
+			echo json_encode("1");
+		}else{
+			echo json_encode("0");
+		}
 	}
 
 }
