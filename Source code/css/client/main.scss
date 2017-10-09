@@ -11,6 +11,25 @@
 @import 'userUpdateInfo';
 
 /*********************NAV BAR************************/
+span.point-title, p.user-point {
+  color: $gold-color;
+  opacity: 0.8;
+}
+
+span.point-title {
+  font-size: 70%; 
+}
+
+div.user-point-area { 
+  height: 42px;
+  p.user-point {
+    margin: 6px 0;
+  }
+}
+
+button#notifi-btn, button.my-btn {
+  cursor: pointer;
+}
 a.register, button.user-name {
   font-size: 84%;
 }
@@ -414,7 +433,6 @@ span.sub-cap {
 
 button.my-btn {
   background-color: $notifi-color !important;
-  cursor: pointer;
 }
 
 /*********************NOTIFICATION************************/
@@ -527,7 +545,13 @@ input.notifi-checkbox:checked {
 
 div#notifi-popup h5, 
 div#notifi-popup .close span,
-.notifi-message {
+div.world-rank .close span,
+.notifi-message,
+#world-rank-title, 
+.top-user-name,
+.top-user-point span,
+#game-history-title,
+div#game-history-popup span {
   color: $black;
 }
 
@@ -637,4 +661,89 @@ button#chat-btn i.fa.fa-paper-plane {
   position: relative;
   left: -1px;
   top: -1px;
+}
+
+/*********************RANK POPUP************************/
+.modal-content {
+  .third img {
+    width: 70px;
+  }
+  .second img {
+    width: 100px;
+  }
+  .first img {
+    width: 130px;
+  }
+}
+
+.world-rank .modal-body {
+  padding: 50px 0;
+}
+
+.top-user > div {
+  margin: 0 40px;
+}
+
+.second figure, 
+.third figure {
+  position: relative;
+  top: 15px;
+}
+
+figcaption.top-user-point {
+  font-weight: bold;
+}
+
+span.third-point {
+  color: $bronze-color;
+}
+
+span.second-point {
+  color: $sliver-color;
+}
+
+span.first-point {
+  color: $gold-color;
+}
+
+/*********************GAMES POPUP************************/
+ul#nav-game li a,
+table#traditional-game-table td, 
+table#traditional-game-table th,
+table#mini-game-table td, 
+table#mini-game-table th {
+  font-size: 80%;
+}
+
+table#traditional-game-table tr td, 
+table#traditional-game-table th,
+table#mini-game-table tr td, 
+table#mini-game-table th,
+ul#nav-game li a {
+  color: $black !important;
+}
+
+table#traditional-game-table img {
+  width: 27px;
+  max-width: 40px;
+}
+
+table#traditional-game-table tr td,
+table#traditional-game-table th,
+table#mini-game-table tr td,
+table#mini-game-table th {
+  height: 42px;
+}
+
+table#traditional-game-table tr:hover,
+table#mini-game-table tr:hover {
+  background-color: $tr-color;
+}
+
+.win {
+  color: $increase-color;
+}
+
+.lose {
+  color: $decrease-color;
 }

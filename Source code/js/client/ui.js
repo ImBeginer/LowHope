@@ -1,4 +1,10 @@
 $(function() {
+  $('#nav-game a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  // $('#tranditional-game').tab('show');
+  // $('#mini-game').tab('show');
 
   $('[data-toggle="tooltip"]').tooltip();
 
@@ -97,13 +103,13 @@ $(function() {
 /**
  * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
  */
-  function user_percent_in_de () {
+  function user_percent_in_de ($in_num, $de_num) {
     $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
     $in_div = $('#increase');
     $de_div = $('#decrease');
-    $in_user = $in_div.attr('data-user-num');
-    $de_user = $de_div.attr('data-user-num');
+    $in_user = $in_num;
+    $de_user = $de_num;
     $total_user = parseInt($in_user) + parseInt($de_user);
 
     $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
@@ -136,6 +142,6 @@ $(function() {
     is_read (e.currentTarget.id);
   });
 
-  user_percent_in_de ();
+  user_percent_in_de (280, 220);
 
 });

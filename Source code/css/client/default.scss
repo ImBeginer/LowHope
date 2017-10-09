@@ -62,7 +62,8 @@ a:hover {
 button.update-btn, 
 li.func-items,
 li.noti-items,
-button.c-button {
+button.c-button,
+table#traditional-game-table tr {
   transition: background-color 0.5s;
 }
 
@@ -129,7 +130,8 @@ button.c-button {
   cursor: pointer;
 }
 
-button#c-bet-btn:hover {
+button#c-bet-btn:hover,
+button.update-btn:hover {
 	background-color: $bet-btn-color;
 	border-color: $bet-btn-color;
 }
