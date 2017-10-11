@@ -8,6 +8,7 @@ class Test extends CI_Controller {
 	{
 		parent::__construct();
 		//Do your magic here
+				
 		$this->load->model('user');
 		$options = array(
             'cluster' => 'ap1',
@@ -24,13 +25,13 @@ class Test extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('user/testListen');
+		$data['prices'] = $this->user->getData();
+		$this->load->view('user/testListen', $data);
 	}
-
-	public function getChange()
+ 
+	public function testPusher()
 	{
-		//$userId = $this->input->post('userId');
-		//$data['users'] = $this->user->getAllUsers();
+		$data['p'] = array('datee'=> 1507608120000, 'price' => 4.7);
   		$this->pusher->trigger('my-channel', 'my-event', $data);
 	}
 

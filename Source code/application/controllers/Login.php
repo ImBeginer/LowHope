@@ -11,6 +11,7 @@ class Login extends CI_Controller {
         //load google login library
         $this->load->library('google');
         $this->load->model('user');
+        $this->load->model('game');
     }
 
     /**
@@ -73,11 +74,17 @@ class Login extends CI_Controller {
             if($this->session->userdata('userGGExist')){
                 //load user profile view
                 $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+                $tt_game = $this->game->getGameTT();
 
                 //set session for userID
                 $this->session->set_userdata('sessionUserId', $user->USER_ID);
+                $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
                 $data['USER_NAME'] = $user->USER_NAME;
+                $data['USER_POINT'] = $user->USER_POINT;
+                $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
+                $data['prices'] = $this->user->getData();
+                
                 $this->load->view('user/home', $data);
             }else{
                 $this->load->view('user/updateUser');
@@ -118,14 +125,18 @@ class Login extends CI_Controller {
 
         $this->session->set_userdata('userData', $userFBData);
 
-        $userFBExist = $this->user->checkFBUserExist($userFBData['USER_CIF']);
+        $userFBExist = $this->user->checkUserFBExist($userFBData['USER_CIF']);
+        $userFBChanged = $this->user->checkFBUserChanged($userFBData['USER_CIF'],$userFBData['USER_EMAIL']);
 
-        if($userFBExist){
-            //update lại người dùng facebook (dựa vào ID_Facebook), vì có thể họ đã thay đổi thông tin: email, tên hiển thị.
-            $this->user->updateFBUser($userFBData['USER_CIF'],$userFBData['USER_NAME'],$userFBData['USER_EMAIL']);
-            echo json_encode("1");
-        }else{
+        //user khong ton tai
+        if(!$userFBExist){
             echo json_encode("0");
+        }else if($userFBExist && $userFBChanged){ //user ton tai va co su thay doi ve email or name
+            //update lại người dùng facebook (dựa vào ID_Facebook), vì có thể họ đã thay đổi thông tin: email, tên hiển thị.
+            $this->user->updateFBUser($userFBData['USER_CIF'],$userFBData['USER_NAME'],$userFBData['USER_EMAIL']);            
+            echo json_encode("1");
+        }else {
+            echo json_encode("1");
         }
     }
 
@@ -145,11 +156,17 @@ class Login extends CI_Controller {
     public function fb_goHome()
     {
         $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+        $tt_game = $this->game->getGameTT();
 
         //set sessionUserID
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
+        $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
         $data['USER_NAME'] = $user->USER_NAME;
+        $data['USER_POINT'] = $user->USER_POINT;
+        $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
+        $data['prices'] = $this->user->getData();
+
         $this->load->view('user/home', $data);
     }   
     /**

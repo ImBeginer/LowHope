@@ -29,9 +29,19 @@ class UserController extends CI_Controller {
 		$id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS);
 
 		if($id > 0){
+        	
+        	$user = $this->user->getUserByMail($USER_EMAIL);
+			$tt_game = $this->game->getGameTT();
+
 			//set sessionUserID
         	$this->session->set_userdata('sessionUserId', $id);
+		    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+
 			$data['USER_NAME'] = $USER_NAME;
+			$data['USER_POINT'] = $user->USER_POINT;
+            $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
+            $data['prices'] = $this->user->getData();
+
 			$this->load->view('user/home', $data);
 		}else {
 			$this->load->view('errors/error_page');

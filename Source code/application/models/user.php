@@ -42,56 +42,6 @@ class User extends CI_Model {
 	}
 
 	/**
-	 * [checkUserExist description]
-	 * @param  [type] $USER_CIF [description]
-	 * @return [boolean]           [description]
-	 */
-	public function checkGGUserExist($USER_EMAIL)
-	{
-		$this->db->select('*');
-		$this->db->where('USER_EMAIL', $USER_EMAIL);
-
-		$result = $this->db->get('USER');
-		$rows = $result->num_rows();
-
-		return ($rows>0)?true:false;
-	}
-
-	/**
-	 * [checkFBUserExist description]
-	 * @param  [type] $USER_CIF [description]
-	 * @return [type]           [description]
-	 */
-	public function checkFBUserExist($USER_CIF)
-	{
-		$this->db->select('*');
-		$this->db->where('USER_CIF', $USER_CIF);
-
-		$result = $this->db->get('USER');
-		$rows = $result->num_rows();
-
-		return ($rows>0)?true:false;
-	}
-
-	/**
-	 * [updateFBUser description] when informations of user was changed
-	 * @param  [type] $USER_CIF   [description]
-	 * @param  [type] $USER_NAME  [description]
-	 * @param  [type] $USER_EMAIL [description]
-	 * @return [type]             [description]
-	 */
-	public function updateFBUser($USER_CIF,$USER_NAME,$USER_EMAIL)
-	{
-		$user = array(
-			'USER_NAME' => $USER_NAME,
-			'USER_EMAIL' => $USER_EMAIL
-		);
-
-		$this->db->where('USER_CIF', $USER_CIF);
-		$this->db->update('USER', $user);
-	}
-
-	/**
 	 * [getUserByMail description]
 	 * @param  [type] $USER_EMAIL [description]
 	 * @return [type]             [description]
@@ -124,6 +74,82 @@ class User extends CI_Model {
 
 		$this->db->where('USER_ID', $USER_ID);
 		$this->db->update('USER', $user);
+	}
+
+	/**
+	 * [checkUserExist description]
+	 * @param  [type] $USER_CIF [description]
+	 * @return [boolean]           [description]
+	 */
+	public function checkGGUserExist($USER_EMAIL)
+	{
+		$this->db->select('*');
+		$this->db->where('USER_EMAIL', $USER_EMAIL);
+
+		$result = $this->db->get('USER');
+		$rows = $result->num_rows();
+
+		return ($rows>0)?true:false;
+	}
+
+	public function checkUserFBExist($USER_CIF)
+	{
+		$this->db->select('*');
+		$this->db->where('USER_CIF', $USER_CIF);
+
+		$result = $this->db->get('USER');
+		$rows = $result->num_rows();
+
+		return ($rows>0)?true:false;
+	}
+
+	/**
+	 * [checkFBUserChanged description]
+	 * @param  [type] $USER_CIF   [description]
+	 * @param  [type] $USER_EMAIL [description]
+	 * @return [type]             [description]
+	 */
+	public function checkFBUserChanged($USER_CIF,$USER_EMAIL)
+	{
+		$condi = array('USER_CIF' => $USER_CIF, 'USER_EMAIL' => $USER_EMAIL);
+		$this->db->select('*');
+		$this->db->where($condi);
+
+		$result = $this->db->get('USER');
+		$rows = $result->num_rows();
+
+		return ($rows>0)?false:true;
+	}
+
+	/**
+	 * [updateFBUser description] when informations of user was changed
+	 * @param  [type] $USER_CIF   [description]
+	 * @param  [type] $USER_NAME  [description]
+	 * @param  [type] $USER_EMAIL [description]
+	 * @return [type]             [description]
+	 */
+	public function updateFBUser($USER_CIF,$USER_NAME,$USER_EMAIL)
+	{
+		$user = array(
+			'USER_NAME' => $USER_NAME,
+			'USER_EMAIL' => $USER_EMAIL
+		);
+
+		$this->db->where('USER_CIF', $USER_CIF);
+		$this->db->update('USER', $user);
+	}
+
+	
+
+	//demo highchart
+	public function getData()
+	{
+		$this->db->select('DATA_PRICE, DATA_DATE');
+		//$this->db->order_by('DATA_DATE');
+		$result = $this->db->get('DATA');
+		$result = $result->result_array();
+
+		return json_encode($result);
 	}
 
 }

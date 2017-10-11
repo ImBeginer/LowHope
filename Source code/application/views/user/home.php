@@ -4,6 +4,7 @@
 	<title>Website dự đoán giá bitcoin</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
 	<!-- jQuery UI css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.css">
@@ -18,6 +19,12 @@
 
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
+
+	<!-- Pusher -->
+	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+
+	
+	
 </head>
 <body>	
 	<script>
@@ -39,6 +46,30 @@
 			js.src = "//connect.facebook.net/en_US/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
+
+
+		/****************** PUSHER ****************************/
+		// Enable pusher logging - don't include this in production
+	    //Pusher.logToConsole = true;
+
+	    var pusher = new Pusher('711b956416d9d15de4b8', {
+	    	cluster: 'ap1',
+	    	encrypted: true
+	    });
+
+	    var channel = pusher.subscribe('my-channel');
+	   
+	   /****************** PUSHER ****************************/
+
+	   	//get bitcoin price
+	    var prices =   JSON.parse('<?= $prices; ?>');
+	    var data1 = [];
+	    for (var i = 0; i < prices.length; i++) {	    	
+	    	data1[i] = [ (new Date(prices[i].DATA_DATE)).getTime() , parseFloat(prices[i].DATA_PRICE) ];	
+	    }
+
+	    //data cho highchart
+	    console.log(data1);
 	</script>
 	<!-- big div on top -->
 	<div class="container-fluid">
@@ -274,8 +305,50 @@
 							</div> <!-- /.info dropdown button -->
 						</li> 
 						<li class="nav-item active top-bar-items">
-							<a class="nav-link" href="#"><i class="fa fa-trophy" aria-hidden="true"></i></a>
+							<a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
 						</li>
+						<!-- rank popup -->
+						<div class="modal fade world-rank" tabindex="-1" role="dialog"
+						aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">   
+										<div class="top-user text-center">
+											<div class="second d-inline-block text-center">
+												<figure>
+													<img src="<?php echo base_url(); ?>images/client/2nd.png" alt="2nd">
+													<figcaption class="top-user-name">Adam Smith</figcaption>
+													<figcaption class="top-user-point"><span class="second-point">171717</span></figcaption>
+												</figure>          
+											</div>
+											<div class="first d-inline-block text-center">
+												<figure>
+													<img src="<?php echo base_url(); ?>images/client/1st.png" alt="1st">
+													<figcaption class="top-user-name">Godon Jams</figcaption>
+													<figcaption class="top-user-point"><span class="first-point">272727</span></figcaption>
+												</figure>
+											</div>
+											<div class="third d-inline-block text-center">
+												<figure>
+													<img src="<?php echo base_url(); ?>images/client/3rd.png" alt="3rd">
+													<figcaption class="top-user-name">Ketty Prery</figcaption>
+													<figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>              
+												</figure>                 
+											</div>
+										</div>   
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /.rank popup -->
+
+						<!-- list notifications of user -->
 						<li class="nav-item top-bar-items">
 							<div class="dropdown">
 								<button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -388,7 +461,18 @@
 									</div>
 								</div><!-- /.popup notifi -->
 							</div>              
-						</li>            
+						</li>
+						<!-- end list notifications of user -->
+
+						<!-- total point of user -->
+						<li class="nav-item active top-bar-items">
+							<div class="user-point-area">
+								<p class="user-point"> <?php echo $USER_POINT; ?> <span class="point-title">(P)</span></p>
+							</div>
+			            </li>
+			            <!-- end total point of user -->  
+
+			            <!-- information of user -->
 						<li class="nav-item">
 							<!-- user dropdown button -->
 							<div class="dropdown">
@@ -404,13 +488,132 @@
 									</li>
 									<!-- TODO tao mini game -->
 									<li class="func-items"><a href="#!">Tạo mini game</a></li>
+									<li class="func-items" data-toggle="modal" data-target="#game-history-popup"><a href="#!">Lịch sử</a></li>
 									<?php if($this->session->userdata('loggedInGooge')){ ?>
 										<li class="func-items"><a href="<?php echo base_url().'login/logoutGoogle'; ?>">Đăng xuất</a></li>
 									<?php }else if($this->session->userdata('loggedInFB')) { ?>	
-										<li class="func-items text-center"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
+										<li class="func-items"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
 									<?php } ?>
 								</ul>
 							</div> <!-- /.user dropdown button -->
+
+							<!-- game history popup -->
+							<div class="modal fade" id="game-history-popup" tabindex="-1" role="dialog" aria-labelledby="gamehistory" aria-hidden="true">
+								<div class="modal-dialog modal-lg" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="game-history-title">Lịch sử game bạn đã tham gia</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<!-- nav game -->
+											<ul id="nav-game" class="nav nav-tabs">
+												<li class="nav-item">
+													<a class="nav-link active" href="#tranditional-game">Game truyền thống</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" href="#mini-game">Mini game</a>
+												</li>
+											</ul><!-- /.nav game --> 
+											<!-- tab game -->
+											<div class="tab-content game-tab-content pre-scrollable">
+												<div role="tabpanel" class="tab-pane active" id="tranditional-game">
+													<table id="traditional-game-table" class="table table-sm">
+														<thead class="thead-default">
+															<tr>
+																<th>#</th>
+																<th>Bắt đầu</th>
+																<th>Kết thúc</th>
+																<th>Kết quả</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<th scope="row">1</th>
+																<td>9/10/2017</td>
+																<td>12/10/2017</td>
+																<td>
+																	<img src="../images/client/1st.png" alt="Giải nhất" title="Giải nhất">
+																</td>
+															</tr>
+															<tr>
+																<th scope="row">2</th>
+																<td>5/10/2017</td>
+																<td>8/10/2017</td>
+																<td>
+																	<img src="../images/client/2nd.png" alt="Giải nhì" title="Giải nhì">
+																</td>                  
+															</tr>
+															<tr>
+																<th scope="row">3</th>
+																<td>1/10/2017</td>
+																<td>4/10/2017</td>
+																<td>
+																	<img src="../images/client/3rd.png" alt="Giải ba" title="Giải ba">
+																</td>                  
+															</tr>   
+															<tr>
+																<th scope="row">4</th>
+																<td>22/9/2017</td>
+																<td>25/9/2017</td>
+																<td>-</td>                  
+															</tr>                               
+														</tbody>
+													</table>            
+												</div>
+												<div role="tabpanel" class="tab-pane pre-scrollable" id="mini-game">
+													<table id="mini-game-table" class="table table-sm">
+														<thead class="thead-default">
+															<tr>
+																<th>#</th>
+																<th>Tên</th>
+																<th>Bắt đầu</th>
+																<th>Kết thúc</th>
+																<th>Kết quả</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<th scope="row">1</th>
+																<td>Dự đoán 1</td>
+																<td>9/10/2017</td>
+																<td>12/10/2017</td>
+																<td>Thắng</td>
+															</tr>
+															<tr>
+																<th scope="row">2</th>
+																<td>Dự đoán 2</td>
+																<td>5/10/2017</td>
+																<td>8/10/2017</td>
+																<td>Thắng</td>                  
+															</tr>
+															<tr>
+																<th scope="row">3</th>
+																<td>Dự đoán 3</td>
+																<td>1/10/2017</td>
+																<td>4/10/2017</td>
+																<td>Thua</td>                 
+															</tr>   
+															<tr>
+																<th scope="row">4</th>
+																<td>Dự đoán 4</td>
+																<td>22/9/2017</td>
+																<td>25/9/2017</td>
+																<td>Thua</td>                  
+															</tr>                               
+														</tbody>
+													</table>  
+												</div>
+											</div><!-- /.tab game --> 
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /.game history popup -->
+
 							<!-- user update form -->
 							<div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog">                  
@@ -438,15 +641,20 @@
 
 													<!-- user info -->
 													<div class="input-area">
-														<input id="username" type="text" name='username' placeholder="Họ và tên *" value="" required="">
-														<input id="userphone" type="number" name='userphone' placeholder="Số điện thoại *" value="" required="">
-														<input id="useraddress" type="text" name='useraddress' placeholder="Địa chỉ *" value="" required="">
+														<input id="username" type="text" name='username' placeholder="Họ và tên *" value="" required>
+														<input id="userphone" type="number" name='userphone' placeholder="Số điện thoại *" value="" required>
+														<input id="useraddress" type="text" name='useraddress' placeholder="Địa chỉ *" value="" required>
 													</div><!-- /.user info -->
 
 												</div>
 											</div>
 											<div class="submit-area">
-												<button type="button" class="update-btn" name="update-btn">Cập nhật</button>
+												<button type="button" id="update-btn" class="update-btn" name="update-btn">Cập nhật</button>
+
+												<!-- TODO them button Hủy -->
+												<button type="button" class="close user-btn-close update-btn" data-dismiss="modal" aria-label="Close">
+												Hủy
+												</button>
 											</div>                     
 										</form><!-- /.user update info -->
 
@@ -454,7 +662,8 @@
 
 								</div>
 							</div><!-- /.user update form -->
-						</li>             
+						</li>
+						<!-- end information of user -->             
 
 					</ul>
 				</div>
@@ -472,6 +681,10 @@
 						<!-- chart -->
 						<div class="chart-panel col-md-10 col-lg-10 col-xl-10">
 							<div id="chart"></div>
+							<div class="game_tt_content text-center">
+								<?php echo $GAME_TT_CONTENT; ?> 
+								<a href="javascript:void(0);" id="testPusher" class="btn btn-outline-primary">Test pusher</a>
+							</div>
 						</div><!-- /.chart -->
 						<!-- bet -->
 						<div class="bet-panel mt-4 col-md-2 col-lg-2 col-xl-2">
@@ -497,6 +710,7 @@
 									<div class="form-group">
 										<label class="input-title" for="point-input">Đặt cược (point)</label>
 										<input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0">
+										<label class="input-title" for="point-input">Lưu ý: Chúng tôi sẽ lấy lần cược cuối cùng của bạn !!</label>
 									</div>
 									<div class="form-group">
 										<button type="submit" class="form-control c-button" id="c-bet-btn" name="bet-btn">
@@ -553,6 +767,7 @@
 		<span>&copy; 2017</span>
 	</footer>
 	<!-- /.footer -->
+
 	<script>
 		function logoutFB(){
 			FB.getLoginStatus(function(response) {
@@ -582,7 +797,7 @@
 	            	window.location = base_url;
 	            });
 			});
-		}
+		}		
 	</script>
 	
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
@@ -590,11 +805,13 @@
 	<script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 	<!-- bootstrap js -->
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
+	
+
 	<!-- high chart js -->
-	<script src="https://code.highcharts.com/5/js/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
-	<script src="http://code.highcharts.com/modules/heatmap.js"></script>
-	<script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
+	<!-- <script src="http://code.highcharts.com/modules/heatmap.js"></script> -->
+	<!-- <script src="http://code.highcharts.com/adapters/standalone-framework.js"></script> -->
 
 	<!-- high chart display -->
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script>

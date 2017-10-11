@@ -12,7 +12,7 @@
 	<!-- font awesome -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
 	<!-- custom css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>css/client/jquery.toast.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
 	<!-- jquery -->

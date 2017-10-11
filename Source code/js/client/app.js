@@ -3,7 +3,7 @@ $(document).ready(function() {
 	 * update informations of user, (click Cập nhật thông tin -> popup update)
 	 */
 	
-	$('.update-btn').on('click', function(event) {
+	$('#update-btn').on('click', function(event) {
 		event.preventDefault();
 		/* Act on the event */
 		
@@ -11,7 +11,6 @@ $(document).ready(function() {
 		var userphone = $('#userphone').val();
 		var useraddress = $('#useraddress').val();
 
-		//alert(username + ' - ' + userphone + ' - ' + useraddress);
 		$.ajax({
 			url: base_url + 'userController/updateUser',
 			type: 'POST',
@@ -27,6 +26,8 @@ $(document).ready(function() {
 			console.log("success");
 			if(respone == 1){
 				$('#user_name').text(username);
+				$('.username.ellipsis').text(username);
+
 				$.toast({
 					heading: 'Success',
 					text: 'Chúc mừng bạn đã cập nhật thông tin thành công !',
