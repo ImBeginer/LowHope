@@ -235,7 +235,7 @@
             <li class="nav-item">
               <!-- info dropdown button -->
               <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
                   Thông tin
                   <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </button>
@@ -253,7 +253,8 @@
                 <p class="user-point">333888 <span class="point-title">Point</span></p>
               </div>
             </li>            
-            <li class="nav-item active top-bar-items">
+            <li class="nav-item active top-bar-items" data-toggle="tooltip"
+        data-placement="top" title="TOP point">
               <a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
             </li>
 <!-- rank popup -->
@@ -263,7 +264,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -298,7 +299,7 @@
 <!-- /.rank popup -->
             <li class="nav-item top-bar-items">
               <div class="dropdown">
-                <button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
                   <i class="fa fa-bell notifi-icon" aria-hidden="true"></i>
                   <div class="notifi-num">
                     <p>8</p>
@@ -397,7 +398,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -413,21 +414,121 @@
             <li class="nav-item">
               <!-- user dropdown button -->
               <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
                   Username
                   <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </button>
                 <ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
                   <li class="func-items user-name-btn">
-                    <button class="btn btn-primary user-name" data-toggle="modal" data-target="#user-update-info">
+                    <button class="btn btn-primary user-name cursor-pointer" data-toggle="modal" data-target="#user-update-info">
                       Sửa thông tin
                     </button>     
                   </li>
-                  <li class="func-items"><a href="#!">Tạo mini game</a></li>
+                  <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="#!">Tạo mini game</a></li>
                   <li class="func-items" data-toggle="modal" data-target="#game-history-popup"><a href="#!">Lịch sử</a></li>
                   <li class="func-items"><a href="#!">Đăng xuất</a></li>
                 </ul>
               </div><!-- /.user dropdown button -->
+<!-- create game popup -->
+<div id="create-game" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="createGame" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create-mini-game">Tạo mini game</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">      
+        <!-- nav creat game -->
+        <ul id="nav-game" class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#yes-no-game">Yes/No</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#multi-choice-game">Q/A</a>
+          </li>        
+        </ul><!-- /.nav create game --> 
+      </div>
+        <!-- tab game -->
+        <div class="tab-content game-tab-content">
+          <div role="tabpanel" class="tab-pane active" id="yes-no-game">
+            <form action="#!" name="yes-no-create">
+              <div class="form-group d-inline-block">
+                <label for="game-date">Vào ngày</label>
+                <input type="text" class="form-control d-inline-block" id="game-date">
+              </div>
+              <div class="form-group d-inline-block">
+                <label for="game-time">Giờ</label>
+                <input type="number" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
+                <label for="game-minute">Phút</label>
+                <input type="number" class="form-control d-inline-block" id="game-minute" min="1" max="60" placeholder="00">
+              </div>
+              <div class="form-group">
+                <label for="game-bitcoin-price">Giá Bitcoin trên</label>
+                <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1">
+              </div> 
+              <div class="form-group">
+                <label class="d-block" for="">Đúng hay sai ?</label>
+              </div>   
+              <div class="form-group">  
+                <label class="form-check-label">
+                  <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="yes-rd">Yes
+                </label>
+                <label class="form-check-label">  
+                  <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="no-rd">No
+                </label>
+              </div>  
+              <div class="form-group submit-area">
+                <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no" data-dismiss="modal">Tạo </button>
+              </div>                                         
+            </form>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="multi-choice-game">
+            <form action="#!" name="mul-create">
+              <div class="form-group d-inline-block">
+                <label for="game-date">Vào ngày</label>
+                <input type="text" class="form-control d-inline-block" id="game-date">
+              </div>
+              <div class="form-group d-inline-block">
+                <label for="game-time">Giờ</label>
+                <input type="number" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
+                <label for="game-minute">Phút</label>
+                <input type="number" class="form-control d-inline-block" id="game-minute" min="1" max="60" placeholder="00">
+              </div>
+              <div class="form-group">
+                <label for="">Giá Bitcoin ?</label>
+              </div>              
+              <div class="form-group d-inline-block mr-3">
+                <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
+                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" required>
+              </div> 
+              <div class="form-group d-inline-block mr-3">
+                <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
+                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" required>     
+              </div>            
+              <div class="form-group d-inline-block mr-3">  
+                <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
+                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" required>
+              </div>
+              <div class="form-group d-inline-block mr-3">
+                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" required>    
+              </div>                              
+              <div class="form-group submit-area">
+                <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no" data-dismiss="modal">Tạo </button>
+              </div>                                         
+            </form>
+          </div>
+        </div><!-- /.tab game -->             
+      <form action="#!" name="create-game">
+        
+      </form>
+    </div>
+  </div>
+</div><!-- /.create game popup -->
 <!-- game history popup -->
 <div class="modal fade" id="game-history-popup" tabindex="-1" role="dialog" aria-labelledby="gamehistory" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -500,6 +601,7 @@
                 <tr>
                   <th>#</th>
                   <th>Tên</th>
+                  <th>Loại game</th>
                   <th>Bắt đầu</th>
                   <th>Kết thúc</th>
                   <th>Kết quả</th>
@@ -508,28 +610,32 @@
               <tbody>
                 <tr>
                   <th scope="row">1</th>
-                  <td>Dự đoán 1</td>
+                  <td data-toggle="tooltip" data-placement="top" title="Dự đoán 1"><div class="table-game-title ellipsis">Dự đoán 1</div></td>
+                  <td>Yes/No</td>
                   <td>9/10/2017</td>
                   <td>12/10/2017</td>
                   <td>Thắng</td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
-                  <td>Dự đoán 2</td>
+                  <td><div class="table-game-title ellipsis">Dự đoán 2</div></td>
+                  <td>Yes/No</td>
                   <td>5/10/2017</td>
                   <td>8/10/2017</td>
                   <td>Thắng</td>                  
                 </tr>
                 <tr>
                   <th scope="row">3</th>
-                  <td>Dự đoán 3</td>
+                  <td><div class="table-game-title ellipsis">Dự đoán 3</div></td>
+                  <td>Chọn đáp án</td>
                   <td>1/10/2017</td>
                   <td>4/10/2017</td>
                   <td>Thua</td>                 
                 </tr>   
                 <tr>
                   <th scope="row">4</th>
-                  <td>Dự đoán 4</td>
+                  <td><div class="table-game-title ellipsis">Dự đoán 4</div></td>
+                  <td>Chọn đáp án</td>
                   <td>22/9/2017</td>
                   <td>25/9/2017</td>
                   <td>Thua</td>                  
@@ -543,8 +649,6 @@
     </div>
   </div>
 </div><!-- /.game history popup --> 
-
-         
               <!-- user update form -->
               <div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">                  
@@ -552,7 +656,7 @@
                   <div id="user-update-info" class="modal-content">
                     <div class="modal-header user-header">
                       <h5 class="user-func-title">Cập nhật thông tin</h5>
-                      <button type="button" class="close user-btn-close" data-dismiss="modal" aria-label="Close">
+                      <button type="button" class="close user-btn-close cursor-pointer" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
@@ -580,7 +684,8 @@
                           </div>
                         </div>
                         <div class="submit-area">
-                          <button type="submit" class="update-btn" name="update-btn">Cập nhật</button>
+                          <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
+                          <button type="submit" class="btn-height update-btn cursor-pointer" name="update-btn" data-dismiss="modal">Cập nhật</button>
                         </div>                     
                       </form><!-- /.user update info -->
 
@@ -633,7 +738,7 @@
                     <input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0">
                   </div>
                   <div class="form-group">
-                    <button type="submit" class="form-control c-button" id="c-bet-btn" name="bet-btn">
+                    <button type="submit" class="form-control c-button cursor-pointer" id="c-bet-btn" name="bet-btn">
                       Đặt cược
                     </button>
                   </div>
@@ -649,7 +754,7 @@
 
   <div class="chat-icon-area">
     <!-- Button trigger modal -->
-    <button id="chat-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#chat-panel">
+    <button id="chat-btn" type="button" class="btn btn-primary cursor-pointer" data-toggle="modal" data-target="#chat-panel">
       <i class="fa fa-paper-plane" aria-hidden="true"></i>
     </button>
     <div class="container">

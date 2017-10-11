@@ -3,12 +3,12 @@
 @import 'default';
 @import 'functions';
 @import 'datepickerCustom';
-@import 'areaCustome';
 @import 'highchartDarkTheme';
 @import 'googleChartCustom';
 @import 'infiniteSlideShow';
 @import 'scrollBar';
 @import 'userUpdateInfo';
+@import 'animationKey.scss';
 
 /*********************NAV BAR************************/
 span.point-title, p.user-point {
@@ -27,9 +27,6 @@ div.user-point-area {
   }
 }
 
-button#notifi-btn, button.my-btn {
-  cursor: pointer;
-}
 a.register, button.user-name {
   font-size: 84%;
 }
@@ -706,7 +703,7 @@ span.first-point {
   color: $gold-color;
 }
 
-/*********************GAMES POPUP************************/
+/*********************GAMES HISTORY POPUP************************/
 ul#nav-game li a,
 table#traditional-game-table td, 
 table#traditional-game-table th,
@@ -715,9 +712,14 @@ table#mini-game-table th {
   font-size: 80%;
 }
 
+div.table-game-title {
+  font-size: 100%;
+}
+
 table#traditional-game-table tr td, 
 table#traditional-game-table th,
-table#mini-game-table tr td, 
+table#mini-game-table tr td,
+table#mini-game-table tr td div.table-game-title, 
 table#mini-game-table th,
 ul#nav-game li a {
   color: $black !important;
@@ -746,4 +748,22 @@ table#mini-game-table tr:hover {
 
 .lose {
   color: $decrease-color;
+}
+
+.table-game-title {
+  width: 200px;
+}
+
+/*********************GAMES CREATE POPUP************************/
+.game-tab-content {
+  padding: 0 15px;
+}
+
+input#game-time, 
+input#game-minute {
+  width: 26%;
+}
+
+label.form-check-label input {
+  margin-right: 5px;
 }

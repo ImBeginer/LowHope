@@ -25,14 +25,16 @@ img.user-avatar {
 h5.user-func-title,
 p.username, 
 .input-area > input, 
-button.update-btn {
+button.update-btn,
+#create-mini-game,
+div#yes-no-game label,
+#multi-choice-game label,
+div#create-game span,
+button.user-btn-close span {
   color: $black;
 }
 
 button.user-btn-close {
-	span {
-		color: $black;
-	}
   margin-bottom: 0.9rem;
 }
 
@@ -48,10 +50,32 @@ form.user-form {
   margin-top: 20px;
 }
 
-button.update-btn {
+button.update-btn, 
+button.close-update,
+#game-btn-yes-no,
+button#game-btn-mul {
   background-color: initial;
   border: 1px solid $footer-word;
   padding: 4px 22px;
   border-radius: 30px;
+  cursor: pointer;
+}
+
+button.close-update {
+  background-color: initial !important;
+  border: 1px solid $footer-word !important;
+}
+
+button.update-btn,
+#game-btn-yes-no,
+button#game-btn-mul,
+div#yes-no-game form label, 
+div#multi-choice-game form label, 
+div#yes-no-game form input, 
+div#multi-choice-game form input {
   font-size: 80%;
+}
+
+button.close-update {
+  font-size: 83%;
 }

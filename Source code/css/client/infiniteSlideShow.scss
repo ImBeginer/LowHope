@@ -44,20 +44,6 @@ div#hot-mini-game-content:hover {
   background-color: rgba(200, 200, 203, 0.3);
 }
 
-@keyframes changewidth {
-  from {
-    -webkit-transform: translate(0);
-    -ms-transform: translate(0);
-    transform: translate(0);
-  }
-
-  to {
-    -webkit-transform: translate(-1800px);
-    -ms-transform: translate(-1800px);    
-    transform: translate(-1800px);
-  }
-}
-
 .hot-item div {
   font-size: 60% !important;
   overflow: hidden;
