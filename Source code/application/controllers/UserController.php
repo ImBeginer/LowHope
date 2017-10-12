@@ -40,6 +40,7 @@ class UserController extends CI_Controller {
 			$data['USER_NAME'] = $USER_NAME;
 			$data['USER_POINT'] = $user->USER_POINT;
             $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
+            $data['TT_END_DATE'] = $tt_game->END_DATE;
             $data['prices'] = $this->user->getData();
 
 			$this->load->view('user/home', $data);
@@ -55,9 +56,9 @@ class UserController extends CI_Controller {
 	 */
 	public function updateUser()
 	{
-		$USER_ID = $this->input->post('userId');	
+		$USER_ID = $this->session->userdata('sessionUserId');	
 
-		if((int)$USER_ID === (int)$this->session->userdata('sessionUserId')){
+		if(isset($USER_ID)){
 			$USER_NAME = $this->input->post('username');	
 			$USER_PHONE = $this->input->post('userphone');	
 			$USER_ADDRESS = $this->input->post('useraddress');

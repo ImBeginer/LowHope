@@ -28,8 +28,9 @@
 </head>
 <body>	
 	<script>
-		var userId = "<?php echo $this->session->userdata('sessionUserId'); ?>";	
 		var base_url = "<?php echo base_url(); ?>";
+		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
+
 		window.fbAsyncInit = function() {			
 			FB.init({
 				appId      			: '463997824000380',
@@ -47,7 +48,6 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
-
 		/****************** PUSHER ****************************/
 		// Enable pusher logging - don't include this in production
 	    //Pusher.logToConsole = true;
@@ -57,11 +57,9 @@
 	    	encrypted: true
 	    });
 
-	    var channel = pusher.subscribe('my-channel');
-	   
-	   /****************** PUSHER ****************************/
+	    var channel = pusher.subscribe('my-channel');	   
 
-	   	//get bitcoin price
+	   	/****************** BITCOIN PRICE *****************************/
 	    var prices =   JSON.parse('<?= $prices; ?>');
 	    var data1 = [];
 	    for (var i = 0; i < prices.length; i++) {	    	
@@ -467,7 +465,7 @@
 						<!-- total point of user -->
 						<li class="nav-item active top-bar-items">
 							<div class="user-point-area">
-								<p class="user-point"> <?php echo $USER_POINT; ?> <span class="point-title">(P)</span></p>
+								<p class="user-point"> <span id="user-point"><?php echo $USER_POINT; ?></span><span class="point-title">(P)</span></p>
 							</div>
 			            </li>
 			            <!-- end total point of user -->  
@@ -701,16 +699,16 @@
 							<div class="time-remaining-area mt-5">
 								<span class="time-label">Thời gian còn lại</span><br/>
 								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<span class="time-remaining">21:54:55</span>
+								<span class="time-remaining" id="countDown"></span>
 							</div>
 
 							<!-- bet form -->
 							<div class="bet-form-area mt-3">
-								<form class="bet-form" name="#!">
+								<form class="bet-form">
 									<div class="form-group">
 										<label class="input-title" for="point-input">Đặt cược (point)</label>
 										<input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0">
-										<label class="input-title" for="point-input">Lưu ý: Chúng tôi sẽ lấy lần cược cuối cùng của bạn !!</label>
+										<label class="input-title" for="point-input">Lưu ý: Chúng tôi sẽ lấy giá lần cược cuối cùng của bạn !!</label>
 									</div>
 									<div class="form-group">
 										<button type="submit" class="form-control c-button" id="c-bet-btn" name="bet-btn">

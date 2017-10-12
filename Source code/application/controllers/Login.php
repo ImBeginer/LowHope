@@ -83,6 +83,7 @@ class Login extends CI_Controller {
                 $data['USER_NAME'] = $user->USER_NAME;
                 $data['USER_POINT'] = $user->USER_POINT;
                 $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
+                $data['TT_END_DATE'] = $tt_game->END_DATE;
                 $data['prices'] = $this->user->getData();
                 
                 $this->load->view('user/home', $data);
@@ -158,6 +159,12 @@ class Login extends CI_Controller {
         $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
         $tt_game = $this->game->getGameTT();
 
+        // echo '<pre>';
+        // var_dump($tt_game->END_DATE);
+        // echo '</pre>';
+
+        // die();
+
         //set sessionUserID
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
@@ -165,6 +172,7 @@ class Login extends CI_Controller {
         $data['USER_NAME'] = $user->USER_NAME;
         $data['USER_POINT'] = $user->USER_POINT;
         $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
+        $data['TT_END_DATE'] = $tt_game->END_DATE;
         $data['prices'] = $this->user->getData();
 
         $this->load->view('user/home', $data);

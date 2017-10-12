@@ -57,6 +57,21 @@ class User extends CI_Model {
 	}
 
 	/**
+	 * [getUserById description]
+	 * @param  [type] $USER_ID [description]
+	 * @return [type]          [description]
+	 */
+	public function getUserById($USER_ID)
+	{
+		$this->db->select('*');
+		$this->db->where('USER_ID', $USER_ID);
+		$user = $this->db->get('USER');
+		$user = $user->row();
+		
+		return $user;
+	}
+
+	/**
 	 * [updateUser description]     google + facebook
 	 * @param  [type] $USER_ID      [description]
 	 * @param  [type] $USER_NAME    [description]

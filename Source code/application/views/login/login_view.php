@@ -555,7 +555,6 @@
 	<!-- My script -->
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/filterIsotope.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
 
 </body>
 </html>
