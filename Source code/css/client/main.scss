@@ -34,6 +34,7 @@ a.register, button.user-name {
 nav#my-navbar {
   a {
     color: $white;
+    outline: none;
   }
   background-color: $infinite-color !important;
   border-bottom: 1px solid $footer-word-op;
@@ -209,6 +210,10 @@ li.noti-items a {
 
 p.game-opening, 
 p.game-closing {
+  top: -4px;
+  left: -20px;  
+}
+.game-opening, .game-closing {
   margin: 0;
   font-size: 55%;
   display: inline;
@@ -217,10 +222,7 @@ p.game-closing {
   text-shadow: none;
   font-weight: 100;
   position: relative;
-  top: -4px;
-  left: -20px;  
 }
-
 .game-opening {
   background-color: $opening-color;
 }
@@ -375,6 +377,12 @@ form.bet-form input {
   padding: 0 10px;
   -webkit-appearance: none;
   border: 0;
+}
+
+.input-des {
+  font-size: 60%;
+  opacity: 1;
+  color: $caution-color;
 }
 
 /*********************FOOTER************************/
@@ -547,8 +555,10 @@ div.world-rank .close span,
 #world-rank-title, 
 .top-user-name,
 .top-user-point span,
-#game-history-title,
-div#game-history-popup span {
+div#game-history-popup span,
+.mini-game-panel p, 
+.mini-game-panel span, 
+.mini-game-panel label {
   color: $black;
 }
 
@@ -601,6 +611,10 @@ a#previous, a#next {
 }
 
 /*********************CHAT************************/
+.icon-and-chat {
+  position: relative;
+}
+
 button#chat-btn {
   border-radius: 53px;
   background-color: $chat-color !important;
@@ -608,7 +622,7 @@ button#chat-btn {
   height: 50px !important;
   position: fixed;
   right: 50px;
-  top: 550px;  
+  top: 570px;  
 }
 
 .chat-content {
@@ -626,15 +640,45 @@ button#chat-btn {
 }
 
 .chat-title {
-  font-size: 100%;
+  margin: 0;
+  padding: 13px 10px;
+}
+
+.chat-title, .chat-body,
+.chat-message-area input {
+  font-size: 72%;
+}
+
+.chat-message-area input {
+  width: 100%;
+  outline: none;
+  border: 1px solid $footer-word;
+  padding: 8px;
+  border-radius: 5px;
+  color: $footer-word;
 }
 
 .chat-header {
   border-bottom: 1px solid $footer-word-op !important;
+  background-color: $chat-title;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.chat-body, .chat-footer {
+  padding: 10px;
+  background-color: $white;
+  color: $black;
 }
 
 .chat-footer {
-  border-top: 1px solid $footer-word-op !important; 
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+h5.chat-title span {
+  color: $white;
+  cursor: pointer;
 }
 
 .chat-message textarea {
@@ -658,6 +702,19 @@ button#chat-btn i.fa.fa-paper-plane {
   position: relative;
   left: -1px;
   top: -1px;
+}
+
+div#chat-panel {
+  width: 400px;
+  position: absolute;
+  right: 87px;
+  top: -144px;
+  display: none;
+  z-index: 999;
+}
+
+div.chat-active {
+  display: block !important;
 }
 
 /*********************RANK POPUP************************/
@@ -703,7 +760,11 @@ span.first-point {
   color: $gold-color;
 }
 
-/*********************GAMES HISTORY POPUP************************/
+figcaption.top-user-name a {
+  color: $black !important;
+}
+
+/*********************GAMES HISTORY************************/
 ul#nav-game li a,
 table#traditional-game-table td, 
 table#traditional-game-table th,
@@ -721,7 +782,9 @@ table#traditional-game-table th,
 table#mini-game-table tr td,
 table#mini-game-table tr td div.table-game-title, 
 table#mini-game-table th,
-ul#nav-game li a {
+ul#nav-game li a,
+div#history-user-info span, 
+div#history-user-info p {
   color: $black !important;
 }
 
@@ -754,6 +817,47 @@ table#mini-game-table tr:hover {
   width: 200px;
 }
 
+.user-info-area, 
+#game-history-popup {
+  background-color: $white;
+}
+
+#game-history-popup {
+  padding: 30px;
+}
+
+div#history-content-area, 
+div#mgyn-content-area {
+  padding: 50px 28px;
+}
+
+div#history-username-area {
+  text-align: -webkit-auto;
+}
+
+div#history-user-info {
+  padding: 10px;
+  background-color: $white;
+}
+
+#history-username {
+  max-width: 220px;
+  vertical-align: middle;
+  margin: 0;  
+}
+
+p.game-des, 
+p.game-des span, 
+.percent-panel-title, 
+.user-info p, 
+.user-info span {
+  font-size: 72%;
+}
+
+div#history-user-info span, div#history-user-info p {
+  opacity: 1;
+}
+
 /*********************GAMES CREATE POPUP************************/
 .game-tab-content {
   padding: 0 15px;
@@ -766,4 +870,60 @@ input#game-minute {
 
 label.form-check-label input {
   margin-right: 5px;
+}
+
+/*********************MINI GAMES************************/
+.mini-game-panel {  
+  background-color: $white;
+  padding: 25px;
+  border-radius: 7px;
+}
+
+.mini-game-panel p, 
+.mini-game-panel span, 
+.mini-game-panel label {
+  font-size: 72%;
+}
+
+span.mini-game-status {
+  position: relative;
+  top: -18px;
+  left: -38px;
+}
+
+p.mini-game-title {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+p.mini-game-transaction {
+  font-size: 100%;
+  border-top: 1px solid $footer-word-op;
+  border-bottom: 1px solid $footer-word-op;
+  padding: 12px 0px;
+  color: $gold-color;
+  font-weight: bold;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+p.caution {
+  color: $update-color;
+  font-size: 60%;
+}
+
+table.mini-game-conten-info {
+  width: 100%;
+}
+
+.mini-game-panel div#increase, 
+.mini-game-panel div#decrease {
+  height: 26px;
+}
+
+.mini-game-panel span.in-num-percent, 
+.mini-game-panel span.de-num-percent {
+  top: 25px;
 }

@@ -144,4 +144,15 @@ $(function() {
 
   user_percent_in_de (280, 220);
 
+  function display_chat () {
+    $('#chat-btn').on('click', function () {
+      $('#chat-panel').toggleClass('chat-active');
+    });
+
+    $('#chat-panel h5.chat-title span.close').on('click', function () {
+      $('#chat-panel').toggleClass('chat-active');
+    });
+  }
+
+  display_chat ();
 });
