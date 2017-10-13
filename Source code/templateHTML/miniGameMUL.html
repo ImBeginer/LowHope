@@ -582,10 +582,10 @@
         <div class="content">
           <div class="row">
 
-            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <div class="mini-game-panel">
                 <div class="mini-game-des">
-                  <span class="mini-game-status game-opening">ĐANG MỞ</span>
+                  <span class="mini-game-status game-closing">ĐANG MỞ</span>
                   <p class="mini-game-title">Anadolu Efes vs. Real Madrid</p>
                   <p class="mini-game-transaction">1088 Point đã giao dịch</p>
                 </div>
@@ -630,16 +630,15 @@
                 </div>
                 <div class="mini-game-bet mt-5">
                   <form action="#!" name="mini-yn-bet">
-                    <div class="form-group d-inline-block">
+                    <div class="form-group no-margin">
                       <label class="no-margin">Lựa chọn của bạn ?</label>
                     </div>
-                    <div class="form-group d-inline-block">  
-                      <label class="form-check-label">
-                        <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="yes-rd">Yes
-                      </label>
-                      <label class="form-check-label">  
-                        <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="no-rd">No
-                      </label>
+                    <div class="form-group">  
+                      <select name="mul-game" class="mul-mini-game">
+                        <option value="0">Trên 5000 USD</option>
+                        <option value="1">Giữa 4000 - 5000 USD</option>
+                        <option value="3">Dưới 3000 USD</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 40 point. Hãy cân nhắc</p>
@@ -652,7 +651,7 @@
               </div>
             </div>
 
-            <div id="mgyn-contact-area" class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="mgyn-contact-area" class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">
                 <i class="fa fa-gavel" aria-hidden="true"></i> Giao dịch 
               </a>
