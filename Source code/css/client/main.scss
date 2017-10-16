@@ -91,6 +91,17 @@ li.noti-items a {
   top: 4px;
 }
 
+#username-btn {
+  width: 123px;
+}
+
+.user-avatar img {
+  width: 30px;
+  max-width: 30px;
+  border-radius: 18px;
+  margin: 7px 6px;
+}
+
 /*********************LOGO************************/
 .my-panel {
   background-color: $white;
@@ -438,6 +449,10 @@ span.sub-cap {
 
 button.my-btn {
   background-color: $notifi-color !important;
+}
+
+.user-info-right > div {
+  margin: 0;
 }
 
 /*********************NOTIFICATION************************/
@@ -861,11 +876,6 @@ div#history-user-info span, div#history-user-info p {
 /*********************GAMES CREATE POPUP************************/
 .game-tab-content {
   padding: 0 15px;
-}
-
-input#game-time, 
-input#game-minute {
-  width: 26%;
 }
 
 label.form-check-label input {
