@@ -257,167 +257,170 @@
         data-placement="top" title="TOP point">
               <a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
             </li>
-            <!-- rank popup -->
-            <div class="modal fade world-rank" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
-                  <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">   
-                  <div class="top-user text-center">
-                    <div class="second d-inline-block text-center">
-                      <figure>
-                        <img src="../images/client/2nd.png" alt="2nd">
-                        <figcaption class="top-user-name"><a href="#!">Adam Smith</a></figcaption>
-                        <figcaption class="top-user-point"><span class="second-point">171717</span></figcaption>
-                      </figure>          
-                    </div>
-                    <div class="first d-inline-block text-center">
-                      <figure>
-                        <img src="../images/client/1st.png" alt="1st">
-                        <figcaption class="top-user-name"><a href="#!">Godon Jams</a></figcaption>
-                        <figcaption class="top-user-point"><span class="first-point">272727</span></figcaption>
-                      </figure>
-                    </div>
-                    <div class="third d-inline-block text-center">
-                      <figure>
-                        <img src="../images/client/3rd.png" alt="3rd">
-                        <figcaption class="top-user-name"><a href="#!">Ketty Prery</a></figcaption>
-                        <figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>              
-                      </figure>                 
-                    </div>
-                  </div>   
-                </div>
-              </div>
-            </div>
+<!-- rank popup -->
+<div class="modal fade world-rank" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
+        <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">   
+        <div class="top-user text-center">
+          <div class="second d-inline-block text-center">
+            <figure>
+              <img src="../images/client/2nd.png" alt="2nd">
+              <figcaption class="top-user-name"><a href="#!">Adam Smith</a></figcaption>
+              <figcaption class="top-user-point"><span class="second-point">171717</span></figcaption>
+            </figure>          
           </div>
-          <!-- /.rank popup -->
-
-          <li class="nav-item top-bar-items" data-toggle="tooltip"
-          data-placement="top" title="Thông báo">
-          <div class="dropdown">
-            <button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-              <i class="fa fa-bell notifi-icon" aria-hidden="true"></i>
-              <div class="notifi-num">
-                <p>8</p>
-              </div>
-            </button>
-            <!-- notification list -->
-            <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
-              <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
-                <div class="noti-content ellipsis">
-                  <a href="#!">
-                    <p class="notifi-title notifi-1" class="ellipsis">
-                      <div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>
-                      Notifi 1
-                      <div class="time-area">
-                        <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="send-date">15:37 - 10/7</span>
-                      </div>
-                    </p>
-                  </a>
-                </div>
-              </li>                                                                      
-              <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
-                <div class="noti-content ellipsis">
-                  <a href="#!">
-                    <p class="notifi-title notifi-2" class="ellipsis">
-                      <div id="circle-read-2" class="green-circle d-inline-block" data-is-read="false"></div>
-                      Notifi 2
-                      <div class="time-area">
-                        <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="send-date">15:37 - 10/7</span>
-                      </div>
-                    </p>
-                  </a>
-                </div>
-              </li>    
-              <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
-                <div class="noti-content ellipsis">
-                  <a href="#!">
-                    <p class="notifi-title notifi-3" class="ellipsis">
-                      <div id="circle-read-3" class="green-circle d-inline-block" data-is-read="false"></div>
-                      Notifi 3
-                      <div class="time-area">
-                        <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="send-date">15:37 - 10/7</span>
-                      </div>
-                    </p>
-                  </a>
-                </div>
-              </li> 
-              <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
-                <div class="noti-content ellipsis">
-                  <a href="#!">
-                    <p class="notifi-title notifi-4" class="ellipsis">
-                      <div id="circle-read-4" class="green-circle d-inline-block" data-is-read="false"></div>
-                      Notifi 4
-                      <div class="time-area">
-                        <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="send-date">15:37 - 10/7</span>
-                      </div>
-                    </p>
-                  </a>
-                </div>
-              </li>    
-              <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
-                <div class="noti-content ellipsis">
-                  <a href="#!">
-                    <p class="notifi-title notifi-5" class="ellipsis">
-                      <div id="circle-read-5" class="green-circle d-inline-block" data-is-read="false"></div>
-                      Notifi 5
-                      <div class="time-area">
-                        <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="send-date">15:37 - 10/7</span>
-                      </div>
-                    </p>
-                  </a>
-                </div>
-              </li>    
-              <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
-                <div class="noti-content ellipsis">
-                  <a href="#!">
-                    <p class="notifi-title notifi-6" class="ellipsis">
-                      <div id="circle-read-6" class="green-circle d-inline-block" data-is-read="false"></div>
-                      Notifi 6
-                      <div class="time-area">
-                        <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="send-date">15:37 - 10/7</span>
-                      </div>
-                    </p>
-                  </a>
-                </div>
-              </li>                                                                                                 
-            </ul><!-- /.notification list -->
-            <!-- popup notifi -->
-            <div class="modal fade" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="notifi" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
-                    <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+          <div class="first d-inline-block text-center">
+            <figure>
+              <img src="../images/client/1st.png" alt="1st">
+              <figcaption class="top-user-name"><a href="#!">Godon Jams</a></figcaption>
+              <figcaption class="top-user-point"><span class="first-point">272727</span></figcaption>
+            </figure>
+          </div>
+          <div class="third d-inline-block text-center">
+            <figure>
+              <img src="../images/client/3rd.png" alt="3rd">
+              <figcaption class="top-user-name"><a href="#!">Ketty Prery</a></figcaption>
+              <figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>              
+            </figure>                 
+          </div>
+        </div>   
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.rank popup -->
+            <li class="nav-item top-bar-items" data-toggle="tooltip"
+        data-placement="top" title="Thông báo">
+              <div class="dropdown">
+                <button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
+                  <i class="fa fa-bell notifi-icon" aria-hidden="true"></i>
+                  <div class="notifi-num">
+                    <p>8</p>
                   </div>
-                  <div class="modal-body">
-                    <p class="notifi-message">...</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- /.popup notifi --> 
+                </button>
+<!-- notification list -->
+<ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+  <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
+    <div class="noti-content ellipsis">
+      <a href="#!">
+        <p class="notifi-title notifi-1" class="ellipsis">
+          <div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>
+          Notifi 1
+          <div class="time-area">
+            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            <span class="send-date">15:37 - 10/7</span>
+          </div>
+        </p>
+      </a>
+    </div>
+  </li>                                                                      
+  <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
+    <div class="noti-content ellipsis">
+      <a href="#!">
+        <p class="notifi-title notifi-2" class="ellipsis">
+          <div id="circle-read-2" class="green-circle d-inline-block" data-is-read="false"></div>
+          Notifi 2
+          <div class="time-area">
+            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            <span class="send-date">15:37 - 10/7</span>
+          </div>
+        </p>
+      </a>
+    </div>
+  </li>    
+  <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
+    <div class="noti-content ellipsis">
+      <a href="#!">
+        <p class="notifi-title notifi-3" class="ellipsis">
+          <div id="circle-read-3" class="green-circle d-inline-block" data-is-read="false"></div>
+          Notifi 3
+          <div class="time-area">
+            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            <span class="send-date">15:37 - 10/7</span>
+          </div>
+        </p>
+      </a>
+    </div>
+  </li> 
+  <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
+    <div class="noti-content ellipsis">
+      <a href="#!">
+        <p class="notifi-title notifi-4" class="ellipsis">
+          <div id="circle-read-4" class="green-circle d-inline-block" data-is-read="false"></div>
+          Notifi 4
+          <div class="time-area">
+            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            <span class="send-date">15:37 - 10/7</span>
+          </div>
+        </p>
+      </a>
+    </div>
+  </li>    
+  <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
+    <div class="noti-content ellipsis">
+      <a href="#!">
+        <p class="notifi-title notifi-5" class="ellipsis">
+          <div id="circle-read-5" class="green-circle d-inline-block" data-is-read="false"></div>
+          Notifi 5
+          <div class="time-area">
+            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            <span class="send-date">15:37 - 10/7</span>
+          </div>
+        </p>
+      </a>
+    </div>
+  </li>    
+  <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
+    <div class="noti-content ellipsis">
+      <a href="#!">
+        <p class="notifi-title notifi-6" class="ellipsis">
+          <div id="circle-read-6" class="green-circle d-inline-block" data-is-read="false"></div>
+          Notifi 6
+          <div class="time-area">
+            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            <span class="send-date">15:37 - 10/7</span>
+          </div>
+        </p>
+      </a>
+    </div>
+  </li>                                                                                                 
+</ul><!-- /.notification list -->
+<!-- popup notifi -->
+<div class="modal fade" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="notifi" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
+        <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="notifi-message">...</p>
+      </div>
+    </div>
+  </div>
+</div><!-- /.popup notifi --> 
 
-          </div>              
-        </li> 
-                   
-            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Thông tin tài khoản">
+              </div>              
+            </li>   
+            <li class="nav-item">
+              <div class="user-avatar">
+                <img src="../images/client/ava-default.png" alt="user default">
+              </div>
+            </li>         
+            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Username">
               <!-- user dropdown button -->
               <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
+                <button id="username-btn" class="user-name btn btn-primary dropdown-toggle cursor-pointer ellipsis" type="button" data-toggle="dropdown">
                   Username
                   <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </button>
@@ -458,15 +461,17 @@
         <div class="tab-content game-tab-content">
           <div role="tabpanel" class="tab-pane active" id="yes-no-game">
             <form action="#!" name="yes-no-create">
+              <div class="form-group">
+                <label for="game-title">Tên game</label>
+                <input type="text" class="form-control d-inline-block" id="game-title">                
+              </div>
               <div class="form-group d-inline-block">
                 <label for="game-date">Vào ngày</label>
                 <input type="text" class="form-control d-inline-block" id="game-date">
               </div>
               <div class="form-group d-inline-block">
-                <label for="game-time">Giờ</label>
-                <input type="number" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
-                <label for="game-minute">Phút</label>
-                <input type="number" class="form-control d-inline-block" id="game-minute" min="1" max="60" placeholder="00">
+                <label for="game-time">Kết thúc vào lúc</label>
+                <input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
               </div>
               <div class="form-group">
                 <label for="game-bitcoin-price">Giá Bitcoin trên</label>
@@ -491,15 +496,17 @@
           </div>
           <div role="tabpanel" class="tab-pane" id="multi-choice-game">
             <form action="#!" name="mul-create">
+              <div class="form-group">
+                <label for="game-title">Tên game</label>
+                <input type="text" class="form-control d-inline-block" id="game-title">                
+              </div>              
               <div class="form-group d-inline-block">
                 <label for="game-date">Vào ngày</label>
                 <input type="text" class="form-control d-inline-block" id="game-date">
               </div>
               <div class="form-group d-inline-block">
-                <label for="game-time">Giờ</label>
-                <input type="number" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
-                <label for="game-minute">Phút</label>
-                <input type="number" class="form-control d-inline-block" id="game-minute" min="1" max="60" placeholder="00">
+                <label for="game-time">Kết thúc vào lúc</label>
+                <input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
               </div>
               <div class="form-group">
                 <label for="">Giá Bitcoin ?</label>
@@ -543,7 +550,7 @@
                       <!-- user update info -->
                       <form class="user-form" action="#!">
                         <div class="row">
-                          <div class="user-info-left col-3">
+                          <div class="user-info-left col-3 form-group">
 
                             <!-- user avatar -->
                             <div class="user-ava-area">
@@ -552,20 +559,25 @@
                             </div><!-- /.user avatar -->
 
                           </div>
-                          <div class="user-info-right col-8 col-centered">
-
-                            <!-- user info -->
-                            <div class="input-area">
-                              <input id="username" type="text" name='username' placeholder="Họ và tên *" value="" required="">
-                              <input id="userphone" type="text" name='userphone' placeholder="Số điện thoại *" value="" required="">
-                              <input id="useraddress" type="text" name='useraddress' placeholder="Địa chỉ *" value="" required="">
-                            </div><!-- /.user info -->
-
-                          </div>
+        <!-- user info -->
+        <div class="user-info-right col-8 col-centered">
+          <div class="form-group">
+            <label for="username">Họ và tên</label>
+            <input id="username" class="form-control" type="text" name='username' value="" required="">
+          </div>
+          <div class="form-group">
+            <label for="userphone">Số điện thoại</label>
+            <input id="userphone" class="form-control" type="text" name='userphone' pattern="^(\+84|0)\d{9,10}$" value="" required="" placeholder="(+84)123456789">
+          </div>
+          <div class="form-group">
+            <label for="useraddress">Địa chỉ</label>
+            <input id="useraddress" class="form-control" type="text" name='useraddress' value="" required="">
+          </div>
+        </div><!-- /.user info -->
                         </div>
-                        <div class="submit-area">
+                        <div class="submit-area form-group">
                           <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                          <button type="submit" class="btn-height update-btn cursor-pointer" name="update-btn" data-dismiss="modal">Cập nhật</button>
+                          <button type="submit" class="btn-height update-btn cursor-pointer" name="update-btn">Cập nhật</button>
                         </div>                     
                       </form><!-- /.user update info -->
 
@@ -604,9 +616,9 @@
               <div class="bet-form-area mt-3">
                 <form class="bet-form" name="#!">
                   <div class="form-group">
-                    <label class="input-title" for="point-input">Đặt cược (point)</label>
+                    <label class="input-title" for="point-input">Giá Bitcoin</label>
                     <input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0">
-                    <label class="input-des mt-1" for="point-input">Lưu ý: Chúng tôi sẽ lấy giá trị đặt cuối cùng trước khi kết thúc dự đoán !</label>
+                    <label class="input-des mt-1" for="point-input">Lưu ý: Chúng tôi sẽ lấy giá trị dự đoán cuối cùng trước khi kết thúc dự đoán !</label>
                   </div>
                   <div class="form-group">
                     <button type="submit" class="form-control c-button cursor-pointer" id="c-bet-btn" name="bet-btn">

@@ -122,6 +122,13 @@ button#game-btn-mul,
 	        animation: radioClick 1s;
 }
 
+input[type=text], input[type=time], input[type=number] {
+  padding: 8px 10px !important;
+}
+input[type=text]:invalid, input[type=time]:invalid, input[type=number]:invalid {
+	border: 1px solid $decrease-color;
+}
+
 /**********************BUTTON************************/
 .btn {
 	background-color: transparent !important;

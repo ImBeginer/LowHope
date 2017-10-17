@@ -91,6 +91,17 @@ li.noti-items a {
   top: 4px;
 }
 
+#username-btn {
+  width: 123px;
+}
+
+.user-avatar img {
+  width: 30px;
+  max-width: 30px;
+  border-radius: 18px;
+  margin: 7px 6px;
+}
+
 /*********************LOGO************************/
 .my-panel {
   background-color: $white;
@@ -438,6 +449,10 @@ span.sub-cap {
 
 button.my-btn {
   background-color: $notifi-color !important;
+}
+
+.user-info-right > div {
+  margin: 0;
 }
 
 /*********************NOTIFICATION************************/
@@ -863,11 +878,6 @@ div#history-user-info span, div#history-user-info p {
   padding: 0 15px;
 }
 
-input#game-time, 
-input#game-minute {
-  width: 26%;
-}
-
 label.form-check-label input {
   margin-right: 5px;
 }
@@ -881,7 +891,8 @@ label.form-check-label input {
 
 .mini-game-panel p, 
 .mini-game-panel span, 
-.mini-game-panel label {
+.mini-game-panel label,
+select.mul-mini-game {
   font-size: 72%;
 }
 
@@ -901,7 +912,7 @@ p.mini-game-transaction {
   border-top: 1px solid $footer-word-op;
   border-bottom: 1px solid $footer-word-op;
   padding: 12px 0px;
-  color: $gold-color;
+  color: $bet-btn-color;
   font-weight: bold;
 }
 
@@ -926,4 +937,38 @@ table.mini-game-conten-info {
 .mini-game-panel span.in-num-percent, 
 .mini-game-panel span.de-num-percent {
   top: 25px;
+}
+
+div#mgyn-contact-area a {
+
+  display: block;
+}
+
+table.users-transaction {
+  width: 100%;
+}
+
+div#mgyn-contact-area div.card-body {
+  background-color: $body-color;
+  border: none;
+  padding: 0;
+}
+
+table.users-transaction th, 
+table.users-transaction td,
+div#mgyn-contact-area a,
+div#mgyn-content-area select.mul-mini-game option {
+  font-size: 80%;
+}
+
+div#mgyn-contact-area {
+  i, a {
+    color: $notifi-color !important;
+  }
+}
+
+div#mgyn-content-area select.mul-mini-game,
+div#mgyn-content-area select.mul-mini-game option {
+  color: $black;    
+  outline: none;
 }
