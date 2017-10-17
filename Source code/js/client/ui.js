@@ -3,24 +3,54 @@ $(function() {
     e.preventDefault()
     $(this).tab('show')
   })
-  // $('#tranditional-game').tab('show');
-  // $('#mini-game').tab('show');
 
   $('[data-toggle="tooltip"]').tooltip();
 
+  var elements = $("INPUT");
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].oninvalid = function(e) {
+      e.target.setCustomValidity("");
+      if (!e.target.validity.valid) {
+        switch (e.target.name) {
+          case 'username':
+            if (e.target.validity.valueMissing) {
+              e.target.setCustomValidity("Thông tin không hợp lệ");
+            }
+            break;
+          case 'userphone':
+            if (e.target.validity.valueMissing) {
+              e.target.setCustomValidity("Số điện thoại không thể trống");
+            } else if (e.target.validity.patternMismatch) {
+              e.target.setCustomValidity("Số điện thoại không hợp lệ");
+            }
+            break;
+          case 'useraddress':
+            if (e.target.validity.valueMissing) {
+              e.target.setCustomValidity("Thông tin không hợp lệ");
+            }
+          break;
+        }
+      }
+    };
+    elements[i].oninput = function(e) {
+      e.target.setCustomValidity("");
+    };
+  }
+
+
   $currentYear = new Date().getFullYear();
-  $currentYear -= 18;
-    $("#dateOfBirth").datepicker({
-    yearRange: '1947:' + $currentYear ,
+  $("#game-date").datepicker({
+    yearRange: $currentYear + ':' + ($currentYear + 3) ,
     changeYear: true,
     changeMonth: true,
     dateFormat: "dd/mm/yy",
     dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
     monthNames: [ "Tháng riêng", "Tháng hai", "Tháng ba", "Tháng bốn", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai" ],
     monthNamesShort: [ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" ],
-    showAnim: "clip"
+    showAnim: "clip",
+    minDate: new Date()
   });
-
+  
 /**
  * [get_notifi_id xử lý id dạng string trả về id của notification]
  * @param  {[String]} $string [VD: notifi-1]
