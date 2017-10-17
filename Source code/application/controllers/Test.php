@@ -31,7 +31,7 @@ class Test extends CI_Controller {
  
 	public function testPusher()
 	{
-		$data['p'] = array('datee'=> 1507608120000, 'price' => 4.7);
+		$data['p'] = array('datee'=> 1507608180000, 'price' => 4.7);
   		$this->pusher->trigger('my-channel', 'my-event', $data);
 	}
 

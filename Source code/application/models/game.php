@@ -6,7 +6,7 @@ class Game extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		//Do your magic here
+		
 	}
 
 	/********************************* GAME TT ***********************************************/
@@ -18,11 +18,17 @@ class Game extends CI_Model {
 	public function getGameTT()
 	{
 		$this->db->select('*');
-		$this->db->where('ACTIVE', true);
+		$this->db->where('ACTIVE', 1);
 		$this->db->order_by('GAME_ID', 'desc');
-		$tt_game = $this->db->get('TT_GAME', 1);
-		$tt_game = $tt_game->row();
-		return $tt_game;
+		$tt_game = $this->db->get('SYSTEM_GAMES', 1);
+
+		if($tt_game){
+			$tt_game = $tt_game->row();
+			return $tt_game;			
+		}else{
+			throw new Exception('Error from getGameTT()');
+		}
+
 	}
 
 	/**
@@ -31,12 +37,12 @@ class Game extends CI_Model {
 	 * @param  [type] $GAME_TT_ID [description]
 	 * @return [type]             [description]
 	 */
-	public function check_His_User($USER_ID, $GAME_TT_ID)
+	public function check_Log_Game_TT($USER_ID, $GAME_TT_ID)
 	{
-		$his_user = array('GAME_TT_ID' => $GAME_TT_ID, 'USER_ID' => $USER_ID);
+		$his_user = array('GAME_ID' => $GAME_TT_ID, 'USER_ID' => $USER_ID);
 		$this->db->select('*');
 		$this->db->where($his_user);
-		$result = $this->db->get('HIS_GAME_TT');
+		$result = $this->db->get('SYSTEM_GAME_LOGS');
 		$rows = $result->num_rows();
 		return ($rows>0)?true:false;
 	}
@@ -49,12 +55,12 @@ class Game extends CI_Model {
 	 * @param  [type] $DATE       [description]
 	 * @return [type]             [description]
 	 */
-	public function updateBetUser($GAME_TT_ID,$USER_ID,$PRICE,$DATE)
+	public function update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE)
 	{
-		$bet = array('PRICE'=>$PRICE, 'DATE' => $DATE);
-		$condi = array('GAME_TT_ID'=>$GAME_TT_ID, 'USER_ID' => $USER_ID);
+		$bet = array('PRICE_GUESS'=>$PRICE, 'DATE_GUESS' => $DATE);
+		$condi = array('GAME_ID'=>$GAME_TT_ID, 'USER_ID' => $USER_ID);
 		$this->db->where($condi);
-		$this->db->update('HIS_GAME_TT', $bet);
+		$this->db->update('SYSTEM_GAME_LOGS', $bet);
 		return $this->db->affected_rows()>0;
 	}
 
@@ -65,11 +71,11 @@ class Game extends CI_Model {
 	 * @param [type] $PRICE      [description]
 	 * @param [type] $DATE       [description]
 	 */
-	public function addBetUser($GAME_TT_ID,$USER_ID,$PRICE,$DATE)
+	public function add_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE)
 	{
-		$bet = array('GAME_TT_ID'=>$GAME_TT_ID, 'USER_ID'=> $USER_ID, 'PRICE'=>$PRICE, 'DATE' => $DATE);
-		$this->db->insert('HIS_GAME_TT', $bet);
-		return $this->db->insert_id()>0;
+		$bet = array('GAME_ID'=>$GAME_TT_ID, 'USER_ID'=> $USER_ID, 'PRICE_GUESS'=>$PRICE, 'DATE_GUESS' => $DATE);
+		$this->db->insert('SYSTEM_GAME_LOGS', $bet);
+		return $this->db->affected_rows()>0;
 	}
 
 }

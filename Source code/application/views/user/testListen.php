@@ -25,7 +25,7 @@
 
 
 
-	    var prices =   JSON.parse('<?= $prices; ?>');
+	    var prices =   JSON.parse(' $prices; ?>');
 
 	    console.log(prices);
 

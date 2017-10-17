@@ -2,57 +2,44 @@ $(document).ready(function() {
 	/**
 	 * update informations of user, (click Cập nhật thông tin -> popup update)
 	 */
-	
 	$('#update-btn').on('click', function(event) {
 		event.preventDefault();
 		/* Act on the event */
 		
-		var username = $('#username').val();
-		var userphone = $('#userphone').val();
-		var useraddress = $('#useraddress').val();
+		var username = $('#username').val() || "";
+		var userphone = $('#userphone').val() || "";
+		var useraddress = $('#useraddress').val() || "";
 
-		$.ajax({
-			url: base_url + 'userController/updateUser',
-			type: 'POST',
-			dataType: 'JSON',
-			data: {
-				username: username,
-				userphone: userphone,
-				useraddress: useraddress
-			},
-		})
-		.done(function(respone) {
-			console.log("success");
-			if(respone == 1){
-				$('#user_name').text(username);
-				$('.username.ellipsis').text(username);
-
-				$.toast({
-					heading: 'Success',
-					text: 'Chúc mừng bạn đã cập nhật thông tin thành công !',
-					showHideTransition: 'slide',
-					icon: 'success',
-					position: 'bottom-right',
-					hideAfter: 3000
-				})
-			}else {
-				$.toast({
-					heading: 'Warning',
-					text: 'Bạn không có quyền thay đổi thông tin !!!',
-					showHideTransition: 'slide',
-					icon: 'warning',
-					position: 'bottom-right',
-					hideAfter: 3000
-				})
-			}
-		})
-		.fail(function(respone) {
-			console.log("error");
-		})
-		.always(function(respone) {
-			console.log("complete");
-		});
-		
+		if(username && userphone && useraddress){
+			$.ajax({
+				url: base_url + 'userController/updateUser',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					username: username,
+					userphone: userphone,
+					useraddress: useraddress
+				},
+			})
+			.done(function(respone) {
+				console.log("success");
+				if(respone == 1){
+					$('#user_name').text(username);
+					$('.username.ellipsis').text(username);					
+					toatMessage('Success','Chúc mừng bạn đã cập nhật thông tin thành công !','success');
+				}else {
+					toatMessage('Warning','Bạn không có quyền thay đổi thông tin !!!','warning');
+				}
+			})
+			.fail(function(respone) {
+				console.log("error");
+			})
+			.always(function(respone) {
+				console.log("complete");
+			});
+		}else {
+			toatMessage('Warning','Vui lòng nhập đúng định dạng trường thông tin !','warning');
+		}
 	});
 
 	/**
@@ -62,65 +49,63 @@ $(document).ready(function() {
 	$('#c-bet-btn').on('click', function(event) {
 		event.preventDefault();
 		/* Act on the event */
-		var el1 = $('#point-input').val();
-		var el2 = $('#user-point').text();
-		var price_bet = parseFloat(el1)|| 0;
-		var user_point = parseFloat(el2);
-		if(user_point >= price_bet){
-			if(price_bet > 0){				
-				$.ajax({
-					url: base_url + 'GameController/add_Ans_Game_TT',
-					type: 'POST',
-					dataType: 'JSON',
-					data: {price_bet: price_bet},
-				})
-				.done(function(respone) {
-					if(respone == 0){
-						$.toast({
-							heading: 'Warning',
-							text: 'Đại ca! Có gì đó sai sai, ta nên thử lại sau...',
-							showHideTransition: 'slide',
-							icon: 'warning',
-							position: 'bottom-right',
-							hideAfter: 3000
-						})
-						$('#point-input').val("");						
-					}else if(respone == 1){
-						$.toast({
-							heading: 'Success',
-							text: 'Chúc mừng bạn đã đặt cược thành công !',
-							showHideTransition: 'slide',
-							icon: 'success',
-							position: 'bottom-right',
-							hideAfter: 3000
-						})
-						$('#point-input').val("");
-					}else {
-						notEnoughPoint();
-					}
-				})
-				.fail(function(respone) {
-					console.log("error");
-				})
-				.always(function(respone) {
-					console.log("complete");
-				});
-			}else {
-				$.toast({
-					heading: 'Warning',
-					text: 'Vui lòng nhập đúng định dạng trường đặt cược !',
-					showHideTransition: 'slide',
-					icon: 'warning',
-					position: 'bottom-right',
-					hideAfter: 3000
-				});
-				$('#point-input').val("");
-				$('#point-input').focus();
-			}
+		var el = $('#point-input').val();
+		var price_bet = parseFloat(el)|| 0;
+		if(price_bet > 0){				
+			$.ajax({
+				url: base_url + 'GameController/log_game_tt',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {price_bet: price_bet},
+			})
+			.done(function(respone) {
+				if(respone == 0){
+					toatMessage('Warning','Đại ca! Có gì đó sai sai, ta nên thử lại sau...','warning');
+					$('#point-input').val("");						
+				}else if(respone == 1){
+					toatMessage('Success','Bạn đã dự đoán thành công, Chờ có kết quả thôi nào !!!','success');
+					$('#point-input').val("");
+				}else if(respone == 2) {
+					toatMessage('Warning','Vui lòng nhập đúng định dạng trường dự đoán !','warning');
+					$('#point-input').val("");
+					$('#point-input').focus();
+				}
+			})
+			.fail(function(respone) {
+				console.log("error");
+			})
+			.always(function(respone) {
+				console.log("complete");
+			});
 		}else {
-			notEnoughPoint();
+			toatMessage('Warning','Vui lòng nhập đúng định dạng trường dự đoán !','warning');
+			$('#point-input').val("");
+			$('#point-input').focus();
 		}
-		
+	});
+
+	/*
+		Update the first login
+	 */
+	$('#btn-add-user').on('click', function(event) {
+		/* Act on the event */
+		var user_name = $('#fullName').val() || "";
+		var user_phone = $('#phoneNumber').val() || "";
+		var user_address = $('#address').val() || "";
+
+		if(user_name && user_phone && user_address){
+			$.post(base_url +'login/addUser', 
+				{USER_NAME: user_name, USER_PHONE: user_phone, USER_ADDRESS: user_address}, 
+				function(data) {
+					if(data == 0){
+						window.location.href = base_url;
+					}else if(data == 1){
+						window.location.href = base_url +'userController/home';
+					}
+				});			
+		}else{
+			toatMessage('Warning','Vui lòng nhập đúng định dạng trường update !','warning');
+		} 
 	});
 
 	/**
@@ -131,9 +116,7 @@ $(document).ready(function() {
 
 // Đếm ngược ngày kết thúc game truyền thống
 function countDown_End_Date(string_end_date) {
-	
 	var end_date = (new Date(string_end_date)).getTime();
-	
 	var x = setInterval(function(){
 		// Get todays date and time
     	var now = new Date().getTime();
@@ -145,7 +128,7 @@ function countDown_End_Date(string_end_date) {
 	    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-	    // Output the result in an element with id="demo"
+	    // Output the result in an element
 	    document.getElementById("countDown").innerHTML = days + "d " + hours + "h "
 	    + minutes + "m " + seconds + "s ";
 	    
@@ -157,15 +140,13 @@ function countDown_End_Date(string_end_date) {
 	}, 1000);
 }
 
-function notEnoughPoint() {
+function toatMessage(heading,text,icon) {
 	$.toast({
-		heading: 'Warning',
-		text: 'Bạn không có đủ số point để đặt cược !',
+		heading: heading,
+		text: text,
 		showHideTransition: 'slide',
-		icon: 'warning',
+		icon: icon,
 		position: 'bottom-right',
-		hideAfter: 3000
+		hideAfter: 5000
 	});
-	$('#point-input').val("");
-	$('#point-input').focus();
 }

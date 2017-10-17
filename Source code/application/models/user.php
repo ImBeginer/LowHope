@@ -1,19 +1,49 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-/*
-	User constants
-*/
-define('ROLE_ADMIN',1);
-define('ROLE_MANAGER',2);
-define('ROLE_USER',3);
-define('FIRST_POINT',500);
-define('ACTIVE',1);
 
 class User extends CI_Model {
 
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct();		
+	}
+
+	/**
+	 * [checkUserExist description]
+	 * @param  [type] $EMAIL [description]
+	 * @return [type]        [description]
+	 */
+	public function checkUserExist($EMAIL)
+	{
+		$this->db->select('*');
+		$this->db->where('EMAIL', $EMAIL);
+		
+		$result = $this->db->get('USERS');
+		if($result){
+			$rows = $result->num_rows();
+			return $rows>0;			
+		}else{
+			throw new Exception('Error from checkUserExist()');
+		}
+	}
+
+	/**
+	 * [checkUserExistPlus description]
+	 * @param  [type] $USER_CIF   [description]
+	 * @param  [type] $USER_EMAIL [description]
+	 * @return [type]             [description]
+	 */
+	public function checkUserExistPlus($USER_CIF,$USER_EMAIL)
+	{
+		$condi = array('USER_CIF'=>$USER_CIF, 'EMAIL'=>$USER_EMAIL);
+		$this->db->where($condi);
+		$result = $this->db->get('USERS');
+		if($result){
+			$rows = $result->num_rows();
+			return $rows>0;
+		}else{
+			throw new Exception('Error from checkUserExistPlus()');
+		}
 	}
 
 	/**
@@ -27,18 +57,22 @@ class User extends CI_Model {
 	public function addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS)
 	{
 		$user = array(
+			'ROLE_ID'		=> ROLE_USER,
 			'USER_CIF' 		=> $USER_CIF,
 			'USER_NAME' 	=> $USER_NAME,
-			'USER_POINT' 	=> FIRST_POINT,
-			'USER_EMAIL'	=> $USER_EMAIL,
-			'USER_PHONE'	=> $USER_PHONE,
-			'USER_ADDRESS' 	=> $USER_ADDRESS,
-			'ROLE_ID'		=> ROLE_USER,
-			'ACTIVE'		=> ACTIVE
+			'USER_POINT' 	=> 500,
+			'EMAIL'			=> $USER_EMAIL,
+			'PHONE_NUMBER'	=> $USER_PHONE,
+			'ADDRESS' 		=> $USER_ADDRESS,
+			'ATTENDANCE'	=> 1,
+			'ACTIVE'		=> 1
 		);
 
-		$this->db->insert('USER', $user);
-		return $this->db->insert_id();
+		if($this->db->insert('USERS', $user)){
+			return $this->db->insert_id();			
+		}else{
+			throw new Exception('Error from addUser()');
+		}
 	}
 
 	/**
@@ -49,11 +83,14 @@ class User extends CI_Model {
 	public function getUserByMail($USER_EMAIL)
 	{
 		$this->db->select('*');
-		$this->db->where('USER_EMAIL', $USER_EMAIL);
-		$user = $this->db->get('USER');
-		$user = $user->row();
-		
-		return $user;
+		$this->db->where('EMAIL', $USER_EMAIL);
+		$user = $this->db->get('USERS');
+		if($user){
+			$user = $user->row();			
+			return $user;
+		}else{
+			throw new Exception('Error from getUserByMail()');
+		}
 	}
 
 	/**
@@ -83,39 +120,12 @@ class User extends CI_Model {
 	{
 		$user = array(
 			'USER_NAME' => $USER_NAME,
-			'USER_PHONE' => $USER_PHONE,
-			'USER_ADDRESS' => $USER_ADDRESS
+			'PHONE_NUMBER' => $USER_PHONE,
+			'ADDRESS' => $USER_ADDRESS
 		);
 
 		$this->db->where('USER_ID', $USER_ID);
-		$this->db->update('USER', $user);
-	}
-
-	/**
-	 * [checkUserExist description]
-	 * @param  [type] $USER_CIF [description]
-	 * @return [boolean]           [description]
-	 */
-	public function checkGGUserExist($USER_EMAIL)
-	{
-		$this->db->select('*');
-		$this->db->where('USER_EMAIL', $USER_EMAIL);
-
-		$result = $this->db->get('USER');
-		$rows = $result->num_rows();
-
-		return ($rows>0)?true:false;
-	}
-
-	public function checkUserFBExist($USER_CIF)
-	{
-		$this->db->select('*');
-		$this->db->where('USER_CIF', $USER_CIF);
-
-		$result = $this->db->get('USER');
-		$rows = $result->num_rows();
-
-		return ($rows>0)?true:false;
+		$this->db->update('USERS', $user);
 	}
 
 	/**
@@ -124,16 +134,20 @@ class User extends CI_Model {
 	 * @param  [type] $USER_EMAIL [description]
 	 * @return [type]             [description]
 	 */
-	public function checkFBUserChanged($USER_CIF,$USER_EMAIL)
+	public function checkFBUserChanged($USER_CIF)
 	{
-		$condi = array('USER_CIF' => $USER_CIF, 'USER_EMAIL' => $USER_EMAIL);
+		$condi = array('USER_CIF' => $USER_CIF);
 		$this->db->select('*');
 		$this->db->where($condi);
 
-		$result = $this->db->get('USER');
-		$rows = $result->num_rows();
+		$result = $this->db->get('USERS');
+		if($result){
+			$rows = $result->num_rows();
+			return $rows>0;
+		}else{
+			throw new Exception('Error from checkFBUserChanged()');
+		}
 
-		return ($rows>0)?false:true;
 	}
 
 	/**
@@ -147,26 +161,14 @@ class User extends CI_Model {
 	{
 		$user = array(
 			'USER_NAME' => $USER_NAME,
-			'USER_EMAIL' => $USER_EMAIL
+			'EMAIL' => $USER_EMAIL
 		);
 
 		$this->db->where('USER_CIF', $USER_CIF);
-		$this->db->update('USER', $user);
+		if(!$this->db->update('USERS', $user)){
+			throw new Exception('Error from updateFBUser()');
+		}
 	}
-
-	
-
-	//demo highchart
-	public function getData()
-	{
-		$this->db->select('DATA_PRICE, DATA_DATE');
-		//$this->db->order_by('DATA_DATE');
-		$result = $this->db->get('DATA');
-		$result = $result->result_array();
-
-		return json_encode($result);
-	}
-
 }
 
 /* End of file User.php */

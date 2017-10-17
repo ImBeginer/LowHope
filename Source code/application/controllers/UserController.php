@@ -10,42 +10,34 @@ class UserController extends CI_Controller {
 		parent::__construct();
 		//Do your magic here
 		$this->load->model('user');
+		$this->load->model('game');
 	}
 
 	/**
 	 * [addUser description]
 	 */
-	public function addUser()
-	{
-		$USER_CIF = $this->session->userdata('userData')['USER_CIF'];
-		$USER_NAME = $this->input->post('USER_NAME');
-		$USER_EMAIL = $this->session->userdata('userData')['USER_EMAIL'];
-		$USER_PHONE = $this->input->post('USER_PHONE');
-		$USER_ADDRESS = $this->input->post('USER_ADDRESS');
-
-		//validate
-		$USER_PHONE = str_replace('/[^0-9]/', '', $USER_PHONE);
-
-		$id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS);
-
-		if($id > 0){
-        	
-        	$user = $this->user->getUserByMail($USER_EMAIL);
+	public function home()
+	{		
+		try {
+    		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
 			$tt_game = $this->game->getGameTT();
 
 			//set sessionUserID
-        	$this->session->set_userdata('sessionUserId', $id);
+	    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
 		    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
-			$data['USER_NAME'] = $USER_NAME;
+			$data['USER_NAME'] = $user->USER_NAME;
 			$data['USER_POINT'] = $user->USER_POINT;
-            $data['GAME_TT_CONTENT'] = $tt_game->GAME_CONTENT;
-            $data['TT_END_DATE'] = $tt_game->END_DATE;
-            $data['prices'] = $this->user->getData();
+	        $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
+	        $data['TT_END_DATE'] = $tt_game->END_DATE;
 
-			$this->load->view('user/home', $data);
-		}else {
-			$this->load->view('errors/error_page');
+	        //$data['prices'] = $this->user->getData();
+
+			$this->load->view('user/home', $data);		
+			
+		} catch (Exception $e) {
+			log_message('error',$e->getMessage());
+            $this->load->view('errors/error_page');
 		}
 	}
 
@@ -68,6 +60,18 @@ class UserController extends CI_Controller {
 		}else{
 			echo json_encode("0");
 		}
+	}
+
+	/**
+	 * [history description]
+	 * @return [type] [description]
+	 */
+	public function history()
+	{
+		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+		$data['USER_NAME'] = $user->USER_NAME;
+        $data['USER_POINT'] = $user->USER_POINT;
+		$this->load->view('user/history', $data);
 	}
 
 }
