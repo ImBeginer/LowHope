@@ -90,5 +90,3 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('ROLE_ADMIN',1);
 define('ROLE_MANAGER',2);
 define('ROLE_USER',3);
-define('FIRST_POINT',500);
-define('ACTIVE',1);

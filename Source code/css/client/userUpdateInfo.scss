@@ -30,8 +30,7 @@ button.update-btn,
 div#yes-no-game label,
 #multi-choice-game label,
 div#create-game span,
-button.user-btn-close span,
-div#user-update-info form label {
+button.user-btn-close span {
   color: $black;
 }
 
@@ -73,8 +72,7 @@ button#game-btn-mul,
 div#yes-no-game form label, 
 div#multi-choice-game form label, 
 div#yes-no-game form input, 
-div#multi-choice-game form input,
-div#user-update-info form label {
+div#multi-choice-game form input {
   font-size: 80%;
 }
 
