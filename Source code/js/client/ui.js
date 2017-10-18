@@ -12,9 +12,12 @@ $(function() {
       e.target.setCustomValidity("");
       if (!e.target.validity.valid) {
         switch (e.target.name) {
+          default:
+            e.target.setCustomValidity("Thông tin không được để trống");
+            break;
           case 'username':
             if (e.target.validity.valueMissing) {
-              e.target.setCustomValidity("Thông tin không hợp lệ");
+              e.target.setCustomValidity("Thông tin không được để trống");
             }
             break;
           case 'userphone':
@@ -26,7 +29,7 @@ $(function() {
             break;
           case 'useraddress':
             if (e.target.validity.valueMissing) {
-              e.target.setCustomValidity("Thông tin không hợp lệ");
+              e.target.setCustomValidity("Thông tin không được để trống");
             }
           break;
         }
@@ -39,7 +42,7 @@ $(function() {
 
 
   $currentYear = new Date().getFullYear();
-  $("#game-date").datepicker({
+  $("#game-date-yn, #game-date-mul").datepicker({
     yearRange: $currentYear + ':' + ($currentYear + 3) ,
     changeYear: true,
     changeMonth: true,
