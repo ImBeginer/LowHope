@@ -15,11 +15,6 @@ $(function() {
           default:
             e.target.setCustomValidity("Thông tin không được để trống");
             break;
-          case 'username':
-            if (e.target.validity.valueMissing) {
-              e.target.setCustomValidity("Thông tin không được để trống");
-            }
-            break;
           case 'userphone':
             if (e.target.validity.valueMissing) {
               e.target.setCustomValidity("Số điện thoại không thể trống");
@@ -27,11 +22,6 @@ $(function() {
               e.target.setCustomValidity("Số điện thoại không hợp lệ");
             }
             break;
-          case 'useraddress':
-            if (e.target.validity.valueMissing) {
-              e.target.setCustomValidity("Thông tin không được để trống");
-            }
-          break;
         }
       }
     };

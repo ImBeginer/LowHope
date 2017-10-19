@@ -6,16 +6,6 @@
 	color: $white
 }
 
-html, body {
-	background-color: $body-color !important;
-}
-
-#main-index {
-	background-image: linear-gradient(transparent, $body-color),url('../../images/client/new-background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -23,7 +13,7 @@ html, body {
 }
 
 .tooltip-inner {
-	font-size: 80%;
+	font-size: 100%;
 }
 
 ul {

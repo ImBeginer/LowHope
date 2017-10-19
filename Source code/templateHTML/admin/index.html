@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+<!-- manager content -->
+<div id="manager-index" class="container-fluid">
+  <!-- side bar -->
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="sidebar-content nav nav-sidebar">
+        <li class="manager-avatar active">
+          <img src="../../images/client/ava-default.png" alt="avatar">
+          <div class="manager-name">Vinh Nguyễn</div>
+        </li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Người thắng cuộc trong game gần nhất">Thắng cuộc</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách thành viên biến động trong tháng">Thành viên</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Quay về trang chủ">Trang chủ</li>
+      </ul>
+      <div class="manager-option-area active">
+        <div class="dropup setting-menu">
+          <a class="setting dropdown-toggle cursor-pointer" id="setting-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="setting-item">
+            <a class="dropdown-item black" href="#!">Sửa thông tin</a>
+            <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
+          </div>
+        </div>
+        <a class="log-out" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div><!-- /.side bar -->
+  <!-- right side hand -->
+  <div class="row">
+    <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
+      <div class="main-function">
+        <!-- user function -->
+        <div class="total-user-area col-sm-12 col-md-4 col-xl-3">
+          <div class="function-content">
+            <div class="function-title">
+              <p class="title"><a href="#!">Số lượng thành viên</a></p>
+            </div>
+            <div class="total-user">
+              <a href="#!" class="user-num cursor-pointer">
+                <span class="num">975</span>
+                <span class="sub">thành viên</span>
+                <img src="img/1user.jpg" alt="total-user">
+              </a>
+            </div>
+            <div class="new-user">
+              <a href="#!" class="user-num-new cursor-pointer">
+                <span class="num new-color">77</span>
+                <span class="sub">thành viên</span>
+                <img src="img/1user-growth.jpg" alt="new-user">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="total-user-area col-sm-12 col-md-4 col-xl-3">
+          <div class="function-content">
+            <div class="function-title">
+              <p class="title"><a href="#!">Danh sách trúng thưởng</a></p>
+            </div>
+            <div class="trophy">
+              <div class="third"><img src="img/3rd.png" alt="3rd"></div>
+              <div class="second"><img src="img/2nd.png" alt="2nd"></div>
+              <div class="first"><img src="img/1st.png" alt="1st"></div>
+            </div>
+          </div>
+        </div>
+        <div class="total-user-area col-sm-12 col-md-4 col-xl-3">
+          <div class="function-content">
+            <div class="function-title">
+              <p class="title"><a href="#!">Lịch sử trúng thưởng</a></p>
+            </div>
+            <div class="history">
+              <div class="history-item">
+                <a href="#!">
+                  <span class="num first-color">17</span>
+                  <span class="sub">Giải</span>
+                  <img class="trophy-small" src="img/1st.png" alt="1st">
+                </a>
+              </div>
+              <div class="history-item">
+                <a href="#!">
+                  <span class="num second-color">53</span>
+                  <span class="sub">Giải</span>
+                  <img class="trophy-small" src="img/2nd.png" alt="2nd">
+                </a>                
+              </div>
+              <div class="history-item">
+                <a href="#!">
+                  <span class="num third-color">46</span>
+                  <span class="sub">Giải</span>
+                  <img class="trophy-small" src="img/3rd.png" alt="3rd">
+                </a>                
+              </div>
+            </div>
+          </div>
+        </div><!-- /.user function -->  
+      </div>
+    </div>
+
+    <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 chart-content">
+      <!-- chart -->
+      <div class="chart-panel">
+        <div id="chart"></div>
+      </div><!-- /.chart -->
+    </div>
+  </div><!-- /.right side hand -->
+
+</div><!-- /.manager content -->
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script type="text/javascript" src="js/chartManager.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
