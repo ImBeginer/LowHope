@@ -5,8 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="vendor/animation/animate.css">
   <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -16,8 +18,8 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
-        <li class="manager-avatar active">
-          <img src="../../images/client/ava-default.png" alt="avatar">
+        <li class="manager-avatar c-active">
+          <img src="img/ava-default.png" alt="avatar">
           <div class="manager-name">Vinh Nguyễn</div>
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
@@ -26,19 +28,21 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách thành viên biến động trong tháng">Thành viên</li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Quay về trang chủ">Trang chủ</li>
       </ul>
-      <div class="manager-option-area active">
+      <div class="manager-option-area c-active">
         <div class="dropup setting-menu">
           <a class="setting dropdown-toggle cursor-pointer" id="setting-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cog" aria-hidden="true"></i>
           </a>
-          <div class="dropdown-menu" aria-labelledby="setting-item">
+          <div class="dropdown-menu animated bounceIn" aria-labelledby="setting-item">
             <a class="dropdown-item black" href="#!">Sửa thông tin</a>
             <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
           </div>
         </div>
-        <a class="log-out" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
-          <i class="fa fa-power-off" aria-hidden="true"></i>
-        </a>
+        <div class="log-out-option">
+          <a class="log-out" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div><!-- /.side bar -->
@@ -47,7 +51,7 @@
     <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
       <div class="main-function">
         <!-- user function -->
-        <div class="total-user-area col-sm-12 col-md-4 col-xl-3">
+        <div class="total-user-area animated pulse col-sm-12 col-md-4 col-xl-3">
           <div class="function-content">
             <div class="function-title">
               <p class="title"><a href="#!">Số lượng thành viên</a></p>
@@ -68,7 +72,7 @@
             </div>
           </div>
         </div>
-        <div class="total-user-area col-sm-12 col-md-4 col-xl-3">
+        <div class="total-user-area animated pulse col-sm-12 col-md-4 col-xl-3">
           <div class="function-content">
             <div class="function-title">
               <p class="title"><a href="#!">Danh sách trúng thưởng</a></p>
@@ -80,7 +84,7 @@
             </div>
           </div>
         </div>
-        <div class="total-user-area col-sm-12 col-md-4 col-xl-3">
+        <div class="total-user-area animated pulse col-sm-12 col-md-4 col-xl-3">
           <div class="function-content">
             <div class="function-title">
               <p class="title"><a href="#!">Lịch sử trúng thưởng</a></p>

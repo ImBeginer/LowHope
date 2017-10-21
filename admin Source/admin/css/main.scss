@@ -3,9 +3,10 @@
 @import 'default';
 @import 'scrollBar';
 @import 'managerChart';
+@import 'notifi';
 
 /********************SIDEBAR*********************/
-.active {
+.c-active {
 	background-color: $sidebar-hover-color !important;
 }
 
@@ -56,13 +57,14 @@ a span.new-color {
   position: absolute;
   bottom: 0;
   padding: 5px 0;
+  width: 100%;
 }
 
 .setting-menu, 
-.log-out {
+.log-out-option {
   text-align: center;
   display: inline-block;
-  width: 106px;
+  width: 47%;
 }
 
 .rotate-setting {
