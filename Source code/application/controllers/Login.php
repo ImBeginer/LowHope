@@ -76,7 +76,8 @@ class Login extends CI_Controller {
             if($this->session->userdata('userGGExist')){
                 try {
                     $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
-                    //check isPlayer
+                    //check isPlayer                    
+                    
                     if($user->ROLE_ID == ROLE_USER){
                         //load user home page
                         $tt_game = $this->game->getGameTT();
@@ -92,10 +93,10 @@ class Login extends CI_Controller {
                         //$data['prices'] = $this->user->getData();
                         
                         $this->load->view('user/home', $data);
-                    }else{
-                        redirect(base_url());
-                    }
-                    
+                    }else{                        
+                        $this->output->delete_cache();
+                        $this->load->view('errors/error_page');
+                    }                    
                 } catch (Exception $e) {
                     log_message('error',$e->getMessage());
                     $this->load->view('errors/error_page');

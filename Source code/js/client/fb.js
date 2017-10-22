@@ -31,11 +31,8 @@ function loginFB() {
 				//phải kiểm tra xem tài khoản đã có trong db chưa,
 				//chưa có thì add vào rồi get ra ID, truyền vào 						
 				
-				console.log('Good to see you, ' + response.name + '.');
-				console.log(response);
-
 				$.ajax({
-					url: 'login/fb_CheckUserExist',
+					url: base_url + 'login/fb_CheckUserExist',
 					type: 'POST',
 					dataType: 'JSON',
 					data: {
@@ -63,7 +60,14 @@ function loginFB() {
 					}	
 				})
 				.fail(function() {
-					console.log("error");
+					$.toast({
+						heading: 'Error',
+						text: 'Có gì đó sai sai, bạn vui lòng thử lại sau giây lát ...',
+						showHideTransition: 'slide',
+						icon: 'info',
+						position: 'bottom-right',
+						hideAfter: 3000
+					})
 				})
 				.always(function() {
 					console.log("complete");

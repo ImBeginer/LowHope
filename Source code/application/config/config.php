@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -489,6 +489,7 @@ $config['compress_output'] = FALSE;
 |
 */
 $config['time_reference'] = 'local';
+
 
 /*
 |--------------------------------------------------------------------------

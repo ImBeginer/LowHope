@@ -4,7 +4,7 @@
 	<title>Capstone project</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="refresh" content="5; URL=http://localhost:8888/dgdn/">
+	<!-- <meta http-equiv="refresh" content="5; URL=http://localhost:8888/dgdn/"> -->
 
 	<!-- font awesome -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 </head>	
-<body>	
+<body>
 	<div class="container">
 		<div class="row">
 			<div class="content-area">
@@ -28,6 +28,13 @@
 				<div class="mt-5">
 					<div class="alert alert-warning" role="alert">
 					    <strong>Warning!</strong> Something was wrong, please try again...
+					</div>
+					<div>
+						<?php if($this->session->userdata('loggedInGooge')){ ?>
+							<a href="<?php echo base_url().'login/logoutGoogle'; ?>">Quay lại</a>
+						<?php }else if($this->session->userdata('loggedInFB')) { ?>	
+							<a href="javascript:void(0);" onclick="logoutFB()">Quay lại</a>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

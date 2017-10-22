@@ -396,6 +396,11 @@ form.bet-form input {
   color: $caution-color;
 }
 
+input#game-date-mul[readonly], 
+input#game-date-yn[readonly] {
+  background-color: $white;
+}
+
 /*********************FOOTER************************/
 footer {
   border-top: 1px solid $footer-word-op;
@@ -443,6 +448,10 @@ p.copy-right {
 }
 
 /*********************UPDATE INFO************************/
+div.user-form {
+  transition: all 0.5s;
+}
+
 span.sub-cap {
   font-size: 69%;
 }
@@ -957,7 +966,8 @@ div#mgyn-contact-area div.card-body {
 table.users-transaction th, 
 table.users-transaction td,
 div#mgyn-contact-area a,
-div#mgyn-content-area select.mul-mini-game option {
+div#mgyn-content-area select.mul-mini-game option,
+.tooltip-inner, .message {
   font-size: 80%;
 }
 

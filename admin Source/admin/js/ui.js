@@ -1,5 +1,10 @@
 $(function () {
 
+  $('#user-nav a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  })
+
 	$('[data-toggle="tooltip"]').tooltip();
 
 	$('.setting').on('click', function () {

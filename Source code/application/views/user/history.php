@@ -443,7 +443,7 @@
                   <!-- TODO tao mini game -->
                   <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="javascript:void(0);">Tạo mini game</a></li>
 
-                  <li class="func-items"><a href="<?php echo base_url().'userController/history'; ?>" target="_self">Lịch sử</a></li>
+                  <li class="func-items"><a href="<?php echo base_url().'user/history'; ?>" target="_self">Lịch sử</a></li>
 
                   <?php if($this->session->userdata('loggedInGooge')){ ?>
                     <li class="func-items"><a href="<?php echo base_url().'login/logoutGoogle'; ?>">Đăng xuất</a></li>

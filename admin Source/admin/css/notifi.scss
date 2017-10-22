@@ -1,0 +1,44 @@
+/********************SEARCH FORM*********************/
+.search-form-panel {
+  position: relative;
+}
+
+form.user-search-form label {
+  position: absolute;
+  z-index: 9999;
+  left: 13px;
+  top: 1px;
+  margin: 0;
+}
+
+i.search-icon {
+  color: $form-color;
+  font-size: 85%;
+}
+
+input#user-search {
+  padding: 8px 10px 8px 35px !important;
+  border-radius: 30px;
+}
+
+.user-list-panel {
+	div.function-title {
+	  border: none;
+	}
+} 
+
+.user-list-head {
+	ul li a:hover {
+		background-color: initial;	 	
+	}	
+
+	ul li a {
+	  font-size: 70%;
+	  border: none;
+	  background-color: initial;
+	}
+}
+
+li.active a {
+	color: $link-active !important;
+}
