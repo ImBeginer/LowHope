@@ -22,10 +22,6 @@ html, body {
   overflow: hidden;
 }
 
-.tooltip-inner {
-	font-size: 80%;
-}
-
 ul {
 	li {
 		list-style: none;
@@ -123,14 +119,32 @@ button#game-btn-mul,
 }
 
 input[type=text], 
-input[type=time], 
 input[type=number] {
   padding: 8px 10px !important;
 }
+
+input[type=time] {
+  padding: 7px 10px;
+}
+
 input[type=text]:invalid, 
 input[type=time]:invalid, 
 input[type=number]:invalid {
 	border: 1px solid $decrease-color;
+}
+
+.error {
+	color: $decrease-color !important;
+}
+
+.valid {
+	color: $green-circle !important;
+}
+
+.message p {
+  color: $black;
+  margin: 5px 0;
+  font-size: 80%;
 }
 
 /**********************BUTTON************************/

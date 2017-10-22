@@ -1,0 +1,208 @@
+@import 'color';
+@import 'fonts';
+@import 'default';
+@import 'scrollBar';
+@import 'managerChart';
+@import 'notifi';
+
+/********************SIDEBAR*********************/
+.c-active {
+	background-color: $sidebar-hover-color !important;
+}
+
+.manager-name {
+	width: 145px;
+	max-width: 145px;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 100%;
+}
+
+.sidebar {
+  background-color: $sidebar-color;
+  position: fixed;
+  padding: 0;
+	bottom: 0;
+	left: 0;
+	top: 0;  
+}
+
+li.manager-avatar  {
+	img {
+	  width: 40px;
+	  max-width: 40px;
+	  border-radius: 20px;
+		display: inline-block;	  
+	}
+}
+
+ul.sidebar-content {
+	padding: 15px 0;
+	li {
+	  font-size: 80%;
+	  padding: 9px 15px;
+	}
+}
+
+ul.sidebar-content li:hover {
+  background-color: $sidebar-hover-color;
+}
+
+a span.new-color {
+	color: $new !important;
+}
+
+.manager-option-area {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  padding: 5px 0;
+  width: 100%;
+}
+
+.setting-menu, 
+.log-out-option {
+  text-align: center;
+  display: inline-block;
+  width: 47%;
+}
+
+.rotate-setting {
+  transform: rotateZ(130deg);
+}
+
+.setting-menu a {
+  font-size: 100%;
+  display: inline-block;
+}
+
+.setting-menu a:hover {
+  color: initial !important;
+}
+
+/********************RIGHT SIDE CONTENT*********************/
+.main-content,
+.chart-content {
+  padding: 15px 0px;
+}
+
+.right-side-hand {
+	p, a, span {
+  	color: $black !important;
+  	margin: 0;
+	}
+	.total-user img,
+	.new-user img {
+	  width: 50px;
+	  max-width: 50px;
+	}	
+}
+
+p.title {
+  text-align: center;
+	a {
+  	font-size: 90%;
+  }
+}
+
+.function-content {
+  box-shadow: -2px 2px 7px $box-shadow;
+  padding: 0;
+  height: 250px;
+  max-height: 250px;
+}
+
+.total-user a img, 
+.new-user a img,
+.history-item img {
+  position: relative;
+  float: right;
+}
+
+.total-user, 
+.new-user {
+  padding: 13px 0px;
+  margin: 16px 0px;
+}
+
+.function-content > div {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+span.sub {
+  font-size: 65%;
+}
+
+span.num {
+  font-size: 190%;
+  font-weight: bold;
+}
+
+.function-title {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.total-user,
+.function-title {
+	border-bottom: 1px solid $border-op;
+}
+
+.trophy {
+	position: relative;
+	text-align: center;
+  top: 50px;
+	img {
+		position: absolute;
+		transform: translateX(-50%);
+	}
+}
+
+.first img {
+  width: 120px;
+  top: -14px;
+}
+.second img {
+  width: 80px;
+	left: 95px;
+	top: 14px;
+}
+.third img {
+  width: 60px;
+	right: 40px;
+	top: 34px;  
+}
+
+.trophy-small {
+	width: 45px !important;
+	max-width: 45px !important;
+}
+
+.history-item {
+  margin: 10px 0;
+}
+
+span.first-color {
+	color: $first-color !important;
+}
+
+span.second-color {
+	color: $second-color !important;
+}
+
+span.third-color {
+	color: $third-color !important;
+}
+
+.chart-content {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+div#chart > div {
+  width: 1100px !important;
+}
+
+
+
