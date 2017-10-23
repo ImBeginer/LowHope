@@ -1,0 +1,984 @@
+@import 'fonts';
+@import 'color';
+@import 'default';
+@import 'functions';
+@import 'datepickerCustom';
+@import 'highchartDarkTheme';
+@import 'googleChartCustom';
+@import 'infiniteSlideShow';
+@import 'scrollBar';
+@import 'userUpdateInfo';
+@import 'animationKey.scss';
+
+/*********************NAV BAR************************/
+span.point-title, p.user-point {
+  color: $gold-color;
+  opacity: 0.8;
+}
+
+span.point-title {
+  font-size: 70%; 
+}
+
+div.user-point-area { 
+  height: 42px;
+  p.user-point {
+    margin: 6px 0;
+  }
+}
+
+a.register, button.user-name {
+  font-size: 84%;
+}
+
+nav#my-navbar {
+  a {
+    color: $white;
+    outline: none;
+  }
+  background-color: $infinite-color !important;
+  border-bottom: 1px solid $footer-word-op;
+  width: 100%;
+}
+
+ul#user-func-dropdown {
+  li a {
+    color: $black !important;
+  }
+}
+
+li.top-bar-items {
+  position: relative;
+}
+
+.notifi-num {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  padding: 3px 7px;
+  border-radius: 30px;
+  background-color: $notifi-color;
+  p {
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+li.func-items:hover,
+li.noti-items:hover {
+  background-color: $body-color;
+}
+
+ul#user-func-dropdown,
+ul#user-notifi {
+  background-color: $footer;
+  border-bottom: 3px solid $break-line;
+  border-top: 3px solid $break-line;
+  li a {
+    color: $white !important;
+  }
+}
+
+li.func-items a,
+li.noti-items a {
+  font-size: 83%;
+  padding-left: 18px;
+}
+
+.user-name-btn {
+  position: relative;
+  top: 4px;
+}
+
+#username-btn {
+  width: 123px;
+}
+
+.user-avatar img {
+  width: 30px;
+  max-width: 30px;
+  border-radius: 18px;
+  margin: 7px 6px;
+}
+
+/*********************LOGO************************/
+.my-panel {
+  background-color: $white;
+  width: 65%;
+  padding: 27px 36px 50px;
+  @include border-radius(5px);
+  box-shadow: -2px 3px 26px $black;
+  h2 {
+    color: $black;
+  }
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.content-area {
+  padding: 100px 100px 0 100px;
+}
+
+.facebook-button,
+.google-button,
+.bitcoin-game-btn {
+  text-align: center;
+  border: 1px solid $footer-word;
+  border-radius: 23px;
+  margin: 0 25px;  
+}
+
+.bitcoin-game-btn {
+  width: 10%;
+  margin: 0 auto;
+  min-width: 135px;
+}
+
+.bitcoin-game-btn:hover {
+  border-color: $gold-color;
+  background-color: $gold-color;
+}
+
+.facebook-button {
+  padding: 4px 50px;
+}
+
+.facebook-button:hover {
+  border-color: $facebook-color;
+  background-color: $facebook-color;
+}
+
+.google-button {
+  padding: 4px 36px 4px 48px;
+}
+
+.google-button:hover {
+  border-color: $google-color;
+  background-color: $google-color;
+}
+
+.content-area {
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-color: $white;
+}
+
+#login-des,
+#bitcoin-game-des {
+  margin-top: 20px;
+  font-size: 69%;
+  text-align: center;
+}
+
+.panel-des {
+  color: $footer-word;
+}
+
+.btn-area {
+  width: 35%;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  min-width: 300px;
+}
+
+/*********************CONTENT AREA************************/
+#BTC, #SCJ, #PNJ {
+  width: 32%;
+  p {
+    font-size: 130%;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: $gold-color;    
+  }
+  span {
+    font-size: 83%;
+  }
+}
+
+.special-index {
+  margin-top: 50px;
+}
+
+.card-items p, 
+.card-items span, 
+.card-items a.title {
+  color: $black !important;
+  margin: 0;
+}
+
+.card-items {
+  border-radius: 5px;
+  vertical-align: top;
+  background-color: $white;
+  display: inline-block;
+  margin: 0 0 1em;
+  width: 100%;}
+
+p.game-opening, 
+p.game-closing {
+  top: -4px;
+  left: -20px;  
+}
+.game-opening, .game-closing {
+  margin: 0;
+  font-size: 55%;
+  display: inline;
+  padding: 5px 15px;
+  color: $white !important;  
+  text-shadow: none;
+  font-weight: 100;
+  position: relative;
+}
+.game-opening {
+  background-color: $opening-color;
+}
+
+.game-closing {
+  background-color: $closing-color;
+}
+
+a.title {
+  font-weight: bold;
+  word-break: break-word;
+  color: $black !important;
+  line-height: initial;
+  font-size: 90%;
+}
+
+p.total-transaction {
+  font-size: 270%;
+  color: $transaction-color !important;
+}
+
+span.currency-name {
+  font-size: 26%;
+  color: $black !important;
+}
+
+p.end-time {
+  font-size: 60%;
+  color: $footer-word !important;
+}
+
+.end-time-div {
+  border-top: 1px solid $footer-word-op;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+/*********************GAMES************************/
+#games-area {
+  padding: 30px 0 0 0;  
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(36, 36, 58, 1));
+}
+
+span.game-name {
+  a {
+    font-size: 69%;
+    padding: 0 10px 0;
+  }
+}
+
+span.game-name:hover a {
+  color: $gold-color !important;
+}
+
+.game-types {
+  border-bottom: 1px solid $footer-word;
+  padding-bottom: 3px;
+}
+
+.card-area {
+  margin-top: 20px;
+}
+
+.card-grid {
+  -moz-column-count: 4;
+  -webkit-column-count: 4;
+  column-count: 4;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em;
+  column-gap: 1em;
+}
+
+.content-game-area {
+  padding: 0 40px;
+}
+
+.card-content {
+  background-color: $white;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.danhmuc {
+  border-bottom: 1px solid $footer-word-op;
+  a {
+    span {
+      font-size: 69%;
+      color: $white;
+    }
+  }
+}
+
+.danhmuc a span:hover, 
+.hienlen span {
+  color: $gold-color !important;
+}
+
+.percent-panel {
+  width: 100%;
+  div {
+    display: inline-block;
+  }
+  div#increase, 
+  div#decrease {
+    height: 3px;    
+  }
+}
+
+div#increase {
+  background-color: $increase-color;
+  float: left;
+}
+
+div#decrease {
+  float: right;
+  background-color: $decrease-color;
+}
+
+span.in-num-percent {
+  float: left;
+}
+
+span.de-num-percent {
+  float: right;
+}
+
+span.in-num-percent, 
+span.de-num-percent  {
+  position: relative;
+  top: 3px;
+}
+
+label:before {
+  display: none;
+}
+
+span.time-label, label.input-title {
+  font-size: 73%;
+}
+
+form.bet-form input {
+  width: 100%;
+  background-color: $bet-input-color;
+  color: $black;
+  height: 35px;
+  padding: 0 10px;
+  -webkit-appearance: none;
+  border: 0;
+}
+
+.input-des {
+  font-size: 60%;
+  opacity: 1;
+  color: $caution-color;
+}
+
+input#game-date-mul[readonly], 
+input#game-date-yn[readonly] {
+  background-color: $white;
+}
+
+/*********************FOOTER************************/
+footer {
+  border-top: 1px solid $footer-word-op;
+  padding: 19px 0;
+  text-align: center;
+  margin-top: 32px;
+}
+
+ul#contact-item {
+  li {
+    padding: 0 15px;
+    i {
+      font-size: 35px;
+    }       
+  }
+}
+
+p.copy-right {
+  text-align: center;
+}
+
+ul#contact-item {
+  margin: 0;
+  padding: 0;
+}
+
+.break-line {
+  width: 12%;
+  height: 1px;
+  background-color: $break-line;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+div#about-us {
+  margin-top: 20px;
+  p a {
+    margin: 0 30px;
+  }
+}
+
+div#about-us p a, 
+p.copy-right {
+  font-family: $font-default-L;
+}
+
+/*********************UPDATE INFO************************/
+div.user-form {
+  transition: all 0.5s;
+}
+
+span.sub-cap {
+  font-size: 69%;
+}
+
+button.my-btn {
+  background-color: $notifi-color !important;
+}
+
+.user-info-right > div {
+  margin: 0;
+}
+
+/*********************NOTIFICATION************************/
+span.angle-down {
+  font-size: 18px;
+}
+
+.noti-content {
+  padding: 0 10px;
+  a {
+    padding: 0 !important;
+  }
+}
+
+.time-area span.send-date, 
+.time-area span.time-icon {
+  font-size: 12px;
+}
+
+.time-area span.send-date, 
+.time-area span.time-icon i {
+  color: $footer-word;
+}
+
+ul#user-notifi {
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+p.notifi-title {
+  margin: 0;
+  font-size: 100%;
+}
+
+i.fa.fa-trophy {
+  position: relative;
+  top: -4px;
+}
+
+input.notifi-checkbox {
+  width: 15px;
+}
+
+h4.panel-title {
+  font-size: 100%;
+  a {
+    color: $black !important;
+    font-weight: bold;
+  }
+}
+
+.notifi-items {
+  background-color: $white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.panel-body {
+  color: $black;
+  font-size: 90%;
+  padding: 20px;
+  border-top: 1px solid $footer-word;
+  margin-top: 20px;
+}
+
+input.notifi-checkbox,
+input#check-all-box {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  width: 21px;
+  height: 21px;
+  border: 2px dotted $notifi-color;
+  outline: none;
+}
+
+input#checkbox-all-box {
+
+  border-color: $white;
+}
+
+input.notifi-checkbox:hover {
+  border: 2px solid $notifi-color;
+}
+
+input.notifi-checkbox:checked {
+  background-color: $notifi-color;
+}
+
+.sign {
+  color: $footer-word;
+  font-size: 75%;
+  font-weight: bold;
+}
+
+.green-circle {
+  width: 10px;
+  height: 10px;
+  background-color: $green-circle;
+  border-radius: 5px;
+  border: 1px solid $green-circle;
+  margin-right: 3px;
+}
+
+.already-read {
+  background-color: initial;
+}
+
+div#notifi-popup h5, 
+div#notifi-popup .close span,
+div.world-rank .close span,
+.notifi-message,
+#world-rank-title, 
+.top-user-name,
+.top-user-point span,
+div#game-history-popup span,
+.mini-game-panel p, 
+.mini-game-panel span, 
+.mini-game-panel label {
+  color: $black;
+}
+
+/*********************SIDEBAR************************/
+.side-bar-content {
+  margin-right: 60px;
+}
+
+.icon-des {
+  text-align: center;
+  font-size: 86%;
+}
+
+ul.side-bar-menu {
+  margin: 0;
+  padding: 10px 0;
+  border: 1px solid $footer-word-op;
+  border-radius: 9px;
+  position: relative;
+  left: -24px;  
+  min-width: 135px;
+  max-width: 135px;
+  li {
+    margin: 30px 0;
+  }
+}
+
+li.side-bar-items a:hover div.icon-des, 
+li.side-bar-items a:hover div.icon-des i {
+  color: $green-circle;
+}
+
+li.side-bar-items a:hover input#checkbox-all-box {
+  border-color: $green-circle;
+}
+
+.page-title {
+  margin-bottom: 27px;
+}
+
+/*********************PAGINATION************************/
+
+a#previous, a#next {
+  font-size: 81%;
+  text-decoration: underline !important;
+}
+
+.pagination-area {
+  padding: 10px;
+}
+
+/*********************CHAT************************/
+.icon-and-chat {
+  position: relative;
+}
+
+button#chat-btn {
+  border-radius: 53px;
+  background-color: $chat-color !important;
+  width: 50px !important;
+  height: 50px !important;
+  position: fixed;
+  right: 50px;
+  top: 570px;  
+}
+
+.chat-content {
+  background-color: $chat-content;
+}
+
+.close {
+  float: right;
+  font-size: initial;
+  font-weight: 100;
+  line-height: 1;
+  color: $black;
+  text-shadow: none;
+  opacity: .5;
+}
+
+.chat-title {
+  margin: 0;
+  padding: 13px 10px;
+}
+
+.chat-title, .chat-body,
+.chat-message-area input {
+  font-size: 72%;
+}
+
+.chat-message-area input {
+  width: 100%;
+  outline: none;
+  border: 1px solid $footer-word;
+  padding: 8px;
+  border-radius: 5px;
+  color: $footer-word;
+}
+
+.chat-header {
+  border-bottom: 1px solid $footer-word-op !important;
+  background-color: $chat-title;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.chat-body, .chat-footer {
+  padding: 10px;
+  background-color: $white;
+  color: $black;
+}
+
+.chat-footer {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+h5.chat-title span {
+  color: $white;
+  cursor: pointer;
+}
+
+.chat-message textarea {
+  resize: none;
+  outline: none;
+  border: none;
+  background-color: transparent !important;
+  line-height: initial;
+  font-size: 84%;
+}
+
+.chat-message-area {
+  padding: 0;
+}
+
+.scroller-wrap {
+  overflow: hidden;
+}
+
+button#chat-btn i.fa.fa-paper-plane {
+  position: relative;
+  left: -1px;
+  top: -1px;
+}
+
+div#chat-panel {
+  width: 400px;
+  position: absolute;
+  right: 87px;
+  top: -144px;
+  display: none;
+  z-index: 999;
+}
+
+div.chat-active {
+  display: block !important;
+}
+
+/*********************RANK POPUP************************/
+.modal-content {
+  .third img {
+    width: 70px;
+  }
+  .second img {
+    width: 100px;
+  }
+  .first img {
+    width: 130px;
+  }
+}
+
+.world-rank .modal-body {
+  padding: 50px 0;
+}
+
+.top-user > div {
+  margin: 0 40px;
+}
+
+.second figure, 
+.third figure {
+  position: relative;
+  top: 15px;
+}
+
+figcaption.top-user-point {
+  font-weight: bold;
+}
+
+span.third-point {
+  color: $bronze-color;
+}
+
+span.second-point {
+  color: $sliver-color;
+}
+
+span.first-point {
+  color: $gold-color;
+}
+
+figcaption.top-user-name a {
+  color: $black !important;
+}
+
+/*********************GAMES HISTORY************************/
+ul#nav-game li a,
+table#traditional-game-table td, 
+table#traditional-game-table th,
+table#mini-game-table td, 
+table#mini-game-table th {
+  font-size: 80%;
+}
+
+div.table-game-title {
+  font-size: 100%;
+}
+
+table#traditional-game-table tr td, 
+table#traditional-game-table th,
+table#mini-game-table tr td,
+table#mini-game-table tr td div.table-game-title, 
+table#mini-game-table th,
+ul#nav-game li a,
+div#history-user-info span, 
+div#history-user-info p {
+  color: $black !important;
+}
+
+table#traditional-game-table img {
+  width: 27px;
+  max-width: 40px;
+}
+
+table#traditional-game-table tr td,
+table#traditional-game-table th,
+table#mini-game-table tr td,
+table#mini-game-table th {
+  height: 42px;
+}
+
+table#traditional-game-table tr:hover,
+table#mini-game-table tr:hover {
+  background-color: $tr-color;
+}
+
+.win {
+  color: $increase-color;
+}
+
+.lose {
+  color: $decrease-color;
+}
+
+.table-game-title {
+  width: 200px;
+}
+
+.user-info-area, 
+#game-history-popup {
+  background-color: $white;
+}
+
+#game-history-popup {
+  padding: 30px;
+}
+
+div#history-content-area, 
+div#mgyn-content-area {
+  padding: 50px 28px;
+}
+
+div#history-username-area {
+  text-align: -webkit-auto;
+}
+
+div#history-user-info {
+  padding: 10px;
+  background-color: $white;
+}
+
+#history-username {
+  max-width: 220px;
+  vertical-align: middle;
+  margin: 0;  
+}
+
+p.game-des, 
+p.game-des span, 
+.percent-panel-title, 
+.user-info p, 
+.user-info span {
+  font-size: 72%;
+}
+
+div#history-user-info span, div#history-user-info p {
+  opacity: 1;
+}
+
+/*********************GAMES CREATE POPUP************************/
+.game-tab-content {
+  padding: 0 15px;
+}
+
+label.form-check-label input {
+  margin-right: 5px;
+}
+
+/*********************MINI GAMES************************/
+.mini-game-panel {  
+  background-color: $white;
+  padding: 25px;
+  border-radius: 7px;
+}
+
+.mini-game-panel p, 
+.mini-game-panel span, 
+.mini-game-panel label,
+select.mul-mini-game {
+  font-size: 72%;
+}
+
+span.mini-game-status {
+  position: relative;
+  top: -18px;
+  left: -38px;
+}
+
+p.mini-game-title {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+p.mini-game-transaction {
+  font-size: 100%;
+  border-top: 1px solid $footer-word-op;
+  border-bottom: 1px solid $footer-word-op;
+  padding: 12px 0px;
+  color: $bet-btn-color;
+  font-weight: bold;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+p.caution {
+  color: $update-color;
+  font-size: 60%;
+}
+
+table.mini-game-conten-info {
+  width: 100%;
+}
+
+.mini-game-panel div#increase, 
+.mini-game-panel div#decrease {
+  height: 26px;
+}
+
+.mini-game-panel span.in-num-percent, 
+.mini-game-panel span.de-num-percent {
+  top: 25px;
+}
+
+div#mgyn-contact-area a {
+
+  display: block;
+}
+
+table.users-transaction {
+  width: 100%;
+}
+
+div#mgyn-contact-area div.card-body {
+  background-color: $body-color;
+  border: none;
+  padding: 0;
+}
+
+table.users-transaction th, 
+table.users-transaction td,
+div#mgyn-contact-area a,
+div#mgyn-content-area select.mul-mini-game option,
+.tooltip-inner, .message {
+  font-size: 80%;
+}
+
+div#mgyn-contact-area {
+  i, a {
+    color: $notifi-color !important;
+  }
+}
+
+div#mgyn-content-area select.mul-mini-game,
+div#mgyn-content-area select.mul-mini-game option {
+  color: $black;    
+  outline: none;
+}

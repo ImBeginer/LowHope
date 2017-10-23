@@ -1,0 +1,71 @@
+section#hot-mini-game-area {
+  position: relative;
+  overflow: hidden;
+  height: 83px;
+  max-height: 83px;
+  background-color: $infinite-color;
+}
+
+div#hot-mini-game-content {
+  height: 96px;
+  overflow-y: hidden;
+  overflow: visible;
+  display: flex;
+  width: 3000px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  animation-duration: 100s;
+  animation-name: changewidth;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  animation-play-state: running;
+}
+
+div#hot-mini-game-content:hover {
+  animation-play-state: paused;
+}
+
+.hot-item {
+  overflow: visible;
+  overflow-y: hidden;
+  width: 150px;
+  max-width: 150px;
+  height: 76px;
+  min-height: 76px;
+  padding: 8px;
+  margin: 5px 5px;
+  border-radius: 5px;  
+}
+
+.hot-item:hover {
+  background-color: rgba(200, 200, 203, 0.3);
+}
+
+.hot-item div {
+  font-size: 60% !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+span.icon-arrow-up i {  
+  color: $arrow-up;
+}
+
+span.icon-arrow-down i {
+  color: $arrow-down;
+}
+span.icon-bullet i {
+  color: $bullet;
+}
+
+span.icon-arrow-down, 
+span.icon-arrow-up {
+  font-size: 100%;
+}
+span.icon-bullet {
+  font-size: 50%;
+}
