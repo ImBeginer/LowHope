@@ -23,7 +23,7 @@ $(document).ready(function() {
 			.done(function(respone) {
 				console.log("success");
 				if(respone == 1){
-					$('#user_name').text(username);
+					$('#username-btn').text(username);
 					$('.username.ellipsis').text(username);					
 					toatMessage('Success','Chúc mừng bạn đã cập nhật thông tin thành công !','success');
 				}else {
@@ -110,16 +110,17 @@ $(document).ready(function() {
 	/**
 	 * create game yes/no
 	 */
-	
-	 $('#game-btn-yes-no').on('click', function(event) {
+	$('#game-btn-yes-no').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
-	 	var game_title = $('#game-title').val()||"";
-	 	var end_date = $('#game-date-yn').val() || "";
-	 	var end_time = $('#game-time').val() || "";
-	 	var game_bitcoin_price = $('#game-bitcoin-price').val()||"";
+	 	console.log(checkData.checked);
 
-	 	if(game_title && end_date && end_time && game_bitcoin_price){
+	 	if(checkData.checked){
+
+		 	var game_title = $('#game-title').val()||"";
+		 	var end_date = $('#game-date-yn').val() || "";
+		 	var end_time = $('#game-time').val() || "";
+		 	var game_bitcoin_price = $('#game-bitcoin-price').val()||"";
 
 	 		end_date = end_date.split('/');
 	 		end_time = end_time.split(':');
@@ -132,14 +133,17 @@ $(document).ready(function() {
 	 				url: base_url + 'gameCT/createGameYN',
 	 				type: 'POST',
 	 				dataType: 'JSON',
-	 				data: {end_date_time: end_date_time, price_bet:game_bitcoin_price},
+	 				data: {game_title: game_title, end_date_time: end_date_time, price_bet:game_bitcoin_price},
 	 			})
 	 			.done(function(respone) {
 	 				console.log("success");
-	 				if(respone == 1){
+	 				if(respone.create == 1){
+	 					$('#user-point').text(respone.user_point);
 	 					toatMessage('Success', 'Bạn đã tạo game thành công !','success');
-	 				}else if(respone == 0){
+	 				}else if(respone.create == 0){
 	 					toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
+	 				}else if(respone.create == 2){
+	 					toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
 	 				}
 	 			})
 	 			.fail(function(respone) {
@@ -153,13 +157,72 @@ $(document).ready(function() {
 	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
 	 		}
 	 	}
+	});
 
-	 });
+	/**
+	 * create game multiple choice
+	 */
+	$('#game-btn-mul').on('click', function(event) {
+		event.preventDefault();
+		/* Act on the event */
 
-	 /**
-	  * create game multi
-	  */
+ 		if(checkData.isDataChecked){
+			var game_title_mul = $('#game-title-mul').val() || "";
+			var end_date_mul = $('#game-date-mul').val() || "";
+			var end_time_mul = $('#game-time-mul').val() || "";
+			var price_below = $('#game-bitcoin-price-lower').val() || "";
+			var price_above = $('#game-bitcoin-price-upper').val() || "";
+
+			end_date_mul = end_date_mul.split('/');
+	 		end_time_mul = end_time_mul.split(':');
+ 			
+ 			var end_date_time = (new Date(end_date_mul[2],end_date_mul[1]-1,end_date_mul[0], end_time_mul[0], end_time_mul[1])).getTime();
+	 		
+	 		$.ajax({
+	 			url: base_url + 'gamect/createGameMulti',
+	 			type: 'POST',
+	 			dataType: 'JSON',
+	 			data: {game_title_mul: game_title_mul, end_date_time:end_date_time, price_below:price_below, price_above:price_above},
+	 		})
+	 		.done(function(respone) {
+	 			console.log("success");
+	 			if(respone.create == 1){
+	 				$('#user-point').text(respone.user_point); 				
+	 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
+	 			}else if(respone.create == 0){
+	 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
+	 			}else if(respone.create == 2){
+					toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
+				}
+	 		})
+	 		.fail(function(respone) {
+	 			console.log("error");
+	 		})
+	 		.always(function(respone) {
+	 			console.log("complete");
+	 		});
+ 		}
+	});
 	 
+
+
+	$('.hot-item').on('click', function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		var target = $(this);
+		var game_id = target.attr('data-gameid');
+		var game_type = target.attr('data-gametype');
+
+		if(game_type == 1){
+			window.location = 'history.php';
+
+
+		}else if(game_type == 2){
+			window.location = 'history.php';
+
+		}
+
+	});
 
 
 	/**
@@ -168,75 +231,39 @@ $(document).ready(function() {
 	countDown_End_Date(tt_game_end_date);
 });
 
-// Đếm ngược ngày kết thúc game truyền thống
-function countDown_End_Date(string_end_date) {
-	var end_date = (new Date(string_end_date)).getTime();
-	var x = setInterval(function(){
-		// Get todays date and time
-    	var now = new Date().getTime();
-    	// Find the distance between now an the count down date
-    	var distance = end_date - now;
-    	// Time calculations for days, hours, minutes and seconds
-	    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	// Đếm ngược ngày kết thúc game truyền thống
+	function countDown_End_Date(string_end_date) {
+		var end_date = (new Date(string_end_date)).getTime();
+		var x = setInterval(function(){
+			// Get todays date and time
+	    	var now = new Date().getTime();
+	    	// Find the distance between now an the count down date
+	    	var distance = end_date - now;
+	    	// Time calculations for days, hours, minutes and seconds
+		    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-	    // Output the result in an element
-	    document.getElementById("countDown").innerHTML = days + "d " + hours + "h "
-	    + minutes + "m " + seconds + "s ";
-	    
-	    // If the count down is over, write some text 
-	    if (distance < 0) {
-	        clearInterval(x);
-	        document.getElementById("countDown").innerHTML = "EXPIRED";
-	    }
-	}, 1000);
-}
-
-function toatMessage(heading,text,icon) {
-	$.toast({
-		heading: heading,
-		text: text,
-		showHideTransition: 'slide',
-		icon: icon,
-		position: 'bottom-right',
-		hideAfter: 5000
-	});
-}
-
-function validation() {
-	var elements = $("INPUT");
-	for (var i = 0; i < elements.length; i++) {
-		elements[i].oninvalid = function(e) {
-			e.target.setCustomValidity("");
-			if (!e.target.validity.valid) {
-				switch (e.target.name) {
-					default:
-					e.target.setCustomValidity("Thông tin không được để trống");
-					break;
-					case 'username':
-					if (e.target.validity.valueMissing) {
-						e.target.setCustomValidity("Thông tin không được để trống");
-					}
-					break;
-					case 'userphone':
-					if (e.target.validity.valueMissing) {
-						e.target.setCustomValidity("Số điện thoại không thể trống");
-					} else if (e.target.validity.patternMismatch) {
-						e.target.setCustomValidity("Số điện thoại không hợp lệ");
-					}
-					break;
-					case 'useraddress':
-					if (e.target.validity.valueMissing) {
-						e.target.setCustomValidity("Thông tin không được để trống");
-					}
-					break;
-				}
-			}
-		};
-		elements[i].oninput = function(e) {
-			e.target.setCustomValidity("");
-		};
+		    // Output the result in an element
+		    document.getElementById("countDown").innerHTML = days + "d " + hours + "h "
+		    + minutes + "m " + seconds + "s ";
+		    
+		    // If the count down is over, write some text 
+		    if (distance < 0) {
+		        clearInterval(x);
+		        document.getElementById("countDown").innerHTML = "EXPIRED";
+		    }
+		}, 1000);
 	}
-}
+
+	function toatMessage(heading,text,icon) {
+		$.toast({
+			heading: heading,
+			text: text,
+			showHideTransition: 'slide',
+			icon: icon,
+			position: 'bottom-right',
+			hideAfter: 5000
+		});
+	}

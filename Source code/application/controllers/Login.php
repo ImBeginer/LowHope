@@ -186,6 +186,7 @@ class Login extends CI_Controller {
             $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
             if($user->ROLE_ID == ROLE_USER){            
                 $tt_game = $this->game->getGameTT();
+                $game = $this->game->getAllGameMini();
                   
                 //set sessionUserID
                 $this->session->set_userdata('sessionUserId', $user->USER_ID);
@@ -195,6 +196,9 @@ class Login extends CI_Controller {
                 $data['USER_POINT'] = $user->USER_POINT;
                 $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
                 $data['TT_END_DATE'] = $tt_game->END_DATE;
+                
+                $data['YN'] = $game['YN'];
+                $data['MUL'] = $game['MUL'];
                 
                 //$data['prices'] = $this->user->getData();
 

@@ -102,7 +102,7 @@ class User extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->where('USER_ID', $USER_ID);
-		$user = $this->db->get('USER');
+		$user = $this->db->get('USERS');
 		$user = $user->row();
 		
 		return $user;
@@ -168,6 +168,31 @@ class User extends CI_Model {
 		if(!$this->db->update('USERS', $user)){
 			throw new Exception('Error from updateFBUser()');
 		}
+	}
+
+	public function canCreateGame($userID)
+	{
+		$user = $this->db->select('*')->where('USER_ID', $userID)->get('USERS');
+		$user = $user->row();
+		$user_point = $user->USER_POINT;
+
+		$condi = array('OWNER_ID'=>$userID, 'ACTIVE'=>1);
+
+		$result_YN = $this->db->select('*')->where($condi)->get('YN_GAMES');
+		$rows_YN = $result_YN->num_rows();
+
+		$result_MUL = $this->db->select('*')->where($condi)->get('MULTI_CHOICE_GAMES');
+		$rows_MUL = $result_MUL->num_rows();
+
+		$rows = $rows_YN + $rows_MUL;
+		return $user_point>=(450+$rows*400);
+	}
+
+	public function updatePoint($userID,$user_point)
+	{
+		$point = array('USER_POINT'=>$user_point);
+		$this->db->where('USER_ID', $userID);
+		$this->db->update('USERS', $point);
 	}
 }
 

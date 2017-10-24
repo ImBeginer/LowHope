@@ -13,6 +13,8 @@
 	<!-- font awesome -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
 
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/animation/animate.css">
+
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
 	<!-- custom css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
@@ -56,205 +58,33 @@
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
 				<div id="hot-mini-game-content" class="hot-minigame"> 
-					<div class="hot-item">
-						<a href="#!" title="Darren Till vs. Donald Cerrone">
-							<div class="title">Darren Till vs. Donald Cerrone</div>
-							<div class="runner">Darren Till</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>39.8</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Army @ Rice">
-							<div class="title">Army @ Rice</div>
-							<div class="runner">Army -13.5</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.5</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Colorado State @ Utah State">
-							<div class="title">Colorado State @ Utah State</div>
-							<div class="runner">Colorado State -8</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.0</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Temple @ East Carolina">
-							<div class="title">Temple @ East Carolina</div>
-							<div class="runner">Temple -2.5</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>50.0</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Bitcoin to fall below 3000 USD before January 1">
-							<div class="title">Bitcoin to fall</div>
-							<div class="runner">Yes</div>
-							<div class="prob">
-								<span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-								<span>37.3</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Armenia vs. Poland">
-							<div class="title">Armenia vs. Poland</div>
-							<div class="runner">Armenia</div>
-							<div class="prob">
-								<span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-								<span>6.0</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Malta vs. Lithuania">
-							<div class="title">Malta vs. Lithuania</div>
-							<div class="runner">Over 2</div>
-							<div class="prob">
-								<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-								<span>49.3</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Argentina vs. Peru">
-							<div class="title">Argentina vs. Peru</div>
-							<div class="runner">Over 3</div>
-							<div class="prob">
-								<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-								<span>54.3</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Malta vs. Lithuania">
-							<div class="title">Malta vs. Lithuania</div>
-							<div class="runner">Malta</div>
-							<div class="prob">
-								<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-								<span>22.2</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Armenia vs. Poland">
-							<div class="title">Armenia vs. Poland</div>
-							<div class="runner">Over 0.5</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.5</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Darren Till vs. Donald Cerrone">
-							<div class="title">Darren Till vs. Donald Cerrone</div>
-							<div class="runner">Darren Till</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>39.8</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Army @ Rice">
-							<div class="title">Army @ Rice</div>
-							<div class="runner">Army -13.5</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.5</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Colorado State @ Utah State">
-							<div class="title">Colorado State @ Utah State</div>
-							<div class="runner">Colorado State -8</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.0</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Temple @ East Carolina">
-							<div class="title">Temple @ East Carolina</div>
-							<div class="runner">Temple -2.5</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>50.0</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Bitcoin to fall below 3000 USD before January 1">
-							<div class="title">Bitcoin to fall</div>
-							<div class="runner">Yes</div>
-							<div class="prob">
-								<span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-								<span>37.3</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Armenia vs. Poland">
-							<div class="title">Armenia vs. Poland</div>
-							<div class="runner">Armenia</div>
-							<div class="prob">
-								<span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-								<span>6.0</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Malta vs. Lithuania">
-							<div class="title">Malta vs. Lithuania</div>
-							<div class="runner">Over 2</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.3</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Argentina vs. Peru">
-							<div class="title">Argentina vs. Peru</div>
-							<div class="runner">Over 3</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>54.3</span>
-							</div>
-						</a>
-					</div>
-					<div class="hot-item">
-						<a href="#!" title="Malta vs. Lithuania">
-							<div class="title">Malta vs. Lithuania</div>
-							<div class="runner">Malta</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>22.2</span>
-							</div>
-						</a>
-					</div><div class="hot-item">
-						<a href="#!" title="Armenia vs. Poland">
-							<div class="title">Armenia vs. Poland</div>
-							<div class="runner">Over 0.5</div>
-							<div class="prob">
-								<span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								<span>49.5</span>
-							</div>
-						</a>
-					</div>
+
+					<?php foreach ($YN as $value): ?>
+						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
+							<a href="#!" title="<?php echo $value['TITLE']; ?>">
+								<div class="title"><?php echo $value['TITLE']; ?></div>
+								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
+								<div class="prob">
+									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+									<span><?php echo $value['PLAYER_COUNT']*10 ?></span>
+								</div>
+							</a>
+						</div>						
+					<?php endforeach ?>
+					
+					<?php foreach ($MUL as $value): ?>
+						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
+							<a href="#!" title="<?php echo $value['TITLE']; ?>">
+								<div class="title"><?php echo $value['TITLE']; ?></div>
+								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
+								<div class="prob">
+									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+									<span><?php echo $value['PLAYER_COUNT']*10 ?></span>
+								</div>
+							</a>
+						</div>
+					<?php endforeach ?>
+
 				</div>
 			</section>    
 			<!-- /.infinite slideshow -->
@@ -466,13 +296,14 @@
 			            		<img src="<?php echo $this->session->userdata('userData')['USER_AVATAR']; ?>" alt="user default">
 			            	</div>
 			            </li>
-			            <!-- end avatar -->  
+			            <!-- end avatar -->
+
 			            <!-- information of user -->
-						<li class="nav-item" data-toggle="tooltip" data-placement="top" title="Thông tin tài khoản">
+						<li class="nav-item" data-toggle="tooltip" data-placement="top" title="<?php echo $USER_NAME; ?>">
 							<!-- user dropdown button -->
 							<div class="dropdown">
-								<button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-									<span id="user_name"><?php echo $USER_NAME; ?></span>
+								<button id="username-btn" class="user-name btn btn-primary dropdown-toggle cursor-pointer ellipsis" type="button" data-toggle="dropdown">
+									<?php echo $USER_NAME; ?>
 									<span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
 								</button>
 								<ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
@@ -501,7 +332,7 @@
 									<div class="modal-content">
 										<div class="modal-header">
 											<h5 class="modal-title" id="create-mini-game">Tạo mini game</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close" title="Đóng">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
@@ -520,75 +351,77 @@
 										<div class="tab-content game-tab-content">
 											<!-- yes/no game -->
 											<div role="tabpanel" class="tab-pane active" id="yes-no-game">
-												<form name="yes-no-create">
+												<div class="user-form form" action="#!">
+													<div class="message"></div>
 													<div class="form-group">
 														<label for="game-title">Tên game</label>
-														<input type="text" class="form-control d-inline-block" id="game-title" required>                
+														<input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>                
 													</div>
 													<div class="form-group d-inline-block">
 														<label for="game-date">Vào ngày</label>
-														<input type="text" class="form-control d-inline-block" id="game-date-yn" required>
+														<input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required>
 													</div>
 													<div class="form-group d-inline-block">
 														<label for="game-time">Kết thúc vào lúc</label>
-														<input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1" required>
+														<input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required>
 													</div>
 													<div class="form-group">
 														<label for="game-bitcoin-price">Giá Bitcoin trên</label>
-														<input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" required>
-													</div> 													 
+														<input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" required>
+													</div>
 													<div class="form-group submit-area">
-														<button type="submit" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
+														<button type="button" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 													</div>                                         
-												</form>
+												</div>
 											</div>
 											<!-- end yes/no game -->
-											<!-- multi game -->
+
+											<!-- create game multi -->
 											<div role="tabpanel" class="tab-pane" id="multi-choice-game">
-												<form action="#!" name="mul-create">
+												<div class="user-form form" action="#!">
+													<div class="message"></div>
 													<div class="form-group">
 														<label for="game-title">Tên game</label>
-														<input type="text" class="form-control d-inline-block" id="game-title" required>                
+														<input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,35}$" required>                
 													</div>              
 													<div class="form-group d-inline-block">
 														<label for="game-date">Vào ngày</label>
-														<input type="text" class="form-control d-inline-block" id="game-date-mul" required>
+														<input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required>
 													</div>
 													<div class="form-group d-inline-block">
 														<label for="game-time">Kết thúc vào lúc</label>
-														<input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1" required>
+														<input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1" required>
 													</div>
 													<div class="form-group">
 														<label for="">Giá Bitcoin ?</label>
 													</div>              
 													<div class="form-group d-inline-block mr-3">
-														<label class="d-block" for="game-bitcoin-price-upper">Trên</label>
-														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" required>
-													</div> 
-													<div class="form-group d-inline-block mr-3">
 														<label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
-														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" required>     
+														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" required>     
 													</div>            
+													<div class="form-group d-inline-block mr-3">
+														<label class="d-block" for="game-bitcoin-price-upper">Trên</label>
+														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" pattern="^\\d{1,10}$" required>
+													</div> 
 													<div class="form-group d-inline-block mr-3">  
 														<label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
-														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" required>
+														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>
 													</div>
 													<div class="form-group d-inline-block mr-3">
-														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" required>    
+														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>    
 													</div>                              
 													<div class="form-group submit-area">
+														<button type="submit" class="btn-height cursor-pointer" id="game-btn-mul" name="game-btn-mul">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-														<button type="submit" class="btn-height cursor-pointer" id="game-btn-multi" name="game-btn-multi" data-dismiss="modal">Tạo </button>
 													</div>                                         
-												</form>
+												</div>
 											</div>
-											<!-- end multi game -->
+											<!-- end create game multi -->
 										</div><!-- /.tab game -->             
 									</div>
 								</div>
-							</div>
-							<!-- end create game popup -->					
+							</div><!-- /.create game popup -->					
 
 							<!-- user update form -->
 							<div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -597,7 +430,7 @@
 									<div id="user-update-info" class="modal-content">
 										<div class="modal-header user-header">
 											<h5 class="user-func-title">Cập nhật thông tin</h5>
-											<button type="button" class="close user-btn-close cursor-pointer" data-dismiss="modal" aria-label="Close">
+											<button type="button" class="close user-btn-close cursor-pointer" data-dismiss="modal" aria-label="Close" title="Đóng">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
@@ -630,8 +463,8 @@
 												</div><!-- /.user info -->
 											</div>
 											<div class="submit-area form-group">
-												<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 												<button type="submit" class="btn-height update-btn cursor-pointer" id="update-btn">Cập nhật</button>
+												<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 											</div>                     
 										</form><!-- /.user update info -->
 
@@ -741,8 +574,13 @@
 	<!-- high chart display -->
 	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
 
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/yesNoGame.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/checkData.js"></script>	
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
+	
 </body>
 </html>

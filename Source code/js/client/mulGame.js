@@ -1,24 +1,24 @@
 var mulGame = (function () {
 
 	var inputID = {
-		'game-title': 'Tên game',
+		'game-title-mul': 'Tên game',
 		'game-date-mul': 'Ngày kết thúc',
-		'game-time': 'Thời gian kết thúc',
+		'game-time-mul': 'Thời gian kết thúc',
 		'game-bitcoin-price-upper': 'Giá bitcoin trên khoảng',
 		'game-bitcoin-price-lower': 'Giá bitcoin dưới khoảng',
 	};
 
 	var validFormat = {
 
-		'game-title': '^.{6,35}$',
-		'game-bitcoin-price-upper': '^\\d{7,10}$',
-		'game-bitcoin-price-lower': '^\\d{7,10}$'
+		'game-title-mul': '^.{6,35}$',
+		'game-bitcoin-price-upper': '^\\d{1,10}$',
+		'game-bitcoin-price-lower': '^\\d{1,10}$'
 
 	};
 
 	var invalidFormatMessage = {
 
-		'game-title': 'Tên game phải chứa từ 6 đến 35 ký tự',
+		'game-title-mul': 'Tên game phải chứa từ 6 đến 35 ký tự',
 		'game-bitcoin-price-upper': 'Giá bitcoin trên khoảng phải trên 1 triệu và dưới 1 tỷ VNĐ',
 		'game-bitcoin-price-lower': 'Giá bitcoin dưới khoảng phải trên 1 triệu và dưới 1 tỷ VNĐ',
 
@@ -29,7 +29,7 @@ var mulGame = (function () {
 	}
 
 	var inputs = function () {
-		return ['input#game-title', 'input#game-date-mul', 'input#game-time', 'input#game-bitcoin-price-upper', 'input#game-bitcoin-price-lower'];
+		return ['input#game-title-mul', 'input#game-date-mul', 'input#game-time-mul', 'input#game-bitcoin-price-upper', 'input#game-bitcoin-price-lower'];
 	};
 
 

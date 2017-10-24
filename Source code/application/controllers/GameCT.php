@@ -58,31 +58,90 @@ class GameCT extends CI_Controller {
 		}
 	}
 
+	/**
+	 * [createGameYN description]
+	 * @return [type] [description]
+	 */
 	public function createGameYN()
 	{
-		if(isset($_POST['end_date_time']) && isset($_POST['price_bet'])){
+		if(isset($_POST['game_title']) && isset($_POST['end_date_time']) && isset($_POST['price_bet'])){
 
 			try {				
 				$userID = $this->session->userdata('sessionUserId');
 
-				$end_date = $this->input->post('end_date_time');
-				$end_date = date('Y-m-d H:i:s', (double)$end_date/1000);
+				//check tai khoan co du tien tao game khong
+				if($this->user->canCreateGame($userID)){
 
-				$price_bet = $this->input->post('price_bet');
-				$start_date = date('Y-m-d H:i:s');
+					$user = $this->user->getUserById($userID);
+					$user_point = $user->USER_POINT;
 
-				if(!$this->game->checkGameYN($userID,$start_date,$end_date)){
-					$this->game->createGameYN($userID,$end_date,$price_bet,$start_date);
-					echo json_encode("1");					
+					$game_title = $this->input->post('game_title');
+
+					$end_date = $this->input->post('end_date_time');
+					$end_date = date('Y-m-d H:i:s', (double)$end_date/1000);
+
+					$price_bet = $this->input->post('price_bet');
+					$start_date = date('Y-m-d H:i:s');
+
+					if(!$this->game->checkGameYN($userID, $start_date, $end_date)){
+						$this->game->createGameYN($userID, $game_title, $end_date, $price_bet, $start_date);
+
+						$user_point = $user_point - 50;
+						$this->user->updatePoint($userID,$user_point);
+
+						$userNew = $this->user->getUserById($userID);
+						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT));					
+					}else{
+						echo json_encode(array('create'=>0));
+					}
 				}else{
-					echo json_encode("0");
+					echo json_encode(array('create'=>2));
 				}
-
 			} catch (Exception $e) {
-				file_put_contents(APPPATH.'logs/lowhope.log',"\n".$e->getMessage()." IN FILE ".$e->getfile()." AT LINE :".$e->getline(),FILE_APPEND);
+				file_put_contents(APPPATH.'logs/lowhope.log',"\n".$e->getMessage()." IN FILE ".$e->getfile()." AT LINE :".$e->getline(), FILE_APPEND);
 				echo json_encode("0");
 			}
 
+		}
+	}
+
+	public function createGameMulti()
+	{
+		if(isset($_POST['game_title_mul']) && isset($_POST['end_date_time']) && isset($_POST['price_below']) && isset($_POST['price_above'])){
+			try {
+				$userID = $this->session->userdata('sessionUserId');
+
+				if($this->user->canCreateGame($userID)){
+					$user = $this->user->getUserById($userID);
+					$user_point = $user->USER_POINT;
+
+					$game_title = $this->input->post('game_title_mul');
+					$start_date = date('Y-m-d H:i:s');
+
+					$end_date = $this->input->post('end_date_time');
+					$end_date = date('Y-m-d H:i:s', (double)$end_date/1000);
+
+					$price_below = $this->input->post('price_below');
+					$price_above = $this->input->post('price_above');
+
+					if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
+						$this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
+
+						$user_point = $user_point - 50;
+						$this->user->updatePoint($userID,$user_point);
+
+						$userNew = $this->user->getUserById($userID);
+						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT));
+					}else{
+						echo json_encode(array('create'=>0));
+					}
+				}else{
+					echo json_encode(array('create'=>2));
+				}
+			} catch (Exception $e) {
+				file_put_contents(APPPATH.'logs/lowhope.log',"\n".$e->getMessage()." IN FILE ".$e->getfile()." AT LINE :".$e->getline(), FILE_APPEND);
+				echo json_encode("0");
+			}
 		}
 	}
 

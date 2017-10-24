@@ -10,7 +10,7 @@ var yesnogame = (function () {
 	var validFormat = {
 
 		'game-title': '^.{6,35}$',
-		'game-bitcoin-price': '^\\d{7,10}$'
+		'game-bitcoin-price': '^\\d{1,10}$'
 
 	};
 

@@ -5,8 +5,7 @@ class Game extends CI_Model {
 
 	public function __construct()
 	{
-		parent::__construct();
-		
+		parent::__construct();		
 	}
 
 	/********************************* GAME TT ***********************************************/
@@ -79,7 +78,33 @@ class Game extends CI_Model {
 	}
 
 
-	/********************** GAME MINI **************************/
+	/********************************************* GAME MINI *********************************************/
+	/**
+	 * [getAllGameMini description]
+	 * @return [type] [description]
+	 */
+	public function getAllGameMini()
+	{
+		$game = array();
+
+		$result_YN = $this->db->select('YN_GAMES.GAME_ID, YN_GAMES.OWNER_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.PLAYER_COUNT')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID')->where('YN_GAMES.ACTIVE',1);		
+
+		$result_YN = $this->db->get();
+
+		if($result_YN !== FALSE && $result_YN->num_rows()>0){
+			$game['YN'] = $result_YN->result_array();
+		}
+
+		$result_MUL = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, MULTI_CHOICE_GAMES.OWNER_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.PLAYER_COUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.ACTIVE',1);		
+
+		$result_MUL = $this->db->get();
+
+		if($result_MUL !== FALSE && $result_MUL->num_rows()>0){
+			$game['MUL'] = $result_MUL->result_array();
+		}
+
+		return $game;
+	}
 
 	/**
 	 * [createGameYN description]
@@ -89,11 +114,12 @@ class Game extends CI_Model {
 	 * @param  [type] $start_date [description]
 	 * @return [type]             [description]
 	 */
-	public function createGameYN($userID,$end_date,$price_bet,$start_date)
+	public function createGameYN($userID,$game_title,$end_date,$price_bet,$start_date)
 	{
 		$game = array(
 					'OWNER_ID' 		=> $userID,
 					'CUR_TYPE_ID' 	=> 1,
+					'TITLE'			=> $game_title,
 					'START_DATE' 	=> $start_date,
 					'END_DATE' 		=> $end_date,
 					'PRICE_BET' 	=> $price_bet,
@@ -125,12 +151,69 @@ class Game extends CI_Model {
 				);
 		$this->db->select('*');
 		$this->db->where($condi);
-		$result = $this->db->get('YN_GAMESS');
+		$result = $this->db->get('YN_GAMES');
 		if($result){
 			$rows = $result->num_rows();
 			return $rows>0;
 		}else{
 			throw new Exception('Error from function checkGameYN()');
+		}
+	}
+
+	/**
+	 * [createGameMulti description]
+	 * @param  [type] $userID      [description]
+	 * @param  [type] $game_title  [description]
+	 * @param  [type] $start_date  [description]
+	 * @param  [type] $end_date    [description]
+	 * @param  [type] $price_below [description]
+	 * @param  [type] $price_above [description]
+	 * @return [type]              [description]
+	 */
+	public function createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above)
+	{
+		$game = array(
+					'OWNER_ID' 		=> $userID,
+					'CUR_TYPE_ID' 	=> 1,
+					'TITLE'			=> $game_title,
+					'START_DATE' 	=> $start_date,
+					'END_DATE' 		=> $end_date,
+					'PRICE_BELOW' 	=> $price_below,
+					'PRICE_ABOVE'	=> $price_above,
+					'PLAYER_COUNT' 	=> 0,
+					'ACTIVE' 		=>1
+				);
+		$result = $this->db->insert('MULTI_CHOICE_GAMES', $game);
+
+		if($result){
+			return $this->db->insert_id();
+		}else{
+			throw new Exception("Error from function createGameMulti()");
+		}
+	}
+
+	/**
+	 * [checkGameMulti description]
+	 * @param  [type] $userID     [description]
+	 * @param  [type] $start_date [description]
+	 * @param  [type] $end_date   [description]
+	 * @return [type]             [description]
+	 */
+	public function checkGameMulti($userID,$start_date,$end_date)
+	{
+		$condi = array(
+					'OWNER_ID' 		=> $userID,
+					'START_DATE' 	=> $start_date,
+					'END_DATE'		=> $end_date
+				);
+		$this->db->select('*');
+		$this->db->where($condi);
+		$result = $this->db->get('MULTI_CHOICE_GAMES');
+		if($result){
+			$rows = $result->num_rows();
+			return $rows>0;
+		}else{
+			throw new Exception('Error from function checkGameMulti()');
 		}
 	}
 }
