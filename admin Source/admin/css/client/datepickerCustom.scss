@@ -1,0 +1,55 @@
+div#ui-datepicker-div {
+  background-color: $footer-word !important;
+  table {
+  	tr {
+  		td {
+  			a.ui-state-default {
+  				background: $footer-word;
+			    border-radius: 6px;
+  			}
+
+  			a.ui-state-highlight {
+  				border-bottom: 2px solid #dad55e !important;
+  			}
+
+  			a.ui-state-hover {
+  				border: none;
+  				background-color: $footer !important;
+  			}
+  		}
+  	}
+  }
+}
+.ui-state-default, 
+.ui-widget-content .ui-state-default,
+a.ui-datepicker-next.ui-corner-all, 
+a.ui-datepicker-prev.ui-corner-all {
+	border: none;
+	background: initial;
+}
+
+div.ui-widget-header {
+	border: none;
+	background: initial;
+}
+
+select.ui-datepicker-month, 
+select.ui-datepicker-year, 
+select.ui-datepicker-month option, 
+select.ui-datepicker-year option {
+  font-size: 80% !important;
+  outline: none;
+  border-radius: 3px;
+  background-color: $footer-word;
+}
+
+select.ui-datepicker-month, 
+select.ui-datepicker-year {
+  margin: 0 2px !important;
+}
+
+div#ui-datepicker-div {
+  border-radius: 14px;
+  border-bottom: 4px solid $notifi-color;
+  border-top: 4px solid $notifi-color;
+}

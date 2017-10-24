@@ -1,0 +1,25 @@
+$font-default-B: 'OpenSans-SB-I';
+$font-default-R: 'OpenSans-R';
+$font-default-I: 'OpenSans-B';
+$font-default-L: 'OpenSans-L';
+
+@font-face {
+	font-family: $font-default-B;
+	src: url('../../assets/fonts/RobotoMono-Bold.ttf');
+}
+
+@font-face {
+	font-family: $font-default-R;
+	src: url('../../assets/fonts/RobotoMono-Regular.ttf');
+}
+
+@font-face {
+	font-family: $font-default-I;
+	src: url('../../assets/fonts/RobotoMono-Italic.ttf');
+}
+
+@font-face {
+	font-family: $font-default-L;
+	src: url('../../assets/fonts/RobotoMono-Light.ttf');
+}
+
