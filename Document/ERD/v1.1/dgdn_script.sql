@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS dgdn;
+DROP DATABASE IF EXISTS lowhope_db;
 
-CREATE DATABASE dgdn;
+CREATE DATABASE lowhope_db;
 
 use dgdn;
 
@@ -183,9 +183,8 @@ CREATE TABLE MULTI_CHOICE_GAMES (
   CONTENT nvarchar(255),
   START_DATE datetime NOT NULL, 
   END_DATE datetime NOT NULL,
-  PRICE_BET double NOT NULL, 
-  BETWEEN_DOWN double, 
-  BETWEEN_UP double,
+  PRICE_BELOW double, 
+  PRICE_ABOVE double,
   RESULT double, 
   PLAYER_COUNT int(2) NOT NULL, 
   ACTIVE tinyint(1) NOT NULL, 
@@ -198,9 +197,9 @@ CREATE TABLE MULTI_CHOICE_GAMES (
 CREATE TABLE MULTI_CHOICE_GAME_LOGS (
   USER_ID int(11), 
   GAME_ID int(11), 
-  PRICE_BELOW double NOT NULL, 
-  PRICE_BETWEEN double NOT NULL, 
-  PRICE_ABOVE double NOT NULL,
+  PRICE_BELOW boolean NOT NULL, 
+  PRICE_BETWEEN boolean NOT NULL, 
+  PRICE_ABOVE boolean NOT NULL,
   ANS_TIME datetime NOT NULL,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references MULTI_CHOICE_GAMES(GAME_ID)
