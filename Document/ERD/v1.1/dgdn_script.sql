@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS lowhope_db;
 
 CREATE DATABASE lowhope_db;
 
-use dgdn;
+use lowhope_db;
 
 -- ROLE
 
