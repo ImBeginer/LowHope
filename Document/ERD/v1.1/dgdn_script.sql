@@ -108,7 +108,7 @@ CREATE TABLE SYSTEM_GAMES (
   END_DATE datetime NOT NULL, 
   ACTIVE tinyint(1) NOT NULL,
   PRICE_BET double NOT NULL, 
-  RESULT double NOT NULL,
+  RESULT double,
   CUR_TYPE_ID int(11),
   primary key(GAME_ID),
   foreign key(CUR_TYPE_ID) references CURRENCY_TYPE(TYPE_ID)
