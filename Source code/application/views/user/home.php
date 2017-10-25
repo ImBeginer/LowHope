@@ -299,7 +299,7 @@
 			            <!-- end avatar -->
 
 			            <!-- information of user -->
-						<li class="nav-item" data-toggle="tooltip" data-placement="top" title="<?php echo $USER_NAME; ?>">
+						<li class="nav-item" id="tooltip-username" data-toggle="tooltip" data-placement="top" title="<?php echo $USER_NAME; ?>">
 							<!-- user dropdown button -->
 							<div class="dropdown">
 								<button id="username-btn" class="user-name btn btn-primary dropdown-toggle cursor-pointer ellipsis" type="button" data-toggle="dropdown">
@@ -367,7 +367,7 @@
 													</div>
 													<div class="form-group">
 														<label for="game-bitcoin-price">Giá Bitcoin trên</label>
-														<input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" required>
+														<input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" step="0.01" required>
 													</div>
 													<div class="form-group submit-area">
 														<button type="button" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
@@ -434,11 +434,11 @@
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
+										<div class="message"></div>
 										<!-- user update info -->
-										<form class="user-form">
+										<div class="user-form form">
 											<div class="row">
 												<div class="user-info-left col-3 form-group">
-
 													<!-- user avatar -->
 													<div class="user-ava-area">
 														<img class="user-avatar" src="<?php echo $this->session->userdata('userData')['USER_AVATAR']; ?>" alt="User's avatar">
@@ -466,7 +466,7 @@
 												<button type="submit" class="btn-height update-btn cursor-pointer" id="update-btn">Cập nhật</button>
 												<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 											</div>                     
-										</form><!-- /.user update info -->
+										</div><!-- /.user update info -->
 
 									</div><!-- /.modal content -->
 
@@ -578,7 +578,6 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/yesNoGame.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/checkData.js"></script>	
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
 	
