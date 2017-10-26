@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="vendor/animation/animate.css">
+  <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- notification content -->
+<div class="notification-content container-fluid">
+  <!-- side bar -->
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="sidebar-content nav nav-sidebar">
+        <li class="manager-avatar c-active">
+          <img src="img/ava-default.png" alt="avatar">
+          <div class="manager-name">Vinh Nguyễn</div>
+        </li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website">Tổng quát</li>        
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Người thắng cuộc trong game gần nhất">Thắng cuộc</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách thành viên biến động trong tháng">Thành viên</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Quay về trang chủ">Trang chủ</li>
+      </ul>
+      <div class="manager-option-area c-active">
+        <div class="dropup setting-menu">
+          <a class="setting dropdown-toggle cursor-pointer" id="setting-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu animated bounceIn" aria-labelledby="setting-item">
+            <a class="dropdown-item black" href="#!">Sửa thông tin</a>
+            <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
+          </div>
+        </div>
+        <div class="log-out-option">
+          <a class="log-out" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.side bar -->
+  <!-- right side hand -->
+  <div class="row">
+    <div id="user-notifi-send-panel" class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 user-content">
+      <div class="main-function">
+        
+        <div class="row">
+
+          <!-- user list panel -->
+          <div class="user-list-panel col-sm-12 col-md-5 col-xl-5">
+            <div class="function-title">
+              <p class="title">Danh sách thành viên</p>
+            </div>
+            <!-- search form -->
+            <div class="search-form-panel">
+              <form class="form-group user-search-form">
+                <label for="user-search">
+                  <i class="fa fa-search search-icon" aria-hidden="true"></i>
+                  <span class="sr-only">Tìm kiếm</span>
+                </label>
+                <div class="full-width input-group">
+                  <input type="text" class="form-control" id="user-search" placeholder="Tìm kiếm">
+                </div>
+              </form>              
+            </div><!-- /.search form -->
+
+            <!-- user list content -->
+            <div class="user-list-content">
+              <div class="user-list-head">
+                <ul id="user-nav" class="nav nav-tabs">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#all-user">Tất cả</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#new-user">Mới</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#top-user">TOP 3 dự đoán</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content">
+                <!-- all user tab -->
+                <div id="all-user" class="tab-pane active" role="tabpanel" >
+                  <div class="user-list-subhead">
+                    <span class="sub">* Danh sách tất cả người chơi</span>
+                  </div>
+                  <div class="pre-scrollable pre-height">
+                    <!-- all user list -->
+                    <ul id="all-user-list" class="user-list">
+                      <li id="users-1" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">John Snow</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="1" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-2" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Sarah Higgle</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="2" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>  
+                      <li id="users-3" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">James Miller</p>
+                          <p class="text-right tag manager-tag">MANAGER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="3" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-4" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Martin Descker</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="4" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-5" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Kim Bauer</p>
+                          <p class="text-right tag manager-tag">MANAGER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="5" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>                                                                                      
+                    </ul><!-- /.all user list -->
+                  </div>
+                  <div class="select-all black">
+                    <input type="checkbox" name="all-users" value="-1" class="user-check-all-box d-inline-block custome-checkbox" data-panel="all-user">&nbsp;<span>Chọn tất</span>
+                  </div>
+                </div><!-- /.all user tab -->
+
+                <!-- new user tab -->
+                <div id="new-user" class="tab-pane" role="tabpanel" >
+                  <div class="user-list-subhead">
+                    <span class="sub">* Danh sách thành viên mới trong tháng</span>
+                  </div>
+                  <div class="pre-scrollable pre-height">
+                    <!-- new use list -->
+                    <ul id="new-user-list" class="user-list">
+                      <li id="users-1" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">John Snow</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="1" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-2" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Sarah Higgle</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="2" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>  
+                      <li id="users-3" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">James Miller</p>
+                          <p class="text-right tag manager-tag">MANAGER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="3" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-4" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Martin Descker</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="4" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-5" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Kim Bauer</p>
+                          <p class="text-right tag manager-tag">MANAGER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="5" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>                                                                                      
+                    </ul><!-- /.new use list -->
+                  </div>
+                  <div class="select-all black">
+                    <input type="checkbox" name="new-users" value="-1" class="user-check-all-box d-inline-block custome-checkbox" data-panel="new-user">&nbsp;<span>Chọn tất</span>
+                  </div>      
+                </div><!-- /.new user tab --> 
+
+                <!-- top user tab -->  
+                <div id="top-user" class="tab-pane" role="tabpanel" >
+                  <div class="user-list-subhead">
+                    <span class="sub">* Danh sách người chơi thắng cuộc game dự đoán gần nhất</span>
+                  </div>
+                  <div class="user-list pre-scrollable pre-height">
+                    <!-- top user list -->
+                    <ul id="top-user-list" class="user-list">
+                      <li id="users-1" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">John Snow</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="1" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>
+                      <li id="users-2" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">Sarah Higgle</p>
+                          <p class="text-right tag user-tag">USER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="2" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>  
+                      <li id="users-3" class="users">
+                        <div class="user-ava">
+                          <img src="img/ava-default.png" alt="Ảnh đại diện">
+                          <p class="user-name ellipsis cursor-pointer">James Miller</p>
+                          <p class="text-right tag manager-tag">MANAGER</p>
+                          <p class="user-date text-right">Đăng ký: 24/10/2017</p>
+                          <input type="checkbox" name="users-id" value="3" class="user-check-box d-inline-block custome-checkbox">
+                        </div>
+                      </li>                                                                                    
+                    </ul><!-- /.top user list -->
+                  </div>
+                  <div class="select-all black">
+                    <input type="checkbox" name="top-users" value="-1" class="user-check-all-box d-inline-block custome-checkbox" data-panel="top-user">&nbsp;<span>Chọn tất</span>
+                  </div>                    
+                </div><!-- /.top user tab --> 
+
+              </div>
+            </div><!-- user list content -->
+          </div><!-- /.user list panel-->
+
+          <!-- notifi panel -->
+          <div class="notifi-panel col-sm-12 col-md-7 col-xl-7">
+            <div class="top-panel">
+               <div class="user-pop">
+                  <div class="col-sm-12 col-md-12 col-xl-12">
+                    <div class="function-title">
+                      <p class="title">Thông tin chi tiết</p>
+                    </div>
+
+                    <!-- user detail -->
+                    <div class="user-detail animated flipInX">
+                      <!-- user percent -->
+                      <div class="percent-panel mt-3">
+                        <p class="percent-panel-title">Tỷ lệ thắng thua:</p>
+                        <div id="increase" class="user-percent" data-toggle="tooltip" data-placement="top" title="Thắng">
+                          <span class="in-num-percent">50%</span>
+                        </div>
+                        <div id="decrease" class="user-percent" data-toggle="tooltip" data-placement="top" title="Thua">
+                          <span class="de-num-percent">50%</span>
+                        </div>
+                      </div><!-- /.user percent -->                     
+                      <table class="user-detail-info">
+                        <tr>
+                          <td>Họ tên: </td>
+                          <td>Nguyễn Văn Vinh</td>
+                        </tr>
+                        <tr>
+                          <td>Số điện thoại:</td>
+                          <td>+841659053380</td>
+                        </tr>
+                        <tr>
+                          <td>Địa chỉ:</td>
+                          <td>Hà Nội</td>
+                        </tr>
+                        <tr>
+                          <td>Email:</td>
+                          <td>vinhnvse03927@fpt.edu.vn</td>
+                        </tr>                      
+                        <tr>
+                          <td>Thắng:</td>
+                          <td>17 lần</td> 
+                        </tr>
+                        <tr>
+                          <td>Thua:</td>
+                          <td>100 lần</td>
+                        </tr>
+                        <tr>
+                          <td>Tổng:</td>
+                          <td>117 lần</td>
+                        </tr>
+                      </table>                     
+                    </div><!-- /.user detail -->
+
+                  </div>
+               </div>
+            </div>
+          </div><!-- /.notifi panel -->
+          <div class="send-notifi-panel col-sm-12 col-md-7 col-xl-7">
+
+            <div class="bottom-panel">
+              <div class="send-notifi">
+                <textarea name="notifi-content" id="notifi-panel" class="custome-textarea" placeholder="Thông báo..."></textarea>
+                <button id="btn-send-notifi" class="btn btn-notifi cursor-pointer">Gửi</button>
+                <div class="send-option">
+                  <label class="form-check-label">
+                    <input id="notifi-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="0" checked>Thông báo
+                  </label>
+                  <label class="form-check-label">  
+                    <input id="mail-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="1">Mail
+                  </label> 
+                  <label class="form-check-label">  
+                    <input id="both-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="1">Cả hai
+                  </label>                                   
+                </div>
+              </div>
+              <div class="message">
+                <!-- <p class="animated bounceIn">ASDme q asdQE dxcvsdf e</p> -->
+              </div>
+            </div> 
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.right side hand -->
+</div><!-- /.notification content -->
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/nofiti.js"></script>
+<script src="js/checkData.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

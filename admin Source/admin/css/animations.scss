@@ -1,0 +1,27 @@
+@keyframes checkboxAni {
+	0% {
+		font-size: 60%;
+	}
+	50% {
+		font-size: 100%;
+	}
+	100% {
+		font-size: 60%;
+	}
+}
+
+@keyframes radioClick {
+  from {
+    height: 0px;
+    width: 0px;
+    opacity: 1;    
+  }
+
+  to {
+    height: 50px;
+    width: 50px;
+    opacity: 0;
+    margin-left: -19px;
+    margin-top: -18px;
+  }
+}

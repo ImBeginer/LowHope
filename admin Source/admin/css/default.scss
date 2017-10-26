@@ -6,14 +6,14 @@
 	color: $white
 }
 
-.black {
-  color: $black !important;
-}
-
 .ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.black {
+  color: $black !important;
 }
 
 .tooltip-inner {
@@ -45,22 +45,15 @@ a:hover {
 	font-weight: bold;
 }
 
-.setting i {
+.setting i,
+#notifi-radio,
+#mail-radio,
+#both-radio {
   transition: all 0.5s;
 }
 
 .cursor-pointer {
 	cursor: pointer;
-}
-
-.radio-cus {
-  -webkit-appearance: none;
-  height: 15px;
-  width: 15px;
-  background-color: $footer-word;
-  border-radius: 15px;
-  outline: none;
-  cursor: pointer;
 }
 
 input[type=text], 
@@ -86,10 +79,18 @@ input[type=number]:invalid {
   width: 100% !important;
 }
 
+.btn-notifi {
+  transition: all 0.3s;
+}
+
+.pre-height {
+  max-height: 400px;
+}
+
 /**********************BUTTON************************/
 .btn {
-	background-color: transparent !important;
-	border: none !important;
+  border: none !important;
+  color: $black;
 }
 
 .btn:focus, 
@@ -124,4 +125,128 @@ input[type=number]:invalid {
   vertical-align: middle;
 }
 
-    
+/**********************PERCENT PANEL************************/
+.percent-panel {
+  width: 95%;
+  padding: 5px;
+  box-sizing: content-box;
+  div {
+    display: inline-block;
+  }  
+}
+
+.center {
+  margin: 0 auto;
+}
+
+div#history-user-info span, div#history-user-info p {
+  opacity: 1;
+}
+
+.percent-panel div#increase, 
+.percent-panel div#decrease {
+  height: 3px;
+}
+
+div#increase {
+  background-color: $increase-color;
+  float: left;
+}
+
+div#decrease {
+  float: right;
+  background-color: $decrease-color;
+}
+
+.percent-panel p, 
+.percent-panel span {
+  font-size: 75%;
+}
+
+span.de-num-percent {
+  float: right;
+  margin-top: 5px !important;
+}
+
+span.in-num-percent {
+  float: left;
+  margin-top: 5px !important;
+}
+
+p.percent-panel-title {
+  margin-bottom: 5px !important;
+}
+
+/**********************CHECK BOX CUSTOME ************************/
+input[type='checkbox']:focus {
+  outline: none;
+}
+
+.custome-checkbox {
+  -webkit-appearance: none;
+  background-color: $footer-word;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  outline: none;
+}
+
+.custome-textarea {
+  resize: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/**********************RADIO CUSTOME ************************/
+.radio-cus {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  background-color: $footer-word;
+  border-radius: 15px;
+  outline: none !important;
+  cursor: pointer;
+}
+
+label.form-check-label input {
+  margin-right: 5px;
+}
+
+#mail-radio:checked {
+  background-color: $decrease-color;
+}
+
+#notifi-radio:checked {
+  background-color: $increase-color;
+}
+
+#both-radio:checked {
+  background-color: $both-color;
+}
+
+label {
+  color: $black;
+  font-weight: 100;
+  font-size: 70%;
+}
+
+/**********************INVALID MESSAGE************************/
+.message {
+  text-align: center;
+  
+  p {
+    font-size: 80%;
+  }
+
+  p.error {
+    color: $decrease-color !important;
+  }
+
+  p.valid {
+    color: $increase-color !important;
+  }
+}
+
+
+
