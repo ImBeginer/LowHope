@@ -53,8 +53,8 @@ form.user-form {
 
 button.update-btn, 
 button.close-update,
-#game-btn-yes-no,
-button#game-btn-mul {
+.game-btn-yes-no,
+.game-btn-mul {
   background-color: initial;
   border: 1px solid $footer-word;
   padding: 4px 22px;
@@ -68,8 +68,8 @@ button.close-update {
 }
 
 button.update-btn,
-#game-btn-yes-no,
-button#game-btn-mul,
+.game-btn-yes-no,
+.game-btn-mul,
 div#yes-no-game div.form label, 
 div#multi-choice-game div.form label, 
 div#yes-no-game div.form input, 

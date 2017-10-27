@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// require_once 'Common.php';
+
 class GameCT extends CI_Controller {
 
 	public function __construct()
@@ -11,6 +13,14 @@ class GameCT extends CI_Controller {
 		$this->load->model('game');
 	}
 
+	public function goHome()
+	{
+		if ($this->session->userdata('loggedInGooge')) {
+			redirect(base_url().'login/user','refresh');
+		}else if($this->session->userdata('loggedInFB')){
+			redirect(base_url().'login/fb_goHome','refresh');
+		}
+	}
 	/********************************* GAME TRUYEN THONG ***********************************************/
 
 	/**
@@ -105,6 +115,7 @@ class GameCT extends CI_Controller {
 		}
 	}
 
+
 	public function createGameMulti()
 	{
 		if(isset($_POST['game_title_mul']) && isset($_POST['end_date_time']) && isset($_POST['price_below']) && isset($_POST['price_above'])){
@@ -143,6 +154,60 @@ class GameCT extends CI_Controller {
 				echo json_encode("0");
 			}
 		}
+	}
+
+	
+	public function yn()
+	{		
+		$game_id = (int)$this->uri->segment(3);
+		if($game_id > 0){
+			//get data from table game yes no
+			$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+			if($user){
+				$game = $this->game->getAllGameMini();
+
+				$data['USER_NAME'] = $user->USER_NAME;
+	            $data['USER_POINT'] = $user->USER_POINT;
+
+	            //$data['prices'] = $this->user->getData();
+	            $data['YN'] = $game['YN'];
+	            $data['MUL'] = $game['MUL'];
+				$data['game_data'] = $this->game->getGameYN_ById($game_id);	
+							
+				$this->load->view('game/gameYN', $data);				
+			}else{
+				$this->goHome();
+			}
+		}else{			
+			$this->goHome();
+		}		
+	}
+
+	public function mul()
+	{
+		$game_id = (int)$this->uri->segment(3);
+		if($game_id > 0){
+			//get data from table game yes no
+			$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+			if($user){
+				$game = $this->game->getAllGameMini();
+
+				$data['USER_NAME'] = $user->USER_NAME;
+	            $data['USER_POINT'] = $user->USER_POINT;
+
+	            //$data['prices'] = $this->user->getData();
+	            $data['YN'] = $game['YN'];
+	            $data['MUL'] = $game['MUL'];
+
+				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
+
+				$this->load->view('game/gameMUL', $data);				
+			}else{
+				$this->goHome();
+			}
+		}else{			
+			$this->goHome();
+		}	
 	}
 
 }

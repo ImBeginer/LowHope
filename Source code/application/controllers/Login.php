@@ -81,6 +81,8 @@ class Login extends CI_Controller {
                     if($user->ROLE_ID == ROLE_USER){
                         //load user home page
                         $tt_game = $this->game->getGameTT();
+                        $game = $this->game->getAllGameMini();
+
                         //set session for userID
                         $this->session->set_userdata('sessionUserId', $user->USER_ID);
                         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
@@ -91,6 +93,8 @@ class Login extends CI_Controller {
                         $data['TT_END_DATE'] = $tt_game->END_DATE;
 
                         //$data['prices'] = $this->user->getData();
+                        $data['YN'] = $game['YN'];
+                        $data['MUL'] = $game['MUL'];
                         
                         $this->load->view('user/home', $data);
                     }else{                        

@@ -59,8 +59,8 @@ li.noti-items,
 button.c-button,
 table#traditional-game-table tr,
 table#mini-game tr,
-button#game-btn-yes-no,
-button#game-btn-mul,
+.game-btn-yes-no,
+.game-btn-mul,
 #yes-radio, #no-radio {
   transition: background-color 0.5s;
 }
@@ -219,7 +219,7 @@ button.c-button {
 
 button#c-bet-btn:hover,
 button.update-btn:hover,
-button#game-btn-yes-no:hover {
+button.game-btn-yes-no:hover {
 	background-color: $bet-btn-color;
 	border-color: $bet-btn-color;
 }

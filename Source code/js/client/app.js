@@ -20,7 +20,7 @@ $(document).ready(function() {
    function isValidFormat ($inputTarget = null, $regex = '') {
    	$inputData = $inputTarget.val();
    	$regexFormat = new RegExp ($regex);
-   	
+
    	return $regexFormat.test($inputData);
    }
 
@@ -107,8 +107,6 @@ $(document).ready(function() {
    		$upper = parseFloat($upper);
    		$lower = parseFloat($lower);
 
-   		console.log ($upper);
-
    		if ($upper < 0 || $lower < 0) {
    			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
    		} else if (isNaN($upper) || isNaN($lower)) {
@@ -171,12 +169,12 @@ $(document).ready(function() {
    	}
    });      
 
-// ************************END CHECK DỮ LIỆU ĐẦU VÀO**************************
+	// ************************END CHECK DỮ LIỆU ĐẦU VÀO**************************
 
 	/**
 	 * update informations of user, (click Cập nhật thông tin -> popup update)
 	 */
-	 $('#update-btn').on('click', function(event) {
+	$('#update-btn').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
 	 	$userObject = user;
@@ -223,8 +221,8 @@ $(document).ready(function() {
 	/**
 	 * Người chơi đặt giá bitcoin cho game truyền thống
 	 */
-	 
-	 $('#c-bet-btn').on('click', function(event) {
+
+	$('#c-bet-btn').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
 	 	var el = $('#point-input').val();
@@ -262,34 +260,36 @@ $(document).ready(function() {
 	 	}
 	 });
 
-	/*
-		Update the first login
-		*/
-		$('#btn-add-user').on('click', function(event) {
-			/* Act on the event */
-			var user_name = $('#fullName').val() || "";
-			var user_phone = $('#phoneNumber').val() || "";
-			var user_address = $('#address').val() || "";
+	/**
+	 * @param  {[type]}
+	 * @param  {[type]}
+	 * @return {[type]} add new user
+	 */
+	$('#btn-add-user').on('click', function(event) {
+		/* Act on the event */
+		var user_name = $('#fullName').val() || "";
+		var user_phone = $('#phoneNumber').val() || "";
+		var user_address = $('#address').val() || "";
 
-			if(user_name && user_phone && user_address){
-				$.post(base_url +'login/addUser', 
-					{USER_NAME: user_name, USER_PHONE: user_phone, USER_ADDRESS: user_address}, 
-					function(data) {
-						if(data == 0){
-							window.location.href = base_url;
-						}else if(data == 1){
-							window.location.href = base_url +'userct/home';
-						}
-					});			
-			}else{
-				toatMessage('Warning','Vui lòng nhập đúng định dạng trường update !','warning');
-			} 
-		});
+		if(user_name && user_phone && user_address){
+			$.post(base_url +'login/addUser', 
+				{USER_NAME: user_name, USER_PHONE: user_phone, USER_ADDRESS: user_address}, 
+				function(data) {
+					if(data == 0){
+						window.location.href = base_url;
+					}else if(data == 1){
+						window.location.href = base_url +'userct/home';
+					}
+				});			
+		}else{
+			toatMessage('Warning','Vui lòng nhập đúng định dạng trường update !','warning');
+		} 
+	});
 
 	/**
 	 * create game yes/no
 	 */
-	 $('#game-btn-yes-no').on('click', function(event) {
+	$('#game-btn-yes-no').on('click', function(event) {
 	 	event.preventDefault();
 
 	 	$ynGameObject = yesnogame;
@@ -346,6 +346,7 @@ $(document).ready(function() {
 	 	/* Act on the event */
 	 	$mulGameObject = mulGame;
 	 	if (isValidData ($mulGameObject) && isPriceValid ($mulGameObject)) {
+
 	 		var game_title_mul = $('#game-title-mul').val() || "";
 	 		var end_date_mul = $('#game-date-mul').val() || "";
 	 		var end_time_mul = $('#game-time-mul').val() || "";
@@ -354,38 +355,48 @@ $(document).ready(function() {
 
 	 		end_date_mul = end_date_mul.split('/');
 	 		end_time_mul = end_time_mul.split(':');
-	 		
+
 	 		var end_date_time = (new Date(end_date_mul[2],end_date_mul[1]-1,end_date_mul[0], end_time_mul[0], end_time_mul[1])).getTime();
-	 		
-	 		$.ajax({
-	 			url: base_url + 'gamect/createGameMulti',
-	 			type: 'POST',
-	 			dataType: 'JSON',
-	 			data: {game_title_mul: game_title_mul, end_date_time:end_date_time, price_below:price_below, price_above:price_above},
-	 		})
-	 		.done(function(respone) {
-	 			console.log("success");
-	 			if(respone.create == 1){
-	 				$('#user-point').text(respone.user_point); 				
-	 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
-	 			}else if(respone.create == 0){
-	 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
-	 			}else if(respone.create == 2){
-	 				toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
-	 			}
-	 		})
-	 		.fail(function(respone) {
-	 			console.log("error");
-	 		})
-	 		.always(function(respone) {
-	 			console.log("complete");
-	 		});
+	 		var current_date = new Date().getTime();
+
+	 		if(end_date_time > current_date){
+
+		 		$.ajax({
+		 			url: base_url + 'gamect/createGameMulti',
+		 			type: 'POST',
+		 			dataType: 'JSON',
+		 			data: {game_title_mul: game_title_mul, end_date_time:end_date_time, price_below:price_below, price_above:price_above},
+		 		})
+		 		.done(function(respone) {
+		 			console.log("success");
+		 			if(respone.create == 1){
+		 				$('#user-point').text(respone.user_point); 				
+		 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
+		 			}else if(respone.create == 0){
+		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
+		 			}else if(respone.create == 2){
+		 				toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
+		 			}
+		 		})
+		 		.fail(function(respone) {
+		 			console.log("error");
+		 		})
+		 		.always(function(respone) {
+		 			console.log("complete");
+		 		});
+	 		}else {
+	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
+	 		}
 	 	}
 	 });
 	 
 
-
-	 $('.hot-item').on('click', function(event) {
+	/**
+	 * game mini detail
+	 * @param  {[type]}
+	 * @return {[type]}
+	 */
+	$('.hot-item').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
 	 	var target = $(this);
@@ -393,25 +404,17 @@ $(document).ready(function() {
 	 	var game_type = target.attr('data-gametype');
 
 	 	if(game_type == 1){
-	 		window.location = 'history.php';
-
-
+	 		window.location = base_url + 'gamect/yn/' + game_id;
 	 	}else if(game_type == 2){
-	 		window.location = 'history.php';
-
+	 		window.location = base_url + 'gamect/mul/' + game_id;
 	 	}
 
-	 });
-
-
-	/**
-	 * Đếm ngược ngày kết thúc game truyền thống
-	 */
-	 countDown_End_Date(tt_game_end_date);
 	});
 
+});
+
 	// Đếm ngược ngày kết thúc game truyền thống
-	function countDown_End_Date(string_end_date) {
+	function countDown_End_Date(string_end_date,type) {
 		var end_date = (new Date(string_end_date)).getTime();
 		var x = setInterval(function(){
 			// Get todays date and time
@@ -425,17 +428,35 @@ $(document).ready(function() {
 	    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 		    // Output the result in an element
-		    document.getElementById("countDown").innerHTML = days + "d " + hours + "h "
-		    + minutes + "m " + seconds + "s ";
-		    
-		    // If the count down is over, write some text 
-		    if (distance < 0) {
-		    	clearInterval(x);
-		    	document.getElementById("countDown").innerHTML = "EXPIRED";
+		    if(type == 0){
+			    document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
+			    + minutes + "m " + seconds + "s ";
+			    
+			    // If the count down is over, write some text 
+			    if (distance < 0) {
+			    	clearInterval(x);
+			    	document.getElementById("countDown").innerHTML = "EXPIRED";
+			    }		    	
+		    }else if(type == 1){
+		    	document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
+			    + minutes + "m " + seconds + "s ";
+			    
+			    // If the count down is over, write some text 
+			    if (distance < 0) {
+			    	clearInterval(x);
+			    	document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
+			    }
 		    }
 		}, 1000);
 	}
 
+	/**
+	 * { function_description }
+	 *
+	 * @param      {<type>}  heading  The heading
+	 * @param      {<type>}  text     The text
+	 * @param      {<type>}  icon     The icon
+	 */
 	function toatMessage(heading,text,icon) {
 		$.toast({
 			heading: heading,

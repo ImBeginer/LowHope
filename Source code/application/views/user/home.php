@@ -24,9 +24,8 @@
 
 	<!-- Pusher -->
 	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-	
 </head>
-<body>
+<body onload="countDown_End_Date(tt_game_end_date,0);">
 	<script>
 		var base_url = "<?php echo base_url(); ?>";
 		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
@@ -58,7 +57,6 @@
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
 				<div id="hot-mini-game-content" class="hot-minigame"> 
-
 					<?php foreach ($YN as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
 							<a href="#!" title="<?php echo $value['TITLE']; ?>">
@@ -130,7 +128,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close" title="Đóng">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
@@ -366,11 +364,11 @@
 														<input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required>
 													</div>
 													<div class="form-group">
-														<label for="game-bitcoin-price">Giá Bitcoin trên</label>
+														<label for="game-bitcoin-price">Giá Bitcoin trên (Đơn vị: USD)</label>
 														<input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" step="0.01" required>
 													</div>
 													<div class="form-group submit-area">
-														<button type="button" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
+														<button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 													</div>                                         
 												</div>
@@ -394,7 +392,7 @@
 														<input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1" required>
 													</div>
 													<div class="form-group">
-														<label for="">Giá Bitcoin ?</label>
+														<label for="">Giá Bitcoin ? (Đơn vị: USD)</label>
 													</div>              
 													<div class="form-group d-inline-block mr-3">
 														<label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
@@ -412,7 +410,7 @@
 														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>    
 													</div>                              
 													<div class="form-group submit-area">
-														<button type="submit" class="btn-height cursor-pointer" id="game-btn-mul" name="game-btn-mul">Tạo</button>
+														<button type="submit" class="game-btn-mul btn-height cursor-pointer" id="game-btn-mul" name="game-btn-mul">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 													</div>                                         
 												</div>

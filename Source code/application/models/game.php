@@ -160,6 +160,28 @@ class Game extends CI_Model {
 		}
 	}
 
+	public function getGameYN_ById($gameID)
+	{
+		$game = $this->db->select('YN_GAMES.GAME_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.START_DATE, YN_GAMES.END_DATE, YN_GAMES.PLAYER_COUNT')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID')->where('YN_GAMES.GAME_ID', $gameID)->where('YN_GAMES.ACTIVE',1);
+		$game = $this->db->get();
+
+		if($game && $game->num_rows()>0){
+			$game = $game->row();
+			return $game;
+		}		
+	}
+	
+	public function getGameMUL_ById($gameID)
+	{
+		$game = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.START_DATE, MULTI_CHOICE_GAMES.END_DATE, MULTI_CHOICE_GAMES.PLAYER_COUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.GAME_ID', $gameID)->where('MULTI_CHOICE_GAMES.ACTIVE',1);
+		$game = $this->db->get();
+
+		if($game && $game->num_rows()>0){
+			$game = $game->row();
+			return $game;
+		}
+	}
+
 	/**
 	 * [createGameMulti description]
 	 * @param  [type] $userID      [description]
