@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-  <link rel="stylesheet" href="../vendor/animation/animate.css">
-  <link rel="stylesheet" type="text/css" href="../vendor/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="vendor/animation/animate.css">
+  <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -19,9 +19,10 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <img src="../img/ava-default.png" alt="avatar">
+          <img src="img/ava-default.png" alt="avatar">
           <div class="manager-name">Vinh Nguyễn</div>
         </li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website">Tổng quát</li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Người thắng cuộc trong game gần nhất">Thắng cuộc</li>
@@ -60,14 +61,14 @@
               <a href="#!" class="user-num cursor-pointer">
                 <span class="num">975</span>
                 <span class="sub">thành viên</span>
-                <img src="../img/1user.jpg" alt="total-user">
+                <img src="img/1user.jpg" alt="total-user">
               </a>
             </div>
             <div class="new-user">
               <a href="#!" class="user-num-new cursor-pointer">
                 <span class="num new-color">77</span>
                 <span class="sub">thành viên</span>
-                <img src="../img/1user-growth.jpg" alt="new-user">
+                <img src="img/1user-growth.jpg" alt="new-user">
               </a>
             </div>
           </div>
@@ -78,9 +79,9 @@
               <p class="title"><a href="#!">Danh sách trúng thưởng</a></p>
             </div>
             <div class="trophy">
-              <div class="third"><img src="../img/3rd.png" alt="3rd"></div>
-              <div class="second"><img src="../img/2nd.png" alt="2nd"></div>
-              <div class="first"><img src="../img/1st.png" alt="1st"></div>
+              <div class="third"><img src="img/3rd.png" alt="3rd"></div>
+              <div class="second"><img src="img/2nd.png" alt="2nd"></div>
+              <div class="first"><img src="img/1st.png" alt="1st"></div>
             </div>
           </div>
         </div>
@@ -94,21 +95,21 @@
                 <a href="#!">
                   <span class="num first-color">17</span>
                   <span class="sub">Giải</span>
-                  <img class="trophy-small" src="../img/1st.png" alt="1st">
+                  <img class="trophy-small" src="img/1st.png" alt="1st">
                 </a>
               </div>
               <div class="history-item">
                 <a href="#!">
                   <span class="num second-color">53</span>
                   <span class="sub">Giải</span>
-                  <img class="trophy-small" src="../img/2nd.png" alt="2nd">
+                  <img class="trophy-small" src="img/2nd.png" alt="2nd">
                 </a>                
               </div>
               <div class="history-item">
                 <a href="#!">
                   <span class="num third-color">46</span>
                   <span class="sub">Giải</span>
-                  <img class="trophy-small" src="../img/3rd.png" alt="3rd">
+                  <img class="trophy-small" src="img/3rd.png" alt="3rd">
                 </a>                
               </div>
             </div>
@@ -127,10 +128,12 @@
 
 </div><!-- /.manager content -->
 
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script type="text/javascript" src="../js/chartManager.js"></script>
-  <script src="../js/ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="js/chartManager.js"></script>
+<script src="js/nofiti.js"></script>
+<script src="js/checkData.js"></script>
+<script src="js/ui.js"></script>
 </body>
 </html>
