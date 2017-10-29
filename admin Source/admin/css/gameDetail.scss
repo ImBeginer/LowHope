@@ -1,0 +1,50 @@
+table.game-table-info {
+	margin-top: 15px;
+	tr td {
+    text-align: center;
+	}
+}
+
+table.user-join,
+table.game-table-info {
+	width: 100%;
+}
+
+.game-info {
+  padding: 0 15px;
+}
+
+table.user-join {
+  margin-top: 30px;
+	tbody tr {
+	  border-bottom: 1px solid $border-op;
+	}  
+	tbody tr:nth-child(2n) {
+	  background-color: $table-2n;
+	}
+	tbody tr:hover {
+	  background-color: $table-2n-op;
+	} 	
+	th {
+		background-color: $link-active;
+	}
+	tr td, tr th {
+		padding: 10px 0;
+	  color: $black;
+	  font-size: 77%;
+	}
+}
+
+.active-func a, 
+.user-func a {
+  font-size: 119%;
+  color: $white !important;
+}
+
+.active-func {
+  background-color: $deactive;
+}
+
+.user-func {
+  background-color: $user-create;
+}

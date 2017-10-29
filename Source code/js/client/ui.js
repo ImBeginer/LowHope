@@ -153,6 +153,30 @@ $(function() {
     $('span.de-num-percent').text($de_per_string + '%');
   }
 
+  function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
+    $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
+    $total = $lower + $between + $upper;
+    $lo_div = $('#increase');
+    $be_div = $('#between');
+    $up_div = $('#decrease');
+
+    $lo_div_width = Math.round(($percent_width * $lower) / $total);
+    $be_div_width = Math.round(($percent_width * $between) / $total);
+    $up_div_width = $percent_width - $lo_div_width - $be_div_width;
+
+    $lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
+    $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
+    $up_per_string = 100 - $lo_per_string - $be_per_string;
+
+    $lo_div.css({'width': $lo_div_width + 'px'});
+    $be_div.css({'width': $be_div_width + 'px'});
+    $up_div.css({'width': $up_div_width + 'px'});
+
+    $('.game-mul span.in-num-percent').text($lo_per_string + '%');
+    $('.game-mul span.be-num-percent').text($be_per_string + '%');
+    $('.game-mul span.de-num-percent').text($up_per_string + '%');
+  }
+
   // select all notifi
   $('input#checkbox-all-box').on ('click', function () {
     // console.log ($(this).prop('checked'));
@@ -183,5 +207,6 @@ $(function() {
   }
 
   display_chat ();
+  user_percent_mul (125, 265, 117);
 
 });
