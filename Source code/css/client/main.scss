@@ -342,9 +342,8 @@ span.game-name:hover a {
   div {
     display: inline-block;
   }
-  div#increase, 
-  div#decrease {
-    height: 3px;    
+  .mini-u-p {
+    height: 3px;
   }
 }
 
@@ -354,8 +353,26 @@ div#increase {
 }
 
 div#decrease {
-  float: right;
+  float: left;
   background-color: $decrease-color;
+}
+
+div#between {
+  background-color: $gold-color;
+  float: left;
+}
+
+div#increase, 
+div#decrease, 
+div#between {
+  transition: all 0.5s;
+}
+
+span.be-num-percent {
+  position: relative;
+  left: 50%;
+  top: 18px;
+  right: 50%;
 }
 
 span.in-num-percent {
@@ -938,8 +955,7 @@ table.mini-game-conten-info {
   width: 100%;
 }
 
-.mini-game-panel div#increase, 
-.mini-game-panel div#decrease {
+.big-u-p {
   height: 26px;
 }
 

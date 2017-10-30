@@ -87,6 +87,17 @@ input[type=number]:invalid {
   max-height: 400px;
 }
 
+.img-in-list {
+  width: 35px;
+  max-width: 35px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.no-border {
+  border: none !important;
+}
+
 /**********************BUTTON************************/
 .btn {
   border: none !important;
@@ -154,7 +165,7 @@ div#increase {
 }
 
 div#decrease {
-  float: right;
+  float: left;
   background-color: $decrease-color;
 }
 
@@ -196,6 +207,10 @@ input[type='checkbox']:focus {
   outline: none;
   border-radius: 5px;
   padding: 5px;
+}
+
+.in-blk {
+  display: inline-block;
 }
 
 /**********************RADIO CUSTOME ************************/
@@ -246,6 +261,16 @@ label {
   p.valid {
     color: $increase-color !important;
   }
+}
+
+/**********************FOOTER************************/
+footer {
+  color: $black;
+  text-align: center;
+  font-size: 78%;
+  margin-top: 26px;
+  border-top: 1px solid $border-op;
+  padding: 23px 0 5px;
 }
 
 

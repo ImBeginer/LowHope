@@ -62,7 +62,7 @@ $(function () {
     $parentPanel = $(this).attr("data-panel");
     $isChecked = $(this).prop('checked');
     select_all (3, $parentPanel, $isChecked);
-  });    
+  });
 
   user_percent_in_de (280, 220);
 
