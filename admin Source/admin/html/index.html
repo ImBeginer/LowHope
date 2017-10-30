@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Index</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,6 +22,7 @@
           <img src="../img/ava-default.png" alt="avatar">
           <div class="manager-name">Vinh Nguyễn</div>
         </li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website">Tổng quát</li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Người thắng cuộc trong game gần nhất">Thắng cuộc</li>
@@ -39,7 +40,7 @@
           </div>
         </div>
         <div class="log-out-option">
-          <a class="log-out" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
+          <a class="log-out cursor-pointer" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
             <i class="fa fa-power-off" aria-hidden="true"></i>
           </a>
         </div>
@@ -122,15 +123,213 @@
       <div class="chart-panel">
         <div id="chart"></div>
       </div><!-- /.chart -->
+      
+      <!-- top active user -->
+      <div class="top-active-user-panel">
+        <div class="row">
+          <div class="top-rank col-sm-12 col-md-6 col-xl-6 form-in-list">
+            <div class="function-title no-border">
+              <p class="title in-blk">TOP RANK</p>
+              <label for="top-game-search">
+                <i class="fa fa-search search-icon" aria-hidden="true"></i>
+              </label>
+              <input type="text" placeholder="Tìm kiếm" name="top-rank-search">
+            </div>            
+            <div class="pre-scrollable pre-padding">
+              <!-- top-rank-list -->
+              <ul class="top-rank-list user-list">
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Ashanti Heisler</a></p>
+                    <p class="user-point">999999 point</p>
+                    <img class="img-in-list rank" src="../img/1st.png" alt="TOP-1">
+                  </div>                  
+                </li>
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Myra Sedgwick"><a href="#!">Myra Sedgwick</a></p>
+                    <p class="user-point">888888 point</p>
+                    <img class="img-in-list rank" src="../img/2nd.png" alt="TOP-2">
+                  </div>                  
+                </li>
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Carmon Shih"><a href="#!">Carmon Shih</a></p>
+                    <p class="user-point">777777 point</p>
+                    <img class="img-in-list rank" src="../img/3rd.png" alt="TOP-3">
+                  </div>                  
+                </li>
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Felipe Wark"><a href="#!">Felipe Wark</a></p>
+                    <p class="user-point">666666 point</p>
+                    <img class="img-in-list dash" src="../img/dash.png" alt="DASH">
+                  </div>                  
+                </li>   
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Kim Bauer"><a href="#!">Miss Vaillancourt</a></p>
+                    <p class="user-point">555555 point</p>
+                    <img class="img-in-list dash" src="../img/dash.png" alt="DASH">
+                  </div>                  
+                </li>   
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Kim Bauer"><a href="#!">Kim Bauer</a></p>
+                    <p class="user-point">444444 point</p>
+                    <img class="img-in-list dash" src="../img/dash.png" alt="DASH">
+                  </div>                  
+                </li>   
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Martin Descker"><a href="#!">Martin Descker</a></p>
+                    <p class="user-point">333333 point</p>
+                    <img class="img-in-list dash" src="../img/dash.png" alt="DASH">
+                  </div>                  
+                </li>   
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="James Miller"><a href="#!">James Miller</a></p>
+                    <p class="user-point">222222 point</p>
+                    <img class="img-in-list dash" src="../img/dash.png" alt="DASH">
+                  </div>                  
+                </li>   
+                <li class="user">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Sarah Higgle"><a href="#!">Sarah Higgle</a></p>
+                    <p class="user-point">111111 point</p>
+                    <img class="img-in-list dash" src="../img/dash.png" alt="DASH">
+                  </div>                  
+                </li>                                                                                   
+
+              </ul><!-- /.top-rank-list -->   
+            </div>
+          </div>
+          <div class="top-game col-sm-12 col-md-6 col-xl-6 form-in-list">
+            <div class="function-title no-border">
+              <p class="title in-blk">TOP GAME</p>
+              <label for="top-game-search">
+                <i class="fa fa-search search-icon" aria-hidden="true"></i>
+              </label>
+              <input type="text" placeholder="Tìm kiếm" name="top-game-search">
+            </div>             
+            <div class="pre-scrollable pre-padding">
+              <!-- top-game-list -->
+              <ul class="top-game-list user-list">
+                <li id="game-1" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Multichoice</p>
+                    <p class="tag open-tag">Đang mở</p>
+                  </div>                  
+                </li>
+                <li id="game-2" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Yes/No</p>
+                    <p class="tag close-tag">Đã đóng</p>
+                  </div>                  
+                </li>
+                <li id="game-3" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Yes/No</p>
+                    <p class="tag open-tag">Đang mở</p>
+                  </div>                  
+                </li>
+                <li id="game-4" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Multichoice</p>
+                    <p class="tag close-tag">Đã đóng</p>
+                  </div>                  
+                </li>
+                <li id="game-5" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Yes/No</p>
+                    <p class="tag open-tag">Đang mở</p>
+                  </div>                  
+                </li>     
+                <li id="game-6" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Multichoice</p>
+                    <p class="tag close-tag">Đã đóng</p>
+                  </div>                  
+                </li>     
+                <li id="game-7" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Yes/No</p>
+                    <p class="tag open-tag">Đang mở</p>
+                  </div>                  
+                </li>     
+                <li id="game-8" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Yes/No</p>
+                    <p class="tag close-tag">Đã đóng</p>
+                  </div>                  
+                </li>
+                <li id="game-9" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Multichoice</p>
+                    <p class="tag close-tag">Đã đóng</p>
+                  </div>                  
+                </li>  
+                <li id="game-10" class="user">
+                  <div class="user-ava">
+                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                    <p class="game-type">Loại: Multichoice</p>
+                    <p class="tag open-tag">Đang mở</p>
+                  </div>                  
+                </li>                   
+
+              </ul><!-- /.top-game-list -->      
+            </div>      
+          </div>
+        </div>
+      </div><!-- /.top active user -->
+  
     </div>
   </div><!-- /.right side hand -->
-
 </div><!-- /.manager content -->
 
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script type="text/javascript" src="../js/chartManager.js"></script>
-  <script src="../js/ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="../js/chartManager.js"></script>
+<script src="../js/ui.js"></script>
 </body>
 </html>

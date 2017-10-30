@@ -411,6 +411,35 @@ $(document).ready(function() {
 
 	});
 
+	$('#bet-game-yes-no').on('click', function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		var game_id = $('.mini-game-content').attr('data-gameid');
+		var ans = $('input[name=yes-or-no]:checked').val();
+		if(ans){
+			$.ajax({
+				url: base_url + 'gamect/log_game_yes_no',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {game_id: game_id, answer:ans},
+			})
+			.done(function() {
+				console.log("success");
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});			
+		}else{
+			toatMessage('Warning','Bạn hãy đưa ra sự lựa chọn của mình !', 'warning');
+		}
+
+		
+
+	});
+
 });
 
 	// Đếm ngược ngày kết thúc game truyền thống

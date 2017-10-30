@@ -56,7 +56,7 @@
 		<div class="row">
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
-				<div id="hot-mini-game-content" class="hot-minigame"> 
+				<div id="hot-mini-game-content" class="hot-minigame">
 					<?php foreach ($YN as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
 							<a href="#!" title="<?php echo $value['TITLE']; ?>">
@@ -69,7 +69,7 @@
 							</a>
 						</div>						
 					<?php endforeach ?>
-					
+
 					<?php foreach ($MUL as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
 							<a href="#!" title="<?php echo $value['TITLE']; ?>">
@@ -82,7 +82,6 @@
 							</a>
 						</div>
 					<?php endforeach ?>
-
 				</div>
 			</section>    
 			<!-- /.infinite slideshow -->

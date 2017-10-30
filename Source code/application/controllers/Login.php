@@ -82,7 +82,7 @@ class Login extends CI_Controller {
                         //load user home page
                         $tt_game = $this->game->getGameTT();
                         $game = $this->game->getAllGameMini();
-
+                        
                         //set session for userID
                         $this->session->set_userdata('sessionUserId', $user->USER_ID);
                         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
@@ -191,7 +191,7 @@ class Login extends CI_Controller {
             if($user->ROLE_ID == ROLE_USER){            
                 $tt_game = $this->game->getGameTT();
                 $game = $this->game->getAllGameMini();
-                  
+                
                 //set sessionUserID
                 $this->session->set_userdata('sessionUserId', $user->USER_ID);
                 $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
@@ -201,12 +201,14 @@ class Login extends CI_Controller {
                 $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
                 $data['TT_END_DATE'] = $tt_game->END_DATE;
                 
+                
                 $data['YN'] = $game['YN'];
-                $data['MUL'] = $game['MUL'];
+                $data['MUL'] = $game['MUL'];                    
                 
                 //$data['prices'] = $this->user->getData();
 
                 $this->load->view('user/home', $data);
+                
             }else{
                 redirect(base_url());
             }            

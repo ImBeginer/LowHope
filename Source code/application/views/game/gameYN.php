@@ -12,9 +12,14 @@
   <!-- font awesome -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/font-awesome/css/font-awesome.min.css">
   <!-- animation -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/animation/animate.css">  
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/animation/animate.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">  
   <!-- custom css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>/css/client/main.css">
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
+
 </head>
 <body onload="countDown_End_Date(end_date_game_mini,1);"> 
   <script>
@@ -94,167 +99,167 @@
             <!-- rank popup -->
             <div class="modal fade world-rank" tabindex="-1" role="dialog"
             aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
-                  <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" title="Đóng">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">   
-                  <div class="top-user text-center">
-                    <div class="second d-inline-block text-center">
-                      <figure>
-                        <img src="<?php echo base_url(); ?>images/client/2nd.png" alt="2nd">
-                        <figcaption class="top-user-name">Adam Smith</figcaption>
-                        <figcaption class="top-user-point"><span class="second-point">171717</span></figcaption>
-                      </figure>          
-                    </div>
-                    <div class="first d-inline-block text-center">
-                      <figure>
-                        <img src="<?php echo base_url(); ?>images/client/1st.png" alt="1st">
-                        <figcaption class="top-user-name">Godon Jams</figcaption>
-                        <figcaption class="top-user-point"><span class="first-point">272727</span></figcaption>
-                      </figure>
-                    </div>
-                    <div class="third d-inline-block text-center">
-                      <figure>
-                        <img src="<?php echo base_url(); ?>images/client/3rd.png" alt="3rd">
-                        <figcaption class="top-user-name">Ketty Prery</figcaption>
-                        <figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>              
-                      </figure>                 
-                    </div>
-                  </div>   
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title col-centered" id="world-rank-title">TOP những thành viên có nhiều point nhất</h5>
+                    <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" title="Đóng">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">   
+                    <div class="top-user text-center">
+                      <div class="second d-inline-block text-center">
+                        <figure>
+                          <img src="<?php echo base_url(); ?>images/client/2nd.png" alt="2nd">
+                          <figcaption class="top-user-name">Adam Smith</figcaption>
+                          <figcaption class="top-user-point"><span class="second-point">171717</span></figcaption>
+                        </figure>          
+                      </div>
+                      <div class="first d-inline-block text-center">
+                        <figure>
+                          <img src="<?php echo base_url(); ?>images/client/1st.png" alt="1st">
+                          <figcaption class="top-user-name">Godon Jams</figcaption>
+                          <figcaption class="top-user-point"><span class="first-point">272727</span></figcaption>
+                        </figure>
+                      </div>
+                      <div class="third d-inline-block text-center">
+                        <figure>
+                          <img src="<?php echo base_url(); ?>images/client/3rd.png" alt="3rd">
+                          <figcaption class="top-user-name">Ketty Prery</figcaption>
+                          <figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>              
+                        </figure>                 
+                      </div>
+                    </div>   
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
             <!-- /.rank popup -->
 
             <!-- notifications of user -->
             <li class="nav-item top-bar-items cursor-pointer" data-toggle="tooltip"
             data-placement="top" title="Thông báo">
-        <div class="dropdown">
-          <button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-            <i class="fa fa-bell notifi-icon" aria-hidden="true"></i>
-            <div class="notifi-num">
-              <p>8</p>
-            </div>
-          </button>
-          <!-- notification list -->
-          <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
-            <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
-              <div class="noti-content ellipsis">
-                <a href="#!">
-                  <p class="notifi-title notifi-1" class="ellipsis">
-                    <div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>
-                    Notifi 1
-                    <div class="time-area">
-                      <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <span class="send-date">15:37 - 10/7</span>
+              <div class="dropdown">
+                <button id="notifi-btn" class="notifi btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
+                  <i class="fa fa-bell notifi-icon" aria-hidden="true"></i>
+                  <div class="notifi-num">
+                    <p>8</p>
+                  </div>
+                </button>
+                <!-- notification list -->
+                <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+                  <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <div class="noti-content ellipsis">
+                      <a href="#!">
+                        <p class="notifi-title notifi-1" class="ellipsis">
+                          <div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>
+                          Notifi 1
+                          <div class="time-area">
+                            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                            <span class="send-date">15:37 - 10/7</span>
+                          </div>
+                        </p>
+                      </a>
                     </div>
-                  </p>
-                </a>
-              </div>
-            </li>                                                                      
-            <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
-              <div class="noti-content ellipsis">
-                <a href="#!">
-                  <p class="notifi-title notifi-2" class="ellipsis">
-                    <div id="circle-read-2" class="green-circle d-inline-block" data-is-read="false"></div>
-                    Notifi 2
-                    <div class="time-area">
-                      <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <span class="send-date">15:37 - 10/7</span>
+                  </li>                                                                      
+                  <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <div class="noti-content ellipsis">
+                      <a href="#!">
+                        <p class="notifi-title notifi-2" class="ellipsis">
+                          <div id="circle-read-2" class="green-circle d-inline-block" data-is-read="false"></div>
+                          Notifi 2
+                          <div class="time-area">
+                            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                            <span class="send-date">15:37 - 10/7</span>
+                          </div>
+                        </p>
+                      </a>
                     </div>
-                  </p>
-                </a>
-              </div>
-            </li>    
-            <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
-              <div class="noti-content ellipsis">
-                <a href="#!">
-                  <p class="notifi-title notifi-3" class="ellipsis">
-                    <div id="circle-read-3" class="green-circle d-inline-block" data-is-read="false"></div>
-                    Notifi 3
-                    <div class="time-area">
-                      <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <span class="send-date">15:37 - 10/7</span>
+                  </li>    
+                  <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <div class="noti-content ellipsis">
+                      <a href="#!">
+                        <p class="notifi-title notifi-3" class="ellipsis">
+                          <div id="circle-read-3" class="green-circle d-inline-block" data-is-read="false"></div>
+                          Notifi 3
+                          <div class="time-area">
+                            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                            <span class="send-date">15:37 - 10/7</span>
+                          </div>
+                        </p>
+                      </a>
                     </div>
-                  </p>
-                </a>
-              </div>
-            </li> 
-            <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
-              <div class="noti-content ellipsis">
-                <a href="#!">
-                  <p class="notifi-title notifi-4" class="ellipsis">
-                    <div id="circle-read-4" class="green-circle d-inline-block" data-is-read="false"></div>
-                    Notifi 4
-                    <div class="time-area">
-                      <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <span class="send-date">15:37 - 10/7</span>
+                  </li> 
+                  <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <div class="noti-content ellipsis">
+                      <a href="#!">
+                        <p class="notifi-title notifi-4" class="ellipsis">
+                          <div id="circle-read-4" class="green-circle d-inline-block" data-is-read="false"></div>
+                          Notifi 4
+                          <div class="time-area">
+                            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                            <span class="send-date">15:37 - 10/7</span>
+                          </div>
+                        </p>
+                      </a>
                     </div>
-                  </p>
-                </a>
-              </div>
-            </li>    
-            <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
-              <div class="noti-content ellipsis">
-                <a href="#!">
-                  <p class="notifi-title notifi-5" class="ellipsis">
-                    <div id="circle-read-5" class="green-circle d-inline-block" data-is-read="false"></div>
-                    Notifi 5
-                    <div class="time-area">
-                      <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <span class="send-date">15:37 - 10/7</span>
+                  </li>    
+                  <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <div class="noti-content ellipsis">
+                      <a href="#!">
+                        <p class="notifi-title notifi-5" class="ellipsis">
+                          <div id="circle-read-5" class="green-circle d-inline-block" data-is-read="false"></div>
+                          Notifi 5
+                          <div class="time-area">
+                            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                            <span class="send-date">15:37 - 10/7</span>
+                          </div>
+                        </p>
+                      </a>
                     </div>
-                  </p>
-                </a>
-              </div>
-            </li>    
-            <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
-              <div class="noti-content ellipsis">
-                <a href="#!">
-                  <p class="notifi-title notifi-6" class="ellipsis">
-                    <div id="circle-read-6" class="green-circle d-inline-block" data-is-read="false"></div>
-                    Notifi 6
-                    <div class="time-area">
-                      <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                      <span class="send-date">15:37 - 10/7</span>
+                  </li>    
+                  <li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <div class="noti-content ellipsis">
+                      <a href="#!">
+                        <p class="notifi-title notifi-6" class="ellipsis">
+                          <div id="circle-read-6" class="green-circle d-inline-block" data-is-read="false"></div>
+                          Notifi 6
+                          <div class="time-area">
+                            <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                            <span class="send-date">15:37 - 10/7</span>
+                          </div>
+                        </p>
+                      </a>
                     </div>
-                  </p>
-                </a>
-              </div>
-            </li>                                                                                                 
-          </ul><!-- /.notification list -->
-          <!-- popup notifi -->
-          <div class="modal" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="notifi-message">...</p>
-                </div>
-              </div>
-            </div>
-          </div><!-- /.popup notifi -->
-        </div>              
+                  </li>                                                                                                 
+                </ul><!-- /.notification list -->
+                <!-- popup notifi -->
+                <div class="modal" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="notifi-message">...</p>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.popup notifi -->
+              </div>              
             </li>
             <!-- end notifications of user -->
 
             <!-- total point of user -->
             <li class="nav-item active top-bar-items cursor-pointer" data-toggle="tooltip"
             data-placement="top" title="Số point hiện tại">
-      <div class="user-point-area">
-        <p class="user-point"> <span id="user-point"><?php echo $USER_POINT; ?></span><span class="point-title">(P)</span></p>
-      </div>
+              <div class="user-point-area">
+                <p class="user-point"> <span id="user-point"><?php echo $USER_POINT; ?></span><span class="point-title">(P)</span></p>
+              </div>
             </li>
             <!-- end total point of user -->
             
@@ -462,7 +467,7 @@
             <p class="mini-game-title"><?php echo $game_data->TITLE; ?></p>
             <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->PLAYER_COUNT*10; ?></p>
           </div>
-          <div class="mini-game-content">
+          <div class="mini-game-content" data-gameID="<?php echo $game_data->GAME_ID; ?>">
             <table class="mini-game-conten-info">
               <tr>
                 <td>
@@ -508,17 +513,17 @@
               </div>
               <div class="form-group d-inline-block">  
                 <label class="form-check-label">
-                  <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="yes-rd">Yes
+                  <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="1">Yes
                 </label>
                 <label class="form-check-label">  
-                  <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="no-rd">No
+                  <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="0">No
                 </label>
               </div>
               <div class="form-group">
-                <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 40 point. Hãy cân nhắc</p>
+                <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 10 point. Hãy cân nhắc</p> 
               </div> 
               <div class="form-group submit-area">
-                <button type="submit" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Đặt cược</button>
+                <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="bet-game-yes-no" name="">Đặt cược</button>
               </div>                       
             </form>                  
           </div>
@@ -576,7 +581,6 @@
 </footer>
 
 <!-- jquery -->
-<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
 <!-- popper js -->
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>

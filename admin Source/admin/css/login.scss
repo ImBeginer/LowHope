@@ -1,0 +1,46 @@
+.login-content {
+  background-size: cover;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/84.jpg');
+	padding-top: 160px;
+	padding-bottom: 160px;
+	p, span, text, h1, h2, h3, h4, h5 {
+  	color: $black;
+	}
+} 
+
+.login-panel {
+  background-color: $white;
+	padding: 30px 20px;
+	border-radius: 6px;
+  box-shadow: -2px 4px 22px $box-shadow;	
+}
+
+.component {
+  padding: 25px 91px;
+}
+
+div.avtar {
+	text-align: center;	
+}
+
+.user-ava {
+	width: 70px;
+	max-width: 70px;
+	border-radius: 45px;
+}
+
+button.login-btn {
+	background-color: lightblue;
+}
+
+p.forgot-password {
+	a.forgot-password-link {
+		font-size: 67%;
+		color: $black !important;
+		i {
+  		margin: 0 10px;
+  		color: $black !important;			
+		}
+	}
+
+}
