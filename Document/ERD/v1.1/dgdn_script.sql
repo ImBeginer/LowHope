@@ -214,7 +214,7 @@ DROP PROCEDURE IF EXISTS `get_sys_game_players`$$
 CREATE PROCEDURE `get_sys_game_players`(IN timeToLoad datetime)
 BEGIN
    set @real_price = null;
-   SELECT @real_price := round(price,2) FROM lowhope_db.currency_details
+   SELECT @real_price := round(price,2) FROM currency_details
    where update_at = timeToLoad;
    SELECT usr.USER_ID, usr.USER_NAME, log.GAME_ID, log.PRICE_GUESS,
 	      abs(log.PRICE_GUESS - @real_price) as distance,
