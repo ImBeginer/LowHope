@@ -106,6 +106,31 @@ class Game extends CI_Model {
 		return $game;
 	}
 
+
+	public function is_log_game($userID,$gameID,$type)
+	{
+		$condi = array('USER_ID'=>$userID, 'GAME_ID'=>$gameID);
+		$this->db->select('*');
+		$this->db->where($condi);
+
+		if($type == 1){
+			$result = $this->db->get('YN_GAME_LOGS');
+			if($result && $result->num_rows() > 0){
+				return true;
+			}else{
+				return false;
+			}			
+		}else if($type == 2){
+			$result = $this->db->get('MULTI_CHOICE_GAME_LOGS');
+			if($result && $result->num_rows() > 0){
+				return true;
+			}else{
+				return false;
+			}	
+		}
+	}
+
+
 	/**
 	 * [createGameYN description]
 	 * @param  [type] $userID     [description]
@@ -170,7 +195,23 @@ class Game extends CI_Model {
 			return $game;
 		}		
 	}
-	
+
+
+	public function log_game_yes_no($userID,$gameID,$answer,$ans_time)
+	{
+		$log = array(
+					'USER_ID' 	=> $userID,
+					'GAME_ID' 	=> $gameID,
+					'ANSWER' 	=> $answer,
+					'ANS_TIME'	=> $ans_time
+				);
+
+		$this->db->insert('YN_GAME_LOGS', $log);
+		return $this->db->affected_rows();
+	}
+
+
+	/************************** MUL ****************************************/
 	public function getGameMUL_ById($gameID)
 	{
 		$game = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.START_DATE, MULTI_CHOICE_GAMES.END_DATE, MULTI_CHOICE_GAMES.PLAYER_COUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.GAME_ID', $gameID)->where('MULTI_CHOICE_GAMES.ACTIVE',1);
@@ -238,6 +279,9 @@ class Game extends CI_Model {
 			throw new Exception('Error from function checkGameMulti()');
 		}
 	}
+
+
+
 }
 
 /* End of file game.php */

@@ -172,7 +172,9 @@ class GameCT extends CI_Controller {
 	            //$data['prices'] = $this->user->getData();
 	            $data['YN'] = $game['YN'];
 	            $data['MUL'] = $game['MUL'];
-				$data['game_data'] = $this->game->getGameYN_ById($game_id);	
+				$data['game_data'] = $this->game->getGameYN_ById($game_id);
+
+
 							
 				$this->load->view('game/gameYN', $data);				
 			}else{
@@ -181,6 +183,35 @@ class GameCT extends CI_Controller {
 		}else{			
 			$this->goHome();
 		}		
+	}
+
+	public function log_game_yes_no()
+	{
+		//kiểm tra xem user có điều kiện tham gia game hay không?
+		//TODO
+		
+		$userID = $this->session->userdata('sessionUserId');
+		if(isset($_POST['game_id']) && isset($_POST['answer'])){
+
+			$gameID =$this->input->post('game_id');
+
+			//kiểm tra xem user đã đặt cược game này chưa
+			if(!$this->game->is_log_game($userID,$gameID,1)){
+				$answer = $this->input->post('answer');
+				$ans_time = date('Y-m-d H:i:s');
+
+				$result = $this->game->log_game_yes_no($userID,$gameID,$answer,$ans_time);
+				if($result > 0){
+					echo json_encode(1);
+				}else{
+					echo json_encode(0);
+				}
+			}else{
+				echo json_encode(2);
+			}
+			
+		}
+
 	}
 
 	public function mul()

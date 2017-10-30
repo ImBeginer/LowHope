@@ -338,7 +338,7 @@
                             <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" step="0.01" required>
                           </div>
                           <div class="form-group submit-area">
-                            <button type="button" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
+                            <button type="button" class="game-btn-mul btn-height cursor-pointer" id="" name="">Tạo</button>
                             <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
                           </div>                                         
                         </div>
