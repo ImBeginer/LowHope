@@ -27,7 +27,7 @@ ul {
 }
 
 a, 
-a:hover {	
+a:hover{	
 	color: $white !important;
 	text-decoration: none !important;
 }
@@ -48,7 +48,9 @@ a:hover {
 .setting i,
 #notifi-radio,
 #mail-radio,
-#both-radio {
+#both-radio,
+button.m-update-btn,
+button.m-update-pass-btn {
   transition: all 0.5s;
 }
 
@@ -98,6 +100,21 @@ input[type=number]:invalid {
   border: none !important;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
+.medium-font-size {
+  font-size: 70% !important;
+}
+
+.wd-4 {
+  width: 40px !important;
+}
+
+.mg-1 {
+  margin: 0 10px !important;
+}
 /**********************BUTTON************************/
 .btn {
   border: none !important;
@@ -265,13 +282,40 @@ label {
 
 /**********************FOOTER************************/
 footer {
-  color: $black;
-  text-align: center;
-  font-size: 78%;
   margin-top: 26px;
   border-top: 1px solid $border-op;
   padding: 23px 0 5px;
+  clear: both;
+  a:hover {
+    color: initial !important;
+  }
+  div.footer-content {
+    padding: 20px 0;
+    color: $black;
+    text-align: center;
+  }
+
+  .about-us {
+    margin-top: 20px;
+    a {
+      margin: 0 27px;
+    }
+  }
 }
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+
 
 
 

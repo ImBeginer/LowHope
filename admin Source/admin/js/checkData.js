@@ -158,17 +158,62 @@ $(function () {
     }, $time);
   }
 
-  $('button#btn-send-notifi').on('click', function () {
-    $notification = notifi;
-    if (isValidData ($notification)) {
-      if (userCheckBox (30)) {
-        displayMessage ('.send-notifi-panel', '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-        removeMessage ('.send-notifi-panel', 2000);
-        console.log ('NOTIFI OKE');
-      }
+  function passwordIsMatch  ($object) {
 
+    $data = $object.confirmpass;
+    if ($($data[0]).val() === $($data[1]).val()) {
+      return true;
+    } else {
+      displayMessage ($object.panel, '<p class="error animated shake">Mật khẩu mới và mật khẩu xác nhận không chính xác ĐCM</p>');
+      return false;
+    }
+  }
+
+  $('button#btn-send-notifi').on('click', function () {
+    $object = notifi;
+    if (isValidData ($object)) {
+      if (userCheckBox (30)) {
+        displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+        removeMessage ($object.panel, 2000);
+      }
     }
   }); 
+
+  $('button.login-btn').on('click', function () {
+    $object = login;
+    if (isValidData ($object)) {
+      displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+      removeMessage ($object.panel, 2000);
+    }
+  });
+
+  $('button[name=m-update-pass-btn]').on('click', function () {
+    $object = password;
+    if (isValidData ($object)) {
+      if (passwordIsMatch($object)) {
+        displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+        removeMessage ($object.panel, 2000);
+      }
+    }
+  });
+
+  $('button[name=m-forgot-pass-btn]').on('click', function () {
+    $object = forgotPass;
+    if (isValidData ($object)) {
+      if (passwordIsMatch($object)) {
+        displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+        removeMessage ($object.panel, 2000);
+      }
+    }
+  });  
+
+  $('button[name=m-update-info-btn]').on('click', function () {
+    $object = managerInfo;
+    if (isValidData ($object)) {
+      displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+      removeMessage ($object.panel, 2000);
+    }
+  });  
 
 
 

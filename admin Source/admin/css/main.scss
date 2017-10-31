@@ -8,6 +8,7 @@
 @import 'notifi';
 @import 'gameDetail';
 @import 'login';
+@import 'managerInfo';
 
 /********************SIDEBAR*********************/
 .c-active {
@@ -187,15 +188,26 @@ span.num {
   margin: 10px 0;
 }
 
-span.first-color {
+.history-item .num {
+  margin-right: 30px;
+}
+
+span.sub-game-name {
+  font-size: 86%;
+}
+
+span.first-color, 
+p.first-color {
 	color: $first-color !important;
 }
 
-span.second-color {
+span.second-color,
+p.second-color {
 	color: $second-color !important;
 }
 
-span.third-color {
+span.third-color,
+p.third-color {
 	color: $third-color !important;
 }
 
@@ -211,6 +223,18 @@ div#chart > div {
 .chart-panel {
   border-bottom: 1px solid $border-op;
   padding-bottom: 20px;
+}
+
+p.game-created-date span {
+  font-size: 100%;
+}
+
+p.game-created-date .increase {
+  color: $increase-color !important;
+}
+
+p.game-created-date .decrease {
+  color: $decrease-color !important;
 }
 
 /********************TOP RANK*********************/

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Game detail</title>
+  <title>Culture game list</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,9 +25,6 @@
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website">Tổng quát</li>        
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Người thắng cuộc trong game gần nhất">Thắng cuộc</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách thành viên biến động trong tháng">Thành viên</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Quay về trang chủ">Trang chủ</li>
       </ul>
       <div class="manager-option-area c-active">
         <div class="dropup setting-menu">
@@ -55,116 +52,111 @@
       <div class="main-function">
         <div class="row">
           <div class="function-title">
-            <p class="title">GAME NAME</p>
+            <p class="title">Danh sách game truyền thống</p>
           </div>
           <!-- game info -->
           <div class="game-info">
             <!-- game table info -->
             <table class="game-table-info">
               <tr>
-                <td>
-                  <p class="user-tran cursor-pointer">Giao dịch: 333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                <td data-toggle="tooltip" data-placement="top" title="Tổng số game truyền thống đã được tạo">
+                  <p class="user-tran cursor-pointer">Tổng: 333</p>
                 </td>
-                <td>
-                  <p class="user-join cursor-pointer">Tham gia: 22<i class="fa fa-user" aria-hidden="true"></i></p>
+                <td data-toggle="tooltip" data-placement="top" title="Giá bitcoin">
+                  <p class="user-join cursor-pointer">Hôm qua: 6000 USD</p>
                 </td>
-                <td>
-                  <p class="game-close-in">Còn lại: 15:53:23<i class="fa fa-clock-o" aria-hidden="true"></i></p>
+                <td data-toggle="tooltip" data-placement="top" title="Giá bitcoin">
+                  <p class="game-close-in">Hôm nay: 6100 USD</p>
                 </td>                  
-                <td>
-                  <p class="game-created-date">Ngày tạo: 29/10/2017<i class="fa fa-calendar" aria-hidden="true"></i></p>
+                <td data-toggle="tooltip" data-placement="top" title="Tỷ lệ: +1.67%">
+                  <p class="game-created-date">Mức chênh lệch: <i class="fa fa-arrow-up increase" aria-hidden="true"></i><span class="increase">100 USD</span></p>
                 </td>
-                <td>
-                  <p class="game-type">Loại: Multichoice</p>
-                </td>  
               </tr>
             </table><!-- /.game table info -->
             <!-- user join -->
             <table class="user-join">
               <thead>
                 <tr>
-                  <th class="text-center">#</th>
-                  <th>Tên</th>
-                  <th>Giao dịch</th>
-                  <th class="text-center">Ngày giao dịch</th>
+                  <th class="text-center wd-4">#</th>
+                  <th>Ngày tạo</th>
+                  <th>Ngày kết thúc</th>
+                  <th class="text-center">Người tham gia</th>
+                  <th class="text-center">Tổng giao dịch</th>
                 </tr>                
               </thead>
               <tbody>
                 <tr>
-                  <td class="text-center">1</td>
-                  <td>Roslyn Bargo</td>
-                  <td>40</td>
-                  <td class="text-center">29/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">1</a></td>
+                  <td>31/10/2017</td>
+                  <td>7/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">2</td>
-                  <td>Laurinda Haubert</td>
-                  <td>40</td>
-                  <td class="text-center">29/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">2</a></td>
+                  <td>30/10/2017</td>
+                  <td>6/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">3</td>
-                  <td>Nan Verdun</td>
-                  <td>40</td>
-                  <td class="text-center">29/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">3</a></td>
+                  <td>29/10/2017</td>
+                  <td>5/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">4</td>
-                  <td>Estela Seaton</td>
-                  <td>40</td>
-                  <td class="text-center">28/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">4</a></td>
+                  <td>28/10/2017</td>
+                  <td>4/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">5</td>
-                  <td>Francis Behne</td>
-                  <td>40</td>
-                  <td class="text-center">28/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">5</a></td>
+                  <td>27/10/2017</td>
+                  <td>3/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">6</td>
-                  <td>Nicole Rudder</td>
-                  <td>40</td>
-                  <td class="text-center">27/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">6</a></td>
+                  <td>26/10/2017</td>
+                  <td>2/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">7</td>
-                  <td>Debbie Christy</td>
-                  <td>40</td>
-                  <td class="text-center">26/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">7</a></td>
+                  <td>25/10/2017</td>
+                  <td>1/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">8</td>
-                  <td>Micha Negus</td>
-                  <td>40</td>
-                  <td class="text-center">26/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">8</a></td>
+                  <td>24/10/2017</td>
+                  <td>31/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">9</td>
-                  <td>Tisa Stjacques</td>
-                  <td>40</td>
-                  <td class="text-center">25/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">9</a></td>
+                  <td>23/10/2017</td>
+                  <td>30/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
                 <tr>
-                  <td class="text-center">10</td>
-                  <td>Carita Hussein</td>
-                  <td>40</td>
-                  <td class="text-center">25/10/2017</td>
-                </tr>
-                <tr>
-                  <td class="text-center">11</td>
-                  <td>Roger Rasch</td>
-                  <td>40</td>
-                  <td class="text-center">25/10/2017</td>
+                  <td class="text-center wd-4"><a href="#!">10</a></td>
+                  <td>22/10/2017</td>
+                  <td>29/11/2017</td>
+                  <td class="text-center">326<i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                  <td class="text-center">16659<i class="fa fa-gavel mg-1" aria-hidden="true"></i></td>
                 </tr>
               </tbody>
             </table><!-- /.user join -->
-
-            <div class="game-func">
-              <p class="tag active-func"><a id="game-id" href="#!">DEACTIVE</a></p>
-              <p class="tag user-func"><a id="user-id" href="#!">VINH NGUYỄN</a></p>
-              <p class="tag open-tag">Đang mở</p>
-            </div>
-
           </div><!-- /.game info -->
         </div>
       </div>

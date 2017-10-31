@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Culture game detail</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="../assets/animation/animate.css">
+  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<!-- notification content -->
+<div class="notification-content container-fluid">
+  <!-- side bar -->
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="sidebar-content nav nav-sidebar">
+        <li class="manager-avatar c-active">
+          <img class="img-in-list" src="../img/ava-default.png" alt="avatar">
+          <div class="manager-name">Vinh Nguyễn</div>
+        </li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website">Tổng quát</li>        
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
+      </ul>
+      <div class="manager-option-area c-active">
+        <div class="dropup setting-menu">
+          <a class="setting dropdown-toggle cursor-pointer" id="setting-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu animated bounceIn" aria-labelledby="setting-item">
+            <a class="dropdown-item black" href="#!">Thông tin cá nhân</a>
+            <a class="dropdown-item black" href="#!">Sửa thông tin</a>
+            <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
+          </div>
+        </div>
+        <div class="log-out-option">
+          <a class="log-out" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.side bar -->
+  <!-- right side hand -->
+  <div class="row">
+    <!-- game-content-detail -->
+    <div id="cul-game-content-detail" class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 game-content">
+      <div class="main-function">
+        <div class="row">
+          <div class="function-title">
+            <p class="title">Game truyền thông ID: 1111</p>
+          </div>
+          <!-- game info -->
+          <div class="game-info">
+            <!-- game table info -->
+            <table class="game-table-info">
+              <tr>
+                <td>
+                  <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ngày tạo game">31/10/2017<i class="fa fa-calendar" aria-hidden="true"></i></p>
+                </td>
+                <td data-toggle="tooltip" data-placement="top" title="Ngày kết thúc game">
+                  <p class="user-join cursor-pointer">7/11/2017<i class="fa fa-calendar-times-o" aria-hidden="true"></i></p>
+                </td>
+                <td data-toggle="tooltip" data-placement="top" title="Tham gia">
+                  <p class="game-close-in cursor-pointer">369<i class="fa fa-user" aria-hidden="true"></i></p>
+                </td>                  
+                <td data-toggle="tooltip" data-placement="top" title="Tổng giao dịch">
+                  <p class="game-created-date cursor-pointer">11500<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                </td>
+                <td data-toggle="tooltip" data-placement="top" title="Kết quả giá bitcoin">
+                  <p class="game-created-date cursor-pointer">6000 USD<i class="fa fa-flag-checkered" aria-hidden="true"></i></p>
+                </td>                
+              </tr>
+            </table><!-- /.game table info -->
+            <!-- user join -->
+            <table class="user-join">
+              <thead>
+                <tr>
+                  <th class="text-center wd-4">#</th>
+                  <th>Tên</th>
+                  <th>Ngày đặt</th>
+                  <th class="text-center">Giao dịch</th>
+                  <th class="text-center">Dự đoán</th>
+                  <th class="text-center">Lệch</th>
+                  <th class="text-center">Kết quả</th>
+                </tr>                
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center wd-4">1</td>
+                  <td><a href="#!">Karmen Setliff</a></td>
+                  <td>31/10/2017</td>
+                  <td class="text-center">326</td>
+                  <td class="text-center">5900 USD</td>
+                  <td class="text-center">100 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/1st.png" alt="1st"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">2</a></td>
+                  <td><a href="#!">Rosalia Sperling</a></td>
+                  <td>31/10/2017</td>
+                  <td class="text-center">599</td>
+                  <td class="text-center">5750 USD</td>
+                  <td class="text-center">250 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/2nd.png" alt="2nd"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">3</a></td>
+                  <td><a href="#!">Donetta Rozar</a></td>
+                  <td>31/10/2017</td>
+                  <td class="text-center">7544</td>
+                  <td class="text-center">4000 USD</td>
+                  <td class="text-center">2000 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/3rd.png" alt="3rd"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">4</a></td>
+                  <td><a href="#!">Donetta Rozar</a></td>
+                  <td>30/10/2017</td>
+                  <td class="text-center">3354</td>
+                  <td class="text-center">3950 USD</td>
+                  <td class="text-center">2050 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">5</a></td>
+                  <td><a href="#!">Tona Marmon</a></td>
+                  <td>30/10/2017</td>
+                  <td class="text-center">4455</td>
+                  <td class="text-center">3000 USD</td>
+                  <td class="text-center">3000 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">6</a></td>
+                  <td><a href="#!">Audra Hoelscher</a></td>
+                  <td>29/10/2017</td>
+                  <td class="text-center">666</td>
+                  <td class="text-center">2900 USD</td>
+                  <td class="text-center">3100 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">7</a></td>
+                  <td><a href="#!">Pinkie Wellner</a></td>
+                  <td>29/10/2017</td>
+                  <td class="text-center">444</td>
+                  <td class="text-center">2800 USD</td>
+                  <td class="text-center">3200 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">8</a></td>
+                  <td><a href="#!">Afton Dunning</a></td>
+                  <td>28/10/2017</td>
+                  <td class="text-center">222</td>
+                  <td class="text-center">2700 USD</td>
+                  <td class="text-center">3300 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">9</a></td>
+                  <td><a href="#!">Augusta Sliva</a></td>
+                  <td>27/10/2017</td>
+                  <td class="text-center">999</td>
+                  <td class="text-center">2600 USD</td>
+                  <td class="text-center">3400 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr> 
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">10</a></td>
+                  <td><a href="#!">Kory Tibbals</a></td>
+                  <td>26/10/2017</td>
+                  <td class="text-center">444</td>
+                  <td class="text-center">2500 USD</td>
+                  <td class="text-center">3500 USD</td>
+                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
+                </tr>                               
+              </tbody>
+            </table><!-- /.user join -->
+          </div><!-- /.game info -->
+        </div>
+      </div>
+    </div><!-- /.game-content-detail -->
+    <!-- footer -->
+    <footer>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
+        &copy; 2017
+        <div class="about-us">
+          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
+          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
+          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
+        </div>
+      </div>
+    </footer><!-- /.footer -->    
+  </div><!-- /.right side hand -->
+</div><!-- /.notification content -->
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../js/nofiti.js"></script>
+<script src="../js/checkData.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/ui.js"></script>
+</body>
+</html>

@@ -24,10 +24,7 @@
         </li>
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website">Tổng quát</li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi">Gửi thông báo</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách những người chơi thắng cuộc">Lịch sử</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Người thắng cuộc trong game gần nhất">Thắng cuộc</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Danh sách thành viên biến động trong tháng">Thành viên</li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Quay về trang chủ">Trang chủ</li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống">Lịch sử</li>
       </ul>
       <div class="manager-option-area c-active">
         <div class="dropup setting-menu">
@@ -35,6 +32,7 @@
             <i class="fa fa-cog" aria-hidden="true"></i>
           </a>
           <div class="dropdown-menu animated bounceIn" aria-labelledby="setting-item">
+            <a class="dropdown-item black" href="#!">Thông tin cá nhân</a>
             <a class="dropdown-item black" href="#!">Sửa thông tin</a>
             <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
           </div>
@@ -88,29 +86,20 @@
         <div class="total-user-area animated pulse col-sm-12 col-md-4 col-xl-3">
           <div class="function-content">
             <div class="function-title">
-              <p class="title"><a href="#!">Lịch sử trúng thưởng</a></p>
+              <p class="title"><a href="#!">Lịch sử game</a></p>
             </div>
             <div class="history">
               <div class="history-item">
-                <a href="#!">
-                  <span class="num first-color">17</span>
-                  <span class="sub">Giải</span>
-                  <img class="trophy-small" src="../img/1st.png" alt="1st">
-                </a>
+                <span class="num first-color">17</span>
+                <span class="sub-game-name">Game truyền thống</span>
               </div>
               <div class="history-item">
-                <a href="#!">
-                  <span class="num second-color">53</span>
-                  <span class="sub">Giải</span>
-                  <img class="trophy-small" src="../img/2nd.png" alt="2nd">
-                </a>                
+                <span class="num second-color">53</span>
+                <span class="sub-game-name">Yes/no game</span>
               </div>
               <div class="history-item">
-                <a href="#!">
-                  <span class="num third-color">46</span>
-                  <span class="sub">Giải</span>
-                  <img class="trophy-small" src="../img/3rd.png" alt="3rd">
-                </a>                
+                <span class="num third-color">46</span>
+                <span class="sub-game-name">Multiple game</span>
               </div>
             </div>
           </div>
@@ -121,7 +110,7 @@
     <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 chart-content">
       <!-- chart -->
       <div class="chart-panel">
-        <div id="chart"></div>
+        <div id="chart" data-user="[]"></div>
       </div><!-- /.chart -->
       
       <!-- top active user -->
@@ -129,11 +118,7 @@
         <div class="row">
           <div class="top-rank col-sm-12 col-md-6 col-xl-6 form-in-list">
             <div class="function-title no-border">
-              <p class="title in-blk">TOP RANK</p>
-              <label for="top-game-search">
-                <i class="fa fa-search search-icon" aria-hidden="true"></i>
-              </label>
-              <input type="text" placeholder="Tìm kiếm" name="top-rank-search">
+              <p class="title first-color">TOP NGƯỜI CHƠI CÓ NHIỀU POINT NHẤT</p>
             </div>            
             <div class="pre-scrollable pre-padding">
               <!-- top-rank-list -->
@@ -324,12 +309,24 @@
   
     </div>
   </div><!-- /.right side hand -->
+  <!-- footer -->
+  <footer>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
+      &copy; 2017
+      <div class="about-us">
+        <a class="black medium-font-size" href="#!">Về chúng tôi</a>
+        <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
+        <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
+      </div>
+    </div>
+  </footer><!-- /.footer -->  
 </div><!-- /.manager content -->
 
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="../js/chartManager.js"></script>
+<script src="../js/login.js"></script>
 <script src="../js/ui.js"></script>
 </body>
 </html>
