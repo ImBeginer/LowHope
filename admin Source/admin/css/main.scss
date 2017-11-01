@@ -9,18 +9,24 @@
 @import 'gameDetail';
 @import 'login';
 @import 'managerInfo';
+@import 'createGame';
+@import 'datepickerCustom';
 
 /********************SIDEBAR*********************/
 .c-active {
 	background-color: $sidebar-hover-color !important;
 }
 
+ul.sidebar-content li a:hover {
+  background-color: initial !important;
+}
+
 .manager-name {
-	width: 145px;
-	max-width: 145px;
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 100%;
+  width: 135px;
+  max-width: 135px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 80%;
 }
 
 .sidebar {
@@ -43,9 +49,12 @@ li.manager-avatar  {
 
 ul.sidebar-content {
 	padding: 15px 0;
-	li {
-	  font-size: 80%;
+	li  {
 	  padding: 9px 15px;
+    a {
+      font-size: 80%;
+      padding: 0;
+    }
 	}
 }
 

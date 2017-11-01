@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create game</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="../vendor/animation/animate.css">
+  <link rel="stylesheet" type="text/css" href="../vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+
+<body>
+<!-- manager content -->
+<div id="manager-create-game" class="container-fluid">
+  <!-- side bar -->
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="sidebar-content nav nav-sidebar">
+        <li class="manager-avatar c-active">
+          <img src="../img/ava-default.png" alt="avatar">
+          <div class="manager-name">Vinh Nguyễn</div>
+        </li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website"><a href="#!">Tổng quát</a></li>        
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="#!">Gửi thông báo</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>        
+      </ul>
+      <div class="manager-option-area c-active">
+        <div class="dropup setting-menu">
+          <a class="setting dropdown-toggle cursor-pointer" id="setting-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu animated bounceIn" aria-labelledby="setting-item">
+            <a class="dropdown-item black" href="#!">Thông tin cá nhân</a>
+            <a class="dropdown-item black" href="#!">Sửa thông tin</a>
+            <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
+          </div>
+        </div>
+        <div class="log-out-option">
+          <a class="log-out cursor-pointer" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.side bar -->
+  <!-- right side hand -->
+  <div class="row">
+    <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
+      <div class="main-function">
+        <div class="create-game-option">
+          <!-- nav creat game -->
+          <ul id="nav-game" class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active c-avtive" href="#yes-no-game">Yes/No</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#multi-choice-game">Q/A</a>
+            </li>        
+          </ul><!-- /.nav create game --> 
+          <!-- tab game -->
+          <div class="tab-content game-tab-content">
+            <div role="tabpanel" class="tab-pane active" id="yes-no-game">
+              <div class="user-form form" action="#!">
+                <div class="message"></div>
+                <form action="#!" name="m-create-yn-game">
+                  <div class="form-group">
+                    <label for="game-title">Tên game</label>
+                  </div>
+                  <div class="form-group d-inline-block">
+                    <label for="game-date">Vào ngày</label>
+                    <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required>
+                  </div>
+                  <div class="form-group d-inline-block">
+                    <label for="game-time">Kết thúc vào lúc</label>
+                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="game-bitcoin-price">Giá Bitcoin trên</label>
+                    <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{7,10}$" required>
+                  </div> 
+                  <div class="form-group">
+                    <label class="d-block" for="">Đúng hay sai ?</label>
+                  </div>   
+                  <div class="form-group">  
+                    <label class="form-check-label">
+                      <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="0" checked>Yes
+                    </label>
+                    <label class="form-check-label">  
+                      <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="1">No
+                    </label>
+                  </div>  
+                  <div class="form-group submit-area">
+                    <button type="button" class="btn btn-height close-update cursor-pointer color-white">Đóng</button>
+                    <button type="submit" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="" name="">Tạo</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="multi-choice-game">
+              <div class="user-form form" action="#!">
+                <div class="message"></div>
+                <form action="#!" name="m-create-mul-game">
+                  <div class="form-group">
+                    <label for="game-title">Tên game</label>
+                    <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>
+                  </div>              
+                  <div class="form-group d-inline-block">
+                    <label for="game-date">Vào ngày</label>
+                    <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required>
+                  </div>
+                  <div class="form-group d-inline-block">
+                    <label for="game-time">Kết thúc vào lúc</label>
+                    <input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Giá Bitcoin ?</label>
+                  </div>              
+                  <div class="form-group d-inline-block mr-3">
+                    <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" pattern="^\\d{7,10}$" required>
+                  </div> 
+                  <div class="form-group d-inline-block mr-3">
+                    <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{7,10}$" required>     
+                  </div>            
+                  <div class="form-group d-inline-block mr-3">  
+                    <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{7,10}$" disabled>
+                  </div>
+                  <div class="form-group d-inline-block mr-3">
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" pattern="^\\d{7,10}$" disabled>    
+                  </div>                              
+                  <div class="form-group submit-area">
+                    <button type="button" class="btn btn-height close-update cursor-pointer color-white">Đóng</button>
+                    <button type="submit" class="btn game-btn-mul create btn-height cursor-pointer color-white" id="" name="">Tạo</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div><!-- /.tab game -->
+        </div>
+      </div>
+    </div>
+  </div><!-- /.right side hand -->
+  <!-- footer -->
+  <footer>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
+      &copy; 2017
+      <div class="about-us">
+        <a class="black medium-font-size" href="#!">Về chúng tôi</a>
+        <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
+        <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
+      </div>
+    </div>
+  </footer><!-- /.footer -->  
+</div><!-- /.manager content -->
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="../assets/jquery/jquery-ui/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/ui.js"></script>
+</body>
+</html>

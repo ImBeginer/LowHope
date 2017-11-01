@@ -147,6 +147,10 @@ input[type=number]:invalid {
   font-size: 80%;
 }
 
+.color-white {
+	color: $white !important;
+}
+
 /**********************BUTTON************************/
 .btn {
 	background-color: transparent !important;

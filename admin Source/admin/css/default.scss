@@ -50,7 +50,9 @@ a:hover{
 #mail-radio,
 #both-radio,
 button.m-update-btn,
-button.m-update-pass-btn {
+button.m-update-pass-btn,
+input#yes-radio,
+input#no-radio {
   transition: all 0.5s;
 }
 
@@ -115,6 +117,11 @@ input[type=number]:invalid {
 .mg-1 {
   margin: 0 10px !important;
 }
+
+.color-white {
+  color: $white !important;
+}
+
 /**********************BUTTON************************/
 .btn {
   border: none !important;

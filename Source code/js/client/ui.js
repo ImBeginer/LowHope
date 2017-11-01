@@ -2,7 +2,7 @@ $(function() {
   $('#nav-game a').click(function (e) {
     e.preventDefault();
     $(this).tab('show');
-  })
+  });
 
   $('[data-toggle="tooltip"]').tooltip();
 
@@ -131,7 +131,7 @@ $(function() {
 /**
  * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
  */
-  function user_percent_in_de ($in_num, $de_num) {
+  function user_percent_in_de ($in_num = 0, $de_num = 0) {
     $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
     $in_div = $('#increase');
@@ -140,8 +140,13 @@ $(function() {
     $de_user = $de_num;
     $total_user = parseInt($in_user) + parseInt($de_user);
 
-    $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
-    $de_div_width = $percent_width - $in_div_width;
+    if ($total_user !== 0 && $total_user > 0) {
+      $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+      $de_div_width = $percent_width - $in_div_width;
+    } else {
+      $de_div_width = $in_div_width = Math.round($percent_width / 2);
+    }
+
 
     $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
     $de_per_string = 100 - $in_per_string;
@@ -159,10 +164,15 @@ $(function() {
     $lo_div = $('#increase');
     $be_div = $('#between');
     $up_div = $('#decrease');
+    $lo_div_width = $be_div_width = $up_div_width = 0;
 
-    $lo_div_width = Math.round(($percent_width * $lower) / $total);
-    $be_div_width = Math.round(($percent_width * $between) / $total);
-    $up_div_width = $percent_width - $lo_div_width - $be_div_width;
+    if ($total !== 0 && $total > 0) {
+      $lo_div_width = Math.round(($percent_width * $lower) / $total);
+      $be_div_width = Math.round(($percent_width * $between) / $total);
+      $up_div_width = $percent_width - $lo_div_width - $be_div_width;      
+    } else {
+      $lo_div_width = $be_div_width = $lo_div_width = Math.round($percent_width / 3) - 1;
+    }
 
     $lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
     $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
@@ -194,7 +204,7 @@ $(function() {
     is_read (e.currentTarget.id);
   });
 
-  user_percent_in_de (280, 220);
+  user_percent_in_de (0, 0);
 
   function display_chat () {
     $('#chat-btn').on('click', function () {
@@ -207,6 +217,6 @@ $(function() {
   }
 
   display_chat ();
-  user_percent_mul (125, 265, 117);
+  user_percent_mul (1, 0, 0);
 
 });
