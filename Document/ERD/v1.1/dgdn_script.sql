@@ -24,10 +24,12 @@ CREATE TABLE USERS (
   ROLE_ID int(11),
   USER_CIF varchar(50) NOT NULL,
   USER_NAME nvarchar(100) NOT NULL,
+  PASSWORD varchar(100),
   USER_POINT int(11) NOT NULL,
   EMAIL varchar(100) NOT NULL,
   PHONE_NUMBER varchar(30) NOT NULL,
   ADDRESS nvarchar(255) NOT NULL,
+  CREATE_DATE datetime NOT NULL,
   ATTENDANCE tinyint(1) NOT NULL,
   ACTIVE tinyint(1) NOT NULL,
   PRIMARY KEY (USER_ID),
@@ -35,11 +37,11 @@ CREATE TABLE USERS (
 ) ENGINE=InnoDB;
 
 
-INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, `PHONE_NUMBER`, `ADDRESS`, `ATTENDANCE`, `ACTIVE`) VALUES
-(1, '114359317688861576124', 'CongLDSE03929', 500, 'congldse03929@fpt.edu.vn', '0986966861', 'Hải Dương', 1, 0),
-(2, '1591830150906934', 'Quách Tương', 100, 'congld2509@gmail.com', '0986966861', 'Cầu Giấy, Hà Nội', 1, 1),
-(3,'1098039550331795', 'hotaru', 500, 'tranhongquan.94@gmail.com', '1234', 'Hai Duong', 1, 0),
-(3,'108396582926044150378', 'Công Công', 500, 'duycong2509@gmail.com', '123123123', 'Hà Nội', 1, 0);
+INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, `PHONE_NUMBER`, `ADDRESS`, `CREATE_DATE` ,`ATTENDANCE`, `ACTIVE`) VALUES
+(1, '114359317688861576124', 'CongLDSE03929', 500, 'congldse03929@fpt.edu.vn', '0986966861', 'Hải Dương', now(), 1, 0),
+(2, '1591830150906934', 'Quách Tương', 100, 'congld2509@gmail.com', '0986966861', 'Cầu Giấy, Hà Nội', now(), 1, 1),
+(3,'1098039550331795', 'hotaru', 500, 'tranhongquan.94@gmail.com', '1234', 'Hai Duong', now(), 1, 0),
+(3,'108396582926044150378', 'Công Công', 500, 'duycong2509@gmail.com', '123123123', 'Hà Nội', now(), 1, 0);
 
 
 CREATE TABLE  NOTIFICATION(
@@ -205,3 +207,24 @@ CREATE TABLE MULTI_CHOICE_GAME_LOGS (
   foreign key(GAME_ID) references MULTI_CHOICE_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
 
+-- create stored procedure
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `get_sys_game_players`$$
+CREATE PROCEDURE `get_sys_game_players`(IN timeToLoad datetime)
+BEGIN
+   set @real_price = null;
+   SELECT @real_price := round(price,2) FROM currency_details
+   where update_at = timeToLoad;
+   SELECT usr.USER_ID, usr.USER_NAME, log.GAME_ID, log.PRICE_GUESS,
+	      abs(log.PRICE_GUESS - @real_price) as distance,
+          @real_price as result,
+          log.DATE_GUESS
+	from users usr  
+	inner join system_game_logs log on usr.USER_ID = log.USER_ID
+	inner join system_games sgame  on log.GAME_ID = sgame.GAME_ID
+	where sgame.ACTIVE = 1 AND @real_price is not null
+	order by distance , log.DATE_GUESS; 
+    set @real_price = null;
+END$$
+DELIMITER ;

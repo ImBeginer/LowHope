@@ -1,0 +1,29 @@
+.manager-info {
+  width: 50%;
+  margin: 25px auto;
+}
+
+.game-create p a {
+  font-size: 100%;
+}
+
+.game-create, 
+.more-option {
+  margin: 10px 0;
+}
+
+.more-option a:hover,
+.game-create a:hover {
+  text-decoration: underline !important;
+}
+
+.m-update-btn-area {
+  padding-top: 15px;
+}
+
+button.m-update-btn:hover,
+button.m-update-pass-btn:hover {
+  background-color: lightblue;
+  color: $white;
+}
+

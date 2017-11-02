@@ -1,0 +1,147 @@
+/*********************GAMES CREATE POPUP************************/
+.game-tab-content {
+  padding: 0 15px;
+}
+
+label.form-check-label input {
+  margin-right: 5px;
+}
+
+/*********************MINI GAMES************************/
+.mini-game-panel {  
+  background-color: $white;
+  padding: 25px;
+  border-radius: 7px;
+}
+
+.mini-game-panel p, 
+.mini-game-panel span, 
+.mini-game-panel label,
+select.mul-mini-game {
+  font-size: 72%;
+}
+
+span.mini-game-status {
+  position: relative;
+  top: -18px;
+  left: -38px;
+}
+
+p.mini-game-title {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+p.mini-game-transaction {
+  font-size: 100%;
+  border-top: 1px solid $footer-word-op;
+  border-bottom: 1px solid $footer-word-op;
+  padding: 12px 0px;
+  color: $bet-btn-color;
+  font-weight: bold;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+p.caution {
+  color: $update-color;
+  font-size: 60%;
+}
+
+table.mini-game-conten-info {
+  width: 100%;
+}
+
+.big-u-p {
+  height: 26px;
+}
+
+.mini-game-panel span.in-num-percent, 
+.mini-game-panel span.de-num-percent {
+  top: 25px;
+}
+
+div#mgyn-contact-area a {
+
+  display: block;
+}
+
+table.users-transaction {
+  width: 100%;
+}
+
+div#mgyn-contact-area div.card-body {
+  background-color: $body-color;
+  border: none;
+  padding: 0;
+}
+
+table.users-transaction th, 
+table.users-transaction td,
+div#mgyn-contact-area a,
+div#mgyn-content-area select.mul-mini-game option,
+.tooltip-inner, .message {
+  font-size: 80%;
+}
+
+div#mgyn-contact-area {
+  i, a {
+    color: $notifi-color !important;
+  }
+}
+
+div#mgyn-content-area select.mul-mini-game,
+div#mgyn-content-area select.mul-mini-game option {
+  color: $black;    
+  outline: none;
+}
+
+button.close-update {
+  background-color: $decrease-color;
+}
+
+button.create {
+  background-color: $btn-blue-color;
+}
+
+
+#yes-radio:checked {
+  background-color: $increase-color;
+}
+
+#no-radio:checked {
+  background-color: $decrease-color;
+}
+
+#yes-radio:after,
+#no-radio:after {
+  content: '';
+  z-index: 100;
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  top: 3px;
+  left: 3px;  
+}
+
+#yes-radio:after {
+  background-color: $increase-color-op;
+}
+
+#no-radio:after {
+  background-color: $decrease-color-op;
+}
+
+#yes-radio:checked::after {
+  -webkit-animation: radioClick 1s;
+     -moz-animation: radioClick 1s;
+          animation: radioClick 1s;
+}
+
+#no-radio:checked::after {
+  -webkit-animation: radioClick 1s;
+     -moz-animation: radioClick 1s;
+          animation: radioClick 1s;
+}

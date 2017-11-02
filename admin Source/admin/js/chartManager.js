@@ -6,6 +6,7 @@ var categories = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
 //             'T5', 'T6', 'T7', 'T8',
 //             'T9', 'T10', 'T11', 'T12'
 //         ];
+
 var data = [0, 50, 70, 42, 83, 60, 78, 89, 55, 76, 83, 88];
 Highcharts.chart('chart', {
     chart: {

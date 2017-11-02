@@ -1,6 +1,6 @@
 .login-content {
   background-size: cover;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/84.jpg');
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../img/87.jpg');
 	padding-top: 160px;
 	padding-bottom: 160px;
 	p, span, text, h1, h2, h3, h4, h5 {
@@ -13,6 +13,11 @@
 	padding: 30px 20px;
 	border-radius: 6px;
   box-shadow: -2px 4px 22px $box-shadow;	
+ .user-ava {
+		width: 70px;
+		max-width: 70px;
+		border-radius: 45px;
+	}  
 }
 
 .component {
@@ -21,12 +26,6 @@
 
 div.avtar {
 	text-align: center;	
-}
-
-.user-ava {
-	width: 70px;
-	max-width: 70px;
-	border-radius: 45px;
 }
 
 button.login-btn {

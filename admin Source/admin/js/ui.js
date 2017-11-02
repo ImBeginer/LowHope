@@ -1,6 +1,6 @@
 $(function () {
 
-  $('#user-nav a').click(function (e) {
+  $('#user-nav a, #nav-game a').click(function (e) {
     e.preventDefault();
     $(this).tab('show');
   })
@@ -12,6 +12,27 @@ $(function () {
 
 		$settingIcon.hasClass('rotate-setting') ? $settingIcon.removeClass ('rotate-setting') : $settingIcon.addClass ('rotate-setting');
 	});
+
+  $('#game-bitcoin-price-upper').on('change', function () {
+    $('#game-bitcoin-price-between-lower').val($(this).val());
+  });
+
+  $('#game-bitcoin-price-lower').on('change', function () {
+    $('#game-bitcoin-price-between-upper').val($(this).val());
+  });
+
+  $currentYear = new Date().getFullYear();
+  $("div.create-game-option #game-date-yn, div.create-game-option #game-date-mul").datepicker({
+    yearRange: $currentYear + ':' + ($currentYear + 3) ,
+    changeYear: true,
+    changeMonth: true,
+    dateFormat: "dd/mm/yy",
+    dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+    monthNames: [ "Tháng riêng", "Tháng hai", "Tháng ba", "Tháng bốn", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai" ],
+    monthNamesShort: [ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" ],
+    showAnim: "clip",
+    minDate: new Date()
+  });  
 
 /**
  * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
