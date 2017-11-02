@@ -51,14 +51,23 @@ $(function() {
     minDate: new Date()
   });
 
-  $('#hot-mini-game-content').slick({
-    infinite: true,
-    slidesToShow: 8,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-  });  
+  // $('#hot-mini-game-content').slick({
+  //   infinite: true,
+  //   slidesToShow: 8,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 2000,
+  // });  
   
+  $styleSheet = document.styleSheets[5];
+  console.log ($styleSheet);
+  $infinitySlide = $styleSheet.cssRules[0];
+  console.log ($infinitySlide);
+  $infinitySlide_From = $infinitySlide.cssRules[0];
+  console.log ($infinitySlide_From);
+  $infinitySlide_To = $infinitySlide.cssRules[1];
+  console.log ($infinitySlide_To);  
+
 /**
  * [get_notifi_id xử lý id dạng string trả về id của notification]
  * @param  {[String]} $string [VD: notifi-1]
