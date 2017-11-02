@@ -90,3 +90,11 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('ROLE_ADMIN',1);
 define('ROLE_MANAGER',2);
 define('ROLE_USER',3);
+
+define('GAME_YN',1);
+define('GAME_MUL',2);
+
+define('FEE_BET',10);
+define('FEE_CREATE',50);
+
+define('MAX_PLAYER',40);

@@ -87,7 +87,7 @@ class Game extends CI_Model {
 	{
 		$game = array();
 
-		$result_YN = $this->db->select('YN_GAMES.GAME_ID, YN_GAMES.OWNER_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.PLAYER_COUNT')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID')->where('YN_GAMES.ACTIVE',1);		
+		$result_YN = $this->db->select('YN_GAMES.GAME_ID, YN_GAMES.OWNER_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.TOTAL_AMOUNT')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID')->where('YN_GAMES.ACTIVE',1);		
 
 		$result_YN = $this->db->get();
 
@@ -95,7 +95,7 @@ class Game extends CI_Model {
 			$game['YN'] = $result_YN->result_array();
 		}
 
-		$result_MUL = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, MULTI_CHOICE_GAMES.OWNER_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.PLAYER_COUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.ACTIVE',1);		
+		$result_MUL = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, MULTI_CHOICE_GAMES.OWNER_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.TOTAL_AMOUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.ACTIVE',1);		
 
 		$result_MUL = $this->db->get();
 
@@ -106,21 +106,27 @@ class Game extends CI_Model {
 		return $game;
 	}
 
-
+	/**
+	 * [is_log_game description]
+	 * @param  [type]  $userID [description]
+	 * @param  [type]  $gameID [description]
+	 * @param  [type]  $type   [description]
+	 * @return boolean         [description]
+	 */
 	public function is_log_game($userID,$gameID,$type)
 	{
 		$condi = array('USER_ID'=>$userID, 'GAME_ID'=>$gameID);
 		$this->db->select('*');
 		$this->db->where($condi);
 
-		if($type == 1){
+		if($type == GAME_YN){
 			$result = $this->db->get('YN_GAME_LOGS');
 			if($result && $result->num_rows() > 0){
 				return true;
 			}else{
 				return false;
 			}			
-		}else if($type == 2){
+		}else if($type == GAME_MUL){
 			$result = $this->db->get('MULTI_CHOICE_GAME_LOGS');
 			if($result && $result->num_rows() > 0){
 				return true;
@@ -130,6 +136,46 @@ class Game extends CI_Model {
 		}
 	}
 
+	/**
+	 * [isFull description]
+	 * @param  [type]  $gameID [description]
+	 * @param  [type]  $type   [description]
+	 * @return boolean         [description]
+	 */
+	public function isFull($gameID,$type)
+	{
+		if($type == GAME_YN){
+			$result = $this->db->select('*')->where('GAME_ID',$gameID)->get('YN_GAMES');
+			$result = $result->row();
+			return $result->PLAYER_COUNT==MAX_PLAYER;
+		}else if($type == GAME_MUL){
+			$result = $this->db->select('*')->where('GAME_ID', $gameID)->get('MULTI_CHOICE_GAMES');
+			$result = $result->row();
+			return $result->PLAYER_COUNT==MAX_PLAYER;
+		}
+	}
+
+	/**
+	 * [update_Player_Total_Game description]
+	 * @param  [type] $gameID           [description]
+	 * @param  [type] $new_player_count [description]
+	 * @param  [type] $total_amount     [description]
+	 * @param  [type] $type             [description]
+	 * @return [type]                   [description]
+	 */
+	public function update_Player_Total_Game($gameID,$new_player_count,$total_amount,$type)
+	{
+		$obj = array('PLAYER_COUNT' => $new_player_count, 'TOTAL_AMOUNT' => $total_amount);
+		$this->db->where('GAME_ID', $gameID);
+
+		if($type == GAME_YN){
+			$this->db->update('YN_GAMES', $obj);
+		}else if($type == GAME_MUL){
+			$this->db->update('MULTI_CHOICE_GAMES', $obj);
+		}
+	}
+
+	/**************************************** YES/NO GAME *****************************************/
 
 	/**
 	 * [createGameYN description]
@@ -185,9 +231,14 @@ class Game extends CI_Model {
 		}
 	}
 
+	/**
+	 * [getGameYN_ById description]
+	 * @param  [type] $gameID [description]
+	 * @return [type]         [description]
+	 */
 	public function getGameYN_ById($gameID)
 	{
-		$game = $this->db->select('YN_GAMES.GAME_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.START_DATE, YN_GAMES.END_DATE, YN_GAMES.PLAYER_COUNT')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID')->where('YN_GAMES.GAME_ID', $gameID)->where('YN_GAMES.ACTIVE',1);
+		$game = $this->db->select('YN_GAMES.GAME_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.START_DATE, YN_GAMES.END_DATE, YN_GAMES.PLAYER_COUNT, YN_GAMES.TOTAL_AMOUNT')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID')->where('YN_GAMES.GAME_ID', $gameID)->where('YN_GAMES.ACTIVE',1);
 		$game = $this->db->get();
 
 		if($game && $game->num_rows()>0){
@@ -196,7 +247,14 @@ class Game extends CI_Model {
 		}		
 	}
 
-
+	/**
+	 * [log_game_yes_no description]
+	 * @param  [type] $userID   [description]
+	 * @param  [type] $gameID   [description]
+	 * @param  [type] $answer   [description]
+	 * @param  [type] $ans_time [description]
+	 * @return [type]           [description]
+	 */
 	public function log_game_yes_no($userID,$gameID,$answer,$ans_time)
 	{
 		$log = array(
@@ -210,11 +268,38 @@ class Game extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	/**
+	 * [getRatioYN description]
+	 * @param  [type] $gameID [description]
+	 * @return [type]         [description]
+	 */
+	public function getRatioYN($gameID)
+	{
+		$ans = array();
 
-	/************************** MUL ****************************************/
+		$this->db->select('SUM(`ANSWER`=1) AS YES');
+		$this->db->select('SUM(`ANSWER`=0) AS NO');
+		$this->db->from('YN_GAME_LOGS');
+		$this->db->where('GAME_ID', $gameID);
+
+		$result = $this->db->get();
+		$result = $result->row();
+		$ans['YES'] = $result->YES;
+		$ans['NO'] = $result->NO;
+
+		return $ans;
+	}
+
+
+	/********************************************* MUL ***************************************************/
+	/**
+	 * [getGameMUL_ById description]
+	 * @param  [type] $gameID [description]
+	 * @return [type]         [description]
+	 */
 	public function getGameMUL_ById($gameID)
 	{
-		$game = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.START_DATE, MULTI_CHOICE_GAMES.END_DATE, MULTI_CHOICE_GAMES.PLAYER_COUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.GAME_ID', $gameID)->where('MULTI_CHOICE_GAMES.ACTIVE',1);
+		$game = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.START_DATE, MULTI_CHOICE_GAMES.END_DATE, MULTI_CHOICE_GAMES.PRICE_BELOW, MULTI_CHOICE_GAMES.PRICE_ABOVE, MULTI_CHOICE_GAMES.PLAYER_COUNT, MULTI_CHOICE_GAMES.TOTAL_AMOUNT')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAMES.GAME_ID', $gameID)->where('MULTI_CHOICE_GAMES.ACTIVE',1);
 		$game = $this->db->get();
 
 		if($game && $game->num_rows()>0){
@@ -280,7 +365,53 @@ class Game extends CI_Model {
 		}
 	}
 
+	/**
+	 * [log_game_mul description]
+	 * @param  [type] $userID        [description]
+	 * @param  [type] $gameID        [description]
+	 * @param  [type] $price_below   [description]
+	 * @param  [type] $price_between [description]
+	 * @param  [type] $price_above   [description]
+	 * @param  [type] $ans_time      [description]
+	 * @return [type]                [description]
+	 */
+	public function log_game_mul($userID,$gameID,$price_below,$price_between,$price_above,$ans_time)
+	{
+		$log_game_mul = array(
+						'USER_ID' => $userID,
+						'GAME_ID' => $gameID,
+						'PRICE_BELOW' => $price_below,
+						'PRICE_BETWEEN' => $price_between,
+						'PRICE_ABOVE' => $price_above,
+						'ANS_TIME' => $ans_time
+					);
+		$this->db->insert('MULTI_CHOICE_GAME_LOGS', $log_game_mul);
+		return $this->db->affected_rows();
+	}
 
+	/**
+	 * [getRatioMUL description]
+	 * @param  [type] $gameID [description]
+	 * @return [type]         [description]
+	 */
+	public function getRatioMUL($gameID)
+	{
+		$ans = array();
+
+		$this->db->select('SUM(`PRICE_BELOW`=1) AS PRICE_BELOW');
+		$this->db->select('SUM(`PRICE_BETWEEN`=1) AS PRICE_BETWEEN');
+		$this->db->select('SUM(`PRICE_ABOVE`=1) AS PRICE_ABOVE');
+		$this->db->from('MULTI_CHOICE_GAME_LOGS');
+		$this->db->where('GAME_ID', $gameID);
+
+		$result = $this->db->get();
+		$result = $result->row();
+		$ans['PRICE_BELOW'] = $result->PRICE_BELOW;
+		$ans['PRICE_BETWEEN'] = $result->PRICE_BETWEEN;
+		$ans['PRICE_ABOVE'] = $result->PRICE_ABOVE;
+
+		return $ans;
+	}
 
 }
 

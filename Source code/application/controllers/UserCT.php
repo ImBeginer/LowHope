@@ -21,8 +21,9 @@ class UserCT extends CI_Controller {
 		try {
     		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
 			$tt_game = $this->game->getGameTT();
-
+			$game = $this->game->getAllGameMini();
 			//set sessionUserID
+			$this->session->set_userdata('userGGExist', true);
 	    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
 		    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
@@ -32,6 +33,17 @@ class UserCT extends CI_Controller {
 	        $data['TT_END_DATE'] = $tt_game->END_DATE;
 
 	        //$data['prices'] = $this->user->getData();
+	        if(isset($game['YN'])){
+                $data['YN'] = $game['YN'];                            
+            }else{
+                $data['YN'] = array(); 
+            }
+
+            if(isset($game['MUL'])){
+                $data['MUL'] = $game['MUL'];                            
+            }else{
+                $data['MUL'] = array();
+            }
 
 			$this->load->view('user/home', $data);		
 			

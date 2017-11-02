@@ -170,6 +170,11 @@ class User extends CI_Model {
 		}
 	}
 
+	/**
+	 * [canCreateGame description]
+	 * @param  [type] $userID [description]
+	 * @return [type]         [description]
+	 */
 	public function canCreateGame($userID)
 	{
 		$user = $this->db->select('*')->where('USER_ID', $userID)->get('USERS');
@@ -185,9 +190,59 @@ class User extends CI_Model {
 		$rows_MUL = $result_MUL->num_rows();
 
 		$rows = $rows_YN + $rows_MUL;
-		return $user_point>=(450+$rows*400);
+		return $user_point>=(MAX_PLAYER*FEE_BET + FEE_CREATE + $rows*MAX_PLAYER*FEE_BET);
 	}
 
+	/**
+	 * [canPlayGame description]
+	 * @param  string $value [description]
+	 * @return [type]        [description]
+	 */
+	public function canPlayGame($userID)
+	{
+		$user = $this->db->select('*')->where('USER_ID', $userID)->get('USERS');
+		$user = $user->row();
+		$user_point = $user->USER_POINT;
+
+		$condi = array('OWNER_ID'=>$userID, 'ACTIVE'=>1);
+
+		$result_YN = $this->db->select('*')->where($condi)->get('YN_GAMES');
+		$rows_YN = $result_YN->num_rows();
+
+		$result_MUL = $this->db->select('*')->where($condi)->get('MULTI_CHOICE_GAMES');
+		$rows_MUL = $result_MUL->num_rows();
+
+		$rows = $rows_YN + $rows_MUL;
+		
+		return $user_point>=(FEE_BET + $rows*FEE_BET*MAX_PLAYER);
+	}
+
+	/**
+	 * [isOwnerGame description]
+	 * @param  [type]  $userID [description]
+	 * @param  [type]  $gameID [description]
+	 * @return boolean         [description]
+	 */
+	public function isOwnerGame($userID,$gameID,$type)
+	{
+		$condi = array('GAME_ID'=>$gameID, 'OWNER_ID'=>$userID);
+		if($type == GAME_YN){
+			$result = $this->db->select('*')->where($condi)->get('YN_GAMES');
+			$result = $result->num_rows();
+			return $result>0;			
+		}else if($type == GAME_MUL){
+			$result = $this->db->select('*')->where($condi)->get('MULTI_CHOICE_GAMES');
+			$result = $result->num_rows();
+			return $result>0;
+		}
+	}
+	
+	/**
+	 * [updatePoint description]
+	 * @param  [type] $userID     [description]
+	 * @param  [type] $user_point [description]
+	 * @return [type]             [description]
+	 */
 	public function updatePoint($userID,$user_point)
 	{
 		$point = array('USER_POINT'=>$user_point);

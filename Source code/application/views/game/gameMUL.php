@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Capstone project</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
-  <!-- jQuery UI css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/jquery/jquery-ui/jquery-ui.min.css">
-  <!-- bootstrap css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/bootstrap/bootstrap.min.css">
-  <!-- font awesome -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/font-awesome/css/font-awesome.min.css">
-  <!-- animation -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/animation/animate.css">  
-  <!-- custom css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/client/main.css">
-</head>
-<body onload="countDown_End_Date(end_date_game_mini,1);"> 
+<body onload="countDown_End_Date(end_date_game_mini,1); user_percent_mul(PRICE_BELOW, PRICE_BETWEEN, PRICE_ABOVE);"> 
   <script>
     var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";
+    var PRICE_BELOW = "<?php echo $PRICE_BELOW; ?>" || 0;
+    var PRICE_BETWEEN = "<?php echo $PRICE_BETWEEN; ?>" || 0;
+    var PRICE_ABOVE = "<?php echo $PRICE_ABOVE; ?>" || 0;
   </script>
   <!-- body -->
   <div class="container-fluid">
@@ -34,7 +19,7 @@
                 <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
                   <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span><?php echo $value['PLAYER_COUNT']*10 ?></span>
+                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
                 </div>
               </a>
             </div>            
@@ -47,7 +32,7 @@
                 <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
                   <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span><?php echo $value['PLAYER_COUNT']*10 ?></span>
+                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
                 </div>
               </a>
             </div>
@@ -338,7 +323,7 @@
                             <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" step="0.01" required>
                           </div>
                           <div class="form-group submit-area">
-                            <button type="button" class="game-btn-mul btn-height cursor-pointer" id="" name="">Tạo</button>
+                            <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-yes-no" name="">Tạo</button>
                             <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
                           </div>                                         
                         </div>
@@ -380,7 +365,7 @@
                             <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>    
                           </div>                              
                           <div class="form-group submit-area">
-                            <button type="submit" class="btn-height cursor-pointer" id="game-btn-mul" name="game-btn-mul">Tạo</button>
+                            <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-mul" name="game-btn-mul">Tạo</button>
                             <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
                           </div>                                         
                         </div>
@@ -460,9 +445,9 @@
           <div class="mini-game-des">
             <span class="mini-game-status game-opening">ĐANG MỞ</span>
             <p class="mini-game-title"><?php echo $game_data->TITLE; ?></p>
-            <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->PLAYER_COUNT*10; ?></p>
+            <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->TOTAL_AMOUNT; ?></p>
           </div>
-          <div class="mini-game-content">
+          <div class="mini-game-content" data-gameID="<?php echo $game_data->GAME_ID; ?>">
             <table class="mini-game-conten-info">
               <tr>
                 <td>
@@ -491,12 +476,15 @@
             </table>
             
             <!-- bet percent -->
-            <div class="percent-panel center">
+            <div class="game-mul percent-panel center">
               <p class="percent-panel-title">Tỷ lệ đặt cược</p>
-              <div id="increase" class="user-percent" data-toggle="tooltip" data-placement="top" title="Tăng">
+              <div id="increase" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Dưới">
                 <span class="in-num-percent">50%</span>
               </div>
-              <div id="decrease" class="user-percent" data-toggle="tooltip" data-placement="top" title="Giảm">
+              <div id="between" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Giữa">
+                <span class="be-num-percent">50%</span>
+              </div>
+              <div id="decrease" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Trên">
                 <span class="de-num-percent">50%</span>
               </div>
             </div><!-- /.bet percent -->
@@ -508,16 +496,16 @@
               </div>
               <div class="form-group">  
                 <select name="mul-game" class="mul-mini-game">
-                  <option value="0">Trên 5000 USD</option>
-                  <option value="1">Giữa 4000 - 5000 USD</option>
-                  <option value="3">Dưới 3000 USD</option>
+                  <option value="0">Dưới <?php echo $game_data->PRICE_BELOW; ?> USD</option>
+                  <option value="1">Giữa <?php echo $game_data->PRICE_BELOW; ?> - <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
+                  <option value="2">Trên <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
                 </select>
               </div>
               <div class="form-group">
-                <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 40 point. Hãy cân nhắc</p>
+                <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 10 point. Hãy cân nhắc</p>
               </div> 
               <div class="form-group submit-area">
-                <button type="submit" class="btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Đặt cược</button>
+                <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="bet-game-mul" name="bet-game-mul">Đặt cược</button>
               </div>                       
             </form>                  
           </div>
@@ -569,21 +557,3 @@
 </div>
 </div>
 </div><!-- /.body -->
-
-<footer>
-  <span>&copy; 2017</span>
-</footer>
-
-<!-- jquery -->
-<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
-<!-- popper js -->
-<script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
-<!-- bootstrap js -->
-<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
-</body>
-</html>

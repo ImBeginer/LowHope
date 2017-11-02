@@ -93,8 +93,18 @@ class Login extends CI_Controller {
                         $data['TT_END_DATE'] = $tt_game->END_DATE;
 
                         //$data['prices'] = $this->user->getData();
-                        $data['YN'] = $game['YN'];
-                        $data['MUL'] = $game['MUL'];
+                       
+                        if(isset($game['YN'])){
+                            $data['YN'] = $game['YN'];                            
+                        }else{
+                            $data['YN'] = array(); 
+                        }
+
+                        if(isset($game['MUL'])){
+                            $data['MUL'] = $game['MUL'];                            
+                        }else{
+                            $data['MUL'] = array();
+                        }
                         
                         $this->load->view('user/home', $data);
                     }else{                        
@@ -201,9 +211,17 @@ class Login extends CI_Controller {
                 $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
                 $data['TT_END_DATE'] = $tt_game->END_DATE;
                 
-                
-                $data['YN'] = $game['YN'];
-                $data['MUL'] = $game['MUL'];                    
+                if(isset($game['YN'])){
+                    $data['YN'] = $game['YN'];                            
+                }else{
+                    $data['YN'] = array(); 
+                }
+
+                if(isset($game['MUL'])){
+                    $data['MUL'] = $game['MUL'];                            
+                }else{
+                    $data['MUL'] = array();
+                }
                 
                 //$data['prices'] = $this->user->getData();
 

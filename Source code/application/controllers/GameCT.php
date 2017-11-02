@@ -68,6 +68,9 @@ class GameCT extends CI_Controller {
 		}
 	}
 
+
+	/********************************* GAME YES NO ***********************************************/
+
 	/**
 	 * [createGameYN description]
 	 * @return [type] [description]
@@ -96,7 +99,7 @@ class GameCT extends CI_Controller {
 					if(!$this->game->checkGameYN($userID, $start_date, $end_date)){
 						$this->game->createGameYN($userID, $game_title, $end_date, $price_bet, $start_date);
 
-						$user_point = $user_point - 50;
+						$user_point = $user_point - FEE_CREATE;
 						$this->user->updatePoint($userID,$user_point);
 
 						$userNew = $this->user->getUserById($userID);
@@ -115,7 +118,124 @@ class GameCT extends CI_Controller {
 		}
 	}
 
+	/**
+	 * [yn description]
+	 * @return [type] [description]
+	 */
+	public function yn()
+	{		
+		$game_id = (int)$this->uri->segment(3);
+		if($game_id > 0){
+			//get data from table game yes no
+			$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
+			if($user){
+				$game = $this->game->getAllGameMini();
 
+				$data['USER_NAME'] = $user->USER_NAME;
+	            $data['USER_POINT'] = $user->USER_POINT;
+
+	            //$data['prices'] = $this->user->getData();
+	            if(isset($game['YN'])){
+                    $data['YN'] = $game['YN'];                            
+                }else{
+                    $data['YN'] = array(); 
+                }
+
+                if(isset($game['MUL'])){
+                    $data['MUL'] = $game['MUL'];                            
+                }else{
+                    $data['MUL'] = array();
+                }
+
+				$data['game_data'] = $this->game->getGameYN_ById($game_id);
+
+				//lay ti le phan tram nguoi choi da tra loi
+				$ans = $this->game->getRatioYN($game_id);
+				
+				$data['ans_yes'] = $ans['YES'];
+				$data['ans_no'] = $ans['NO'];
+
+				$this->load->view('layout/header');
+				$this->load->view('game/gameYN', $data);				
+				$this->load->view('layout/footer');				
+			}else{
+				$this->goHome();
+			}
+		}else{			
+			$this->goHome();
+		}		
+	}
+
+	/**
+	 * [log_game_yes_no description]
+	 * @return [type] [description]
+	 */
+	public function log_game_yes_no()
+	{	
+		if(isset($_POST['game_id']) && isset($_POST['answer'])){
+			$userID = $this->session->userdata('sessionUserId');
+			$gameID =$this->input->post('game_id');
+
+			//kiểm tra xem game đã full người chơi chưa
+			if(!$this->game->isFull($gameID,GAME_YN)){
+				// Kiểm tra xem người chơi có phải là người tạo ra game này hay không
+				if(!$this->user->isOwnerGame($userID,$gameID,GAME_YN)){
+					// Kiểm tra xem có đủ tiền chơi hay không?
+					if($this->user->canPlayGame($userID)){
+						//kiểm tra xem user đã đặt cược game này chưa
+						if(!$this->game->is_log_game($userID,$gameID,GAME_YN)){
+							$answer = $this->input->post('answer');
+							$ans_time = date('Y-m-d H:i:s');
+							
+							$result = $this->game->log_game_yes_no($userID,$gameID,$answer,$ans_time);
+							if($result > 0){
+
+								//cập nhật bảng USERS, trừ point
+								$user = $this->user->getUserById($userID);
+								$user_point = $user->USER_POINT - FEE_BET;
+								$this->user->updatePoint($userID,$user_point);
+								//lấy point sau khi update
+								$newUser = $this->user->getUserById($userID);
+
+								//update lại bảng YN_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
+								$game = $this->game->getGameYN_ById($gameID);
+								$new_player_count = $game->PLAYER_COUNT + 1;
+								$total_amount = $game->TOTAL_AMOUNT + FEE_BET;
+
+								$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_YN);
+
+								//lấy số lượng câu trả lời yes / no
+								$ans = $this->game->getRatioYN($gameID);
+
+								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT, 'ans_yes'=>$ans['YES'], 'ans_no'=>$ans['NO'], 'total_amount' => $total_amount);
+
+								echo json_encode($arr);
+							}else{
+								echo json_encode(0);
+							}
+						}else{
+							echo json_encode(array('result'=>2));
+						}					
+					}else{
+						echo json_encode(array('result'=>3));
+					}
+				}else{
+					echo json_encode(array('result'=>4));
+				}
+			}else{
+				echo json_encode(array('result'=>5));
+			}
+
+		}
+	}
+
+
+	/********************************* GAME MULTI ***********************************************/
+
+	/**
+	 * [createGameMulti description]
+	 * @return [type] [description]
+	 */
 	public function createGameMulti()
 	{
 		if(isset($_POST['game_title_mul']) && isset($_POST['end_date_time']) && isset($_POST['price_below']) && isset($_POST['price_above'])){
@@ -138,7 +258,7 @@ class GameCT extends CI_Controller {
 					if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
 						$this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
 
-						$user_point = $user_point - 50;
+						$user_point = $user_point - FEE_CREATE;
 						$this->user->updatePoint($userID,$user_point);
 
 						$userNew = $this->user->getUserById($userID);
@@ -156,64 +276,10 @@ class GameCT extends CI_Controller {
 		}
 	}
 
-	
-	public function yn()
-	{		
-		$game_id = (int)$this->uri->segment(3);
-		if($game_id > 0){
-			//get data from table game yes no
-			$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
-			if($user){
-				$game = $this->game->getAllGameMini();
-
-				$data['USER_NAME'] = $user->USER_NAME;
-	            $data['USER_POINT'] = $user->USER_POINT;
-
-	            //$data['prices'] = $this->user->getData();
-	            $data['YN'] = $game['YN'];
-	            $data['MUL'] = $game['MUL'];
-				$data['game_data'] = $this->game->getGameYN_ById($game_id);
-
-
-							
-				$this->load->view('game/gameYN', $data);				
-			}else{
-				$this->goHome();
-			}
-		}else{			
-			$this->goHome();
-		}		
-	}
-
-	public function log_game_yes_no()
-	{
-		//kiểm tra xem user có điều kiện tham gia game hay không?
-		//TODO
-		
-		$userID = $this->session->userdata('sessionUserId');
-		if(isset($_POST['game_id']) && isset($_POST['answer'])){
-
-			$gameID =$this->input->post('game_id');
-
-			//kiểm tra xem user đã đặt cược game này chưa
-			if(!$this->game->is_log_game($userID,$gameID,1)){
-				$answer = $this->input->post('answer');
-				$ans_time = date('Y-m-d H:i:s');
-
-				$result = $this->game->log_game_yes_no($userID,$gameID,$answer,$ans_time);
-				if($result > 0){
-					echo json_encode(1);
-				}else{
-					echo json_encode(0);
-				}
-			}else{
-				echo json_encode(2);
-			}
-			
-		}
-
-	}
-
+	/**
+	 * [mul description]
+	 * @return [type] [description]
+	 */
 	public function mul()
 	{
 		$game_id = (int)$this->uri->segment(3);
@@ -227,18 +293,109 @@ class GameCT extends CI_Controller {
 	            $data['USER_POINT'] = $user->USER_POINT;
 
 	            //$data['prices'] = $this->user->getData();
-	            $data['YN'] = $game['YN'];
-	            $data['MUL'] = $game['MUL'];
+	            if(isset($game['YN'])){
+                    $data['YN'] = $game['YN'];                            
+                }else{
+                    $data['YN'] = array(); 
+                }
+
+                if(isset($game['MUL'])){
+                    $data['MUL'] = $game['MUL'];                            
+                }else{
+                    $data['MUL'] = array();
+                }
 
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
 
-				$this->load->view('game/gameMUL', $data);				
+				//lay ti le phan tram nguoi choi da tra loi
+				$ans = $this->game->getRatioMUL($game_id);
+				
+				$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
+				$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
+				$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
+				
+
+				$this->load->view('layout/header');
+				$this->load->view('game/gameMUL', $data);
+				$this->load->view('layout/footer');				
 			}else{
 				$this->goHome();
 			}
 		}else{			
 			$this->goHome();
 		}	
+	}
+
+	public function log_game_mul()
+	{
+		if(isset($_POST['game_id']) && isset($_POST['answer'])){
+			$userID = $this->session->userdata('sessionUserId');
+			$gameID = $this->input->post('game_id');
+			//kiểm tra xem game đã full người chơi chưa
+			if(!$this->game->isFull($gameID,GAME_MUL)){
+				// Kiểm tra xem người chơi có phải là người tạo ra game này hay không
+				if(!$this->user->isOwnerGame($userID,$gameID,GAME_MUL)){
+					// Kiểm tra xem có đủ tiền chơi hay không?
+					if($this->user->canPlayGame($userID)){
+						//kiểm tra xem user đã đặt cược game này chưa
+						if(!$this->game->is_log_game($userID,$gameID,GAME_MUL)){
+							$answer = $this->input->post('answer');
+							$ans_time = date('Y-m-d H:i:s');
+
+							$price_below = false;
+							$price_between= false;
+							$price_above = false;
+
+							if($answer == 0){
+								$price_below = true;
+							}else if($answer == 1){
+								$price_between= true;
+							}else if($answer == 2){
+								$price_above = true;
+							}
+							
+							$result = $this->game->log_game_mul($userID,$gameID,$price_below,$price_between,$price_above,$ans_time);
+
+							if($result > 0){
+
+								//cập nhật bảng USERS, trừ point
+								$user = $this->user->getUserById($userID);
+								$user_point = $user->USER_POINT - FEE_BET;
+								$this->user->updatePoint($userID,$user_point);
+
+								//lấy point sau khi update
+								$newUser = $this->user->getUserById($userID);
+
+								//update lại bảng MULTI_CHOICE_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
+								$game = $this->game->getGameMUL_ById($gameID);
+								$new_player_count = $game->PLAYER_COUNT + 1;
+								$total_amount = $game->TOTAL_AMOUNT + FEE_BET;
+
+								//TODO Update game multi
+								$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_MUL);
+
+								//lấy số lượng câu trả lời yes / no
+								$ans = $this->game->getRatioMUL($gameID);
+
+								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT, 'PRICE_BELOW'=>$ans['PRICE_BELOW'], 'PRICE_BETWEEN'=>$ans['PRICE_BETWEEN'], 'PRICE_ABOVE'=>$ans['PRICE_ABOVE'], 'total_amount' => $total_amount);
+
+								echo json_encode($arr);
+							}else{
+								echo json_encode(0);
+							}
+						}else{
+							echo json_encode(array('result'=>2));
+						}					
+					}else{
+						echo json_encode(array('result'=>3));
+					}
+				}else{
+					echo json_encode(array('result'=>4));
+				}
+			}else{
+				echo json_encode(array('result'=>5));
+			}
+		}
 	}
 
 }

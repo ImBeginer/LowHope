@@ -7,9 +7,9 @@ $(document).ready(function() {
    * @return {Boolean} [trả về true nếu rỗng ngược lại trả về false]
    */
    function isEmpty ($inputTarget = null) {
-    // console.log ($inputTarget);
-    return $inputTarget.val() === "" ? true : false;
-}
+    	// console.log ($inputTarget);
+    	return $inputTarget.val() === "" ? true : false;
+	}
 
   /**
    * [isValidFormat kiểm tra xem dữ liệu input có đúng theo form hay không]
@@ -18,10 +18,10 @@ $(document).ready(function() {
    * @return {Boolean}              [trả về true nếu đúng format ngược lại trả về false]
    */
    function isValidFormat ($inputTarget = null, $regex = '') {
-   	$inputData = $inputTarget.val();
-   	$regexFormat = new RegExp ($regex);
+		$inputData = $inputTarget.val();
+	   	$regexFormat = new RegExp ($regex);
 
-   	return $regexFormat.test($inputData);
+	   	return $regexFormat.test($inputData);
    }
 
   /**
@@ -32,28 +32,28 @@ $(document).ready(function() {
    */
    function isInputEmpty ($inputData = null, $panel, $data = []) {
 
-   	if ($data.length === 0) {
-   		return true;
-   	}
+	   	if ($data.length === 0) {
+	   		return true;
+	   	}
 
-   	for ($i = 0; $i < $data.length; $i++) {
-   		$inputID = $($data[$i]).attr ('id');
+	   	for ($i = 0; $i < $data.length; $i++) {
+	   		$inputID = $($data[$i]).attr ('id');
 
-   		if (isEmpty ($($panel + ' ' + '#' + $inputID))) {
-   			if ($inputData.hasOwnProperty ($inputID)) {
-   				$message += '<p class="error animated shake">' + $inputData [$inputID] + ' không hợp lệ</p>'; 
-   			}
-   		}
-   	}
+	   		if (isEmpty ($($panel + ' ' + '#' + $inputID))) {
+	   			if ($inputData.hasOwnProperty ($inputID)) {
+	   				$message += '<p class="error animated shake">' + $inputData [$inputID] + ' không hợp lệ</p>'; 
+	   			}
+	   		}
+	   	}
 
-   	if ($message !== '') {
-   		displayMessage ($panel, $message);
+	   	if ($message !== '') {
+	   		displayMessage ($panel, $message);
 
-   		return true;
-   	} else {
+	   		return true;
+	   	} else {
 
-   		return false;
-   	}
+	   		return false;
+	   	}
    }
 
   /**
@@ -66,30 +66,30 @@ $(document).ready(function() {
    */
    function isInvalidFormat ($inputData = null, $inputFormat = null, $invalidMessage = null, $panel, $data = []) {
 
-   	$message = '';
+	   	$message = '';
 
-   	if ($data.length === 0) {
-   		return true;
-   	}
+	   	if ($data.length === 0) {
+	   		return true;
+	   	}
 
-   	for ($i = 0; $i < $data.length; $i++) {
-   		$inputID = $($data[$i]).attr ('id');
+	   	for ($i = 0; $i < $data.length; $i++) {
+	   		$inputID = $($data[$i]).attr ('id');
 
-   		if ($inputData.hasOwnProperty ($inputID)) {
-   			if (!isValidFormat ($($panel + ' ' + '#' + $inputID), $inputFormat [$inputID])) {
-   				$message += '<p class="error animated shake">' + $invalidMessage [$inputID] + '</p>';
-   			}
-   		}
-   	}
+	   		if ($inputData.hasOwnProperty ($inputID)) {
+	   			if (!isValidFormat ($($panel + ' ' + '#' + $inputID), $inputFormat [$inputID])) {
+	   				$message += '<p class="error animated shake">' + $invalidMessage [$inputID] + '</p>';
+	   			}
+	   		}
+	   	}
 
-   	if ($message !== '') {
-   		displayMessage ($panel, $message);
+	   	if ($message !== '') {
+	   		displayMessage ($panel, $message);
 
-   		return true;
-   	} else {
+	   		return true;
+	   	} else {
 
-   		return false;
-   	}
+	   		return false;
+	   	}
    } 
 
   /**
@@ -98,33 +98,33 @@ $(document).ready(function() {
    * @return {Boolean}         [trả về true nếu giá bitcoin hợp lệ ngược lại trả về false]
    */
    function isPriceValid ($object) {
-   	$message = '';
+	   	$message = '';
 
-   	$upper = $($object.priceInput[0]).val();
-   	$lower = $($object.priceInput[1]).val();
+	   	$upper = $($object.priceInput[0]).val();
+	   	$lower = $($object.priceInput[1]).val();
 
-   	try {
-   		$upper = parseFloat($upper);
-   		$lower = parseFloat($lower);
+	   	try {
+	   		$upper = parseFloat($upper);
+	   		$lower = parseFloat($lower);
 
-   		if ($upper < 0 || $lower < 0) {
-   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
-   		} else if (isNaN($upper) || isNaN($lower)) {
-   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không hợp lệ</p>'; 
-   		} else if ($lower > $upper) {
-   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng phải nhỏ hơn dưới khoảng</p>';
-   		}
-   	} catch (error) {
-   		console.log (error);
-   	}
+	   		if ($upper < 0 || $lower < 0) {
+	   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
+	   		} else if (isNaN($upper) || isNaN($lower)) {
+	   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không hợp lệ</p>'; 
+	   		} else if ($lower > $upper) {
+	   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng phải nhỏ hơn dưới khoảng</p>';
+	   		}
+	   	} catch (error) {
+	   		console.log (error);
+	   	}
 
-   	if ($message !== '') {
-   		displayMessage ($object.panel, $message);
+	   	if ($message !== '') {
+	   		displayMessage ($object.panel, $message);
 
-   		return false;
-   	} else {
-   		return true;
-   	}
+	   		return false;
+	   	} else {
+	   		return true;
+	   	}
    }
 
   /**
@@ -132,7 +132,7 @@ $(document).ready(function() {
    * @param  {String} $message [thông báo cần hiển thị]
    */
    function displayMessage ($panel, $message = '') {
-   	$($panel + ' .message').html ($message);
+   		$($panel + ' .message').html ($message);
    }
 
   /**
@@ -142,31 +142,31 @@ $(document).ready(function() {
    */
    function isValidData ($object) {
 
-   	$data = $object.inputs;
-   	$panel = $object.panel;
-   	$inputData = $object.inputID;
-   	$inputFormat = $object.validFormat;
-   	$invalidMessage = $object.invalidFormatMessage;
+	   	$data = $object.inputs;
+	   	$panel = $object.panel;
+	   	$inputData = $object.inputID;
+	   	$inputFormat = $object.validFormat;
+	   	$invalidMessage = $object.invalidFormatMessage;
 
-   	$message = '';
-   	if (!isInputEmpty ($inputData, $panel, $data)) {
+	   	$message = '';
+	   	if (!isInputEmpty ($inputData, $panel, $data)) {
 
-   		if (!isInvalidFormat ($inputData, $inputFormat, $invalidMessage, $panel, $data)) {
-   			displayMessage ($panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+	   		if (!isInvalidFormat ($inputData, $inputFormat, $invalidMessage, $panel, $data)) {
+	   			displayMessage ($panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
 
-   			return true;
-   		} 
-   	}
-   	return false;    
-   }
+	   			return true;
+	   		} 
+	   	}
+	   	return false;    
+	   }
 
-   $('button[name=game-btn-mul]').on('click', function () {
-   	isDataChecked = false;
-   	$mulGameObject = mulGame;
-   	if (isValidData ($mulGameObject) && isPriceValid ($mulGameObject)) {
-   		isDataChecked = true;
-   		$('#create-game').modal('hide');
-   	}
+	   $('button[name=game-btn-mul]').on('click', function () {
+	   	isDataChecked = false;
+	   	$mulGameObject = mulGame;
+	   	if (isValidData ($mulGameObject) && isPriceValid ($mulGameObject)) {
+	   		isDataChecked = true;
+	   		$('#create-game').modal('hide');
+	   	}
    });      
 
 	// ************************END CHECK DỮ LIỆU ĐẦU VÀO**************************
@@ -195,9 +195,9 @@ $(document).ready(function() {
 	 					useraddress: useraddress
 	 				},
 	 			})
-	 			.done(function(respone) {
+	 			.done(function(response) {
 	 				console.log("success");
-	 				if(respone == 1){
+	 				if(response == 1){
 	 					$('#username-btn').text(username);
 	 					$('.username.ellipsis').text(username);
 	 					$('#tooltip-username').attr('data-original-title',username);				
@@ -206,11 +206,8 @@ $(document).ready(function() {
 	 					toatMessage('Warning','Bạn không có quyền thay đổi thông tin !!!','warning');
 	 				}
 	 			})
-	 			.fail(function(respone) {
+	 			.fail(function(response) {
 	 				console.log("error");
-	 			})
-	 			.always(function(respone) {
-	 				console.log("complete");
 	 			});
 	 		}else {
 	 			toatMessage('Warning','Vui lòng nhập đúng định dạng trường thông tin !','warning');
@@ -234,24 +231,21 @@ $(document).ready(function() {
 	 			dataType: 'JSON',
 	 			data: {price_bet: price_bet},
 	 		})
-	 		.done(function(respone) {
-	 			if(respone == 0){
+	 		.done(function(response) {
+	 			if(response == 0){
 	 				toatMessage('Warning','Đại ca! Có gì đó sai sai, ta nên thử lại sau...','warning');
 	 				$('#point-input').val("");						
-	 			}else if(respone == 1){
+	 			}else if(response == 1){
 	 				toatMessage('Success','Bạn đã dự đoán thành công, Chờ có kết quả thôi nào !!!','success');
 	 				$('#point-input').val("");
-	 			}else if(respone == 2) {
+	 			}else if(response == 2) {
 	 				toatMessage('Warning','Vui lòng nhập đúng định dạng trường dự đoán !','warning');
 	 				$('#point-input').val("");
 	 				$('#point-input').focus();
 	 			}
 	 		})
-	 		.fail(function(respone) {
+	 		.fail(function(response) {
 	 			console.log("error");
-	 		})
-	 		.always(function(respone) {
-	 			console.log("complete");
 	 		});
 	 	}else {
 	 		toatMessage('Warning','Vui lòng nhập đúng định dạng trường dự đoán !','warning');
@@ -289,7 +283,7 @@ $(document).ready(function() {
 	/**
 	 * create game yes/no
 	 */
-	$('#game-btn-yes-no').on('click', function(event) {
+	$('#create-game-btn-yes-no').on('click', function(event) {
 	 	event.preventDefault();
 
 	 	$ynGameObject = yesnogame;
@@ -307,31 +301,26 @@ $(document).ready(function() {
 	 		var current_date = new Date().getTime();
 
 	 		if(end_date_time > current_date){
-
 	 			$.ajax({
 	 				url: base_url + 'gameCT/createGameYN',
 	 				type: 'POST',
 	 				dataType: 'JSON',
 	 				data: {game_title: game_title, end_date_time: end_date_time, price_bet:game_bitcoin_price},
 	 			})
-	 			.done(function(respone) {
+	 			.done(function(response) {
 	 				console.log("success");
-	 				if(respone.create == 1){
-	 					$('#user-point').text(respone.user_point);
-	 					toatMessage('Success', 'Bạn đã tạo game thành công !','success');
-	 				}else if(respone.create == 0){
-	 					toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
-	 				}else if(respone.create == 2){
+	 				if(response.create == 1){
+	 					$('#user-point').text(response.user_point);
+	 					toatMessage('Success', 'Chúc mừng bạn đã tạo game thành công !','success');
+	 				}else if(response.create == 0){
+	 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
+	 				}else if(response.create == 2){
 	 					toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
 	 				}
 	 			})
-	 			.fail(function(respone) {
+	 			.fail(function(response) {
 	 				console.log("error");
-	 			})
-	 			.always(function(respone) {
-	 				console.log("complete");
-	 			});
-	 			
+	 			});	 			
 	 		}else{
 	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
 	 		}
@@ -341,7 +330,7 @@ $(document).ready(function() {
 	/**
 	 * create game multiple choice
 	 */
-	 $('#game-btn-mul').on('click', function(event) {
+	 $('#create-game-btn-mul').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
 	 	$mulGameObject = mulGame;
@@ -367,22 +356,19 @@ $(document).ready(function() {
 		 			dataType: 'JSON',
 		 			data: {game_title_mul: game_title_mul, end_date_time:end_date_time, price_below:price_below, price_above:price_above},
 		 		})
-		 		.done(function(respone) {
+		 		.done(function(response) {
 		 			console.log("success");
-		 			if(respone.create == 1){
-		 				$('#user-point').text(respone.user_point); 				
+		 			if(response.create == 1){
+		 				$('#user-point').text(response.user_point); 				
 		 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
-		 			}else if(respone.create == 0){
+		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
-		 			}else if(respone.create == 2){
+		 			}else if(response.create == 2){
 		 				toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
 		 			}
 		 		})
-		 		.fail(function(respone) {
+		 		.fail(function(response) {
 		 			console.log("error");
-		 		})
-		 		.always(function(respone) {
-		 			console.log("complete");
 		 		});
 	 		}else {
 	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
@@ -414,85 +400,214 @@ $(document).ready(function() {
 	$('#bet-game-yes-no').on('click', function(event) {
 		event.preventDefault();
 		/* Act on the event */
-		var game_id = $('.mini-game-content').attr('data-gameid');
+
+		//update lại game vừa được đặt cược, total amout
+
+		// var elements = $('.hot-item');
+
+		// if(elements.length > 0){
+		// 	for (var i = 0; i < elements.length; i++) {
+		// 		if (elements[i].getAttribute('data-gameid') == game_id) {
+		// 			console.log('test');
+		// 		}
+		// 	}
+		// }
+
+
 		var ans = $('input[name=yes-or-no]:checked').val();
 		if(ans){
+			var game_id = $('.mini-game-content').attr('data-gameid');
 			$.ajax({
 				url: base_url + 'gamect/log_game_yes_no',
 				type: 'POST',
 				dataType: 'JSON',
 				data: {game_id: game_id, answer:ans},
 			})
-			.done(function() {
-				console.log("success");
-			})
-			.fail(function() {
+			.done(function(response) {
+				if(response.result == 1){
+					$('#user-point').text(response.user_point);
+					$('.mini-game-transaction').text('Point hiện tại: ' + response.total_amount);
+					//đặt lại tỉ lệ đoán
+					user_percent_in_de(response.ans_yes,response.ans_no);
+					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
+				}else if(response.result == 2){
+					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
+				}else if(response.result == 3){
+					toatMessage('Warning', 'Bạn không đủ point để chơi !!!<br> (Các game bạn tạo vẫn chưa kết thúc)', 'warning');
+				}else if(response.result == 4){
+					toatMessage('Warning', 'Bạn không được chơi game do mình tạo ra', 'warning');
+				}else if(response.result == 5){
+					toatMessage('Warning', 'Rất tiếc, game này đã đủ người chơi.<br>Vui lòng chọn game khác để chơi.', 'warning');
+				}
+			}).fail(function() {
 				console.log("error");
-			})
-			.always(function() {
-				console.log("complete");
 			});			
 		}else{
 			toatMessage('Warning','Bạn hãy đưa ra sự lựa chọn của mình !', 'warning');
 		}
-
-		
-
 	});
 
+	/**
+	 * [description]
+	 */
+	$('#bet-game-mul').on('click', function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		var ans = $('select[name=mul-game]').val();
+		if(ans){
+			var game_id = $('.mini-game-content').attr('data-gameid');
+			$.ajax({
+				url: base_url + 'gamect/log_game_mul',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {game_id:game_id, answer: ans},
+			})
+			.done(function(response) {
+				if(response.result == 1){
+					$('#user-point').text(response.user_point);
+					$('.mini-game-transaction').text('Point hiện tại: ' + response.total_amount);
+					//đặt lại tỉ lệ đoán
+					//
+					console.log(response);
+					
+					user_percent_mul(response.PRICE_BELOW, response.PRICE_BETWEEN, response.PRICE_ABOVE);
+					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
+				}else if(response.result == 2){
+					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
+				}else if(response.result == 3){
+					toatMessage('Warning', 'Bạn không đủ point để chơi !!!<br> (Các game bạn tạo vẫn chưa kết thúc)', 'warning');
+				}else if(response.result == 4){
+					toatMessage('Warning', 'Bạn không được chơi game do mình tạo ra', 'warning');
+				}else if(response.result == 5){
+					toatMessage('Warning', 'Rất tiếc, game này đã đủ người chơi.<br>Vui lòng chọn game khác để chơi.', 'warning');
+				}
+			})
+			.fail(function(response) {
+				console.log("error");
+			});
+			
+		}
+
+
+
+	});
 });
 
-	// Đếm ngược ngày kết thúc game truyền thống
-	function countDown_End_Date(string_end_date,type) {
-		var end_date = (new Date(string_end_date)).getTime();
-		var x = setInterval(function(){
-			// Get todays date and time
-			var now = new Date().getTime();
-	    	// Find the distance between now an the count down date
-	    	var distance = end_date - now;
-	    	// Time calculations for days, hours, minutes and seconds
-	    	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	    	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	    	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+/**
+ * [countDown_End_Date description]
+ * @param  {[type]} string_end_date [description]
+ * @param  {[type]} type            [description]
+ * @return {[type]}                 [description]
+ */
+function countDown_End_Date(string_end_date,type) {
+	var end_date = (new Date(string_end_date)).getTime();
+	var x = setInterval(function(){
+		// Get todays date and time
+		var now = new Date().getTime();
+    	// Find the distance between now an the count down date
+    	var distance = end_date - now;
+    	// Time calculations for days, hours, minutes and seconds
+    	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-		    // Output the result in an element
-		    if(type == 0){
-			    document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
-			    + minutes + "m " + seconds + "s ";
-			    
-			    // If the count down is over, write some text 
-			    if (distance < 0) {
-			    	clearInterval(x);
-			    	document.getElementById("countDown").innerHTML = "EXPIRED";
-			    }		    	
-		    }else if(type == 1){
-		    	document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
-			    + minutes + "m " + seconds + "s ";
-			    
-			    // If the count down is over, write some text 
-			    if (distance < 0) {
-			    	clearInterval(x);
-			    	document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
-			    }
+	    // Output the result in an element
+	    if(type == 0){
+		    document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
+		    + minutes + "m " + seconds + "s ";
+		    
+		    // If the count down is over, write some text 
+		    if (distance < 0) {
+		    	clearInterval(x);
+		    	document.getElementById("countDown").innerHTML = "EXPIRED";
+		    }		    	
+	    }else if(type == 1){
+	    	document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
+		    + minutes + "m " + seconds + "s ";
+		    
+		    // If the count down is over, write some text 
+		    if (distance < 0) {
+		    	clearInterval(x);
+		    	document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
 		    }
-		}, 1000);
-	}
+	    }
+	}, 1000);
+}
 
-	/**
-	 * { function_description }
-	 *
-	 * @param      {<type>}  heading  The heading
-	 * @param      {<type>}  text     The text
-	 * @param      {<type>}  icon     The icon
-	 */
-	function toatMessage(heading,text,icon) {
-		$.toast({
-			heading: heading,
-			text: text,
-			showHideTransition: 'slide',
-			icon: icon,
-			position: 'bottom-right',
-			hideAfter: 5000
-		});
-	}
+/**
+ * { function_description }
+ *
+ * @param      {<type>}  heading  The heading
+ * @param      {<type>}  text     The text
+ * @param      {<type>}  icon     The icon
+ */
+function toatMessage(heading,text,icon) {
+	$.toast({
+		heading: heading,
+		text: text,
+		showHideTransition: 'slide',
+		icon: icon,
+		position: 'bottom-right',
+		hideAfter: 5000
+	});
+}
+
+/**
+ * [user_percent_in_de description]
+ * @param  {[type]} $in_num [description]
+ * @param  {[type]} $de_num [description]
+ * @return {[type]}         [description]
+ */
+function user_percent_in_de ($in_num, $de_num) {
+	$percent_width = parseInt($('.percent-panel').css('width'), 10);
+
+	$in_div = $('#increase');
+	$de_div = $('#decrease');
+	$in_user = $in_num;
+	$de_user = $de_num;
+	$total_user = parseInt($in_user) + parseInt($de_user);
+
+	$in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+	$de_div_width = $percent_width - $in_div_width;
+
+	$in_per_string = Math.round(($in_div_width / $percent_width) * 100);
+	$de_per_string = 100 - $in_per_string;
+
+	$in_div.css({'width': $in_div_width + 'px'});
+	$de_div.css({'width': $de_div_width + 'px'});
+
+	$('span.in-num-percent').text($in_per_string + '%');
+	$('span.de-num-percent').text($de_per_string + '%');
+}
+
+/**
+ * [user_percent_mul description]
+ * @param  {Number} $lower   [description]
+ * @param  {Number} $between [description]
+ * @param  {Number} $upper   [description]
+ * @return {[type]}          [description]
+ */
+function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
+	$percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
+	$total = $lower + $between + $upper;
+	$lo_div = $('#increase');
+	$be_div = $('#between');
+	$up_div = $('#decrease');
+
+	$lo_div_width = Math.round(($percent_width * $lower) / $total);
+	$be_div_width = Math.round(($percent_width * $between) / $total);
+	$up_div_width = $percent_width - $lo_div_width - $be_div_width;
+
+	$lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
+	$be_per_string = Math.round(($be_div_width / $percent_width) * 100);
+	$up_per_string = 100 - $lo_per_string - $be_per_string;
+
+	$lo_div.css({'width': $lo_div_width + 'px'});
+	$be_div.css({'width': $be_div_width + 'px'});
+	$up_div.css({'width': $up_div_width + 'px'});
+
+	$('.game-mul span.in-num-percent').text($lo_per_string + '%');
+	$('.game-mul span.be-num-percent').text($be_per_string + '%');
+	$('.game-mul span.de-num-percent').text($up_per_string + '%');
+}

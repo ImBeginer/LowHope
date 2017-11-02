@@ -57,6 +57,9 @@
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
 				<div id="hot-mini-game-content" class="hot-minigame">
+					<?php if(empty($YN) && empty($MUL)){
+						echo 'Các game đang được hệ thống cập nhật';
+					} ?>
 					<?php foreach ($YN as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
 							<a href="#!" title="<?php echo $value['TITLE']; ?>">
@@ -64,7 +67,7 @@
 								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
 								<div class="prob">
 									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-									<span><?php echo $value['PLAYER_COUNT']*10 ?></span>
+									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
 								</div>
 							</a>
 						</div>						
@@ -77,7 +80,7 @@
 								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
 								<div class="prob">
 									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-									<span><?php echo $value['PLAYER_COUNT']*10 ?></span>
+									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
 								</div>
 							</a>
 						</div>
@@ -367,7 +370,7 @@
 														<input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{1,10}$" step="0.01" required>
 													</div>
 													<div class="form-group submit-area">
-														<button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
+														<button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 													</div>                                         
 												</div>
@@ -409,7 +412,7 @@
 														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>    
 													</div>                              
 													<div class="form-group submit-area">
-														<button type="submit" class="game-btn-mul btn-height cursor-pointer" id="game-btn-mul" name="game-btn-mul">Tạo</button>
+														<button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-mul" name="game-btn-mul">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
 													</div>                                         
 												</div>
