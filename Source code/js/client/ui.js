@@ -212,13 +212,8 @@ $(function() {
     is_read (e.currentTarget.id);
   });
 
-<<<<<<< .mine
-
-
-=======
   user_percent_in_de (0, 0);
 
->>>>>>> .theirs
   function display_chat () {
     $('#chat-btn').on('click', function () {
       $('#chat-panel').toggleClass('chat-active');
@@ -230,10 +225,6 @@ $(function() {
   }
 
   display_chat ();
-<<<<<<< .mine
-  // user_percent_mul (125, 265, 117);
-=======
   user_percent_mul (1, 0, 0);
->>>>>>> .theirs
 
 });
