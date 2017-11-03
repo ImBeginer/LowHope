@@ -55,36 +55,40 @@
   <div class="row">
     <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
       <div class="main-function">
-        <div class="create-game-option">
+        <div class="function-title">
+          <p class="title">Tạo mini game</p>
+        </div>
+        <div class="create-game-option col-md-6 col-md-offset-3">
           <!-- nav creat game -->
           <ul id="nav-game" class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active c-avtive" href="#yes-no-game">Yes/No</a>
+              <a class="c-yn-game nav-link c-avtive active" href="#yes-no-game">Yes/No</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#multi-choice-game">Q/A</a>
+              <a class="c-mul-game nav-link c-avtive " href="#multi-choice-game">Q/A</a>
             </li>        
           </ul><!-- /.nav create game --> 
           <!-- tab game -->
           <div class="tab-content game-tab-content">
             <div role="tabpanel" class="tab-pane active" id="yes-no-game">
+              <div class="message"></div>
               <div class="user-form form" action="#!">
-                <div class="message"></div>
                 <form action="#!" name="m-create-yn-game">
                   <div class="form-group">
                     <label for="game-title">Tên game</label>
+                    <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$">
                   </div>
                   <div class="form-group d-inline-block">
                     <label for="game-date">Vào ngày</label>
-                    <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required>
+                    <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly >
                   </div>
                   <div class="form-group d-inline-block">
                     <label for="game-time">Kết thúc vào lúc</label>
-                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required>
+                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" >
                   </div>
                   <div class="form-group">
                     <label for="game-bitcoin-price">Giá Bitcoin trên</label>
-                    <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{7,10}$" required>
+                    <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{7,10}$" >
                   </div> 
                   <div class="form-group">
                     <label class="d-block" for="">Đúng hay sai ?</label>
@@ -98,8 +102,8 @@
                     </label>
                   </div>  
                   <div class="form-group submit-area">
-                    <button type="button" class="btn btn-height close-update cursor-pointer color-white">Đóng</button>
-                    <button type="submit" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="" name="">Tạo</button>
+                    <button type="reset" class="btn btn-height close-update cursor-pointer color-white">Xóa</button>
+                    <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="" name="m-create-yn-game">Tạo</button>
                   </div>
                 </form>
               </div>
@@ -110,26 +114,26 @@
                 <form action="#!" name="m-create-mul-game">
                   <div class="form-group">
                     <label for="game-title">Tên game</label>
-                    <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>
+                    <input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,35}$">
                   </div>              
                   <div class="form-group d-inline-block">
                     <label for="game-date">Vào ngày</label>
-                    <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required>
+                    <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly>
                   </div>
                   <div class="form-group d-inline-block">
                     <label for="game-time">Kết thúc vào lúc</label>
-                    <input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1" required>
+                    <input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1">
                   </div>
                   <div class="form-group">
                     <label for="">Giá Bitcoin ?</label>
                   </div>              
                   <div class="form-group d-inline-block mr-3">
                     <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
-                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" pattern="^\\d{7,10}$" required>
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" pattern="^\\d{7,10}$">
                   </div> 
                   <div class="form-group d-inline-block mr-3">
                     <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
-                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{7,10}$" required>     
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{7,10}$">     
                   </div>            
                   <div class="form-group d-inline-block mr-3">  
                     <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
@@ -139,8 +143,8 @@
                     <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" pattern="^\\d{7,10}$" disabled>    
                   </div>                              
                   <div class="form-group submit-area">
-                    <button type="button" class="btn btn-height close-update cursor-pointer color-white">Đóng</button>
-                    <button type="submit" class="btn game-btn-mul create btn-height cursor-pointer color-white" id="" name="">Tạo</button>
+                    <button type="reset" class="btn btn-height close-update cursor-pointer color-white">Xóa</button>
+                    <button type="button" class="btn game-btn-mul create btn-height cursor-pointer color-white" id="" name="m-create-mul-game">Tạo</button>
                   </div>
                 </form>
               </div>
@@ -170,6 +174,9 @@
 <script src="../assets/popper/popper.min.js"></script>
 <script src="../assets/bootstrap/bootstrap.min.js"></script>
 
+<script src="../js/mulGame.js"></script>
+<script src="../js/yesNoGame.js"></script>
+<script src="../js/checkData.js"></script>
 <script src="../js/ui.js"></script>
 </body>
 </html>

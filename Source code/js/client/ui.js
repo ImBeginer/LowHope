@@ -480,8 +480,8 @@ $(function() {
       }, 100, function() {
         $formDisplay.css ('display', 'none');
         $('form[name=login-form]').css ({
-            'display': 'block',
-            'opacity': 1
+          'display': 'block',
+          'opacity': 1
         });
         // $('form[name=login-form]').addClass ('animated fadeIn');
       });

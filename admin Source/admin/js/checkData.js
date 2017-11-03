@@ -112,6 +112,8 @@ $(function () {
 
         return false;
       }
+    } else {
+      return false;
     }
   }
 
@@ -169,6 +171,41 @@ $(function () {
     }
   }
 
+  /**
+   * [isPriceValid kiểm tra giá bitcoin có hợp lệ hay không]
+   * @param  {Object}  $object [description]
+   * @return {Boolean}         [trả về true nếu giá bitcoin hợp lệ ngược lại trả về false]
+   */
+   function isPriceValid ($object) {
+      $message = '';
+
+      $upper = $($object.priceInput[0]).val();
+      $lower = $($object.priceInput[1]).val();
+
+      try {
+        $upper = parseFloat($upper);
+        $lower = parseFloat($lower);
+
+        if ($upper < 0 || $lower < 0) {
+          $message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
+        } else if (isNaN($upper) || isNaN($lower)) {
+          $message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không hợp lệ</p>'; 
+        } else if ($lower > $upper) {
+          $message += '<p class="error animated shake">Giá bitcoin trên khoảng phải nhỏ hơn dưới khoảng</p>';
+        }
+      } catch (error) {
+        console.log (error);
+      }
+
+      if ($message !== '') {
+        displayMessage ($object.panel, $message);
+
+        return false;
+      } else {
+        return true;
+      }
+   }  
+
   $('button#btn-send-notifi').on('click', function () {
     $object = notifi;
     if (isValidData ($object)) {
@@ -215,7 +252,29 @@ $(function () {
     }
   });  
 
+  $('button[name=m-create-yn-game]').on('click', function () {
+    $object = yesnogame;
+    if (isValidData ($object)) {
+      displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+      removeMessage ($object.panel, 2000);
+    }
+  });  
 
+  $('button[name=m-create-mul-game]').on('click', function () {
+    $object = mulGame;
+    if (isValidData ($object) && isPriceValid ($object)) {
+      displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+      removeMessage ($object.panel, 2000);      
+    }
+  });  
+
+  $('div.create-game-option ul#nav-game a.c-yn-game').on('click', function () {
+    displayMessage ('div#yes-no-game', '');
+  });
+
+  $('div.create-game-option ul#nav-game a.c-mul-game').on('click', function () {
+    displayMessage ('div#multi-choice-game', '');
+  });    
 
 // ************************END CHECK DỮ LIỆU ĐẦU VÀO**************************
 

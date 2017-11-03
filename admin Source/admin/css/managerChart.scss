@@ -15,3 +15,7 @@ text.highcharts-title tspan {
 g.highcharts-legend-item text tspan {
   font-size: 130%;
 }
+
+div#chart div:first-child {
+  width: 100% !important;
+}

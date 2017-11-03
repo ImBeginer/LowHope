@@ -13,6 +13,11 @@
 @import 'datepickerCustom';
 
 /********************SIDEBAR*********************/
+ul.sidebar-content a:focus {
+  background-color: initial;
+  outline: none;
+}
+
 .c-active {
 	background-color: $sidebar-hover-color !important;
 }

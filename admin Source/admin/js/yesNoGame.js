@@ -4,7 +4,13 @@ var yesnogame = (function () {
 		'game-title': 'Tên game',
 		'game-date-yn': 'Ngày kết thúc',
 		'game-time': 'Thời gian kết thúc',
-		'game-bitcoin-price': 'Giá bitcoin'
+		'game-bitcoin-price': 'Giá bitcoin',
+		'emptyInputMessage': {
+			'game-title': 'Tên game không được trống',
+			'game-date-yn': 'Ngày kết thúc không được trống',
+			'game-time': 'Thời gian kết thúc không được trống',
+			'game-bitcoin-price': 'Giá bitcoin không được trống',		
+		}
 	};
 
 	var validFormat = {
@@ -18,7 +24,7 @@ var yesnogame = (function () {
 	var invalidFormatMessage = {
 
 		'game-title': 'Tên game phải chứa từ 6 đến 35 ký tự',
-		'game-date-yn': 'Cẩn thận ăn đòn nhé sai ngày kết thúc rồi :)'
+		'game-date-yn': 'ĐCM Troll bố à sai ngày kết thúc rồi',
 		'game-bitcoin-price': 'Giá bitcoin phải trên 1 triệu và dưới 1 tỷ VNĐ'		
 
 	};	
@@ -27,18 +33,9 @@ var yesnogame = (function () {
 		return ['input#game-title', 'input#game-date-yn', 'input#game-time', 'input#game-bitcoin-price'];
 	};
 
-	function Yesnogame (gameTitle = '', gameEndDate = '', gameEndTime = '') {
-
-		this.gameTitle = gameTitle;
-		this.gameEndDate = gameEndDate;
-		this.gameEndTime = gameEndTime;
-		
-	}
-
 	return {
 		inputs: inputs(),
 		inputID: inputID,
-		Yesnogame: Yesnogame,
 		panel: 'div#manager-create-game div#yes-no-game',
 		validFormat: validFormat,
 		invalidFormatMessage: invalidFormatMessage
