@@ -20,7 +20,7 @@
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 	
 </head>
-<body onload="logoutFB()">
+<body onload="logoutFB();">
 	<script>var base_url = "<?php echo base_url(); ?>";</script>
 
 	<!-- body -->

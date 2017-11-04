@@ -175,6 +175,26 @@ class Game extends CI_Model {
 		}
 	}
 
+	public function get_Log_Game_By_Id($game_id,$type)
+	{
+		$log_game = null;
+		if($type == GAME_YN){
+			$log_game = $this->db->select('YN_GAME_LOGS.GAME_ID, USERS.USER_NAME, YN_GAME_LOGS.ANS_TIME')->from('YN_GAME_LOGS')->join('USERS','YN_GAME_LOGS.USER_ID = USERS.USER_ID')->where('YN_GAME_LOGS.GAME_ID', $game_id);			
+		}else if($type == GAME_MUL){
+			$log_game = $this->db->select('MULTI_CHOICE_GAME_LOGS.GAME_ID, USERS.USER_NAME, MULTI_CHOICE_GAME_LOGS.ANS_TIME')->from('MULTI_CHOICE_GAME_LOGS')->join('USERS','MULTI_CHOICE_GAME_LOGS.USER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAME_LOGS.GAME_ID', $game_id);	
+		}
+
+		$log_game = $this->db->get();
+
+		if($log_game && $log_game->num_rows()>0){
+			$log_game = $log_game->result_array();
+			return $log_game;
+		}else{
+			$log_game = null;
+			return $log_game;
+		}
+	}
+
 	/**************************************** YES/NO GAME *****************************************/
 
 	/**
@@ -244,6 +264,9 @@ class Game extends CI_Model {
 		if($game && $game->num_rows()>0){
 			$game = $game->row();
 			return $game;
+		}else{
+			$game = null;
+			return $game;
 		}		
 	}
 
@@ -304,6 +327,9 @@ class Game extends CI_Model {
 
 		if($game && $game->num_rows()>0){
 			$game = $game->row();
+			return $game;
+		}else{
+			$game = null;
 			return $game;
 		}
 	}

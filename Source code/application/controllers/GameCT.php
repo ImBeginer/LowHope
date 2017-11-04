@@ -30,7 +30,7 @@ class GameCT extends CI_Controller {
 	public function log_game_tt()
 	{	
 		//TODO kiểm tra price > 0 ?
-		
+		//
 		$checksessionUserId = $this->session->userdata('sessionUserId');
 		
 		if(isset($checksessionUserId)){
@@ -129,12 +129,13 @@ class GameCT extends CI_Controller {
 			//get data from table game yes no
 			$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
 			if($user){
-				$game = $this->game->getAllGameMini();
 
 				$data['USER_NAME'] = $user->USER_NAME;
 	            $data['USER_POINT'] = $user->USER_POINT;
 
 	            //$data['prices'] = $this->user->getData();
+				$game = $this->game->getAllGameMini();
+
 	            if(isset($game['YN'])){
                     $data['YN'] = $game['YN'];                            
                 }else{
@@ -149,15 +150,28 @@ class GameCT extends CI_Controller {
 
 				$data['game_data'] = $this->game->getGameYN_ById($game_id);
 
-				//lay ti le phan tram nguoi choi da tra loi
-				$ans = $this->game->getRatioYN($game_id);
-				
-				$data['ans_yes'] = $ans['YES'];
-				$data['ans_no'] = $ans['NO'];
+				// Lấy danh sách lịch sử log của game này
 
-				$this->load->view('layout/header');
-				$this->load->view('game/gameYN', $data);				
-				$this->load->view('layout/footer');				
+				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
+				
+				if($log_game){
+					$data['list_bet_log'] = $log_game;
+				}
+
+				if($data['game_data']){
+					//lay ti le phan tram nguoi choi da tra loi
+					$ans = $this->game->getRatioYN($game_id);
+					
+					$data['ans_yes'] = $ans['YES'];
+					$data['ans_no'] = $ans['NO'];
+
+					$this->load->view('layout/header');
+					$this->load->view('game/gameYN', $data);				
+					$this->load->view('layout/footer');
+				}else{
+					$this->goHome();
+				}
+
 			}else{
 				$this->goHome();
 			}
@@ -192,7 +206,7 @@ class GameCT extends CI_Controller {
 
 								//cập nhật bảng USERS, trừ point
 								$user = $this->user->getUserById($userID);
-								$user_point = $user->USER_POINT - FEE_BET;
+								$user_point = $user->USER_POINT - FEE_BET_MINI;
 								$this->user->updatePoint($userID,$user_point);
 								//lấy point sau khi update
 								$newUser = $this->user->getUserById($userID);
@@ -200,7 +214,7 @@ class GameCT extends CI_Controller {
 								//update lại bảng YN_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
 								$game = $this->game->getGameYN_ById($gameID);
 								$new_player_count = $game->PLAYER_COUNT + 1;
-								$total_amount = $game->TOTAL_AMOUNT + FEE_BET;
+								$total_amount = $game->TOTAL_AMOUNT + FEE_BET_MINI;
 
 								$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_YN);
 
@@ -256,13 +270,16 @@ class GameCT extends CI_Controller {
 					$price_above = $this->input->post('price_above');
 
 					if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
-						$this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
+						$gameID = $this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
+
+
+						$game = $this->game->getGameMUL_ById($gameID);
 
 						$user_point = $user_point - FEE_CREATE;
 						$this->user->updatePoint($userID,$user_point);
 
 						$userNew = $this->user->getUserById($userID);
-						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT));
+						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT, 'gameID'=>$gameID, 'game_title'=>$game_title, 'userCreate'=>$game->USER_NAME, 'total_amount'=>$game->TOTAL_AMOUNT));
 					}else{
 						echo json_encode(array('create'=>0));
 					}
@@ -307,17 +324,30 @@ class GameCT extends CI_Controller {
 
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
 
-				//lay ti le phan tram nguoi choi da tra loi
-				$ans = $this->game->getRatioMUL($game_id);
-				
-				$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
-				$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
-				$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
-				
+				// Lấy danh sách lịch sử log của game này
 
-				$this->load->view('layout/header');
-				$this->load->view('game/gameMUL', $data);
-				$this->load->view('layout/footer');				
+				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_MUL);
+				
+				if($log_game){
+					$data['list_bet_log'] = $log_game;
+				}
+
+				if($data['game_data']){
+					//lay ti le phan tram nguoi choi da tra loi
+					$ans = $this->game->getRatioMUL($game_id);
+					
+					$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
+					$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
+					$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
+
+
+					$this->load->view('layout/header');
+					$this->load->view('game/gameMUL', $data);
+					$this->load->view('layout/footer');
+				}else{
+					$this->goHome();
+				}
+
 			}else{
 				$this->goHome();
 			}
@@ -360,7 +390,7 @@ class GameCT extends CI_Controller {
 
 								//cập nhật bảng USERS, trừ point
 								$user = $this->user->getUserById($userID);
-								$user_point = $user->USER_POINT - FEE_BET;
+								$user_point = $user->USER_POINT - FEE_BET_MINI;
 								$this->user->updatePoint($userID,$user_point);
 
 								//lấy point sau khi update
@@ -369,7 +399,7 @@ class GameCT extends CI_Controller {
 								//update lại bảng MULTI_CHOICE_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
 								$game = $this->game->getGameMUL_ById($gameID);
 								$new_player_count = $game->PLAYER_COUNT + 1;
-								$total_amount = $game->TOTAL_AMOUNT + FEE_BET;
+								$total_amount = $game->TOTAL_AMOUNT + FEE_BET_MINI;
 
 								//TODO Update game multi
 								$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_MUL);

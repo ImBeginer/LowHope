@@ -16,16 +16,13 @@ window.fbAsyncInit = function() {
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
 	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js";
+	js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=463997824000380';
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
 function loginFB() {			
 	FB.login(function(response) {
 		if (response.authResponse) {
-			console.log('Welcome!  Fetching your information.... ');
-			console.log('accsessToken: ' + response.authResponse.accessToken);
-
 			FB.api('/me', {locale: 'vi_VN', fields: 'id,name,email,link,picture'}, function(response) {
 
 				//phải kiểm tra xem tài khoản đã có trong db chưa,
@@ -81,7 +78,7 @@ function loginFB() {
 
 function logoutFB(){
 	FB.getLoginStatus(function(response) {
-
+		console.log('logout');
 		if(response.status === 'connected'){
 			var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
@@ -107,24 +104,4 @@ function logoutFB(){
         	window.location = base_url;
         });
 	});
-}	
-
-// function logoutFB(){
-// 	FB.getLoginStatus(function(response) {
-// 		if (response.status === 'connected') {
-
-// 			var uid = response.authResponse.userID;
-// 			var accessToken = response.authResponse.accessToken;
-
-// 			FB.api('/'+ uid +'/permissions', 'delete', function(response){
-//             	//console.log(response);
-//             });
-
-// 		} else if (response.status === 'not_authorized') {
-//             // the user is logged in to Facebook, 
-//             // but has not authenticated your app
-//         } else {
-//             // the user isn't logged in to Facebook.
-//         }
-//     });
-// }
+}

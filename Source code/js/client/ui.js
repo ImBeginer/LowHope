@@ -51,13 +51,13 @@ $(function() {
     minDate: new Date()
   });
 
-  $('#hot-mini-game-content').slick({
-    infinite: true,
-    slidesToShow: 8,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-  });  
+  // $('#hot-mini-game-content').slick({
+  //   infinite: true,
+  //   slidesToShow: 8,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 700,
+  // });  
   
 /**
  * [get_notifi_id xử lý id dạng string trả về id của notification]
@@ -225,6 +225,6 @@ $(function() {
   }
 
   display_chat ();
-  user_percent_mul (1, 0, 0);
+  user_percent_mul (2, 1, 0);
 
 });

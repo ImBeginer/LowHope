@@ -190,7 +190,7 @@ class User extends CI_Model {
 		$rows_MUL = $result_MUL->num_rows();
 
 		$rows = $rows_YN + $rows_MUL;
-		return $user_point>=(MAX_PLAYER*FEE_BET + FEE_CREATE + $rows*MAX_PLAYER*FEE_BET);
+		return $user_point>=(MAX_PLAYER*FEE_BET_MINI + FEE_CREATE + $rows*MAX_PLAYER*FEE_BET_MINI);
 	}
 
 	/**
@@ -214,7 +214,7 @@ class User extends CI_Model {
 
 		$rows = $rows_YN + $rows_MUL;
 		
-		return $user_point>=(FEE_BET + $rows*FEE_BET*MAX_PLAYER);
+		return $user_point>=(FEE_BET_MINI + $rows*FEE_BET_MINI*MAX_PLAYER);
 	}
 
 	/**

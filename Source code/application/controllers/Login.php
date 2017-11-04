@@ -247,6 +247,7 @@ class Login extends CI_Controller {
         $this->session->unset_userdata('userData');
         $this->session->unset_userdata('sessionUserId');
         $this->session->sess_destroy();
+        echo json_encode(1);
     }
 
     /************************** ***************************/

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<title>Website dự đoán giá bitcoin</title>
-	<!-- Required meta tags -->
+	<!-- Required meta tags --> 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
@@ -16,10 +16,18 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/animation/animate.css">
 
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+
+
 	<!-- custom css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
-	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+	<!-- <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script> -->
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
 	<!-- Pusher -->
@@ -104,19 +112,12 @@
 
 				<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="nav-item">
-							<!-- info dropdown button -->
-							<div class="dropdown">
-								<button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-									Thông tin
-									<span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								</button>
-								<ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
-									<li class="func-items cursor-pointer"><a href="#!">Thông tin liên hệ</a></li>
-									<li class="func-items cursor-pointer"><a href="#!">Câu hỏi thường gặp</a></li>
-								</ul>
-							</div> <!-- /.info dropdown button -->
+						
+						<!-- TODO tao mini game -->
+						<li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
+							<a href="javascript:void(0);" class="nav-link">Tạo mini game</a>
 						</li>
+
 						<!-- top rank point -->
 						<li class="nav-item active top-bar-items" data-toggle="tooltip"
 						data-placement="top" title="TOP point">
@@ -312,8 +313,6 @@
 											Sửa thông tin
 										</button>     
 									</li>
-									<!-- TODO tao mini game -->
-									<li class="func-items" data-toggle="modal" data-target="#create-game"><a href="javascript:void(0);">Tạo mini game</a></li>
 
 									<li class="func-items"><a href="<?php echo base_url().'userct/history'; ?>" target="_self">Lịch sử</a></li>
 
@@ -331,7 +330,7 @@
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="create-mini-game">Tạo mini game</h5>
+											<h5 class="modal-title" id="create-mini-game">Tạo game cá cược</h5>
 											<button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close" title="Đóng">
 												<span aria-hidden="true">&times;</span>
 											</button>
@@ -340,10 +339,10 @@
 											<!-- nav creat game -->
 											<ul id="nav-game" class="nav nav-tabs">
 												<li class="nav-item">
-													<a class="nav-link active" href="#yes-no-game">Yes/No</a>
+													<a class="nav-link active" href="#yes-no-game">Đúng/Sai</a>
 												</li>
 												<li class="nav-item">
-													<a class="nav-link" href="#multi-choice-game">Q/A</a>
+													<a class="nav-link" href="#multi-choice-game">Lựa chọn</a>
 												</li>        
 											</ul><!-- /.nav create game --> 
 										</div>
@@ -509,12 +508,13 @@
 							<div class="bet-form-area mt-3">
 								<form class="bet-form">
 									<div class="form-group">
-										<label class="input-title" for="point-input">Giá Bitcoin dự đoán</label>
-										<input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0">
+										<label class="input-title" for="point-input">Giá Bitcoin Dự Đoán</label>
+										<label class="input-des" for="point-input">(Đơn vị: USD)</label>
+										<input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0" pattern="^\d{1,10}$" step="0.01">
 										<label class="input-des mt-1" for="point-input">Lưu ý: Chúng tôi sẽ lấy giá trị cuối cùng trước khi kết thúc game dự đoán !</label>
 									</div>
 									<div class="form-group">
-										<button type="submit" class="form-control c-button cursor-pointer" id="c-bet-btn" name="bet-btn">
+										<button type="submit" class="form-control c-button cursor-pointer" id="bet-game_tt" name="bet-btn">
 											Đặt Ngay
 										</button>
 									</div>
@@ -557,7 +557,8 @@
 
 	<!-- footer -->
 	<footer>
-		<span>LowHope &copy; 2017</span>
+		<div>LowHope &copy; 2017. All Right Reserved.</div>
+		<div>Mọi hình thức sao chép nội dung trên website này mà chưa được sự đồng ý đều là trái phép.</div>
 	</footer>
 	<!-- /.footer -->
 
@@ -573,6 +574,9 @@
 
 	<!-- high chart display -->
 	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
+
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>

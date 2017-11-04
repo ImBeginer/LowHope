@@ -23,7 +23,6 @@ class UserCT extends CI_Controller {
 			$tt_game = $this->game->getGameTT();
 			$game = $this->game->getAllGameMini();
 			//set sessionUserID
-			$this->session->set_userdata('userGGExist', true);
 	    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
 		    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 

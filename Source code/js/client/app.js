@@ -1,4 +1,17 @@
 $(document).ready(function() {
+	
+
+	var el = $('#list-bet-log');
+	if(el.hasClass('table')){
+		el.DataTable({
+			columns: [
+				{ data: 'ANS_TIME' },
+				{ data: 'USER_NAME' }			
+			],
+			data: list_bet_log
+		});
+	}
+
 // ************************CHECK DỮ LIỆU ĐẦU VÀO**************************
 
   /**
@@ -218,8 +231,7 @@ $(document).ready(function() {
 	/**
 	 * Người chơi đặt giá bitcoin cho game truyền thống
 	 */
-
-	$('#c-bet-btn').on('click', function(event) {
+	$('#bet-game_tt').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
 	 	var el = $('#point-input').val();
@@ -359,7 +371,21 @@ $(document).ready(function() {
 		 		.done(function(response) {
 		 			console.log("success");
 		 			if(response.create == 1){
-		 				$('#user-point').text(response.user_point); 				
+		 				$('#user-point').text(response.user_point); 
+
+
+		 				// var html = '';
+		 				// html += '<div class="hot-item" data-gameID="'+ response.gameID +'" data-gameType="'+2+'">';
+		 				// html += '<a href="#!" title="'+ response.game_title +'">';
+		 				// html += '<div class="title">'+ response.game_title +'</div>';
+		 				// html += '<div class="runner">'+ response.userCreate +'</div>';
+		 				// html += '<div class="prob">';
+		 				// html += '<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>';
+		 				// html += '<span>'+ response.total_amount +'</span>';
+		 				// html += '</div></a></div>';
+
+		 				// $('#hot-mini-game-content').append(html);
+
 		 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
 		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
@@ -466,10 +492,7 @@ $(document).ready(function() {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
 					$('.mini-game-transaction').text('Point hiện tại: ' + response.total_amount);
-					//đặt lại tỉ lệ đoán
-					//
-					console.log(response);
-					
+					//đặt lại tỉ lệ đoán										
 					user_percent_mul(response.PRICE_BELOW, response.PRICE_BETWEEN, response.PRICE_ABOVE);
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
@@ -553,61 +576,57 @@ function toatMessage(heading,text,icon) {
 	});
 }
 
-/**
- * [user_percent_in_de description]
- * @param  {[type]} $in_num [description]
- * @param  {[type]} $de_num [description]
- * @return {[type]}         [description]
- */
-function user_percent_in_de ($in_num, $de_num) {
-	$percent_width = parseInt($('.percent-panel').css('width'), 10);
+function user_percent_in_de ($in_num = 0, $de_num = 0) {
+    $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
-	$in_div = $('#increase');
-	$de_div = $('#decrease');
-	$in_user = $in_num;
-	$de_user = $de_num;
-	$total_user = parseInt($in_user) + parseInt($de_user);
+    $in_div = $('#increase');
+    $de_div = $('#decrease');
+    $in_user = $in_num;
+    $de_user = $de_num;
+    $total_user = parseInt($in_user) + parseInt($de_user);
 
-	$in_div_width = Math.round(($percent_width * $in_user) / $total_user);
-	$de_div_width = $percent_width - $in_div_width;
+    if ($total_user !== 0 && $total_user > 0) {
+      	$in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+      	$de_div_width = $percent_width - $in_div_width;
+    } else {
+      	$de_div_width = $in_div_width = Math.round($percent_width / 2);
+    }
 
-	$in_per_string = Math.round(($in_div_width / $percent_width) * 100);
-	$de_per_string = 100 - $in_per_string;
+    $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
+    $de_per_string = 100 - $in_per_string;
 
-	$in_div.css({'width': $in_div_width + 'px'});
-	$de_div.css({'width': $de_div_width + 'px'});
+    $in_div.css({'width': $in_div_width + 'px'});
+    $de_div.css({'width': $de_div_width + 'px'});
 
-	$('span.in-num-percent').text($in_per_string + '%');
-	$('span.de-num-percent').text($de_per_string + '%');
+    $('span.in-num-percent').text($in_per_string + '%');
+    $('span.de-num-percent').text($de_per_string + '%');
 }
 
-/**
- * [user_percent_mul description]
- * @param  {Number} $lower   [description]
- * @param  {Number} $between [description]
- * @param  {Number} $upper   [description]
- * @return {[type]}          [description]
- */
 function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
-	$percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
-	$total = $lower + $between + $upper;
-	$lo_div = $('#increase');
-	$be_div = $('#between');
-	$up_div = $('#decrease');
+    $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
+    $total = parseInt($lower) + parseInt($between) + parseInt($upper);
+    $lo_div = $('#increase');
+    $be_div = $('#between');
+    $up_div = $('#decrease');
+    $lo_div_width = $be_div_width = $up_div_width = 0;
 
-	$lo_div_width = Math.round(($percent_width * $lower) / $total);
-	$be_div_width = Math.round(($percent_width * $between) / $total);
-	$up_div_width = $percent_width - $lo_div_width - $be_div_width;
+    if ($total !== 0 && $total > 0) {
+      $lo_div_width = Math.round(($percent_width * $lower) / $total);
+      $be_div_width = Math.round(($percent_width * $between) / $total);
+      $up_div_width = $percent_width - $lo_div_width - $be_div_width;      
+    } else {
+      $lo_div_width = $be_div_width = $lo_div_width = Math.round($percent_width / 3) - 1;
+    }
 
-	$lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
-	$be_per_string = Math.round(($be_div_width / $percent_width) * 100);
-	$up_per_string = 100 - $lo_per_string - $be_per_string;
+    $lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
+    $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
+    $up_per_string = 100 - $lo_per_string - $be_per_string;
 
-	$lo_div.css({'width': $lo_div_width + 'px'});
-	$be_div.css({'width': $be_div_width + 'px'});
-	$up_div.css({'width': $up_div_width + 'px'});
+    $lo_div.css({'width': $lo_div_width + 'px'});
+    $be_div.css({'width': $be_div_width + 'px'});
+    $up_div.css({'width': $up_div_width + 'px'});
 
-	$('.game-mul span.in-num-percent').text($lo_per_string + '%');
-	$('.game-mul span.be-num-percent').text($be_per_string + '%');
-	$('.game-mul span.de-num-percent').text($up_per_string + '%');
-}
+    $('.game-mul span.in-num-percent').text($lo_per_string + '%');
+    $('.game-mul span.be-num-percent').text($be_per_string + '%');
+    $('.game-mul span.de-num-percent').text($up_per_string + '%');
+  }

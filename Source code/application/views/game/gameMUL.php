@@ -5,6 +5,7 @@
     var PRICE_BELOW = "<?php echo $PRICE_BELOW; ?>" || 0;
     var PRICE_BETWEEN = "<?php echo $PRICE_BETWEEN; ?>" || 0;
     var PRICE_ABOVE = "<?php echo $PRICE_ABOVE; ?>" || 0;
+    var list_bet_log = <?php echo json_encode($list_bet_log); ?>;
   </script>
   <!-- body -->
   <div class="container-fluid">
@@ -55,19 +56,9 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-              <!-- info dropdown button -->
-              <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-                  Thông tin
-                  <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                </button>
-                <ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
-                  <li class="func-items cursor-pointer"><a href="#!">Thông tin liên hệ</a></li>
-                  <li class="func-items cursor-pointer"><a href="#!">Câu hỏi thường gặp</a></li>
-                </ul>
-              </div> <!-- /.info dropdown button -->
-            </li> 
+            <li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
+              <a href="javascript:void(0);" class="nav-link">Tạo mini game</a>
+            </li>
 
             <!-- top rank point -->
             <li class="nav-item active top-bar-items" data-toggle="tooltip"
@@ -265,8 +256,6 @@
                       Sửa thông tin
                     </button>     
                   </li>
-                  <!-- TODO tao mini game -->
-                  <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="javascript:void(0);">Tạo mini game</a></li>
 
                   <li class="func-items"><a href="<?php echo base_url().'userct/history'; ?>" target="_self">Lịch sử</a></li>
 
@@ -518,38 +507,16 @@
         </a>
         <div class="collapse show" id="game-transaction">
           <div class="card card-body">
-            <table class="users-transaction">
-              <tr>
-                <th>Ngày</th>
-                <th>Thời gian</th>
-                <th>Tên</th>
-              </tr>
-              <tr>
-                <td>13/10/2017</td>
-                <td>9:07</td>
-                <td>Vinh Nguyễn</td>
-              </tr>
-              <tr>
-                <td>14/10/2017</td>
-                <td>10:07</td>
-                <td>Vinh Nguyễn 1</td>
-              </tr>
-              <tr>
-                <td>15/10/2017</td>
-                <td>9:30</td>
-                <td>Vinh Nguyễn 2</td>
-              </tr>                                        
+            <table id="list-bet-log" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Thời gian</th>
+                  <th>Người chơi</th>
+                </tr>
+              </thead>
             </table>
           </div>
         </div>
-        <a data-toggle="collapse" href="#game-comments" aria-expanded="false" aria-controls="game-transaction">
-          <i class="fa fa-comment-o" aria-hidden="true"></i> Bình luận (0)
-        </a>
-        <div class="collapse" id="game-comments">
-          <div class="card card-body">
-            ...
-          </div>
-        </div>              
       </div>
 
     </div>
