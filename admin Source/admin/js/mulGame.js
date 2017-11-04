@@ -6,6 +6,14 @@ var mulGame = (function () {
 		'game-time-mul': 'Thời gian kết thúc',
 		'game-bitcoin-price-upper': 'Giá bitcoin trên khoảng',
 		'game-bitcoin-price-lower': 'Giá bitcoin dưới khoảng',
+
+		'emptyInputMessage': {
+			'game-title-mul': 'Tên game không được trống',
+			'game-date-mul': 'Ngày kết thúc không được trống',
+			'game-time-mul': 'Thời gian kết thúc không được trống',
+			'game-bitcoin-price-upper': 'Giá bitcoin trên khoảng không được trống',
+			'game-bitcoin-price-lower': 'Giá bitcoin dưới khoảng không được trống'
+		}		
 	};
 
 	var validFormat = {
@@ -20,7 +28,7 @@ var mulGame = (function () {
 	var invalidFormatMessage = {
 
 		'game-title-mul': 'Tên game phải chứa từ 6 đến 35 ký tự',
-		'game-date-mul': 'ĐCM sai ngày kết thúc rồi',
+		'game-date-mul': 'Ơ cái đ*t ngày kết thúc sai rồi @.@',
 		'game-bitcoin-price-upper': 'Giá bitcoin trên khoảng phải trên 1 triệu và dưới 1 tỷ VNĐ',
 		'game-bitcoin-price-lower': 'Giá bitcoin dưới khoảng phải trên 1 triệu và dưới 1 tỷ VNĐ',
 
@@ -34,22 +42,12 @@ var mulGame = (function () {
 		return ['input#game-title-mul', 'input#game-date-mul', 'input#game-time-mul', 'input#game-bitcoin-price-upper', 'input#game-bitcoin-price-lower'];
 	};
 
-
-	function MulGame (gameTitle = '', gameEndDate = '', gameEndTime = '', lower = 0, upper = 0) {
-		this.gameTitle = gameTitle;
-		this.gameEndDate = gameEndDate;
-		this.gameEndTime = gameEndTime;
-		this.lower = lower;
-		this.upper = upto;
-	}
-
 	return {
 		inputs: inputs(),
 		inputID: inputID,
-		MulGame: MulGame,
 		priceInput: priceInput(),
 		validFormat: validFormat,
-		panel: 'div#multi-choice-game',
+		panel: 'div#manager-create-game div#multi-choice-game',
 		invalidFormatMessage: invalidFormatMessage
 	};
 

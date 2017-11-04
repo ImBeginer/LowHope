@@ -1,7 +1,7 @@
+@import 'adminFonts';
 @import 'color';
 @import 'includes';
 @import 'animations';
-@import 'fonts';
 @import 'default';
 @import 'scrollBar';
 @import 'managerChart';
@@ -13,6 +13,11 @@
 @import 'datepickerCustom';
 
 /********************SIDEBAR*********************/
+ul.sidebar-content a:focus {
+  background-color: initial;
+  outline: none;
+}
+
 .c-active {
 	background-color: $sidebar-hover-color !important;
 }

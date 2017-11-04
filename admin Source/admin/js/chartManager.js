@@ -7,38 +7,52 @@ var categories = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
 //             'T9', 'T10', 'T11', 'T12'
 //         ];
 
-var data = [0, 50, 70, 42, 83, 60, 78, 89, 55, 76, 83, 88];
+var data = [];
+var objectDataFromIndex = document.getElementById('chart');
+var dataString = objectDataFromIndex.getAttribute('data-user');
+var arrayString = dataString.split (',');
+var elNum, i;
+if (arrayString.length > 0) {
+  for (i = 0; i < 12; i++) {
+    elNum = parseInt(arrayString[i]);
+    if (!isNaN (elNum)) {
+      data[i] = elNum;
+    }
+  }
+}
+
+
 Highcharts.chart('chart', {
-    chart: {
-        type: 'line'
-    },
+  chart: {
+    type: 'line'
+  },
+  title: {
+    text: 'Biểu đồ biểu diễn số lượng thành viên'
+  },
+  subtitle: {
+    text: 'Biểu diễn tăng trưởng thành viên theo tháng'
+  },
+  xAxis: {
+    categories: categories
+  },
+  yAxis: {
     title: {
-      text: 'Biểu đồ biểu diễn số lượng thành viên'
-    },
-    subtitle: {
-      text: 'Biểu diễn tăng trưởng thành viên theo tháng'
-    },
-    xAxis: {
-        categories: categories
-    },
-    yAxis: {
-        title: {
-            text: 'Số lượng thành viên'
-        }
-    },
-    plotOptions: {
-        line: {
-            dataLabels: {
-                enabled: true
-            },
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    exporting: { enabled: false },
-    series: [{
-        name: 'Thành viên',
-        data: data
-    }]
+      text: 'Số lượng thành viên'
+    }
+  },
+  plotOptions: {
+    line: {
+      dataLabels: {
+        enabled: true
+      },
+    }
+  },
+  credits: {
+    enabled: false
+  },
+  exporting: { enabled: false },
+  series: [{
+    name: 'Thành viên',
+    data: data
+  }]
 });

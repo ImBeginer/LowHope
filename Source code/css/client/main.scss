@@ -8,7 +8,7 @@
 @import 'infiniteSlideShow';
 @import 'scrollBar';
 @import 'userUpdateInfo';
-@import 'animationKey.scss';
+
 
 /*********************NAV BAR************************/
 span.point-title, p.user-point {
@@ -65,10 +65,10 @@ li.top-bar-items {
   }
 }
 
-li.func-items:hover,
-li.noti-items:hover {
-  background-color: $body-color;
-}
+// li.func-items:hover,
+// li.noti-items:hover {
+//   background-color: $body-color;
+// }
 
 ul#user-func-dropdown,
 ul#user-notifi {
@@ -78,6 +78,10 @@ ul#user-notifi {
   li a {
     color: $white !important;
   }
+}
+
+div#user-login-panel {
+  background-color: $footer;
 }
 
 li.func-items a,
@@ -188,6 +192,59 @@ li.noti-items a {
 }
 
 /*********************CONTENT AREA************************/
+div#user-login-panel {
+  border-top: 2px solid $footer-word;
+  border-bottom: 2px solid $footer-word;
+  input {
+    font-size: 85%;
+    color: white;
+  }
+  .message {
+    padding: 0 20px;
+  }
+}
+
+input.dark-form {
+  background-color: $dark-form;
+  border: initial;
+  border-bottom: 1px solid $footer-word-op;  
+}
+
+button.login-btn:hover {
+  background-color: $facebook-color !important;
+  border-color: $facebook-color !important;
+}
+
+button.changepass-btn:hover {
+  background-color: $google-color !important;
+  border-color: $google-color !important; 
+}
+
+input.dark-form:focus {
+  background: initial;
+}
+
+div#user-login-panel label, 
+div#user-login-panel a, 
+button.login-btn,
+button.changepass-btn {
+  font-size: 70%;
+}
+
+form.user-form {
+  width: 300px;
+  padding: 10px 15px;
+}
+
+form[name='forgot-pass-form'] {
+  display: none;
+}
+
+button.login-btn,
+button.changepass-btn {
+  border: 1px solid $footer-word !important;
+}
+
 #BTC, #SCJ, #PNJ {
   width: 32%;
   p {
@@ -365,7 +422,8 @@ div#between {
 
 div#increase, 
 div#decrease, 
-div#between {
+div#between,
+button.login-btn {
   transition: all 0.5s;
 }
 

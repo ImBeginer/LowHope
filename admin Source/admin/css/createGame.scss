@@ -1,6 +1,8 @@
 /*********************GAMES CREATE POPUP************************/
 .game-tab-content {
   padding: 0 15px;
+  border: 1px solid #ddd;
+  border-top: none;  
 }
 
 label.form-check-label input {
@@ -144,4 +146,8 @@ button.create {
   -webkit-animation: radioClick 1s;
      -moz-animation: radioClick 1s;
           animation: radioClick 1s;
+}
+
+a.nav-link.c-avtive.active {
+  color: lightblue !important;
 }

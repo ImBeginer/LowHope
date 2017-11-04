@@ -6,18 +6,42 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
   <!-- jQuery UI css -->
-  <link rel="stylesheet" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
-  <!-- Slick -->
-  <link rel="stylesheet" href="../assets/slick-1.8.0/slick/slick.css">
-  <link rel="stylesheet" href="../assets/slick-1.8.0/slick/slick-theme.css">
+  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
   <!-- bootstrap css -->
-  <link rel="stylesheet" href="../assets/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/bootstrap/bootstrap.min.css">
   <!-- font awesome -->
-  <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
   <!-- animation -->
-  <link rel="stylesheet" href="../assets/animation/animate.css">
+  <link rel="stylesheet" type="text/css" href="../assets/animation/animate.css">  
   <!-- custom css -->
-  <link rel="stylesheet" href="../css/client/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/client/main.css">
+  <style>
+    @keyframes changewidth {
+      from {
+        -webkit-transform: translate(50px);
+        -ms-transform: translate(50px);
+        transform: translate(50px);
+      }
+
+      to {}
+    }
+
+    @keyframes radioClick {
+      from {
+        height: 0px;
+        width: 0px;
+        opacity: 1;    
+      }
+
+      to {
+        height: 50px;
+        width: 50px;
+        opacity: 0;
+        margin-left: -19px;
+        margin-top: -18px;
+      }
+    }    
+  </style>
 </head>
 <body>
   <!-- big div on top -->
@@ -25,17 +49,17 @@
     <div class="row">
       <!-- infinite slideshow -->
       <section id="hot-mini-game-area">
-        <div id="hot-mini-game-content" class="hot-minigame"> 
+        <div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
           <div class="hot-item">
-            <a href="#!" title="Darren Till vs. Donald Cerrone">
-              <div class="title">Darren Till vs. Donald Cerrone</div>
-                <div class="runner">Darren Till</div>
+            <a href="#!" title="Army @ Rice">
+              <div class="title">XXXX YYYY ZZZZ</div>
+                <div class="runner">Army -13.5</div>
                 <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>39.8</span>
+                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                <span>49.5</span>
                 </div>
             </a>
-          </div>
+          </div>          
           <div class="hot-item">
             <a href="#!" title="Army @ Rice">
               <div class="title">Army @ Rice</div>
@@ -215,18 +239,20 @@
                 <span>22.2</span>
               </div>
             </a>
-            </div><div class="hot-item">
-            <a href="#!" title="Armenia vs. Poland">
-                <div class="title">Armenia vs. Poland</div>
-                <div class="runner">Over 0.5</div>
-                <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>49.5</span>
-                </div>
-            </a>
           </div>
+          <div class="hot-item">
+            <a href="#!" title="Armenia vs. Poland">
+              <div class="title">Armenia vs. Poland</div>
+              <div class="runner">Over 0.5</div>
+              <div class="prob">
+                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                <span>49.5</span>
+              </div>
+            </a>
+          </div>       
         </div>
-      </section><!-- /.infinite slideshow -->
+      </section>    
+      <!-- /.infinite slideshow -->
       <!-- navbar -->
       <nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Logo</a>
@@ -236,6 +262,9 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="#!" class="nav-link">Tạo mini game</a></li>
+            </li>
             <li class="nav-item">
               <!-- info dropdown button -->
               <div class="dropdown">
@@ -435,7 +464,6 @@
                       Sửa thông tin
                     </button>     
                   </li>
-                  <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="#!">Tạo mini game</a></li>
                   <li class="func-items"><a href="history.html">Lịch sử</a></li>
                   <li class="func-items"><a href="#!">Đăng xuất</a></li>
                 </ul>
@@ -675,34 +703,21 @@
   <!-- /.footer -->
 
 <!-- jquery -->
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <script src="../assets/jquery/jquery.min.js"></script>
 <script src="../assets/jquery/jquery-ui/jquery-ui.min.js"></script>
-<!-- <script src="../vendor/bootstrap/jquery.slim.min.js"></script> -->
-<!-- <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 <script src="../assets/jquery/jquery-migrate-1.2.1.min.js"></script>
 <!-- popper js -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script> -->
 <script src="../assets/popper/popper.min.js"></script>
 <!-- bootstrap js -->
 <script src="../assets/bootstrap/bootstrap.min.js"></script>
-<script src="../assets/slick-1.8.0/slick/slick.min.js"></script>
-
 <!-- high chart js -->
 <script src="https://code.highcharts.com/5/js/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script src="http://code.highcharts.com/modules/heatmap.js"></script>
 <script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
-<!-- <script type="text/javascript" src="../vendor/jquery/highcharts.js"></script> -->
-
-<!-- google chart -->
-<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 
 <!-- high chart display -->
 <script type="text/javascript" src="../js/client/chartBasicLine.js"></script>
-
-<!-- user chart display -->
-<!-- <script type="text/javascript" src="../js/client/userChart.js"></script> -->
 
 <script type="text/javascript" src="../js/client/user.js"></script>
 <script type="text/javascript" src="../js/client/yesNoGame.js"></script>

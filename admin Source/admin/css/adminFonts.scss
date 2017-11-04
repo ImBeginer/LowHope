@@ -1,0 +1,24 @@
+$font-default-B: 'RobotoMono-SB-I';
+$font-default-R: 'RobotoMono-R';
+$font-default-I: 'RobotoMono-I';
+$font-default-L: 'RobotoMono-L';
+
+@font-face {
+	font-family: $font-default-B;
+	src: url('../assets/fonts/RobotoMono-Bold.ttf');
+}
+
+@font-face {
+	font-family: $font-default-R;
+	src: url('../assets/fonts/RobotoMono-Regular.ttf');
+}
+
+@font-face {
+	font-family: $font-default-I;
+	src: url('../assets/fonts/RobotoMono-Italic.ttf');
+}
+
+@font-face {
+	font-family: $font-default-L;
+	src: url('../assets/fonts/RobotoMono-Light.ttf');
+}
