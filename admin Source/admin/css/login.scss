@@ -1,8 +1,7 @@
 .login-content {
   background-size: cover;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../img/87.jpg');
-  padding-top: 22%;
-  padding-bottom: 22%;
+	height: 100vh;
 	p, span, text, h1, h2, h3, h4, h5 {
   	color: $black;
 	}
@@ -13,6 +12,7 @@
 	padding: 30px 20px;
 	border-radius: 6px;
   box-shadow: -2px 4px 22px $box-shadow;	
+  margin-top: 25vh;
  .user-ava {
 		width: 70px;
 		max-width: 70px;

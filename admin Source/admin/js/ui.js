@@ -1,6 +1,6 @@
 $(function () {
 
-  $('#user-nav a, #nav-game a').click(function (e) {
+  $('#user-nav a, #nav-game a, #nav-game-list a').click(function (e) {
     e.preventDefault();
     $(this).tab('show');
   })

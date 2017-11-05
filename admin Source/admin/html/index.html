@@ -126,7 +126,12 @@
           <div class="top-rank col-sm-12 col-md-6 col-xl-6 form-in-list">
             <div class="function-title no-border">
               <p class="title first-color">TOP NGƯỜI CHƠI CÓ NHIỀU POINT NHẤT</p>
-            </div>            
+            </div>
+<!-- ********************* MỚI 3/11/2017 ******************* -->
+            <div class="sub-title">
+              <p class="top-10-in-month">*Danh sách 10 người chơi có nhiều point nhất trong tháng 11</p>
+            </div>
+<!-- ********************* MỚI 3/11/2017 ******************* -->            
             <div class="pre-scrollable pre-padding">
               <!-- top-rank-list -->
               <ul class="top-rank-list user-list">
@@ -206,111 +211,216 @@
               </ul><!-- /.top-rank-list -->   
             </div>
           </div>
+<!-- ************** MỚI 3/11/2017 ****************** -->
           <div class="top-game col-sm-12 col-md-6 col-xl-6 form-in-list">
             <div class="function-title no-border">
               <p class="title in-blk">TOP GAME</p>
-              <label for="top-game-search">
-                <i class="fa fa-search search-icon" aria-hidden="true"></i>
-              </label>
               <input type="text" placeholder="Tìm kiếm" name="top-game-search">
-            </div>             
+              <button class="btn search-btn" name="search-btn"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
+            </div>
+            <!-- nav game list -->
+            <ul id="nav-game-list" class="nav nav-tabs no-border">
+              <li class="nav-item">
+                <a class="c-yn-game-list nav-link c-avtive active" href="#yes-no-game-list">Yes/No</a>
+              </li>
+              <li class="nav-item">
+                <a class="c-mul-game-list nav-link c-avtive " href="#multi-choice-game-list">Q/A</a>
+              </li>        
+            </ul><!-- /.nav game list  --> 
             <div class="pre-scrollable pre-padding">
-              <!-- top-game-list -->
-              <ul class="top-game-list user-list">
-                <li id="game-1" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Multichoice</p>
-                    <p class="tag open-tag">Đang mở</p>
-                  </div>                  
-                </li>
-                <li id="game-2" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Yes/No</p>
-                    <p class="tag close-tag">Đã đóng</p>
-                  </div>                  
-                </li>
-                <li id="game-3" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Yes/No</p>
-                    <p class="tag open-tag">Đang mở</p>
-                  </div>                  
-                </li>
-                <li id="game-4" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Multichoice</p>
-                    <p class="tag close-tag">Đã đóng</p>
-                  </div>                  
-                </li>
-                <li id="game-5" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Yes/No</p>
-                    <p class="tag open-tag">Đang mở</p>
-                  </div>                  
-                </li>     
-                <li id="game-6" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Multichoice</p>
-                    <p class="tag close-tag">Đã đóng</p>
-                  </div>                  
-                </li>     
-                <li id="game-7" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Yes/No</p>
-                    <p class="tag open-tag">Đang mở</p>
-                  </div>                  
-                </li>     
-                <li id="game-8" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Yes/No</p>
-                    <p class="tag close-tag">Đã đóng</p>
-                  </div>                  
-                </li>
-                <li id="game-9" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Multichoice</p>
-                    <p class="tag close-tag">Đã đóng</p>
-                  </div>                  
-                </li>  
-                <li id="game-10" class="user">
-                  <div class="user-ava">
-                    <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
-                    <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
-                    <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
-                    <p class="game-type">Loại: Multichoice</p>
-                    <p class="tag open-tag">Đang mở</p>
-                  </div>                  
-                </li>                   
+              <div class="tab-content">
+                <!-- top-yn-game-list -->
+                <ul role="tabpanel" id="yes-no-game-list" class="tab-pane active top-game-list user-list">
+                  <li id="game-1" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>
+                  <li id="game-2" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>
+                  <li id="game-3" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>
+                  <li id="game-4" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>
+                  <li id="game-5" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>     
+                  <li id="game-6" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>     
+                  <li id="game-7" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>     
+                  <li id="game-8" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>
+                  <li id="game-9" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>  
+                  <li id="game-10" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>                   
 
-              </ul><!-- /.top-game-list -->      
+                </ul><!-- /.top-yn-game-list -->
+                <!-- top-mul-game-list -->
+                <ul role="tabpanel" id="multi-choice-game-list" class="tab-pane top-game-list user-list">
+                  <li id="game-1" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 11</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>
+                  <li id="game-2" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 22</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>
+                  <li id="game-3" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 33</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>
+                  <li id="game-4" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 44</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>
+                  <li id="game-5" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 55</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>     
+                  <li id="game-6" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 66</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>     
+                  <li id="game-7" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 77</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>     
+                  <li id="game-8" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 88</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Yes/No</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>
+                  <li id="game-9" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 99</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag close-tag">Đã đóng</p>
+                    </div>                  
+                  </li>  
+                  <li id="game-10" class="user">
+                    <div class="user-ava">
+                      <p class="user-name ellipsis cursor-pointer" data-toggle="tooltip" data-placement="top" title="Ashanti Heisler"><a href="#!">Game ID 1010</a></p>
+                      <p class="user-tran cursor-pointer" data-toggle="tooltip" data-placement="top" title="point đã giao dịch">333<i class="fa fa-gavel" aria-hidden="true"></i></p>
+                      <p class="user-join cursor-pointer" data-toggle="tooltip" data-placement="top" title="người tham gia">22<i class="fa fa-user" aria-hidden="true"></i></p>
+                      <p class="game-type">Loại: Multichoice</p>
+                      <p class="tag open-tag">Đang mở</p>
+                    </div>                  
+                  </li>                   
+
+                </ul><!-- /.top-mul-game-list -->
+              </div>
             </div>      
           </div>
+<!-- ************** MỚI 3/11/2017 ****************** -->          
         </div>
       </div><!-- /.top active user -->
   
