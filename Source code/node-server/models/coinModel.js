@@ -9,7 +9,7 @@ class coinModel {
 		});
 	}
 	getCoinRate(connection, callback) {
-		var query = 'SELECT (unix_timestamp(UPDATE_AT)*1000) as x, round(PRICE,2) as y FROM CURRENCY_DETAILS coin ';
+		var query = 'SELECT (unix_timestamp(UPDATE_AT)*1000) as x, round(PRICE,2) as y FROM CURRENCY_DETAILS';
 		//var query = 'SELECT UPDATE_AT as x, round(PRICE,2) as y ' + 'FROM CURRENCY_DETAILS';
 		connection.query(query, function(err, result) {
 			if (err) throw err;
@@ -17,7 +17,7 @@ class coinModel {
 		});
 	}
 	get_coin_at(connection, date, callback) {
-		var query = 'select PRICE from currency_details where UPDATE_AT = ?';
+		var query = 'SELECT PRICE FROM CURRENCY_DETAILS WHERE UPDATE_AT = ?';
 		connection.query(query, date, function(err, result) {
 			if (err) throw err;
 			var data = JSON.parse(JSON.stringify(result))[0].PRICE;

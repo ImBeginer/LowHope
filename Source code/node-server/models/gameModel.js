@@ -1,6 +1,6 @@
 class gameModel {
 	get_active_sys_game(connection, callback) {
-		var query = 'SELECT GAME_ID, END_DATE FROM system_games where active = 1';
+		var query = 'SELECT GAME_ID, END_DATE FROM SYSTEM_GAMES WHERE ACTIVE = 1';
 		connection.query(query, function(err, res) {
 			if (err) throw err;
 			var data = JSON.parse(JSON.stringify(res))[0];
@@ -19,21 +19,21 @@ class gameModel {
 		});
 	}
 	update_sys_game_result(connection, data, callback) {
-		var query = 'UPDATE system_games SET ACTIVE = 0, RESULT = ? WHERE GAME_ID = ?';
+		var query = 'UPDATE SYSTEM_GAMES SET ACTIVE = 0, RESULT = ? WHERE GAME_ID = ?';
 		connection.query(query, data, function(err, res) {
 			if (err) throw err;
 			return callback(res);
 		});
 	}
 	create_new_system_game(connection, data, callback) {
-		var query = 'INSERT INTO system_games set ?';
+		var query = 'INSERT INTO SYSTEM_GAMES SET ?';
 		connection.query(query, data, function(err, result) {
 			if (err) throw err;
 			return callback(result);
 		});
 	}
 	award_user(connection, data, callback) {
-		var query = 'INSERT INTO achievement set ?';
+		var query = 'INSERT INTO ACHIEVEMENT SET ?';
 		connection.query(query, data, function(err, result) {
 			if (err) throw err;
 			return callback(result);
