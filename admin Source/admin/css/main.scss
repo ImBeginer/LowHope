@@ -323,10 +323,13 @@ p.close-tag {
 .form-in-list input[type="text"], 
 .form-in-list input[type="text"] {
   width: 60%;
-  height: 26px;
+  height: 32px;
   border-radius: 5px;
   border: 1px solid $border-op;
   color: $black;
   font-size: 75%;
-  padding-left: 27px !important;
+}
+
+button.search-btn {
+  width: 55px;
 }

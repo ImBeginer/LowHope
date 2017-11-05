@@ -152,12 +152,18 @@ $(function () {
    */
   function displayMessage ($panel = '', $message = '') {
     $($panel + ' .message').html ($message);
+    removeMessage ($panel, 2000);
+    // 
   }
 
   function removeMessage ($panel = '', $time = 2000) {
     setTimeout(function () {
       $($panel + ' div.message p').addClass('bounceOut');
+      setTimeout(function () {
+        $($panel + ' div.message p').remove();
+      }, 500);
     }, $time);
+
   }
 
   function passwordIsMatch  ($object) {
@@ -211,7 +217,6 @@ $(function () {
     if (isValidData ($object)) {
       if (userCheckBox (30)) {
         displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-        removeMessage ($object.panel, 2000);
       }
     }
   }); 
@@ -220,7 +225,7 @@ $(function () {
     $object = login;
     if (isValidData ($object)) {
       displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-      removeMessage ($object.panel, 2000);
+      
     }
   });
 
@@ -229,7 +234,6 @@ $(function () {
     if (isValidData ($object)) {
       if (passwordIsMatch($object)) {
         displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-        removeMessage ($object.panel, 2000);
       }
     }
   });
@@ -239,7 +243,6 @@ $(function () {
     if (isValidData ($object)) {
       if (passwordIsMatch($object)) {
         displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-        removeMessage ($object.panel, 2000);
       }
     }
   });  
@@ -248,7 +251,6 @@ $(function () {
     $object = managerInfo;
     if (isValidData ($object)) {
       displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-      removeMessage ($object.panel, 2000);
     }
   });  
 
@@ -256,7 +258,6 @@ $(function () {
     $object = yesnogame;
     if (isValidData ($object)) {
       displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-      removeMessage ($object.panel, 2000);
     }
   });  
 
@@ -264,7 +265,6 @@ $(function () {
     $object = mulGame;
     if (isValidData ($object) && isPriceValid ($object)) {
       displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-      removeMessage ($object.panel, 2000);      
     }
   });  
 

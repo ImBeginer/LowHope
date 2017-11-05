@@ -151,3 +151,22 @@ button.create {
 a.nav-link.c-avtive.active {
   color: lightblue !important;
 }
+
+.create-game-option {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+a.c-mul-game-list, a.c-yn-game-list {
+  border: none !important;
+}
+
+a.c-mul-game-list, a.c-yn-game-list {
+  font-size: 70%;
+}
+
+p.top-10-in-month {
+  font-size: 68%;
+  text-align: center;
+  padding: 10px 0;
+}
