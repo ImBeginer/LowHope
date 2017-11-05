@@ -1,4 +1,66 @@
-<body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no);"> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Website dự đoán giá bitcoin</title>
+  <!-- Required meta tags --> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <style>
+      @keyframes changewidth {
+        from {
+          -webkit-transform: translate(50px);
+          -ms-transform: translate(50px);
+          transform: translate(50px);
+        }
+
+        to {}
+      }
+
+      @keyframes radioClick {
+        from {
+          height: 0px;
+          width: 0px;
+          opacity: 1;    
+        }
+
+        to {
+          height: 50px;
+          width: 50px;
+          opacity: 0;
+          margin-left: -19px;
+          margin-top: -18px;
+        }
+      }    
+    </style>     
+  <!-- jQuery UI css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.css">
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.css">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/animation/animate.css">
+
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+
+  <!-- custom css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
+
+  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
+
+  <!-- Pusher -->
+  <!-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script> -->
+
+</head>
+<body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no);loadTable();"> 
   <script>
     var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";
@@ -511,6 +573,7 @@
                         <th>Người chơi</th>
                       </tr>
                     </thead>
+                    <tbody></tbody>
                   </table>
                 </div>
               </div>                          
@@ -520,3 +583,38 @@
       </div>
     </div> <!-- end row -->
   </div><!-- /.container-fluid -->
+
+  <footer>
+    <div>LowHope &copy; 2017. All Right Reserved.</div>
+    <div>Mọi hình thức sao chép nội dung trên website này mà chưa được sự đồng ý đều là trái phép.</div>
+  </footer>
+
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery-migrate-1.2.1.min.js"></script>
+  <!-- popper js -->
+  <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
+  
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
+  <!-- high chart js -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+  <!-- high chart display -->
+  <!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
+
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/yesNoGame.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
+</body>
+</html>

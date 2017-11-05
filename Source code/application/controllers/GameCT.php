@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// require_once 'Common.php';
-
 class GameCT extends CI_Controller {
 
 	public function __construct()
@@ -30,7 +28,7 @@ class GameCT extends CI_Controller {
 	public function log_game_tt()
 	{	
 		//TODO kiểm tra price > 0 ?
-		//
+		
 		$checksessionUserId = $this->session->userdata('sessionUserId');
 		
 		if(isset($checksessionUserId)){
@@ -134,7 +132,7 @@ class GameCT extends CI_Controller {
 	            $data['USER_POINT'] = $user->USER_POINT;
 
 	            //$data['prices'] = $this->user->getData();
-				$game = $this->game->getAllGameMini();
+				$game = $this->game->getAllGameMiniActive();
 
 	            if(isset($game['YN'])){
                     $data['YN'] = $game['YN'];                            
@@ -154,8 +152,11 @@ class GameCT extends CI_Controller {
 
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
 				
-				if($log_game){
+				if($log_game){					
 					$data['list_bet_log'] = $log_game;
+				}else{
+					echo 'aaaaa';
+					die();
 				}
 
 				if($data['game_data']){
@@ -165,9 +166,9 @@ class GameCT extends CI_Controller {
 					$data['ans_yes'] = $ans['YES'];
 					$data['ans_no'] = $ans['NO'];
 
-					$this->load->view('layout/header');
+					// $this->load->view('layout/header');
 					$this->load->view('game/gameYN', $data);				
-					$this->load->view('layout/footer');
+					// $this->load->view('layout/footer');
 				}else{
 					$this->goHome();
 				}
@@ -221,7 +222,13 @@ class GameCT extends CI_Controller {
 								//lấy số lượng câu trả lời yes / no
 								$ans = $this->game->getRatioYN($gameID);
 
-								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT, 'ans_yes'=>$ans['YES'], 'ans_no'=>$ans['NO'], 'total_amount' => $total_amount);
+								$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_YN);
+
+								//call pusher ??
+								
+
+
+								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT, 'ans_yes'=>$ans['YES'], 'ans_no'=>$ans['NO'], 'total_amount' => $total_amount, 'list_bet_log'=>$list_bet_log);
 
 								echo json_encode($arr);
 							}else{
@@ -304,7 +311,7 @@ class GameCT extends CI_Controller {
 			//get data from table game yes no
 			$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
 			if($user){
-				$game = $this->game->getAllGameMini();
+				$game = $this->game->getAllGameMiniActive();
 
 				$data['USER_NAME'] = $user->USER_NAME;
 	            $data['USER_POINT'] = $user->USER_POINT;

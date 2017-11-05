@@ -5,7 +5,34 @@
 	<!-- Required meta tags --> 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<style>
+	    @keyframes changewidth {
+	      from {
+	        -webkit-transform: translate(50px);
+	        -ms-transform: translate(50px);
+	        transform: translate(50px);
+	      }
+
+	      to {}
+	    }
+
+	    @keyframes radioClick {
+	      from {
+	        height: 0px;
+	        width: 0px;
+	        opacity: 1;    
+	      }
+
+	      to {
+	        height: 50px;
+	        width: 50px;
+	        opacity: 0;
+	        margin-left: -19px;
+	        margin-top: -18px;
+	      }
+	    }    
+  	</style>	   
 	<!-- jQuery UI css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.css">
 	<!-- bootstrap css -->
@@ -17,23 +44,23 @@
 
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
 
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-
 
 	<!-- custom css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 
-	<!-- <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script> -->
+	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
+
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
 	<!-- Pusher -->
-	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+	<!-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script> -->
+
 </head>
-<body onload="countDown_End_Date(tt_game_end_date,0);">
+<body onload="countDown_End_Date(tt_game_end_date,0);infinitySlideShow();">
 	<script>
 		var base_url = "<?php echo base_url(); ?>";
 		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
@@ -59,12 +86,13 @@
 	    //data cho highchart
 	    // console.log(data1);
 	</script>
+
 	<!-- big div on top -->
 	<div class="container-fluid">
 		<div class="row">
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
-				<div id="hot-mini-game-content" class="hot-minigame">
+				<div id="hot-mini-game-content" class="hot-minigame slider autoplay">
 					<?php if(empty($YN) && empty($MUL)){
 						echo 'Các game đang được hệ thống cập nhật';
 					} ?>
@@ -562,12 +590,16 @@
 	</footer>
 	<!-- /.footer -->
 
+	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
+
+	<script src="<?php echo base_url(); ?>assets/jquery/jquery-migrate-1.2.1.min.js"></script>
 	<!-- popper js -->
 	<script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 	<!-- bootstrap js -->
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
 	
+	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 	<!-- high chart js -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
@@ -584,6 +616,6 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
-	
+	<!--  -->
 </body>
 </html>

@@ -20,32 +20,36 @@ class UserCT extends CI_Controller {
 	{		
 		try {
     		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
-			$tt_game = $this->game->getGameTT();
-			$game = $this->game->getAllGameMini();
-			//set sessionUserID
-	    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
-		    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
-			$data['USER_NAME'] = $user->USER_NAME;
-			$data['USER_POINT'] = $user->USER_POINT;
-	        $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
-	        $data['TT_END_DATE'] = $tt_game->END_DATE;
+    		if($user->ROLE_ID == ROLE_USER){
+				$tt_game = $this->game->getGameTT();
+				$game = $this->game->getAllGameMiniActive();
+				//set sessionUserID
+		    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
+			    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
-	        //$data['prices'] = $this->user->getData();
-	        if(isset($game['YN'])){
-                $data['YN'] = $game['YN'];                            
-            }else{
-                $data['YN'] = array(); 
-            }
+				$data['USER_NAME'] = $user->USER_NAME;
+				$data['USER_POINT'] = $user->USER_POINT;
+		        $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
+		        $data['TT_END_DATE'] = $tt_game->END_DATE;
 
-            if(isset($game['MUL'])){
-                $data['MUL'] = $game['MUL'];                            
-            }else{
-                $data['MUL'] = array();
-            }
+		        //$data['prices'] = $this->user->getData();
+		        if(isset($game['YN'])){
+	                $data['YN'] = $game['YN'];                            
+	            }else{
+	                $data['YN'] = array(); 
+	            }
 
-			$this->load->view('user/home', $data);		
-			
+	            if(isset($game['MUL'])){
+	                $data['MUL'] = $game['MUL'];                            
+	            }else{
+	                $data['MUL'] = array();
+	            }
+
+				$this->load->view('user/home', $data);		
+    		}else{
+    			redirect(base_url());
+    		}
 		} catch (Exception $e) {
 			log_message('error',$e->getMessage());
             $this->load->view('errors/error_page');

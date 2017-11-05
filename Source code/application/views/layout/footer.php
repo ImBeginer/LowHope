@@ -3,13 +3,19 @@
 	<div>Mọi hình thức sao chép nội dung trên website này mà chưa được sự đồng ý đều là trái phép.</div>
 </footer>
 
+
+<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
+
 <!-- jquery -->
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
+
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-migrate-1.2.1.min.js"></script>
 <!-- popper js -->
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 <!-- bootstrap js -->
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
 
+<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>

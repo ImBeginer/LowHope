@@ -101,7 +101,6 @@ function logoutFB(){
         })
         .always(function() {
         	console.log("complete");
-        	window.location = base_url;
         });
 	});
 }

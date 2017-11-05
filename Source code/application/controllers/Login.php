@@ -58,8 +58,25 @@ class Login extends CI_Controller {
             }
         }
         
+
+        //TODO
         //google login url
         $data['loginURL'] = $this->google->loginURL();     
+
+        $game = $this->game->getAllGameMiniActive();
+
+        if(isset($game['YN'])){
+            $data['YN'] = $game['YN'];                            
+        }else{
+            $data['YN'] = array(); 
+        }
+
+        if(isset($game['MUL'])){
+            $data['MUL'] = $game['MUL'];                            
+        }else{
+            $data['MUL'] = array();
+        }
+
         //load google login view
         $this->load->view('login/login_view',$data);
     }     
@@ -81,7 +98,7 @@ class Login extends CI_Controller {
                     if($user->ROLE_ID == ROLE_USER){
                         //load user home page
                         $tt_game = $this->game->getGameTT();
-                        $game = $this->game->getAllGameMini();
+                        $game = $this->game->getAllGameMiniActive();
                         
                         //set session for userID
                         $this->session->set_userdata('sessionUserId', $user->USER_ID);
@@ -200,7 +217,7 @@ class Login extends CI_Controller {
             $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
             if($user->ROLE_ID == ROLE_USER){            
                 $tt_game = $this->game->getGameTT();
-                $game = $this->game->getAllGameMini();
+                $game = $this->game->getAllGameMiniActive();
                 
                 //set sessionUserID
                 $this->session->set_userdata('sessionUserId', $user->USER_ID);

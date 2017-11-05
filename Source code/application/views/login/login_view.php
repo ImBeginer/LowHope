@@ -4,7 +4,34 @@
 	<title>Website dự đoán giá bitcoin</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<style>
+		@keyframes changewidth {
+			from {
+				-webkit-transform: translate(50px);
+				-ms-transform: translate(50px);
+				transform: translate(50px);
+			}
+
+			to {}
+		}
+
+		@keyframes radioClick {
+			from {
+				height: 0px;
+				width: 0px;
+				opacity: 1;    
+			}
+
+			to {
+				height: 50px;
+				width: 50px;
+				opacity: 0;
+				margin-left: -19px;
+				margin-top: -18px;
+			}
+		}    
+	</style>		
 	<!-- jQuery UI css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.css">
 	<!-- bootstrap css -->
@@ -12,15 +39,12 @@
 	<!-- font awesome -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
 	<!-- custom css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
+  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
-	<!-- jquery -->
-  <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-	
+
 </head>
-<body onload="logoutFB();">
+<body onload="logoutFB();infinitySlideShow();">
 	<script>var base_url = "<?php echo base_url(); ?>";</script>
 
 	<!-- body -->
@@ -28,206 +52,36 @@
 		<div class="row">
 			<!-- infinite slideshow -->
       <section id="hot-mini-game-area">
-        <div id="hot-mini-game-content" class="hot-minigame"> 
-          <div class="hot-item">
-            <a href="#!" title="Darren Till vs. Donald Cerrone">
-              <div class="title">Darren Till vs. Donald Cerrone</div>
-                <div class="runner">Darren Till</div>
-                <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>39.8</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Army @ Rice">
-              <div class="title">Army @ Rice</div>
-                <div class="runner">Army -13.5</div>
-                <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>49.5</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Colorado State @ Utah State">
-              <div class="title">Colorado State @ Utah State</div>
-              <div class="runner">Colorado State -8</div>
-              <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>49.0</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Temple @ East Carolina">
-              <div class="title">Temple @ East Carolina</div>
-              <div class="runner">Temple -2.5</div>
-              <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>50.0</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Bitcoin to fall below 3000 USD before January 1">
-              <div class="title">Bitcoin to fall</div>
-                <div class="runner">Yes</div>
-                <div class="prob">
-                  <span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                  <span>37.3</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Armenia vs. Poland">
-              <div class="title">Armenia vs. Poland</div>
-              <div class="runner">Armenia</div>
-              <div class="prob">
-                <span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                <span>6.0</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Malta vs. Lithuania">
-              <div class="title">Malta vs. Lithuania</div>
-              <div class="runner">Over 2</div>
-              <div class="prob">
-                <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                <span>49.3</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Argentina vs. Peru">
-              <div class="title">Argentina vs. Peru</div>
-                <div class="runner">Over 3</div>
+        <div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
+          <?php if(empty($YN) && empty($MUL)){
+            echo 'Các game đang được hệ thống cập nhật';
+          } ?>
+          <?php foreach ($YN as $value): ?>
+            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
+              <a href="#!" title="<?php echo $value['TITLE']; ?>">
+                <div class="title"><?php echo $value['TITLE']; ?></div>
+                <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
                   <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span>54.3</span>
+                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
                 </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Malta vs. Lithuania">
-              <div class="title">Malta vs. Lithuania</div>
-                <div class="runner">Malta</div>
+              </a>
+            </div>            
+          <?php endforeach ?>
+
+          <?php foreach ($MUL as $value): ?>
+            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
+              <a href="#!" title="<?php echo $value['TITLE']; ?>">
+                <div class="title"><?php echo $value['TITLE']; ?></div>
+                <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
                   <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span>22.2</span>
+                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
                 </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Armenia vs. Poland">
-                <div class="title">Armenia vs. Poland</div>
-                <div class="runner">Over 0.5</div>
-                <div class="prob">
-                    <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                    <span>49.5</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Darren Till vs. Donald Cerrone">
-              <div class="title">Darren Till vs. Donald Cerrone</div>
-                <div class="runner">Darren Till</div>
-                <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>39.8</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Army @ Rice">
-              <div class="title">Army @ Rice</div>
-                <div class="runner">Army -13.5</div>
-                <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>49.5</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Colorado State @ Utah State">
-              <div class="title">Colorado State @ Utah State</div>
-              <div class="runner">Colorado State -8</div>
-              <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>49.0</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Temple @ East Carolina">
-              <div class="title">Temple @ East Carolina</div>
-              <div class="runner">Temple -2.5</div>
-              <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>50.0</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Bitcoin to fall below 3000 USD before January 1">
-              <div class="title">Bitcoin to fall</div>
-                <div class="runner">Yes</div>
-                <div class="prob">
-                  <span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                  <span>37.3</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Armenia vs. Poland">
-              <div class="title">Armenia vs. Poland</div>
-              <div class="runner">Armenia</div>
-              <div class="prob">
-                <span class="icon-bullet"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                <span>6.0</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Malta vs. Lithuania">
-              <div class="title">Malta vs. Lithuania</div>
-                <div class="runner">Over 2</div>
-                <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>49.3</span>
-                </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Argentina vs. Peru">
-              <div class="title">Argentina vs. Peru</div>
-              <div class="runner">Over 3</div>
-              <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>54.3</span>
-              </div>
-            </a>
-          </div>
-          <div class="hot-item">
-            <a href="#!" title="Malta vs. Lithuania">
-              <div class="title">Malta vs. Lithuania</div>
-              <div class="runner">Malta</div>
-              <div class="prob">
-                <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                <span>22.2</span>
-              </div>
-            </a>
-            </div><div class="hot-item">
-            <a href="#!" title="Armenia vs. Poland">
-                <div class="title">Armenia vs. Poland</div>
-                <div class="runner">Over 0.5</div>
-                <div class="prob">
-                  <span class="icon-arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  <span>49.5</span>
-                </div>
-            </a>
-          </div>
+              </a>
+            </div>
+          <?php endforeach ?>
+
         </div>
       </section>    
       <!-- /.infinite slideshow -->
@@ -444,17 +298,26 @@
 			background-color: orange!important;
 		}
 	</style>	
-
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/jquery/isotope.pkgd.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/bootstrap/tether.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/jquery/isotope.pkgd.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
 	<!-- My script -->
   <script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
+
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/login.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/forgotPass.js"></script>
+
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/filterIsotope.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
 
 </body>
 </html>

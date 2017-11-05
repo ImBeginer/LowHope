@@ -83,7 +83,7 @@ class Game extends CI_Model {
 	 * [getAllGameMini description]
 	 * @return [type] [description]
 	 */
-	public function getAllGameMini()
+	public function getAllGameMiniActive()
 	{
 		$game = array();
 
