@@ -50,8 +50,6 @@
 	<!-- custom css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
-	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>

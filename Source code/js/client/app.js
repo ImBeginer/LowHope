@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-	
-
 // ************************CHECK DỮ LIỆU ĐẦU VÀO**************************
 
   /**
@@ -448,6 +446,7 @@ $(document).ready(function() {
 					//TODO update lại bảng lịch sử
 					var list_bet_log = response.list_bet_log;
 
+					loadTable(list_bet_log);
 					
 
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
@@ -489,6 +488,11 @@ $(document).ready(function() {
 					$('.mini-game-transaction').text('Point hiện tại: ' + response.total_amount);
 					//đặt lại tỉ lệ đoán										
 					user_percent_mul(response.PRICE_BELOW, response.PRICE_BETWEEN, response.PRICE_ABOVE);
+
+					var list_bet_log = response.list_bet_log;
+
+					loadTable(list_bet_log);
+
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -626,15 +630,17 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
     $('.game-mul span.de-num-percent').text($up_per_string + '%');
 }
 
-function loadTable() {
+function loadTable(list_bet_log) {
 	var el = $('#list-bet-log');
 	if(el.hasClass('table')){
 		el.DataTable({
+			autoWidth: false,
 			columns: [
 				{ data: 'ANS_TIME' },
 				{ data: 'USER_NAME' }			
 			],
-			data: list_bet_log
+			data: list_bet_log,
+			bDestroy: true
 		});
 	};
 }

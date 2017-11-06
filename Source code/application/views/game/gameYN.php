@@ -60,20 +60,24 @@
   <!-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script> -->
 
 </head>
-<body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no);loadTable();"> 
+<body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no);loadTable(list_bet_log);infinitySlideShow();"> 
   <script>
     var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";
     var ans_yes = "<?php echo $ans_yes; ?>"||0;
     var ans_no = "<?php echo $ans_no; ?>"||0;
+    <?php if(isset($list_bet_log)){ ?>
     var list_bet_log = <?php echo json_encode($list_bet_log); ?>;
+    <?php }else{?>
+    var list_bet_log = [];
+    <?php  }?>
   </script>
   <!-- body -->
   <div class="container-fluid">
     <div class="row">
       <!-- infinite slideshow -->
       <section id="hot-mini-game-area">
-        <div id="hot-mini-game-content" class="hot-minigame"> 
+        <div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
           <?php foreach ($YN as $value): ?>
             <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
               <a href="#!" title="<?php echo $value['TITLE']; ?>">
@@ -109,8 +113,13 @@
             echo base_url().'login/user';
           }else if($this->session->userdata('loggedInFB')) {
             echo base_url().'login/fb_goHome';
+          }else{
+            echo base_url();
           }
          ?>">Logo</a>
+
+        <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB')){ ?>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -483,6 +492,16 @@
 
           </ul>
         </div>
+        
+        <?php }else{ ?>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
+              <a href="<?php echo base_url(); ?>" class="nav-link">Đăng Nhập</a>
+            </li>
+          </ul>
+        </div>
+        <?php } ?>
       </nav><!-- /.navbar -->  
 
       <div id="mgyn-content-area" class="content-area">
@@ -497,7 +516,7 @@
                   <p class="mini-game-title"><?php echo $game_data->TITLE; ?></p>
                   <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->TOTAL_AMOUNT; ?></p>
                 </div>
-                <div class="mini-game-content" data-gameID="<?php echo $game_data->GAME_ID; ?>">
+                <div class="mini-game-content mb-5" data-gameID="<?php echo $game_data->GAME_ID; ?>">
                   <table class="mini-game-conten-info">
                     <tr>
                       <td>
@@ -536,6 +555,8 @@
                     </div>
                   </div><!-- /.bet percent -->
                 </div>
+
+                <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB')){ ?>
                 <div class="mini-game-bet mt-5">
                   <form name="mini-yn-bet">
                     <div class="form-group d-inline-block">
@@ -557,6 +578,9 @@
                     </div>                       
                   </form>                  
                 </div>
+                <?php }else{ ?>
+                <p class="no-margin">Bạn cần <a href="<?php echo base_url(); ?>">Đăng nhập </a> để đặt cược trò chơi !</p> 
+                <?php } ?>
               </div>
             </div> <!-- end content game -->
 
