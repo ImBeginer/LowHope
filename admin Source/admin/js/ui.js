@@ -57,7 +57,81 @@ $(function () {
 
     $('span.in-num-percent').text($in_per_string + '%');
     $('span.de-num-percent').text($de_per_string + '%');
-  }	
+  }
+
+/********** MỚI 6/11/2017 ************/
+  $('#all-manager-list button[name=btn-ban]').on ('click', function (event) {
+    // ID của manager bị block
+    $blockID = event.currentTarget.value;
+    console.log (event.currentTarget.value);
+
+    $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn có chắc chắn muốn block manager này ?</p>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Chắc chắn",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            getManagerBlockID ($blockID);
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    });  
+  });
+
+  $('#all-manager-blocked-list button[name=btn-unban]').on ('click', function (event) {
+    // ID của manager bị block
+    $unblockID = event.currentTarget.value;
+    console.log (event.currentTarget.value);
+
+    $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn có chắc chắn muốn bỏ block manager này ?</p>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Chắc chắn",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            getManagerUnblockID ($unblockID);
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    });  
+  });  
+
+  function getManagerBlockID ($blockID) {
+    console.log ('MANAGER ID BỊ BLOCK: ' + $blockID);
+  }
+
+  function getManagerUnblockID ($unblockID) {
+    console.log ('MANAGER ID BỎ BLOCK: ' + $unblockID);
+  }  
+/********** MỚI 6/11/2017 ************/
 
 /**
  * [select_all chọn tối đa 30 user trong user-list]

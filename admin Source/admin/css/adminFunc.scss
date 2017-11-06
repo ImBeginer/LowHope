@@ -1,5 +1,17 @@
 /******************** BLOCK MANAGER **********************/
-button.btn-ban {
+.search-panel {
+  text-align: center;
+}
+
+.manager-block-list {
+  margin: 40px 0px;
+}
+
+input.manger-block-search {
+  margin: 5px 0;
+}
+
+button.btn-ban, button.btn-unban {
   background-color: initial;
 }
 
@@ -8,3 +20,35 @@ button.btn-ban:hover {
   color: $white;
 }
 
+button.btn-unban:hover {
+  background-color: $increase-color;
+  color: $white;
+}
+
+.user-ava { 
+  button.btn-ban, button.btn-unban {
+    margin-left: 50px;
+  }
+}
+
+button.ui-dialog-titlebar-close {
+  display: none;
+}
+
+button.confirm-yes-btn, button.confirm-cancel-btn {
+	color: $white;
+}
+
+button.confirm-yes-btn:hover {
+	background-color: $bet-btn-color;
+	color: initial;
+}
+
+button.confirm-cancel-btn:hover {
+	background-color: $deactive;
+	color: initial;
+}
+
+div#dialog-confirm p i {
+  margin: 0 8px;
+}
