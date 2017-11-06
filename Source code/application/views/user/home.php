@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<title>Website dự đoán giá bitcoin</title>
-	<!-- Required meta tags --> 
+	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<style>
 	    @keyframes changewidth {
 	      from {
@@ -21,7 +21,7 @@
 	      from {
 	        height: 0px;
 	        width: 0px;
-	        opacity: 1;    
+	        opacity: 1;
 	      }
 
 	      to {
@@ -31,8 +31,8 @@
 	        margin-left: -19px;
 	        margin-top: -18px;
 	      }
-	    }    
-  	</style>	   
+	    }
+  	</style>
 	<!-- jQuery UI css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.css">
 	<!-- bootstrap css -->
@@ -62,7 +62,7 @@
 	<script>
 		var base_url = "<?php echo base_url(); ?>";
 		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
-		
+
 		/****************** PUSHER ****************************/
 		// Enable pusher logging - don't include this in production
 	    //Pusher.logToConsole = true;
@@ -72,13 +72,13 @@
 	    // 	encrypted: true
 	    // });
 
-	    // var channel = pusher.subscribe('my-channel');	   
+	    // var channel = pusher.subscribe('my-channel');
 
 	   	/****************** BITCOIN PRICE *****************************/
 	    // var prices =   JSON.parse('< $prices; ?>');
 	    // var data1 = [];
-	    // for (var i = 0; i < prices.length; i++) {	    	
-	    // 	data1[i] = [ (new Date(prices[i].DATA_DATE)).getTime() , parseFloat(prices[i].DATA_PRICE) ];	
+	    // for (var i = 0; i < prices.length; i++) {
+	    // 	data1[i] = [ (new Date(prices[i].DATA_DATE)).getTime() , parseFloat(prices[i].DATA_PRICE) ];
 	    // }
 
 	    //data cho highchart
@@ -91,9 +91,9 @@
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
 				<div id="hot-mini-game-content" class="hot-minigame slider autoplay">
-					<?php if(empty($YN) && empty($MUL)){
-						echo 'Các game đang được hệ thống cập nhật';
-					} ?>
+					<?php if (empty($YN) && empty($MUL)) {
+	echo 'Các game đang được hệ thống cập nhật';
+}?>
 					<?php foreach ($YN as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
 							<a href="#!" title="<?php echo $value['TITLE']; ?>">
@@ -104,8 +104,8 @@
 									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
 								</div>
 							</a>
-						</div>						
-					<?php endforeach ?>
+						</div>
+					<?php endforeach?>
 
 					<?php foreach ($MUL as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
@@ -118,27 +118,27 @@
 								</div>
 							</a>
 						</div>
-					<?php endforeach ?>
+					<?php endforeach?>
 				</div>
-			</section>    
+			</section>
 			<!-- /.infinite slideshow -->
 			<!-- navbar -->
 			<nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand" href="<?php 
-					if($this->session->userdata('loggedInGooge')){
-						echo base_url().'login/user';
-					}else if($this->session->userdata('loggedInFB')) {
-						echo base_url().'login/fb_goHome';
-					}
+				<a class="navbar-brand" href="<?php
+if ($this->session->userdata('loggedInGooge')) {
+	echo base_url() . 'login/user';
+} else if ($this->session->userdata('loggedInFB')) {
+	echo base_url() . 'login/fb_goHome';
+}
 
-				 ?>">Logo</a>
+?>">Logo</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
 				<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 					<ul class="nav navbar-nav navbar-right">
-						
+
 						<!-- TODO tao mini game -->
 						<li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
 							<a href="javascript:void(0);" class="nav-link">Tạo mini game</a>
@@ -161,14 +161,14 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<div class="modal-body">   
+									<div class="modal-body">
 										<div class="top-user text-center">
 											<div class="second d-inline-block text-center">
 												<figure>
 													<img src="<?php echo base_url(); ?>images/client/2nd.png" alt="2nd">
 													<figcaption class="top-user-name">Adam Smith</figcaption>
 													<figcaption class="top-user-point"><span class="second-point">171717</span></figcaption>
-												</figure>          
+												</figure>
 											</div>
 											<div class="first d-inline-block text-center">
 												<figure>
@@ -181,10 +181,10 @@
 												<figure>
 													<img src="<?php echo base_url(); ?>images/client/3rd.png" alt="3rd">
 													<figcaption class="top-user-name">Ketty Prery</figcaption>
-													<figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>              
-												</figure>                 
+													<figcaption class="top-user-point"><span class="third-point">5236</span></figcaption>
+												</figure>
 											</div>
-										</div>   
+										</div>
 									</div>
 								</div>
 							</div>
@@ -216,7 +216,7 @@
 												</p>
 											</a>
 										</div>
-									</li>                                                                      
+									</li>
 									<li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 										<div class="noti-content ellipsis">
 											<a href="#!">
@@ -230,7 +230,7 @@
 												</p>
 											</a>
 										</div>
-									</li>    
+									</li>
 									<li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 										<div class="noti-content ellipsis">
 											<a href="#!">
@@ -244,7 +244,7 @@
 												</p>
 											</a>
 										</div>
-									</li> 
+									</li>
 									<li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 										<div class="noti-content ellipsis">
 											<a href="#!">
@@ -258,7 +258,7 @@
 												</p>
 											</a>
 										</div>
-									</li>    
+									</li>
 									<li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 										<div class="noti-content ellipsis">
 											<a href="#!">
@@ -272,7 +272,7 @@
 												</p>
 											</a>
 										</div>
-									</li>    
+									</li>
 									<li class="noti-items" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 										<div class="noti-content ellipsis">
 											<a href="#!">
@@ -286,7 +286,7 @@
 												</p>
 											</a>
 										</div>
-									</li>                                                                                                 
+									</li>
 								</ul><!-- /.notification list -->
 								<!-- popup notifi -->
 								<div class="modal" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -304,7 +304,7 @@
 										</div>
 									</div>
 								</div><!-- /.popup notifi -->
-							</div>              
+							</div>
 						</li>
 						<!-- end notifications of user -->
 
@@ -337,19 +337,19 @@
 									<li class="func-items user-name-btn">
 										<button class="btn btn-primary user-name cursor-pointer" data-toggle="modal" data-target="#user-update-info">
 											Sửa thông tin
-										</button>     
+										</button>
 									</li>
 
-									<li class="func-items"><a href="<?php echo base_url().'userct/history'; ?>" target="_self">Lịch sử</a></li>
+									<li class="func-items"><a href="<?php echo base_url() . 'userct/history'; ?>" target="_self">Lịch sử</a></li>
 
-									<?php if($this->session->userdata('loggedInGooge')){ ?>
-										<li class="func-items"><a href="<?php echo base_url().'login/logoutGoogle'; ?>">Đăng xuất</a></li>
-									<?php }else if($this->session->userdata('loggedInFB')) { ?>	
+									<?php if ($this->session->userdata('loggedInGooge')) {?>
+										<li class="func-items"><a href="<?php echo base_url() . 'login/logoutGoogle'; ?>">Đăng xuất</a></li>
+									<?php } else if ($this->session->userdata('loggedInFB')) {?>
 										<li class="func-items"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
-									<?php } ?>
+									<?php }?>
 								</ul>
 							</div> <!-- /.user dropdown button -->
-							
+
 							<!-- create game popup -->
 							<div id="create-game" class="modal fade" tabindex="-1" role="dialog"
 							aria-labelledby="createGame" aria-hidden="true">
@@ -361,7 +361,7 @@
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<div class="modal-body">      
+										<div class="modal-body">
 											<!-- nav creat game -->
 											<ul id="nav-game" class="nav nav-tabs">
 												<li class="nav-item">
@@ -369,8 +369,8 @@
 												</li>
 												<li class="nav-item">
 													<a class="nav-link" href="#multi-choice-game">Lựa chọn</a>
-												</li>        
-											</ul><!-- /.nav create game --> 
+												</li>
+											</ul><!-- /.nav create game -->
 										</div>
 										<!-- tab game -->
 										<div class="tab-content game-tab-content">
@@ -380,7 +380,7 @@
 													<div class="message"></div>
 													<div class="form-group">
 														<label for="game-title">Tên game</label>
-														<input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>                
+														<input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>
 													</div>
 													<div class="form-group d-inline-block">
 														<label for="game-date">Vào ngày</label>
@@ -397,7 +397,7 @@
 													<div class="form-group submit-area">
 														<button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-													</div>                                         
+													</div>
 												</div>
 											</div>
 											<!-- end yes/no game -->
@@ -408,8 +408,8 @@
 													<div class="message"></div>
 													<div class="form-group">
 														<label for="game-title">Tên game</label>
-														<input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,35}$" required>                
-													</div>              
+														<input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,35}$" required>
+													</div>
 													<div class="form-group d-inline-block">
 														<label for="game-date">Vào ngày</label>
 														<input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required>
@@ -420,37 +420,37 @@
 													</div>
 													<div class="form-group">
 														<label for="">Giá Bitcoin ? (Đơn vị: USD)</label>
-													</div>              
+													</div>
 													<div class="form-group d-inline-block mr-3">
 														<label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
-														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" required>     
-													</div>            
+														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" required>
+													</div>
 													<div class="form-group d-inline-block mr-3">
 														<label class="d-block" for="game-bitcoin-price-upper">Trên</label>
 														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" pattern="^\\d{1,10}$" required>
-													</div> 
-													<div class="form-group d-inline-block mr-3">  
+													</div>
+													<div class="form-group d-inline-block mr-3">
 														<label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
 														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>
 													</div>
 													<div class="form-group d-inline-block mr-3">
-														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>    
-													</div>                              
+														<input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{1,10}$" disabled>
+													</div>
 													<div class="form-group submit-area">
 														<button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-mul" name="game-btn-mul">Tạo</button>
 														<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-													</div>                                         
+													</div>
 												</div>
 											</div>
 											<!-- end create game multi -->
-										</div><!-- /.tab game -->             
+										</div><!-- /.tab game -->
 									</div>
 								</div>
-							</div><!-- /.create game popup -->					
+							</div><!-- /.create game popup -->
 
 							<!-- user update form -->
 							<div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog">                  
+								<div class="modal-dialog">
 									<!-- modal content -->
 									<div id="user-update-info" class="modal-content">
 										<div class="modal-header user-header">
@@ -490,7 +490,7 @@
 											<div class="submit-area form-group">
 												<button type="submit" class="btn-height update-btn cursor-pointer" id="update-btn">Cập nhật</button>
 												<button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-											</div>                     
+											</div>
 										</div><!-- /.user update info -->
 
 									</div><!-- /.modal content -->
@@ -499,12 +499,12 @@
 							</div>
 							<!-- /.user update form -->
 						</li>
-						<!-- end information of user -->             
+						<!-- end information of user -->
 
 					</ul>
 				</div>
-			</nav> 
-			<!-- /.navbar -->    
+			</nav>
+			<!-- /.navbar -->
 		</div>
 	</div> <!-- /.big div on top -->
 
@@ -516,9 +516,11 @@
 					<div class="row">
 						<!-- chart -->
 						<div class="chart-panel col-md-10 col-lg-10 col-xl-10">
-							<div id="chart"></div>
+							<!--author: Phong Huy-->
+							<div id="chartContainer"></div>
+							<!--author: Phong Huy-->
 							<div class="game_tt_content text-center">
-								<?php echo $GAME_TT_CONTENT; ?> 
+								<?php echo $GAME_TT_CONTENT; ?>
 								<a href="javascript:void(0);" id="testPusher" class="btn btn-outline-primary">Test pusher</a>
 							</div>
 						</div><!-- /.chart -->
@@ -550,7 +552,7 @@
 						</div><!-- /.bet -->
 					</div>
 				</div>
-			</div>      
+			</div>
 		</div>
 	</div><!-- /.content -->
 
@@ -564,7 +566,7 @@
 			<!-- Chat panel -->
 			<div id="chat-panel">
 				<div class="chat-header">
-					<h5 class="chat-title">Vinh Nguyễn <span class="close" aria-hidden="true">x</span></h5>         
+					<h5 class="chat-title">Vinh Nguyễn <span class="close" aria-hidden="true">x</span></h5>
 				</div>
 				<div class="chat-body">
 					...
@@ -574,7 +576,7 @@
 						<form action="#!" class="chat-message" method="POST">
 							<input type="text" placeholder="Tin nhắn...">
 						</form>
-					</div>            
+					</div>
 				</div>
 			</div><!-- /.Chat panel -->
 		</div>
@@ -596,12 +598,12 @@
 	<script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 	<!-- bootstrap js -->
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
-	
-	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-	<!-- high chart js -->
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="http://code.highcharts.com/modules/exporting.js"></script>
 
+	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
+	<!-- author: Phong Huy  -->
+	<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script> -->
+	<!-- author: Phong Huy  -->
 	<!-- high chart display -->
 	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
 
@@ -614,6 +616,11 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
+		<!-- author="Phong Huy" -->
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>node-server/public/js/nodeClient_highstock.js"></script>
+	<!-- author="Phong Huy" -->
 	<!--  -->
 </body>
 </html>

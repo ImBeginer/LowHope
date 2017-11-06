@@ -3,12 +3,20 @@
 @import 'default';
 @import 'functions';
 @import 'datepickerCustom';
-@import 'highchartDarkTheme';
+// @import 'highchartDarkTheme';
 @import 'googleChartCustom';
 @import 'infiniteSlideShow';
 @import 'scrollBar';
 @import 'userUpdateInfo';
-
+/*author: Phong Huy*/
+div#highcharts-8znetyt-0 tspan {
+    font-size: initial !important;
+}
+div#chartContainer input {
+    padding: 0 !important;
+    color: $black !important;
+}
+/*author: Phong Huy*/
 
 /*********************NAV BAR************************/
 span.point-title, p.user-point {
