@@ -238,3 +238,20 @@ button.btn-notifi:hover {
   }  
 }
 
+select#notifi-form {
+  font-size: 70%;
+  height: 32px;
+  width: 200px;
+  border-radius: 4px;
+  background-color: $select;
+  border: $select;
+}
+
+select#notifi-form option {
+  font-size: 100%;
+}
+
+select#notifi-form:focus {
+  outline: none;
+}
+

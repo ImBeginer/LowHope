@@ -3,9 +3,9 @@ $(function () {
   $('#user-nav a, #nav-game a, #nav-game-list a').click(function (e) {
     e.preventDefault();
     $(this).tab('show');
-  })
-
-	$('[data-toggle="tooltip"]').tooltip();
+  });
+  
+  $('[data-toggle="tooltip"]').tooltip();
 
 	$('.setting').on('click', function () {
 		$settingIcon = $('.setting i');
