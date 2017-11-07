@@ -1,6 +1,6 @@
 $(function () {
 
-  $('#user-nav a, #nav-game a, #nav-game-list a').click(function (e) {
+  $('#user-nav a, #nav-game a, #nav-game-list a, #nav-change-gift a').click(function (e) {
     e.preventDefault();
     $(this).tab('show');
   });
@@ -106,7 +106,7 @@ $(function () {
       draggable: false,
       buttons: [
         {
-          text: "Chắc chắn",
+          text: "Xác nhận",
           "class": 'confirm-yes-btn btn medium-font-size',
           click: function() {
             $( this ).dialog( "close" );
@@ -122,6 +122,93 @@ $(function () {
         }
       ],
     });  
+  });
+
+  $('#change-gift-panel button[name=gift-tradi-btn]').on ('click', function (event) {
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Chắc chắn",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
+            console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    }); 
+  });
+
+  $('#change-gift-panel button[name=gift-yn-btn]').on ('click', function (event) {
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Xác nhận",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            console.log ('ADMIN EMAIL YN: ' + $('input#admin-email').val());
+            console.log ('ADMIN PASS YN: ' +  $('input#admin-pass').val());
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    }); 
+  });  
+
+  $('#change-gift-panel button[name=gift-mul-btn]').on ('click', function (event) {
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Xác nhận",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            console.log ('ADMIN EMAIL MUL: ' + $('input#admin-email').val());
+            console.log ('ADMIN PASS MUL: ' +  $('input#admin-pass').val());
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    }); 
   });  
 
   function getManagerBlockID ($blockID) {

@@ -52,3 +52,24 @@ button.confirm-cancel-btn:hover {
 div#dialog-confirm p i {
   margin: 0 8px;
 }
+
+/******************** CHANGE GIFT PRICE **********************/
+input#new-price-yn, 
+input#new-price-mul {
+  width: 200px;
+}
+
+.ui-dialog-titlebar {
+  display: none;
+}
+
+input#admin-pass, input#admin-email {
+  margin: 10px 0;
+  font-size: 70%;
+}
+
+.change-gift-pass-panel i {
+  color: black;
+  margin-right: 10px;
+  font-size: 130%;
+}
