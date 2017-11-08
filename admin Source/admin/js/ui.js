@@ -209,7 +209,64 @@ $(function () {
         }
       ],
     }); 
-  });  
+  });
+
+  $('#crud-notifi button[name=notifi-create-btn]').on ('click', function (event) {
+    $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Nếu thông báo này đã tồn tại nội dung của thông báo sẽ được cập nhật lại. Bạn có chắc chắn muốn lưu ?</p>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Lưu",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            console.log('TIÊU ĐỀ: ' + $('input#notifi-title').val());
+            console.log('NỘI DUNG:  ' + $('input#notifi-content').val());
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    }); 
+  });
+
+  $('#crud-notifi button[name=notifi-delete-btn]').on ('click', function (event) {
+    $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn có chắc chắn muốn xóa nội dung thông báo này ?</p>');
+    $("#dialog-confirm").dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      draggable: false,
+      buttons: [
+        {
+          text: "Chắc chắn",
+          "class": 'confirm-yes-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+            console.log('TIÊU ĐỀ: ' + $('input#notifi-title').val());
+          }
+        },
+        {
+          text: "Hủy bỏ",
+          "class": 'confirm-cancel-btn btn medium-font-size',
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ],
+    }); 
+  });    
 
   function getManagerBlockID ($blockID) {
     console.log ('MANAGER ID BỊ BLOCK: ' + $blockID);

@@ -73,3 +73,39 @@ input#admin-pass, input#admin-email {
   margin-right: 10px;
   font-size: 130%;
 }
+
+/******************** CRUD NOTIFICATION **********************/
+.mt-1 {
+  margin-top: 10px !important;
+}
+
+.mb-1 {
+  margin-bottom: 10px !important; 
+}
+
+.full-width {
+  width: 100%;
+}
+
+table.c-table tr th {
+  background-color: $link-active;
+}
+
+table#notifi-list tbody tr {
+  border-bottom: 1px solid $border-op;
+}
+
+p.notifi-title {
+  font-size: 100%;
+  padding: 0 8px;
+}
+
+table.c-table tr td, table.c-table tr th {
+  padding: 10px 0;
+  color: $black;
+  font-size: 77%;
+}
+
+textarea[name='notifi-content'] {
+  height: 140px;
+}
