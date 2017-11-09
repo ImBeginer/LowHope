@@ -54,7 +54,7 @@ class User extends CI_Model {
 	 * @param [string] $USER_PHONE   [description]
 	 * @param [string] $USER_ADDRESS [description]
 	 */
-	public function addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS)
+	public function addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS,$CREATED_DATE)
 	{
 		$user = array(
 			'ROLE_ID'		=> ROLE_USER,
@@ -65,13 +65,36 @@ class User extends CI_Model {
 			'PHONE_NUMBER'	=> $USER_PHONE,
 			'ADDRESS' 		=> $USER_ADDRESS,
 			'ATTENDANCE'	=> 1,
-			'ACTIVE'		=> 1
+			'ACTIVE'		=> 1,
+			'CREATED_DATE'  => $CREATED_DATE
 		);
 
 		if($this->db->insert('USERS', $user)){
 			return $this->db->insert_id();			
 		}else{
 			throw new Exception('Error from addUser()');
+		}
+	}
+
+	public function add_other_user($email, $pass, $CREATED_DATE)
+	{
+		$lastUserID = $this->db->select('USER_ID')->order_by('USER_ID','desc')->limit(1)->get('USERS')->row('USER_ID');
+		$lastUserID++;
+		$userName = 'user '.$lastUserID;
+		$user = array(
+					'ROLE_ID' 		=> ROLE_USER,
+					'USER_NAME' 	=> $userName,
+					'USER_POINT' 	=> 500,
+					'EMAIL'			=> $email,
+					'ATTENDANCE'	=> 1,
+					'ACTIVE'		=> 1,
+					'PASSWORD'		=> $pass,
+					'CREATED_DATE'  => $CREATED_DATE
+				);
+		if($this->db->insert('USERS', $user)){
+			return $this->db->insert_id();			
+		}else{
+			return null;
 		}
 	}
 
@@ -103,9 +126,12 @@ class User extends CI_Model {
 		$this->db->select('*');
 		$this->db->where('USER_ID', $USER_ID);
 		$user = $this->db->get('USERS');
-		$user = $user->row();
-		
-		return $user;
+		if($user){
+			$user = $user->row();			
+			return $user;
+		}else{
+			throw new Exception('Error from getUserByMail()');
+		}
 	}
 
 	/**

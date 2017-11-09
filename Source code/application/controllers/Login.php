@@ -7,6 +7,8 @@ class Login extends CI_Controller {
     {
         parent::__construct();   
 
+        $this->output->delete_cache();
+        $this->output->delete_cache(base_url());
         //load google login library
         $this->load->library('google');
 
@@ -151,7 +153,7 @@ class Login extends CI_Controller {
         $this->session->unset_userdata('sessionUserId');
         $this->session->sess_destroy();        
         
-        redirect(base_url());
+        redirect(base_url().'login');
     }
 
     /*--------------------------  FACEBOOK  -----------------------------------*/
@@ -280,10 +282,11 @@ class Login extends CI_Controller {
                     $USER_NAME = $this->input->post('USER_NAME');
                     $USER_PHONE = $this->input->post('USER_PHONE');
                     $USER_ADDRESS = $this->input->post('USER_ADDRESS');
+                    $CREATED_DATE = date("Y-m-d");
 
                     $USER_PHONE = str_replace('/[^0-9]/', '', $USER_PHONE);
 
-                    $id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS);
+                    $id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS,$CREATED_DATE);
 
                     if($id > 0){
                         

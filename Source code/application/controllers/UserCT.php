@@ -89,6 +89,82 @@ class UserCT extends CI_Controller {
 		$this->load->view('user/history', $data);
 	}
 
+	/**
+	 * [checkUserExist description] Kiểm tra email có tồn tại không
+	 * @return [type] [description]
+	 */
+	public function checkUserExist()
+	{
+		if(isset($_POST['email']) && isset($_POST['pass'])){
+			$email = $this->input->post('email');
+			$pass = $this->input->post('pass');
+			$isExist = $this->user->checkUserExist($email);
+			if($isExist){
+				//email tồn tại, kiểm tra xem pass có đúng không
+				$user = $this->user->getUserByMail($email);
+				if($pass === $user->PASSWORD){
+					$userData['USER_EMAIL'] = $email;
+					$userData['USER_AVATAR'] = null;
+					//set session
+					$this->session->set_userdata('userData', $userData);
+					$this->session->set_userdata('loggedOther', true);
+					
+					//email, pass trung khop
+					echo json_encode(2);
+				}else{
+					echo json_encode(0);
+				}
+			}else{
+				//email chưa có => add user
+				echo json_encode(1);
+			}
+		}
+	}
+
+	/**
+	 * [add_other_user description]add user using passworld
+	 * @param string $value [description]
+	 */
+	public function add_other_user()
+	{
+		if(isset($_POST['email']) && isset($_POST['pass'])){
+			//add vao csdl xong lay id ra lam ten
+			
+			$email = $this->input->post('email');
+			$pass = $this->input->post('pass');
+			$created_date = date("Y-m-d");
+
+			$id = $this->user->add_other_user($email, $pass, $created_date);
+			if($id > 0){
+				$userData['USER_EMAIL'] = $email;
+				$userData['USER_AVATAR'] = null;
+				//set session
+				$this->session->set_userdata('userData', $userData);
+				$this->session->set_userdata('loggedOther', true);
+				
+				echo json_encode(1);	 
+			}else{
+				echo json_encode(0);
+			}
+		}
+	}
+
+	/**
+	 * [logout description]
+	 * @return [type] [description]
+	 */
+	public function logout()
+	{
+		//delete login status & user info from session
+        $this->session->set_userdata('loggedOther', false);
+        $this->session->unset_userdata('loggedOther');
+        $this->session->unset_userdata('userData');
+        $this->session->unset_userdata('sessionUserId');
+        $this->session->sess_destroy();        
+        
+        redirect(base_url().'login');
+	}
+
 }
 
 /* End of file UserCT.php */

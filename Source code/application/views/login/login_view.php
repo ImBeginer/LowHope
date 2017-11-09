@@ -38,60 +38,59 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.css">
 	<!-- font awesome -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/animation/animate.css">
+
 	<!-- custom css -->
   	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
-
-
 </head>
 <body onload="logoutFB();infinitySlideShow();">
 	<script>var base_url = "<?php echo base_url(); ?>";</script>
-
 	<!-- body -->
 	<div id="main-index" class="container-fluid">
 		<div class="row">
 			<!-- infinite slideshow -->
-      <section id="hot-mini-game-area">
-        <div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
-          <?php if(empty($YN) && empty($MUL)){
-            echo 'Các game đang được hệ thống cập nhật';
-          } ?>
-          <?php foreach ($YN as $value): ?>
-            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
-              <a href="#!" title="<?php echo $value['TITLE']; ?>">
-                <div class="title"><?php echo $value['TITLE']; ?></div>
-                <div class="runner"><?php echo $value['USER_NAME']; ?></div>
-                <div class="prob">
-                  <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
-                </div>
-              </a>
-            </div>            
-          <?php endforeach ?>
+			<section id="hot-mini-game-area">
+				<div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
+					<?php if(empty($YN) && empty($MUL)){
+						echo 'Các game đang được hệ thống cập nhật';
+					} ?>
+					<?php foreach ($YN as $value): ?>
+						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
+							<a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+								<div class="title"><?php echo $value['TITLE']; ?></div>
+								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
+								<div class="prob">
+									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
+								</div>
+							</a>
+						</div>            
+					<?php endforeach ?>
 
-          <?php foreach ($MUL as $value): ?>
-            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
-              <a href="#!" title="<?php echo $value['TITLE']; ?>">
-                <div class="title"><?php echo $value['TITLE']; ?></div>
-                <div class="runner"><?php echo $value['USER_NAME']; ?></div>
-                <div class="prob">
-                  <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
-                </div>
-              </a>
-            </div>
-          <?php endforeach ?>
+					<?php foreach ($MUL as $value): ?>
+						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
+							<a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+								<div class="title"><?php echo $value['TITLE']; ?></div>
+								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
+								<div class="prob">
+									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
+								</div>
+							</a>
+						</div>
+					<?php endforeach ?>
 
-        </div>
-      </section>    
-      <!-- /.infinite slideshow -->
+				</div>
+			</section>    
+			<!-- /.infinite slideshow -->
 			<!-- navbar -->
 			<nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
 				<a class="navbar-brand" href="#">Logo</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="nav-item">
@@ -99,15 +98,60 @@
 							<div class="dropdown">
 								<button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 									<span class="caret"></span>
-									Thông tin
+									Đăng nhập chơi ngay (Không cần đăng ký)
 								</button>
-								<ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
-									<li class="func-items"><a href="#!">Gmail</a></li>
-									<li class="func-items"><a href="#!">Facebook</a></li>
-									<li class="func-items"><a href="#!">Google</a></li>
-									<li class="func-items"><a href="#!">Về chúng tôi</a></li>
-									<li class="func-items"><a href="#!">Câu hỏi</a></li>
-								</ul>
+								<!-- USER ĐĂNG NHẬP MỚI 2/11 -->
+								<div id="user-login-panel" class="dropdown-menu dropdown-menu-right">
+									<div class="login-form-panel">
+										<form action="#!" name="login-form" class="user-form login-form">
+											<div class="form-group">
+												<label class="mail-icon" for="username">Tài khoản email</label>
+												<input type="text" class="form-control dark-form" id="username" placeholder="abc@gmail.com">
+											</div>
+											<div class="form-group">
+												<label for="userpassword">Mật khẩu</label>
+												<input type="password" class="form-control dark-form" id="userpassword">
+											</div>
+											<div class="form-group">
+												<button type="button" name="user-login-btn" id="user-login" class="btn login-btn cursor-pointer">Đăng nhập</button>
+												<a href="#!" class="user-forgot-pass-form">
+													<i class="fa fa-unlock" aria-hidden="true"></i> Quên mật khẩu
+												</a>
+											</div>    
+										</form>
+									</div>
+									<div class="forgot-form-panel">
+										<form action="#!" name="forgot-pass-form" class="user-form forgot-pass-form">
+											<div class="form-group">
+												<label for="email">Nhập email</label>
+												<input type="text" class="form-control dark-form" id="forgot-email">
+											</div>
+											<div class="form-group">
+												<button type="button" name="user-send-confirm-code-btn" id="user-send-confirm-code" class="btn changepass-btn cursor-pointer">Gửi mã xác nhận</button>
+											</div>
+											<div class="form-group">
+												<label for="userpass">Mật khẩu mới</label>
+												<input type="password" class="form-control dark-form" id="userpass">
+											</div>
+											<div class="form-group">
+												<label for="confirmpass">Nhập lại mật khẩu</label>
+												<input type="password" class="form-control dark-form" id="confirmpass">
+											</div>
+											<div class="form-group">
+												<label for="confirmcode">Mã xác nhận</label>
+												<input type="text" class="form-control dark-form" id="confirmcode">
+											</div>    
+											<div class="form-group">
+												<button type="button" name="user-change-pass-btn" id="user-forgot-pass" class="btn changepass-btn cursor-pointer">Đổi mật khẩu</button>
+												<a href="#!" class="user-login-form">
+													<i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
+												</a>
+											</div>    
+										</form>
+									</div>
+									<div class="message"></div>                
+								</div>
+								<!-- /.USER ĐĂNG NHẬP MỚI 2/11 -->
 							</div>
 						</li>            
 					</ul>
@@ -299,7 +343,7 @@
 		}
 	</style>	
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
 
   <script src="<?php echo base_url(); ?>assets/jquery/jquery-migrate-1.2.1.min.js"></script>
 

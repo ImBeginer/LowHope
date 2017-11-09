@@ -50,37 +50,39 @@
   <!-- custom css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
-  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
-
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-
   <!-- Pusher -->
-  <!-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script> -->
-
+  <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+  <script src="<?php echo base_url(); ?>js/client/pusher.js"></script>
 </head>
-<body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no);loadTable(list_bet_log);infinitySlideShow();"> 
+<body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no); load_table_log_game(list_bet_log);infinitySlideShow(); set_style_table_log_game();"> 
   <script>
     var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";
     var ans_yes = "<?php echo $ans_yes; ?>"||0;
     var ans_no = "<?php echo $ans_no; ?>"||0;
     <?php if(isset($list_bet_log)){ ?>
-    var list_bet_log = <?php echo json_encode($list_bet_log); ?>;
+      var list_bet_log = <?php echo json_encode($list_bet_log); ?>;
+      for (var i = 0; i < list_bet_log.length; i++) {
+        list_bet_log[i].USER_NAME = '<a href="'+ '<?php echo base_url()."userct/profile/";?>' + list_bet_log[i].USER_ID  +'" title="Click để xem hồ sơ">' + list_bet_log[i].USER_NAME + '</a>';
+      }
     <?php }else{?>
     var list_bet_log = [];
-    <?php  }?>
+    <?php  }?>    
   </script>
   <!-- body -->
   <div class="container-fluid">
     <div class="row">
       <!-- infinite slideshow -->
       <section id="hot-mini-game-area">
-        <div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
+        <div id="hot-mini-game-content" class="hot-minigame slider autoplay">
+          <?php if (empty($YN) && empty($MUL)) {
+            echo 'Các game đang được hệ thống cập nhật';
+          }?> 
           <?php foreach ($YN as $value): ?>
             <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
-              <a href="#!" title="<?php echo $value['TITLE']; ?>">
+              <a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
                 <div class="title"><?php echo $value['TITLE']; ?></div>
                 <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
@@ -93,7 +95,7 @@
           
           <?php foreach ($MUL as $value): ?>
             <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
-              <a href="#!" title="<?php echo $value['TITLE']; ?>">
+              <a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
                 <div class="title"><?php echo $value['TITLE']; ?></div>
                 <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
@@ -113,12 +115,12 @@
             echo base_url().'login/user';
           }else if($this->session->userdata('loggedInFB')) {
             echo base_url().'login/fb_goHome';
-          }else{
-            echo base_url();
+          }else if($this->session->userdata('loggedOther')){
+            echo base_url() . 'userct/home';
           }
          ?>">Logo</a>
 
-        <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB')){ ?>
+        <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -308,7 +310,7 @@
             <!-- avatar -->
             <li class="nav-item">
               <div class="user-avatar">
-                <img src="<?php echo $this->session->userdata('userData')['USER_AVATAR']; ?>" alt="user default">
+                <img src="<?php if($this->session->userdata('userData')['USER_AVATAR']){echo $this->session->userdata('userData')['USER_AVATAR'];}else{echo base_url().'images/client/ava-default.png';} ?>" alt="user default">
               </div>
             </li>
             <!-- end avatar -->
@@ -334,6 +336,8 @@
                     <li class="func-items"><a href="<?php echo base_url().'login/logoutGoogle'; ?>">Đăng xuất</a></li>
                   <?php }else if($this->session->userdata('loggedInFB')) { ?> 
                     <li class="func-items"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
+                  <?php }else if($this->session->userdata('loggedOther')){ ?>
+                    <li class="func-items"><a href="<?php echo base_url() . 'userct/logout'; ?>">Đăng xuất</a></li>
                   <?php } ?>
                 </ul>
               </div> <!-- /.user dropdown button -->
@@ -454,10 +458,9 @@
                         <div class="user-info-left col-3 form-group">
                           <!-- user avatar -->
                           <div class="user-ava-area">
-                            <img class="user-avatar" src="<?php echo $this->session->userdata('userData')['USER_AVATAR']; ?>" alt="User's avatar">
+                            <img class="user-avatar" src="<?php if($this->session->userdata('userData')['USER_AVATAR']){echo $this->session->userdata('userData')['USER_AVATAR'];}else{echo base_url().'images/client/ava-default.png';} ?>" alt="User's avatar">
                             <p class="username ellipsis"><?php echo $USER_NAME; ?></p>
                           </div><!-- /.user avatar -->
-
                         </div>
                         <!-- user info -->
                         <div class="user-info-right col-8 col-centered">
@@ -480,16 +483,12 @@
                         <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
                       </div>                     
                     </div><!-- /.user update info -->
-
                   </div><!-- /.modal content -->
-
                 </div>
               </div>
               <!-- /.user update form -->
             </li>
             <!-- end information of user --> 
-
-
           </ul>
         </div>
         
@@ -585,22 +584,28 @@
             </div> <!-- end content game -->
 
             <div id="mgyn-contact-area" class="col-6 col-sm-6 col-md-6 col-lg-6">
-              <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">
-                <i class="fa fa-gavel" aria-hidden="true"></i> Lịch sử đặt cược 
-              </a>
-              <div class="collapse show" id="game-transaction">
-                <div class="card card-body">
-                  <table id="list-bet-log" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                      <tr>
-                        <th>Thời gian</th>
-                        <th>Người chơi</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
+              <div class="row">
+                <div class="col-sm-12 mb-3 giaodich">
+                  <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">
+                    <i class="fa fa-gavel" aria-hidden="true"></i> Giao dịch 
+                  </a>
                 </div>
-              </div>                          
+                <div class="col-sm-12">
+                  <div class="collapse show" id="game-transaction">
+                    <div class="card card-body">
+                      <table id="list-bet-log" data-info="false" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th>Thời gian</th>
+                            <th>Người chơi</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div> 
+              </div>                         
             </div> <!-- end lich su dat cuoc -->
           </div> <!-- end row -->
         </div><!-- /.content -->
@@ -612,7 +617,6 @@
     <div>LowHope &copy; 2017. All Right Reserved.</div>
     <div>Mọi hình thức sao chép nội dung trên website này mà chưa được sự đồng ý đều là trái phép.</div>
   </footer>
-
 
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>

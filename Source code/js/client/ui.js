@@ -421,6 +421,22 @@ $('button#user-forgot-pass').on('click', function () {
   }
 });
 
+$('button[name=user-send-confirm-code-btn]').on('click', function () {
+
+  $emailVal = $('input#forgot-email').val();
+  if ($emailVal === '') {
+    displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không được trống</p>');
+  } else {
+    $regexFormat = new RegExp('^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$');
+    if (!$regexFormat.test($emailVal)) {
+      displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không hợp lệ</p>');  
+    } else {
+      console.log('EMAIL OKE');  
+    }
+  }
+
+});
+
 $('a.user-forgot-pass-form').on('click', function () {
   displayMessage('div#user-login-panel', '');
   $formDisplay = $('form[name=login-form]');
