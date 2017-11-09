@@ -1,4 +1,5 @@
 @import 'adminFonts';
+@import 'animations';
 @import 'color';
 @import 'includes';
 @import 'animations';
@@ -11,6 +12,7 @@
 @import 'managerInfo';
 @import 'createGame';
 @import 'datepickerCustom';
+@import 'adminFunc';
 
 /********************SIDEBAR*********************/
 ul.sidebar-content a:focus {
@@ -97,6 +99,10 @@ a span.new-color {
 
 .setting-menu a:hover {
   color: initial !important;
+}
+
+.manager-option-area {
+  text-align: center;
 }
 
 /********************RIGHT SIDE CONTENT*********************/

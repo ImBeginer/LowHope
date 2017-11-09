@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Index</title>
+  <title>Admin Index</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- jQuery UI -->
@@ -25,15 +25,27 @@
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
           <img src="../img/ava-default.png" alt="avatar">
-          <div class="manager-name">Vinh Nguyễn</div>
+          <div class="manager-name collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option">Vinh Nguyễn</div>
+          <ul class="sub-menu collapse" id="user-option">
+            <li class="cursor-pointer"><a href="#!">Thông tin cá nhân</a></li>
+            <li class="cursor-pointer"><a href="#!">Sửa thông tin</a></li>
+            <li class="cursor-pointer"><a href="#!">Đổi mật khẩu</a></li>
+          </ul>             
         </li>
-        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website"><a href="#!">Tổng quát</a></li>        
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website"><a href="#!">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="#!">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
-        <li class="cursor-pointer"><a href="#!">Thông tin cá nhân</a></li>
-        <li class="cursor-pointer"><a href="#!">Sửa thông tin</a></li>
-        <li class="cursor-pointer"><a href="#!">Đổi mật khẩu</a></li>
+
+        <li  data-toggle="collapse" data-target="#admin-option" class="collapsed c-active">
+          <a href="#!">Quản lý<span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu collapse" id="admin-option">
+          <li class=""><a href="#!">Block Manager</a></li>
+          <li><a href="#!">Unblock Manager</a></li>
+          <li><a href="#!">Giải thưởng</a></li>
+        </ul>      
+      </ul>
       <div class="manager-option-area c-active" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
         <a class="log-out cursor-pointer">
           <i class="fa fa-power-off" aria-hidden="true"></i>
@@ -408,7 +420,7 @@
 
                 </ul><!-- /.top-mul-game-list -->
               </div>
-            </div>
+            </div>      
           </div>
 <!-- ************** MỚI 3/11/2017 ****************** -->          
         </div>

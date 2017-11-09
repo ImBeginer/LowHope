@@ -52,7 +52,11 @@ a:hover{
 button.m-update-btn,
 button.m-update-pass-btn,
 input#yes-radio,
-input#no-radio {
+input#no-radio,
+button.btn-ban,
+button.confirm-yes-btn, 
+button.confirm-cancel-btn,
+button.btn-unban {
   transition: all 0.5s;
 }
 
@@ -108,6 +112,14 @@ input[type=number]:invalid {
 
 .medium-font-size {
   font-size: 70% !important;
+}
+
+.font-size-100 {
+  font-size: 100% !important;
+}
+
+.font-size-150 {
+  font-size: 150% !important;
 }
 
 .wd-4 {
