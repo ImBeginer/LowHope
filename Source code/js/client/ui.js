@@ -421,6 +421,22 @@ $('button#user-forgot-pass').on('click', function () {
   }
 });
 
+$('button[name=user-send-confirm-code-btn]').on('click', function () {
+
+  $emailVal = $('input#forgot-email').val();
+  if ($emailVal === '') {
+    displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không được trống</p>');
+  } else {
+    $regexFormat = new RegExp('^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$');
+    if (!$regexFormat.test($emailVal)) {
+      displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không hợp lệ</p>');  
+    } else {
+      console.log('EMAIL OKE');  
+    }
+  }
+
+});
+
 $('a.user-forgot-pass-form').on('click', function () {
   displayMessage('div#user-login-panel', '');
   $formDisplay = $('form[name=login-form]');
@@ -463,42 +479,41 @@ display_chat ();
 //infinitySlideShow ();
 });
 
-  function infinitySlideShow () {
-    // tìm stylesheet có chứa rules
-    $styleSheet = document.styleSheets[0];
-    // console.log(document.styleSheets);
-    // chọn rules đầu tiên trong file stylesheet 
-    $infinitySlide = $styleSheet.cssRules[0];
-    // get from (0%) của rules
-    $infinitySlide_From = $infinitySlide.cssRules[0];
-    // get to (100%) của rules 
-    $infinitySlide_To = $infinitySlide.cssRules[1];
+function infinitySlideShow () {
+  // tìm stylesheet có chứa rules
+  $styleSheet = document.styleSheets[0];
+  // console.log(document.styleSheets);
+  // chọn rules đầu tiên trong file stylesheet 
+  $infinitySlide = $styleSheet.cssRules[0];
+  // get from (0%) của rules
+  $infinitySlide_From = $infinitySlide.cssRules[0];
+  // get to (100%) của rules 
+  $infinitySlide_To = $infinitySlide.cssRules[1];
 
-    // get đối tượng parentHotItem
-    $parentHotItem = $('#hot-mini-game-content');
-    // get chiều rộng màn hình browser
-    $bodyWidth = parseInt ($('body').css('width'), 10);
-    // get số lượng hotItems
-    $hotItems = $parentHotItem.children().length;
-    // tính toán thời điểm kết thúc slideshow
-    if ($hotItems > 9) {
-      // get chiều rộng của 1 phần tử hotItems
-      $widthOfHotItem = 150;
-      // tính toán số phần tử hotItems tối đa có thể hiển thị trên màn hình
-      $itemPerScreen = Math.floor ($bodyWidth / $widthOfHotItem);
-      // chiều rộng của tất cả phần tử hotItems
-      $widthOfAllItem = $hotItems * $widthOfHotItem;
-      // thời điểm kết thúc slideshow
-      $endSlideShow = $widthOfAllItem - ($itemPerScreen * $widthOfHotItem);
-      // tỷ lệ thời gian kết thúc slideshow
-      $endTime = Math.ceil($endSlideShow / 20);
-      // đặt lại chiều rộng và thời gian cho đối tượng parentHotItem
-      $parentHotItem.css('width', $widthOfAllItem);
-      $parentHotItem.css('animation-duration', $endTime + 's');
-      // get đối tượng style của rules (100%)
-      $infinitySlide_To_Style = $infinitySlide_To.style;
-      // add lại thuộc tính transform của rules (100%)
-      $infinitySlide_To_Style.setProperty('transform', 'translate(' + (-1 * ($endSlideShow + 50)) + 'px)');
-    }
-  };
-
+  // get đối tượng parentHotItem
+  $parentHotItem = $('#hot-mini-game-content');
+  // get chiều rộng màn hình browser
+  $bodyWidth = parseInt ($('body').css('width'), 10);
+  // get số lượng hotItems
+  $hotItems = $parentHotItem.children().length;
+  // tính toán thời điểm kết thúc slideshow
+  if ($hotItems > 9) {
+    // get chiều rộng của 1 phần tử hotItems
+    $widthOfHotItem = 150;
+    // tính toán số phần tử hotItems tối đa có thể hiển thị trên màn hình
+    $itemPerScreen = Math.floor ($bodyWidth / $widthOfHotItem);
+    // chiều rộng của tất cả phần tử hotItems
+    $widthOfAllItem = $hotItems * $widthOfHotItem;
+    // thời điểm kết thúc slideshow
+    $endSlideShow = $widthOfAllItem - ($itemPerScreen * $widthOfHotItem);
+    // tỷ lệ thời gian kết thúc slideshow
+    $endTime = Math.ceil($endSlideShow / 20);
+    // đặt lại chiều rộng và thời gian cho đối tượng parentHotItem
+    $parentHotItem.css('width', $widthOfAllItem);
+    $parentHotItem.css('animation-duration', $endTime + 's');
+    // get đối tượng style của rules (100%)
+    $infinitySlide_To_Style = $infinitySlide_To.style;
+    // add lại thuộc tính transform của rules (100%)
+    $infinitySlide_To_Style.setProperty('transform', 'translate(' + (-1 * ($endSlideShow + 50)) + 'px)');
+  }
+};

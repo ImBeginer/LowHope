@@ -1,16 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once FCPATH .'/vendor/autoload.php';
 class GameCT extends CI_Controller {
-
+	public $pusher;
 	public function __construct()
 	{
 		parent::__construct();
 		//Do your magic here
 		$this->load->model('user');
 		$this->load->model('game');
+
+		$options = array(
+			'cluster' => 'ap1',
+			'encrypted' => true
+		);
+		$this->pusher = new Pusher\Pusher(
+			'711b956416d9d15de4b8',
+			'806a478e4cde60531b0a',
+			'409599',
+			$options
+		);
 	}
 
+	/**
+	 * [goHome description]
+	 * @return [type] [description]
+	 */
 	public function goHome()
 	{
 		if ($this->session->userdata('loggedInGooge')) {
@@ -28,7 +44,6 @@ class GameCT extends CI_Controller {
 	public function log_game_tt()
 	{	
 		//TODO kiểm tra price > 0 ?
-		
 		$checksessionUserId = $this->session->userdata('sessionUserId');
 		
 		if(isset($checksessionUserId)){
@@ -66,7 +81,6 @@ class GameCT extends CI_Controller {
 		}
 	}
 
-
 	/********************************* GAME YES NO ***********************************************/
 
 	/**
@@ -95,12 +109,22 @@ class GameCT extends CI_Controller {
 					$start_date = date('Y-m-d H:i:s');
 
 					if(!$this->game->checkGameYN($userID, $start_date, $end_date)){
-						$this->game->createGameYN($userID, $game_title, $end_date, $price_bet, $start_date);
+						$gameID = $this->game->createGameYN($userID, $game_title, $end_date, $price_bet, $start_date);
+						$game = $this->game->getGameYN_ById($gameID);
 
 						$user_point = $user_point - FEE_CREATE;
 						$this->user->updatePoint($userID,$user_point);
 
 						$userNew = $this->user->getUserById($userID);
+
+
+						//call pusher để update item slide
+						$data['gameID'] = $gameID;
+						$data['game_title'] = $game_title;
+						$data['user_create'] = $user->USER_NAME;
+						$data['total_amount'] = $game->TOTAL_AMOUNT;
+						$this->pusher->trigger('create_game_yes_no_channel', 'create_game_yes_no_event', $data);
+
 						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT));					
 					}else{
 						echo json_encode(array('create'=>0));
@@ -149,14 +173,10 @@ class GameCT extends CI_Controller {
 				$data['game_data'] = $this->game->getGameYN_ById($game_id);
 
 				// Lấy danh sách lịch sử log của game này
-
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
 				
 				if($log_game){					
 					$data['list_bet_log'] = $log_game;
-				}else{
-					echo 'aaaaa';
-					die();
 				}
 
 				if($data['game_data']){
@@ -174,7 +194,45 @@ class GameCT extends CI_Controller {
 				}
 
 			}else{
-				$this->goHome();
+				
+				//GEST view
+				$game = $this->game->getAllGameMiniActive();
+
+	            if(isset($game['YN'])){
+                    $data['YN'] = $game['YN'];                            
+                }else{
+                    $data['YN'] = array(); 
+                }
+
+                if(isset($game['MUL'])){
+                    $data['MUL'] = $game['MUL'];                            
+                }else{
+                    $data['MUL'] = array();
+                }
+
+
+				// Lấy danh sách lịch sử log của game này
+				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
+				
+				if($log_game){					
+					$data['list_bet_log'] = $log_game;
+				}
+
+				$data['game_data'] = $this->game->getGameYN_ById($game_id);
+
+				if($data['game_data']){
+					//lay ti le phan tram nguoi choi da tra loi
+					$ans = $this->game->getRatioYN($game_id);
+					
+					$data['ans_yes'] = $ans['YES'];
+					$data['ans_no'] = $ans['NO'];
+
+					// $this->load->view('layout/header');
+					$this->load->view('game/gameYN', $data);				
+					// $this->load->view('layout/footer');
+				}else{
+					redirect(base_url());
+				}
 			}
 		}else{			
 			$this->goHome();
@@ -222,13 +280,19 @@ class GameCT extends CI_Controller {
 								//lấy số lượng câu trả lời yes / no
 								$ans = $this->game->getRatioYN($gameID);
 
+								//danh sach bet game yn
 								$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_YN);
 
-								//call pusher ??
-								
-
-
-								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT, 'ans_yes'=>$ans['YES'], 'ans_no'=>$ans['NO'], 'total_amount' => $total_amount, 'list_bet_log'=>$list_bet_log);
+								//update tất cả các bảng log game yes no qua pusher
+								$data['list_bet_log'] = $list_bet_log;
+								$data['ans_yes'] = $ans['YES'];
+								$data['ans_no'] = $ans['NO'];
+								$data['total_amount'] = $total_amount;
+								$data['gameID'] = $gameID;
+																
+								$this->pusher->trigger('log_game_yes_no_channel', 'log_game_yes_no_event', $data);
+							
+								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT);
 
 								echo json_encode($arr);
 							}else{
@@ -249,7 +313,6 @@ class GameCT extends CI_Controller {
 
 		}
 	}
-
 
 	/********************************* GAME MULTI ***********************************************/
 
@@ -279,14 +342,20 @@ class GameCT extends CI_Controller {
 					if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
 						$gameID = $this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
 
-
 						$game = $this->game->getGameMUL_ById($gameID);
 
 						$user_point = $user_point - FEE_CREATE;
 						$this->user->updatePoint($userID,$user_point);
 
 						$userNew = $this->user->getUserById($userID);
-						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT, 'gameID'=>$gameID, 'game_title'=>$game_title, 'userCreate'=>$game->USER_NAME, 'total_amount'=>$game->TOTAL_AMOUNT));
+
+						//call pusher để update item slide
+						$data['gameID'] = $gameID;
+						$data['game_title'] = $game_title;
+						$data['user_create'] = $user->USER_NAME;
+						$data['total_amount'] = $game->TOTAL_AMOUNT;
+						$this->pusher->trigger('create_game_mul_channel', 'create_game_mul_event', $data);
+						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT));
 					}else{
 						echo json_encode(array('create'=>0));
 					}
@@ -329,13 +398,53 @@ class GameCT extends CI_Controller {
                     $data['MUL'] = array();
                 }
 
+				// Lấy danh sách lịch sử log của game này
+				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_MUL);
+
+				if($log_game){
+					$data['list_bet_log'] = $log_game;
+				}
+				
+				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
+
+				if($data['game_data']){
+					//lay ti le phan tram nguoi choi da tra loi
+					$ans = $this->game->getRatioMUL($game_id);
+					
+					$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
+					$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
+					$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
+
+					// $this->load->view('layout/header');
+					$this->load->view('game/gameMUL', $data);
+					// $this->load->view('layout/footer');
+				}else{
+					$this->goHome();
+				}
+
+			}else{
+				//GEST view
+				$game = $this->game->getAllGameMiniActive();
+
+	            if(isset($game['YN'])){
+                    $data['YN'] = $game['YN'];                            
+                }else{
+                    $data['YN'] = array(); 
+                }
+
+                if(isset($game['MUL'])){
+                    $data['MUL'] = $game['MUL'];                            
+                }else{
+                    $data['MUL'] = array();
+                }
+
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
 
 				// Lấy danh sách lịch sử log của game này
 
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_MUL);
-				
-				if($log_game){
+
+				if($log_game){					
 					$data['list_bet_log'] = $log_game;
 				}
 
@@ -347,16 +456,12 @@ class GameCT extends CI_Controller {
 					$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
 					$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
 
-
-					$this->load->view('layout/header');
-					$this->load->view('game/gameMUL', $data);
-					$this->load->view('layout/footer');
+					// $this->load->view('layout/header');
+					$this->load->view('game/gameMUL', $data);				
+					// $this->load->view('layout/footer');
 				}else{
-					$this->goHome();
+					redirect(base_url());
 				}
-
-			}else{
-				$this->goHome();
 			}
 		}else{			
 			$this->goHome();
@@ -414,7 +519,18 @@ class GameCT extends CI_Controller {
 								//lấy số lượng câu trả lời yes / no
 								$ans = $this->game->getRatioMUL($gameID);
 
-								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT, 'PRICE_BELOW'=>$ans['PRICE_BELOW'], 'PRICE_BETWEEN'=>$ans['PRICE_BETWEEN'], 'PRICE_ABOVE'=>$ans['PRICE_ABOVE'], 'total_amount' => $total_amount);
+								$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_MUL);					
+
+								//update tất cả các bảng log game yes no qua pusher
+								$data['list_bet_log'] = $list_bet_log;
+								$data['gameID'] = $gameID;
+								$data['total_amount'] = $total_amount;
+								$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
+								$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
+								$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
+								$this->pusher->trigger('log_game_mul_channel', 'log_game_mul_event', $data);
+
+								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT);
 
 								echo json_encode($arr);
 							}else{

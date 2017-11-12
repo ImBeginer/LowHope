@@ -1,0 +1,111 @@
+/******************** BLOCK MANAGER **********************/
+.search-panel {
+  text-align: center;
+}
+
+.manager-block-list {
+  margin: 40px 0px;
+}
+
+input.manger-block-search {
+  margin: 5px 0;
+}
+
+button.btn-ban, button.btn-unban {
+  background-color: initial;
+}
+
+button.btn-ban:hover {
+  background-color: lightcoral;
+  color: $white;
+}
+
+button.btn-unban:hover {
+  background-color: $increase-color;
+  color: $white;
+}
+
+.user-ava { 
+  button.btn-ban, button.btn-unban {
+    margin-left: 50px;
+  }
+}
+
+button.ui-dialog-titlebar-close {
+  display: none;
+}
+
+button.confirm-yes-btn, button.confirm-cancel-btn {
+	color: $white;
+}
+
+button.confirm-yes-btn:hover {
+	background-color: $bet-btn-color;
+	color: initial;
+}
+
+button.confirm-cancel-btn:hover {
+	background-color: $deactive;
+	color: initial;
+}
+
+div#dialog-confirm p i {
+  margin: 0 8px;
+}
+
+/******************** CHANGE GIFT PRICE **********************/
+input#new-price-yn, 
+input#new-price-mul {
+  width: 200px;
+}
+
+.ui-dialog-titlebar {
+  display: none;
+}
+
+input#admin-pass, input#admin-email {
+  margin: 10px 0;
+  font-size: 70%;
+}
+
+.change-gift-pass-panel i {
+  color: black;
+  margin-right: 10px;
+  font-size: 130%;
+}
+
+/******************** CRUD NOTIFICATION **********************/
+.mt-1 {
+  margin-top: 10px !important;
+}
+
+.mb-1 {
+  margin-bottom: 10px !important; 
+}
+
+.full-width {
+  width: 100%;
+}
+
+table.c-table tr th {
+  background-color: $link-active;
+}
+
+table#notifi-list tbody tr {
+  border-bottom: 1px solid $border-op;
+}
+
+p.notifi-title {
+  font-size: 100%;
+  padding: 0 8px;
+}
+
+table.c-table tr td, table.c-table tr th {
+  padding: 10px 0;
+  color: $black;
+  font-size: 77%;
+}
+
+textarea[name='notifi-content'] {
+  height: 140px;
+}

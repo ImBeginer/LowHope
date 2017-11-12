@@ -319,8 +319,14 @@
 
             <div class="bottom-panel">
               <div class="send-notifi">
-                <textarea name="notifi-content" id="notifi-panel" class="custome-textarea" placeholder="Thông báo..."></textarea>
+                <textarea name="notifi-content" id="notifi-panel" class="custome-textarea" placeholder="Thông báo..." readonly></textarea>
                 <button id="btn-send-notifi" class="btn btn-notifi cursor-pointer">Gửi</button>
+                <select name="notifi-content" class="black notifi-form">
+                  <option value="1" class="black font-size-100">Form 1</option>
+                  <option value="2" class="black font-size-100">Form 2</option>
+                  <option value="3" class="black font-size-100">Form 3</option>
+                  <option value="4" class="black font-size-100">Form 4</option>
+                </select>
                 <div class="send-option">
                   <label class="form-check-label">
                     <input id="notifi-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="0" checked>Thông báo

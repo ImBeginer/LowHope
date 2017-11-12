@@ -13,17 +13,14 @@
 	        -ms-transform: translate(50px);
 	        transform: translate(50px);
 	      }
-
 	      to {}
 	    }
-
 	    @keyframes radioClick {
 	      from {
 	        height: 0px;
 	        width: 0px;
 	        opacity: 1;
 	      }
-
 	      to {
 	        height: 50px;
 	        width: 50px;
@@ -39,54 +36,24 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.css">
 	<!-- font awesome -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
-
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/animation/animate.css">
-
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-
 	<!-- custom css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 
-	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
-
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-
 	<!-- Pusher -->
-	<!-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script> -->
-
+	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+	<script src="<?php echo base_url(); ?>js/client/pusher.js"></script>
 </head>
 <body onload="countDown_End_Date(tt_game_end_date,0);infinitySlideShow();">
 	<script>
 		var base_url = "<?php echo base_url(); ?>";
 		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
-
-		/****************** PUSHER ****************************/
-		// Enable pusher logging - don't include this in production
-	    //Pusher.logToConsole = true;
-
-	    // var pusher = new Pusher('711b956416d9d15de4b8', {
-	    // 	cluster: 'ap1',
-	    // 	encrypted: true
-	    // });
-
-	    // var channel = pusher.subscribe('my-channel');
-
-	   	/****************** BITCOIN PRICE *****************************/
-	    // var prices =   JSON.parse('< $prices; ?>');
-	    // var data1 = [];
-	    // for (var i = 0; i < prices.length; i++) {
-	    // 	data1[i] = [ (new Date(prices[i].DATA_DATE)).getTime() , parseFloat(prices[i].DATA_PRICE) ];
-	    // }
-
-	    //data cho highchart
-	    // console.log(data1);
 	</script>
-
 	<!-- big div on top -->
 	<div class="container-fluid">
 		<div class="row">
@@ -94,11 +61,11 @@
 			<section id="hot-mini-game-area">
 				<div id="hot-mini-game-content" class="hot-minigame slider autoplay">
 					<?php if (empty($YN) && empty($MUL)) {
-	echo 'Các game đang được hệ thống cập nhật';
-}?>
+						echo 'Các game đang được hệ thống cập nhật';
+					}?>
 					<?php foreach ($YN as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
-							<a href="#!" title="<?php echo $value['TITLE']; ?>">
+							<a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
 								<div class="title"><?php echo $value['TITLE']; ?></div>
 								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
 								<div class="prob">
@@ -111,7 +78,7 @@
 
 					<?php foreach ($MUL as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
-							<a href="#!" title="<?php echo $value['TITLE']; ?>">
+							<a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
 								<div class="title"><?php echo $value['TITLE']; ?></div>
 								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
 								<div class="prob">
@@ -127,13 +94,15 @@
 			<!-- navbar -->
 			<nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
 				<a class="navbar-brand" href="<?php
-if ($this->session->userdata('loggedInGooge')) {
-	echo base_url() . 'login/user';
-} else if ($this->session->userdata('loggedInFB')) {
-	echo base_url() . 'login/fb_goHome';
-}
+					if ($this->session->userdata('loggedInGooge')) {
+						echo base_url() . 'login/user';
+					} else if ($this->session->userdata('loggedInFB')) {
+						echo base_url() . 'login/fb_goHome';
+					}else if($this->session->userdata('loggedOther')){
+						echo base_url() . 'userct/home';
+					}
 
-?>">Logo</a>
+					?>">Logo</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -322,7 +291,11 @@ if ($this->session->userdata('loggedInGooge')) {
 			            <!-- avatar -->
 			            <li class="nav-item">
 			            	<div class="user-avatar">
-			            		<img src="<?php echo $this->session->userdata('userData')['USER_AVATAR']; ?>" alt="user default">
+			            		<img src="<?php if($this->session->userdata('userData')['USER_AVATAR']){
+			            			echo $this->session->userdata('userData')['USER_AVATAR'];
+			            		}else{
+			            			echo base_url().'images/client/ava-default.png';
+			            		} ?>" alt="user default">
 			            	</div>
 			            </li>
 			            <!-- end avatar -->
@@ -348,7 +321,9 @@ if ($this->session->userdata('loggedInGooge')) {
 										<li class="func-items"><a href="<?php echo base_url() . 'login/logoutGoogle'; ?>">Đăng xuất</a></li>
 									<?php } else if ($this->session->userdata('loggedInFB')) {?>
 										<li class="func-items"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
-									<?php }?>
+									<?php }else if($this->session->userdata('loggedOther')){?>
+										<li class="func-items"><a href="<?php echo base_url() . 'userct/logout'; ?>">Đăng xuất</a></li>
+									<?php } ?>
 								</ul>
 							</div> <!-- /.user dropdown button -->
 
@@ -468,7 +443,8 @@ if ($this->session->userdata('loggedInGooge')) {
 												<div class="user-info-left col-3 form-group">
 													<!-- user avatar -->
 													<div class="user-ava-area">
-														<img class="user-avatar" src="<?php echo $this->session->userdata('userData')['USER_AVATAR']; ?>" alt="User's avatar">
+														<img class="user-avatar" src="<?php if($this->session->userdata('userData')['USER_AVATAR']){echo $this->session->userdata('userData')['USER_AVATAR'];}
+														else{echo base_url().'images/client/ava-default.png';} ?>" alt="User's avatar">
 														<p class="username ellipsis"><?php echo $USER_NAME; ?></p>
 													</div><!-- /.user avatar -->
 
@@ -523,7 +499,6 @@ if ($this->session->userdata('loggedInGooge')) {
 							<!--author: Phong Huy-->
 							<div class="game_tt_content text-center">
 								<?php echo $GAME_TT_CONTENT; ?>
-								<a href="javascript:void(0);" id="testPusher" class="btn btn-outline-primary">Test pusher</a>
 							</div>
 						</div><!-- /.chart -->
 						<!-- bet -->
@@ -594,35 +569,24 @@ if ($this->session->userdata('loggedInGooge')) {
 
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
-
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery-migrate-1.2.1.min.js"></script>
 	<!-- popper js -->
 	<script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 	<!-- bootstrap js -->
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
-
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-	<!-- author: Phong Huy  -->
-	<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="http://code.highcharts.com/modules/exporting.js"></script> -->
-	<!-- author: Phong Huy  -->
-	<!-- high chart display -->
-	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
-
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/yesNoGame.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
-		<!-- author="Phong Huy" -->
+	<!-- author="Phong Huy" -->
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>node-server/public/js/nodeClient_highstock.js"></script>
 	<!-- author="Phong Huy" -->
-	<!--  -->
 </body>
 </html>

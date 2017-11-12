@@ -27,7 +27,6 @@ class Game extends CI_Model {
 		}else{
 			throw new Exception('Error from getGameTT()');
 		}
-
 	}
 
 	/**
@@ -179,9 +178,9 @@ class Game extends CI_Model {
 	{
 		$log_game = null;
 		if($type == GAME_YN){
-			$log_game = $this->db->select('YN_GAME_LOGS.GAME_ID, USERS.USER_NAME, YN_GAME_LOGS.ANS_TIME')->from('YN_GAME_LOGS')->join('USERS','YN_GAME_LOGS.USER_ID = USERS.USER_ID')->where('YN_GAME_LOGS.GAME_ID', $game_id);			
+			$log_game = $this->db->select('YN_GAME_LOGS.GAME_ID, YN_GAME_LOGS.USER_ID, USERS.USER_NAME, YN_GAME_LOGS.ANS_TIME')->from('YN_GAME_LOGS')->join('USERS','YN_GAME_LOGS.USER_ID = USERS.USER_ID')->where('YN_GAME_LOGS.GAME_ID', $game_id);			
 		}else if($type == GAME_MUL){
-			$log_game = $this->db->select('MULTI_CHOICE_GAME_LOGS.GAME_ID, USERS.USER_NAME, MULTI_CHOICE_GAME_LOGS.ANS_TIME')->from('MULTI_CHOICE_GAME_LOGS')->join('USERS','MULTI_CHOICE_GAME_LOGS.USER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAME_LOGS.GAME_ID', $game_id);	
+			$log_game = $this->db->select('MULTI_CHOICE_GAME_LOGS.GAME_ID, MULTI_CHOICE_GAME_LOGS.USER_ID, USERS.USER_NAME, MULTI_CHOICE_GAME_LOGS.ANS_TIME')->from('MULTI_CHOICE_GAME_LOGS')->join('USERS','MULTI_CHOICE_GAME_LOGS.USER_ID = USERS.USER_ID')->where('MULTI_CHOICE_GAME_LOGS.GAME_ID', $game_id);	
 		}
 
 		$log_game = $this->db->get();

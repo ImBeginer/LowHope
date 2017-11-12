@@ -91,6 +91,11 @@ table.user-detail-info {
 	background-color: lightcoral;
 }
 
+.block-tag {
+  background-color: $block-tag;
+}
+
+
 .select-all {
   position: relative;
 }
@@ -108,7 +113,6 @@ ul.user-list {
 	p.manager-tag {
 	  color: $white !important;
 	}
-
 	li {
     margin: 5px 0;
 	}
@@ -120,7 +124,7 @@ ul.user-list {
 	  vertical-align: middle;
 	}
 
-	p.user-date {
+	p.user-date, p.status {
 	  font-size: 64%;
 	  color: $footer-word !important;
 	}
@@ -236,5 +240,22 @@ button.btn-notifi:hover {
     position: relative;
     top: 3px;
   }  
+}
+
+select.notifi-form {
+  font-size: 70%;
+  height: 32px;
+  width: 200px;
+  border-radius: 4px;
+  background-color: $select;
+  border: $select;
+}
+
+select#notifi-form option {
+  font-size: 100%;
+}
+
+select#notifi-form:focus {
+  outline: none;
 }
 

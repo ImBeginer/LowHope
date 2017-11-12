@@ -6,10 +6,6 @@ window.fbAsyncInit = function() {
         xfbml      			: true,  			// parse social plugins on this page
         version    			: 'v2.8' 			// use graph api version 2.8
     });
-
-	FB.getLoginStatus(function(response) {
-		console.log(response);
-	});
 };
 
 (function(d, s, id) {
@@ -25,9 +21,7 @@ function loginFB() {
 		if (response.authResponse) {
 			FB.api('/me', {locale: 'vi_VN', fields: 'id,name,email,link,picture'}, function(response) {
 
-				//phải kiểm tra xem tài khoản đã có trong db chưa,
-				//chưa có thì add vào rồi get ra ID, truyền vào 						
-				
+				// Kiểm tra xem tài khoản đã có trong db chưa,
 				$.ajax({
 					url: base_url + 'login/fb_CheckUserExist',
 					type: 'POST',
@@ -78,7 +72,6 @@ function loginFB() {
 
 function logoutFB(){
 	FB.getLoginStatus(function(response) {
-		console.log('logout');
 		if(response.status === 'connected'){
 			var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
@@ -89,12 +82,14 @@ function logoutFB(){
 		}
 
         $.ajax({
-        	url: '/login/fb_Logout',
+        	url: base_url + 'login/fb_Logout',
         	type: 'POST',
         	dataType: 'JSON',		            	
         })
-        .done(function() {
-        	console.log("success");
+        .done(function(response) {
+        	if(response == 1){
+        		window.location =  base_url;
+        	}
         })
         .fail(function() {
         	console.log("error");

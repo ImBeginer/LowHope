@@ -15,10 +15,8 @@ var login = (function () {
 	};
 
 	var invalidFormatMessage = {
-
 		'username': 'Tài khoản email không đúng',
 		'userpassword': 'Mật khẩu phải chứa từ 6 đến 25 ký tự',
-
 	};	
 
 	var inputs = function () {

@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-	
-
 // ************************CHECK DỮ LIỆU ĐẦU VÀO**************************
 
   /**
@@ -164,16 +162,100 @@ $(document).ready(function() {
 	   }
 
 	   $('button[name=game-btn-mul]').on('click', function () {
-	   	isDataChecked = false;
-	   	$mulGameObject = mulGame;
-	   	if (isValidData ($mulGameObject) && isPriceValid ($mulGameObject)) {
-	   		isDataChecked = true;
-	   		$('#create-game').modal('hide');
-	   	}
-   });      
+		   	isDataChecked = false;
+		   	$mulGameObject = mulGame;
+		   	if (isValidData ($mulGameObject) && isPriceValid ($mulGameObject)) {
+		   		isDataChecked = true;
+		   		$('#create-game').modal('hide');
+		   	}
+   		});      
+	/**************************************END CHECK DỮ LIỆU ĐẦU VÀO********************************************/
 
-	// ************************END CHECK DỮ LIỆU ĐẦU VÀO**************************
+	/********************************************* LOGIN *****************************************************/
 
+	/**
+	 * Người chơi đăng nhập vào hệ thống
+	 */
+	$('button#user-login').on('click', function() {
+		event.preventDefault();
+
+		//Dieu kien???
+
+		var email = $('#username').val();
+		var pass = $('#userpassword').val();
+
+		//Check email exist ??
+		$.ajax({
+			url: base_url + 'userct/checkUserExist',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {email: email, pass: pass},
+		})
+		.done(function(response) {
+			if(response == 1){
+				$.ajax({
+					url: base_url + 'userct/add_other_user',
+					type: 'POST',
+					dataType: 'JSON',
+					data: {email: email, pass: pass}
+				})
+				.done(function(response) {
+					console.log("success");
+					if(response == 1){
+						window.location.href = base_url + 'userct/home';
+					}else{
+						window.location.href = base_url;
+					}
+				})
+				.fail(function(response) {
+					console.log("error");
+				});
+			}else if(response == 2){
+				window.location.href = base_url + 'userct/home';
+			}else if(response == 0){
+				toatMessage('Warning', 'Sai password, vui lòng thử lại !', 'warning');
+			}
+		})
+		.fail(function(response) {
+			console.log("error");
+		});
+	});
+
+	/**
+	 * Đổi mật khẩu người dùng
+	 */
+	$('button#user-forgot-pass').on('click', function () {
+	  	$object = forgotPass;
+	  	if (isValidData ($object)) {
+		    if (passwordIsMatch ($object)) {
+		      	console.log ("OKE"); 
+		      	//TODO
+		    }
+	  	}
+	});
+
+	/**
+	 * Xác thực mã xác nhận gửi cho người chơi qua email
+	 */
+	$('button[name=user-send-confirm-code-btn]').on('click', function () {
+	  	$emailVal = $('input#forgot-email').val();
+	  	if ($emailVal === '') {
+	    	displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không được trống</p>');
+	  	}else {
+		    $regexFormat = new RegExp('^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$');
+		    if (!$regexFormat.test($emailVal)) {
+		      	displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không hợp lệ</p>');  
+		    }else {
+		      	console.log('EMAIL OKE');  
+		    }
+	  	}
+
+	});
+	/************************************** END LOGIN **************************************************************/
+
+
+
+	/************************************ USER ACTIVITIES ******************************************************/
 	/**
 	 * update informations of user, (click Cập nhật thông tin -> popup update)
 	 */
@@ -257,9 +339,7 @@ $(document).ready(function() {
 	 });
 
 	/**
-	 * @param  {[type]}
-	 * @param  {[type]}
-	 * @return {[type]} add new user
+	 * Thêm mới người chơi
 	 */
 	$('#btn-add-user').on('click', function(event) {
 		/* Act on the event */
@@ -283,7 +363,7 @@ $(document).ready(function() {
 	});
 
 	/**
-	 * create game yes/no
+	 * Tạo game mini yes no
 	 */
 	$('#create-game-btn-yes-no').on('click', function(event) {
 	 	event.preventDefault();
@@ -327,12 +407,12 @@ $(document).ready(function() {
 	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
 	 		}
 	 	}
-	 });
+	});
 
 	/**
-	 * create game multiple choice
+	 * Tạo game mini multi
 	 */
-	 $('#create-game-btn-mul').on('click', function(event) {
+	$('#create-game-btn-mul').on('click', function(event) {
 	 	event.preventDefault();
 	 	/* Act on the event */
 	 	$mulGameObject = mulGame;
@@ -362,20 +442,6 @@ $(document).ready(function() {
 		 			console.log("success");
 		 			if(response.create == 1){
 		 				$('#user-point').text(response.user_point); 
-
-
-		 				// var html = '';
-		 				// html += '<div class="hot-item" data-gameID="'+ response.gameID +'" data-gameType="'+2+'">';
-		 				// html += '<a href="#!" title="'+ response.game_title +'">';
-		 				// html += '<div class="title">'+ response.game_title +'</div>';
-		 				// html += '<div class="runner">'+ response.userCreate +'</div>';
-		 				// html += '<div class="prob">';
-		 				// html += '<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>';
-		 				// html += '<span>'+ response.total_amount +'</span>';
-		 				// html += '</div></a></div>';
-
-		 				// $('#hot-mini-game-content').append(html);
-
 		 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
 		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
@@ -390,46 +456,14 @@ $(document).ready(function() {
 	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
 	 		}
 	 	}
-	 });
-	 
-
-	/**
-	 * game mini detail
-	 * @param  {[type]}
-	 * @return {[type]}
-	 */
-	$('.hot-item').on('click', function(event) {
-	 	event.preventDefault();
-	 	/* Act on the event */
-	 	var target = $(this);
-	 	var game_id = target.attr('data-gameid');
-	 	var game_type = target.attr('data-gametype');
-
-	 	if(game_type == 1){
-	 		window.location = base_url + 'gamect/yn/' + game_id;
-	 	}else if(game_type == 2){
-	 		window.location = base_url + 'gamect/mul/' + game_id;
-	 	}
-
 	});
-
+	 
+	/**
+	 * Cược game mini yes no
+	 */
 	$('#bet-game-yes-no').on('click', function(event) {
 		event.preventDefault();
 		/* Act on the event */
-
-		//update lại game vừa được đặt cược, total amout
-
-		// var elements = $('.hot-item');
-
-		// if(elements.length > 0){
-		// 	for (var i = 0; i < elements.length; i++) {
-		// 		if (elements[i].getAttribute('data-gameid') == game_id) {
-		// 			console.log('test');
-		// 		}
-		// 	}
-		// }
-
-
 		var ans = $('input[name=yes-or-no]:checked').val();
 		if(ans){
 			var game_id = $('.mini-game-content').attr('data-gameid');
@@ -442,14 +476,6 @@ $(document).ready(function() {
 			.done(function(response) {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
-					$('.mini-game-transaction').text('Point hiện tại: ' + response.total_amount);
-					//đặt lại tỉ lệ đoán
-					user_percent_in_de(response.ans_yes,response.ans_no);
-					//TODO update lại bảng lịch sử
-					var list_bet_log = response.list_bet_log;
-
-					
-
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -469,7 +495,7 @@ $(document).ready(function() {
 	});
 
 	/**
-	 * [description]
+	 * Cược game mini multi
 	 */
 	$('#bet-game-mul').on('click', function(event) {
 		event.preventDefault();
@@ -486,9 +512,6 @@ $(document).ready(function() {
 			.done(function(response) {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
-					$('.mini-game-transaction').text('Point hiện tại: ' + response.total_amount);
-					//đặt lại tỉ lệ đoán										
-					user_percent_mul(response.PRICE_BELOW, response.PRICE_BETWEEN, response.PRICE_ABOVE);
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -503,16 +526,12 @@ $(document).ready(function() {
 			.fail(function(response) {
 				console.log("error");
 			});
-			
 		}
-
-
-
 	});
 });
 
 /**
- * [countDown_End_Date description]
+ * [countDown_End_Date description] Đếm ngược thời gian hết hạn game truyền thống, game mini
  * @param  {[type]} string_end_date [description]
  * @param  {[type]} type            [description]
  * @return {[type]}                 [description]
@@ -554,11 +573,11 @@ function countDown_End_Date(string_end_date,type) {
 }
 
 /**
- * { function_description }
- *
- * @param      {<type>}  heading  The heading
- * @param      {<type>}  text     The text
- * @param      {<type>}  icon     The icon
+ * [toatMessage description] Hiển thị message thông báo, warning
+ * @param  {[type]} heading [description]
+ * @param  {[type]} text    [description]
+ * @param  {[type]} icon    [description]
+ * @return {[type]}         [description]
  */
 function toatMessage(heading,text,icon) {
 	$.toast({
@@ -571,6 +590,12 @@ function toatMessage(heading,text,icon) {
 	});
 }
 
+/**
+ * [user_percent_in_de description] tỉ lệ người chơi đã cược game yes no
+ * @param  {Number} $in_num [description]
+ * @param  {Number} $de_num [description]
+ * @return {[type]}         [description]
+ */
 function user_percent_in_de ($in_num = 0, $de_num = 0) {
     $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
@@ -597,6 +622,13 @@ function user_percent_in_de ($in_num = 0, $de_num = 0) {
     $('span.de-num-percent').text($de_per_string + '%');
 }
 
+/**
+ * [user_percent_mul description] tỉ lệ người chơi đã cược game multi
+ * @param  {Number} $lower   [description]
+ * @param  {Number} $between [description]
+ * @param  {Number} $upper   [description]
+ * @return {[type]}          [description]
+ */
 function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
     $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
     $total = parseInt($lower) + parseInt($between) + parseInt($upper);
@@ -626,15 +658,22 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
     $('.game-mul span.de-num-percent').text($up_per_string + '%');
 }
 
-function loadTable() {
-	var el = $('#list-bet-log');
-	if(el.hasClass('table')){
-		el.DataTable({
-			columns: [
-				{ data: 'ANS_TIME' },
-				{ data: 'USER_NAME' }			
-			],
-			data: list_bet_log
-		});
-	};
+/**
+ * [set_style_table_log_game description] đặt lại style cho bảng danh sách người chơi đã tham gia game mini
+ */
+function set_style_table_log_game() {
+	var giaodich = $('.giaodich');
+	giaodich[0].style.fontSize = '30px';
+	giaodich[0].style.fontWeight = 'bold';
+
+	var el_show = $('#list-bet-log_length');
+	el_show[0].children[0].firstChild.textContent = 'Hiển thị ';
+	el_show[0].children[0].firstChild.nextSibling.style.backgroundColor = '#777';
+	el_show[0].children[0].firstChild.nextSibling.nextSibling.textContent = ' bản ghi';
+
+	var el_search = $('#list-bet-log_filter');
+	el_search[0].firstChild.firstChild.textContent = 'Tìm kiếm: ';
+	el_search[0].style.width = '100%';
+	el_search[0].firstChild.firstChild.nextSibling.style.width = '50%';
+	el_search[0].firstChild.firstChild.nextSibling.style.float = 'right';
 }
