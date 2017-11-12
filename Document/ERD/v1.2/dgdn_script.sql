@@ -225,36 +225,36 @@ CREATE TABLE MULTI_CHOICE_GAME_LOGS (
 -- create stored procedure
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS `get_sys_game_players`$$
-CREATE PROCEDURE `get_sys_game_players`(IN timeToLoad datetime)
+DROP PROCEDURE IF EXISTS `GET_SYS_GAME_PLAYERS`$$
+CREATE PROCEDURE `GET_SYS_GAME_PLAYERS`(IN timeToLoad datetime)
 BEGIN
    set @real_price = null;
-   SELECT @real_price := round(price,2) FROM currency_details
-   where update_at = timeToLoad;
+   SELECT @real_price := round(price,2) FROM CURRENCY_DETAILS
+   where UPDATE_AT = timeToLoad;
    SELECT usr.USER_ID, usr.USER_NAME, log.GAME_ID, log.PRICE_GUESS,
-	      abs(log.PRICE_GUESS - @real_price) as distance,
+        abs(log.PRICE_GUESS - @real_price) as distance,
           @real_price as result,
           log.DATE_GUESS
-	from users usr  
-	inner join system_game_logs log on usr.USER_ID = log.USER_ID
-	inner join system_games sgame  on log.GAME_ID = sgame.GAME_ID
-	where sgame.ACTIVE = 1 AND @real_price is not null
-	order by distance , log.DATE_GUESS; 
+  from USERS usr  
+  inner join SYSTEM_GAME_LOGS log on usr.USER_ID = log.USER_ID
+  inner join SYSTEM_GAMES sgame  on log.GAME_ID = sgame.GAME_ID
+  where sgame.ACTIVE = 1 AND @real_price is not null
+  order by distance , log.DATE_GUESS; 
     set @real_price = null;
 END$$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS `get_yn_game_winners`$$
-CREATE PROCEDURE `get_yn_game_winners`(IN timeToLoad datetime, IN gameID int)
+DROP PROCEDURE IF EXISTS `GET_YN_GAME_WINNERS`$$
+CREATE PROCEDURE `GET_YN_GAME_WINNERS`(IN timeToLoad datetime, IN gameID int)
 BEGIN
-    select @real_price := round(price,2) from currency_details
-    where update_at = timeToLoad;
+    select @real_price := round(price,2) from CURRENCY_DETAILS
+    where UPDATE_AT = timeToLoad;
     select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, @real_price as RESULT,
        log.ANS_TIME
-    from yn_game_logs log 
-    inner join users usr on usr.USER_ID = log.USER_ID
-    inner join yn_games yngame on yngame.GAME_ID = log.GAME_ID
+    from YN_GAME_LOGS log 
+    inner join USERS usr on usr.USER_ID = log.USER_ID
+    inner join YN_GAMES yngame on yngame.GAME_ID = log.GAME_ID
     where yngame.ACTIVE = 1 AND yngame.GAME_ID = gameID
     AND log.ANSWER = (@real_price-yngame.PRICE_BET >= 0);
     set @real_price = null;
