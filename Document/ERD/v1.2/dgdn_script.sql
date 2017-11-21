@@ -22,7 +22,7 @@ INSERT INTO `ROLE` (`ROLE_ID`, `ROLE_NAME`) VALUES
 CREATE TABLE USERS (
   USER_ID int(11) NOT NULL AUTO_INCREMENT,
   ROLE_ID int(11),
-  USER_CIF varchar(50) NOT NULL,
+  USER_CIF varchar(50),
   USER_NAME nvarchar(100) NOT NULL,
   PASSWORD varchar(100),
   USER_POINT int(11) NOT NULL,
@@ -31,7 +31,8 @@ CREATE TABLE USERS (
   ADDRESS nvarchar(255) NOT NULL,
   CREATE_DATE date NOT NULL,
   ATTENDANCE tinyint(1) NOT NULL,
-  ACTIVE tinyint(1) NOT NULL,
+  ACTIVE tinyint(1) NOT NULL ,
+  DAILYGAME_CHECKOUT tinyint(1) NOT NULL default 0,
   PRIMARY KEY (USER_ID),
   FOREIGN KEY (ROLE_ID) REFERENCES ROLE(ROLE_ID)
 ) ENGINE=InnoDB;
@@ -43,21 +44,11 @@ INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, 
 (3,'1098039550331795', 'hotaru', 500, 'tranhongquan.94@gmail.com', '1234', 'Hai Duong', now(), 1, 0),
 (3,'108396582926044150378', 'Công Công', 500, 'duycong2509@gmail.com', '123123123', 'Hà Nội', now(), 1, 0);
 
--- ==============NOT SURE==================
-
-/* CREATE TABLE NOTIFICATION_TYPE (
-  TYPE_ID int(11),
-  TYPE_NAME VARCHAR(10),
-  primary key(TYPE_ID)
-) ENGINE=InnoDB; */
-
--- ================================
 
 CREATE TABLE  NOTIFICATION(
   NOTICE_ID int(11) NOT NULL auto_increment,
   TITLE nvarchar(255) NOT NULL,
   CONTENT text NOT NULL,
-  NOTICE_TYPE varchar(50) NOT NULL,
   CREATE_DATE datetime,
   primary key(NOTICE_ID)
 ) ENGINE=InnoDB;
@@ -184,6 +175,7 @@ CREATE TABLE YN_GAME_LOGS (
   GAME_ID int(11), 
   ANSWER tinyint(1) NOT NULL,
   ANS_TIME datetime NOT NULL,
+  IS_WINNER tinyint(1) NOT NULL default 0,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references YN_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
@@ -197,7 +189,6 @@ CREATE TABLE MULTI_CHOICE_GAMES (
   START_DATE datetime NOT NULL, 
   END_DATE datetime NOT NULL,
   POINT_TO_BET double NOT NULL,
-  PRICE_BET double NOT NULL,
   PRICE_BELOW double, 
   PRICE_ABOVE double,
   RESULT double, 
@@ -216,6 +207,7 @@ CREATE TABLE MULTI_CHOICE_GAME_LOGS (
   PRICE_BETWEEN boolean NOT NULL, 
   PRICE_ABOVE boolean NOT NULL,
   ANS_TIME datetime NOT NULL,
+  IS_WINNER tinyint(1) NOT NULL default 0,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references MULTI_CHOICE_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
