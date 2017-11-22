@@ -9,7 +9,7 @@
 
 form.user-search-form label {
   position: absolute;
-  z-index: 9999;
+  z-index: 17;
   left: 13px;
   top: 7px;
   margin: 0;
@@ -32,6 +32,20 @@ i.search-icon {
 input#user-search {
   padding: 8px 10px 8px 35px !important;
   border-radius: 30px;
+}
+
+.btn-area {
+  margin-top: 10px;
+}
+
+p.game-name {
+  font-size: 75%;
+  width: 100%;
+}
+
+.no-float {
+  float: none !important;
+  position: initial !important;
 }
 
 /********************USER LIST*********************/
@@ -242,10 +256,20 @@ button.btn-notifi:hover {
   }  
 }
 
+.btn-add-notifi {
+  color: $white;
+  background-color: $third-color;
+}
+
+.btn-add-notifi:hover {
+  color: inherit;
+  background-color: #ee9749e3;
+}
+
 select.notifi-form {
   font-size: 70%;
   height: 32px;
-  width: 200px;
+  width: 50%;
   border-radius: 4px;
   background-color: $select;
   border: $select;

@@ -5,11 +5,6 @@ var connection = mysql.createConnection({
 	password: "p123",
 	port: 3306,
 	database: "lowhope_db",
-	//host: "localhost",
-	//user: "root",
-	//password: "p123",
-	//port: 3307,
-	//database: "lowhope_db",
 	multipleStatements: true,
 	dateStrings: true
 });

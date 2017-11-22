@@ -1,6 +1,6 @@
 .login-content {
   background-size: cover;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../img/87.jpg');
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../img/88.jpg');
 	height: 100vh;
 	p, span, text, h1, h2, h3, h4, h5 {
   	color: $black;
@@ -11,17 +11,22 @@
   background-color: $white;
 	padding: 30px 20px;
 	border-radius: 6px;
-  box-shadow: -2px 4px 22px $box-shadow;	
+  // box-shadow: -2px 4px 22px $box-shadow;	
+  background-color: rgba(0,0,0,0.7);
   margin-top: 25vh;
  .user-ava {
 		width: 70px;
 		max-width: 70px;
 		border-radius: 45px;
-	}  
+	}
+
+	p, label {
+		color: $white !important;
+	}
 }
 
 .component {
-  padding: 25px 91px;
+  padding: 25px 70px;
 }
 
 div.avtar {
@@ -35,10 +40,8 @@ button.login-btn {
 p.forgot-password {
 	a.forgot-password-link {
 		font-size: 67%;
-		color: $black !important;
 		i {
   		margin: 0 10px;
-  		color: $black !important;			
 		}
 	}
 }

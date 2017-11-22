@@ -1,0 +1,183 @@
+/* smartphones, iPhone, portrait 480x320 phones */ 
+@media only screen and (max-width:320px)  { 
+
+}
+
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+@media only screen and (max-width:481px)  { 
+
+}
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+@media only screen and (max-width:641px)  { 
+
+}
+
+@media only screen and (max-width:767px)  {
+	div#manager-index, 
+	div#manager-change, 
+	div#manager-create-game,
+	div#manager-edit-info,
+	div#manager-forgot-pass,
+	div#manager-info {
+    min-width: 665px !important;
+	}
+
+	p.user-point,
+	p.user-tran, 
+	p.user-join, 
+	p.game-type, 
+	p.game-created-date, 
+	p.game-close-in {
+    font-size: 61% !important;
+	}	
+
+	div.sidebar {
+		display: none;
+		z-index: 99;
+	}
+
+	.sidebar-icon-area {
+		display: block;
+	}
+
+	.manager-info {
+    width: 90%;
+	}	
+}
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */ 
+@media only screen and (max-width:961px)  { 
+	div#manager-index, 
+	div#manager-change, 
+	div#manager-create-game, 
+	div#manager-edit-info,
+	div#manager-forgot-pass,
+	div#manager-info {
+    min-width: 947px;
+	}
+
+	div.sidebar {
+	  min-width: 235px;
+	}
+
+	div.user-ava p.user-point {
+    margin-left: 0 !important;
+	}
+	
+	ul.user-list p.user-name {
+    width: 100%;
+    max-width: 340px;
+	}
+
+	.total-user-area {
+    margin-top: 10px;
+    margin-bottom: 10px;
+	}
+
+	div.main-function  {
+		p.title a {
+	    font-size: 90% !important;
+		}
+
+		span.sub-game-name {
+	    font-size: 86% !important;
+		}
+
+		.first img {
+	    width: 120px !important;
+		}
+
+		.second img {
+		  width: 80px !important;
+		  left: 210px !important;
+		}
+
+		.third img {
+	    width: 60px !important;
+	    right: 160px !important;
+		}		
+	}	
+
+	.manager-info {
+    width: 90%;
+	}		
+}
+
+/* big landscape tablets, laptops, and desktops */ 
+@media only screen and (max-width:1025px) { 
+	div.main-function {
+		.function-content {
+		  height: 230px;
+		}		
+
+		p.title a {
+	    font-size: 68%;
+		}
+
+		span.num {
+	    font-size: 160%;
+	    font-weight: bold;
+		}
+
+		span.sub-game-name {
+	    font-size: 65%;
+		}	
+
+		.first img {
+		  width: 100px;
+		  top: -11px;
+		}	
+
+		.second img {
+		  width: 60px;
+		  left: 62px;
+		  top: 14px;
+		}	
+
+		.third img {
+			width: 47px;
+			right: 11px;
+			top: 34px;
+		}	
+	}
+
+	.top-game {
+    margin-top: 25px;
+	}
+
+	ul.user-list { 
+		p.user-name {
+			width: 100%;
+	    max-width: 270px;
+    }
+   	p.user-point {
+	    margin-left: 70px !important;
+		}
+	}
+
+	.user-ava button.btn-ban, .user-ava button.btn-unban {
+    margin-left: 15px;
+	}
+
+	.manager-info {
+    width: 90%;
+	}		
+
+}
+
+/* hi-res laptops and desktops */ 
+@media only screen and (max-width:1281px) { 
+
+	li.manager-avatar a.manager-link {
+    text-align: center;
+    display: block !important;
+	}
+
+	div.manager-name {
+    max-width: unset;
+    width: 100%;
+    text-align: center;
+	}
+
+}

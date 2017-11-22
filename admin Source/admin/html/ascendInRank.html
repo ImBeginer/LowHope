@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Block Manager</title>
+  <title>Thăng cấp người dùng</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- jQuery UI -->
@@ -41,8 +41,9 @@
           <a href="#!">Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
-          <li class="c-active"><a href="#!">Block Manager</a></li>
+          <li class=""><a href="#!">Block Manager</a></li>
           <li><a href="#!">Unblock Manager</a></li>
+          <li class="c-active"><a href="#!">Thăng cấp</a></li>
           <li><a href="#!">Giải thưởng</a></li>
         </ul>      
       </ul>
@@ -66,12 +67,79 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Block Manager</p>
+          <p class="title">Thăng cấp người dùng</p>
         </div>
         <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
           <div class="search-panel">
-            <input class="manger-block-search" type="text" placeholder="Tìm kiếm" name="manager-block-search">
+            <input class="manger-block-search" type="text" placeholder="Tìm kiếm" name="manager-unblock-search">
             <button class="btn search-btn" name="search-btn"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
+          </div>       
+          <div class="pre-scrollable pre-padding">
+            <div class="tab-content">
+              <!-- all user list -->
+              <ul id="all-manager-blocked-list" class="user-list">
+                <li id="users-1" class="users">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer">John Snow</p>
+                    <p class="text-right tag user-tag">USER</p>
+                    <p class="status">Tích cực: 999 điểm</p>
+                    <button class="btn btn-unban" name="btn-unban" value="1" data-toggle="confirmation">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>                    
+                  </div>
+                </li>
+                <li id="users-2" class="users">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer">Sarah Higgle</p>
+                    <p class="text-right tag user-tag">USER</p>
+                    <p class="status">Tích cực: 754 điểm</p>
+                    <button class="btn btn-unban" name="btn-unban" value="2" data-toggle="confirmation">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>                         
+                  </div>
+                </li>  
+                <li id="users-3" class="users">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer">James Miller</p>
+                    <p class="text-right tag user-tag">USER</p>
+                    <p class="status">Tích cực: 647 điểm</p>
+                    <button class="btn btn-unban" name="btn-unban" value="3" data-toggle="confirmation">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>                         
+                  </div>
+                </li>
+                <li id="users-4" class="users">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer">Martin Descker</p>
+                    <p class="text-right tag user-tag">USER</p>
+                    <p class="status">Tích cực: 542 điểm</p>
+                    <button class="btn btn-unban" name="btn-unban" value="4" data-toggle="confirmation">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>                         
+                  </div>
+                </li>
+                <li id="users-5" class="users">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer">Kim Bauer</p>
+                    <p class="text-right tag user-tag">USER</p>
+                    <p class="status">Tích cực: 342 điểm</p>
+                    <button class="btn btn-unban" name="btn-unban" value="5" data-toggle="confirmation">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>                         
+                  </div>
+                </li>                                                                                      
+              </ul><!-- /.all user list -->
+            </div>
+          </div>               
+        </div>        
+        <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="function-title no-border">
+            <p class="title">Manager List</p>
           </div>
           <div class="pre-scrollable pre-padding">
             <div class="tab-content">
@@ -83,9 +151,6 @@
                     <p class="user-name ellipsis cursor-pointer">John Snow</p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
-                    <button class="btn btn-ban" name="btn-ban" value="1" data-toggle="confirmation">
-                      <i class="fa fa-ban" aria-hidden="true"></i>
-                    </button>
                   </div>
                 </li>
                 <li id="users-2" class="users">
@@ -94,7 +159,6 @@
                     <p class="user-name ellipsis cursor-pointer">Sarah Higgle</p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
-                    <button class="btn btn-ban" name="btn-ban" value="2"><i class="fa fa-ban" aria-hidden="true"></i></button>
                   </div>
                 </li>  
                 <li id="users-3" class="users">
@@ -103,7 +167,6 @@
                     <p class="user-name ellipsis cursor-pointer">James Miller</p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
-                    <button class="btn btn-ban" name="btn-ban" value="3"><i class="fa fa-ban" aria-hidden="true"></i></button>
                   </div>
                 </li>
                 <li id="users-4" class="users">
@@ -112,7 +175,6 @@
                     <p class="user-name ellipsis cursor-pointer">Martin Descker</p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
-                    <button class="btn btn-ban" name="btn-ban" value="4"><i class="fa fa-ban" aria-hidden="true"></i></button>
                   </div>
                 </li>
                 <li id="users-5" class="users">
@@ -121,66 +183,13 @@
                     <p class="user-name ellipsis cursor-pointer">Kim Bauer</p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
-                    <button class="btn btn-ban" name="btn-ban" value="5"><i class="fa fa-ban" aria-hidden="true"></i></button>
                   </div>
                 </li>                                                                                      
               </ul><!-- /.all user list -->
             </div>
           </div>          
         </div>
-        <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
-          <div class="function-title no-border">
-            <p class="title">Block List</p>
-          </div>
-          <div class="pre-scrollable pre-padding">
-            <div class="tab-content">
-              <!-- all user list -->
-              <ul id="all-manager-blocked-list" class="user-list">
-                <li id="users-1" class="users">
-                  <div class="user-ava">
-                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
-                    <p class="user-name ellipsis cursor-pointer">John Snow</p>
-                    <p class="text-right tag block-tag">MANAGER</p>
-                    <p class="status">Trạng thái: Block</p>
-                  </div>
-                </li>
-                <li id="users-2" class="users">
-                  <div class="user-ava">
-                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
-                    <p class="user-name ellipsis cursor-pointer">Sarah Higgle</p>
-                    <p class="text-right tag block-tag">MANAGER</p>
-                    <p class="status">Trạng thái: Block</p>
-                  </div>
-                </li>  
-                <li id="users-3" class="users">
-                  <div class="user-ava">
-                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
-                    <p class="user-name ellipsis cursor-pointer">James Miller</p>
-                    <p class="text-right tag block-tag">MANAGER</p>
-                    <p class="status">Trạng thái: Block</p>
-                  </div>
-                </li>
-                <li id="users-4" class="users">
-                  <div class="user-ava">
-                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
-                    <p class="user-name ellipsis cursor-pointer">Martin Descker</p>
-                    <p class="text-right tag block-tag">MANAGER</p>
-                    <p class="status">Trạng thái: Block</p>
-                  </div>
-                </li>
-                <li id="users-5" class="users">
-                  <div class="user-ava">
-                    <img class="img-in-list" src="../img/ava-default.png" alt="Ảnh đại diện">
-                    <p class="user-name ellipsis cursor-pointer">Kim Bauer</p>
-                    <p class="text-right tag block-tag">MANAGER</p>
-                    <p class="status">Trạng thái: Block</p>
-                  </div>
-                </li>                                                                                      
-              </ul><!-- /.all user list -->
-            </div>
-          </div>               
-        </div>
-        <div id="dialog-confirm" class="black"></div>        
+        <div id="dialog-confirm" class="black"></div>
       </div>
     </div>
   </div><!-- /.right side hand -->
