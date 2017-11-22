@@ -21,6 +21,15 @@ $(function () {
     $('#game-bitcoin-price-between-upper').val($(this).val());
   });
 
+  $('#nav-icon1').click(function(){
+    $(this).toggleClass('open');
+    if ($(this).hasClass('open')) {
+      $('div.sidebar').addClass('d-blk');
+    } else {
+      $('div.sidebar').removeClass('d-blk');
+    }
+  });
+
   $currentYear = new Date().getFullYear();
   $("div.create-game-option #game-date-yn, div.create-game-option #game-date-mul").datepicker({
     yearRange: $currentYear + ':' + ($currentYear + 3) ,
@@ -32,13 +41,13 @@ $(function () {
     monthNamesShort: [ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" ],
     showAnim: "clip",
     minDate: new Date()
-  });  
+  });
 
 /**
  * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
  */
-  function user_percent_in_de ($in_num, $de_num) {
-    $percent_width = parseInt($('.percent-panel').css('width'), 10) - 1;
+  function user_percent_in_de ($in_num = 0, $de_num = 0) {
+    $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
     $in_div = $('#increase');
     $de_div = $('#decrease');
@@ -46,8 +55,13 @@ $(function () {
     $de_user = $de_num;
     $total_user = parseInt($in_user) + parseInt($de_user);
 
-    $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
-    $de_div_width = $percent_width - $in_div_width;
+    if ($total_user !== 0 && $total_user > 0) {
+      $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+      $de_div_width = $percent_width - $in_div_width;
+    } else {
+      $de_div_width = $in_div_width = Math.round($percent_width / 2);
+    }
+
 
     $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
     $de_per_string = 100 - $in_per_string;
