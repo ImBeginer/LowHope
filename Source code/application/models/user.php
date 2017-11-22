@@ -5,11 +5,13 @@ class User extends CI_Model {
 	
 	public function __construct()
 	{
-		parent::__construct();		
+		parent::__construct();
+		$this->load->model('game');		
 	}
 	
 	/**
-	 * [checkUserExist description]
+	 * [checkUserExist description] Kiểm tra tài khoản đăng nhập thường, xem có trùng với tài khoản google với
+	 * facebook hay không?
 	 * @param  [type] $EMAIL [description]
 	 * @return [type]        [description]
 	 */
@@ -21,7 +23,29 @@ class User extends CI_Model {
 		$result = $this->db->get('USERS');
 		if($result){
 			$rows = $result->num_rows();
-			return $rows>0;			
+			return $rows>0;		
+		}else{
+			throw new Exception('Error from checkUserExist()');
+		}
+	}
+
+	/**
+	 * [check_Mail_FB_GG description]
+	 * @param  [type] $email [description]
+	 * @return [type]        [description]
+	 */
+	function check_Mail_FB_GG($EMAIL)
+	{
+		$this->db->select('*');
+		$this->db->where('EMAIL', $EMAIL);
+		
+		$result = $this->db->get('USERS');
+		if($result){
+			$rows = $result->num_rows();
+			if($rows > 0){
+				$result = $result->row();
+				return $result->USER_CIF?true:false;
+			}		
 		}else{
 			throw new Exception('Error from checkUserExist()');
 		}
@@ -76,20 +100,23 @@ class User extends CI_Model {
 		}
 	}
 
+	/**
+	 * [add_other_user description]
+	 * @param [type] $email        [description]
+	 * @param [type] $pass         [description]
+	 * @param [type] $CREATED_DATE [description]
+	 */
 	public function add_other_user($email, $pass, $CREATED_DATE)
 	{
-		$lastUserID = $this->db->select('USER_ID')->order_by('USER_ID','desc')->limit(1)->get('USERS')->row('USER_ID');
-		$lastUserID++;
-		$userName = 'user '.$lastUserID;
 		$user = array(
 					'ROLE_ID' 		=> ROLE_USER,
-					'USER_NAME' 	=> $userName,
+					'USER_NAME' 	=> 'Unknow',
 					'USER_POINT' 	=> 500,
 					'EMAIL'			=> $email,
 					'ATTENDANCE'	=> 1,
 					'ACTIVE'		=> 1,
 					'PASSWORD'		=> $pass,
-					'CREATED_DATE'  => $CREATED_DATE
+					'CREATE_DATE'  => $CREATED_DATE
 				);
 		if($this->db->insert('USERS', $user)){
 			return $this->db->insert_id();			
@@ -132,6 +159,20 @@ class User extends CI_Model {
 		}else{
 			throw new Exception('Error from getUserByMail()');
 		}
+	}
+
+	/**
+	 * [update_password description]
+	 * @param  [type] $email [description]
+	 * @param  [type] $pass  [description]
+	 * @return [type]        [description]
+	 */
+	public function update_password($email, $pass)
+	{
+		$user = array('EMAIL' => $email, 'PASSWORD' => $pass);
+		$this->db->where('EMAIL', $email);
+		$this->db->update('USERS', $user);
+		return $this->db->affected_rows();
 	}
 
 	/**
@@ -193,6 +234,25 @@ class User extends CI_Model {
 		$this->db->where('USER_CIF', $USER_CIF);
 		if(!$this->db->update('USERS', $user)){
 			throw new Exception('Error from updateFBUser()');
+		}
+	}
+
+	/**
+	 * [isPlayGame_TT_Active description]
+	 * @param  [type]  $userID     [description]
+	 * @param  [type]  $game_tt_id [description]
+	 * @return boolean             [description]
+	 */
+	public function isPlayGame_TT_Active($userID, $game_tt_id)
+	{
+		$condi = array('GAME_ID'=> $game_tt_id, 'USER_ID'=> $userID);
+
+		$this->db->select('*');
+		$this->db->where($condi);
+		$result = $this->db->get('SYSTEM_GAME_LOGS');
+		if($result){
+			$rows = $result->num_rows();
+			return $rows>0;
 		}
 	}
 

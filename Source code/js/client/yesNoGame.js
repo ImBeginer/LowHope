@@ -17,9 +17,9 @@ var yesnogame = (function () {
 
 	var invalidFormatMessage = {
 
-		'game-title': 'Tên game phải chứa từ 6 đến 35 ký tự',
-		'game-date-yn': 'Cẩn thận ăn đòn nhé sai ngày kết thúc rồi :)',
-		'game-bitcoin-price': 'Giá bitcoin phải trên 1 triệu và dưới 1 tỷ VNĐ'		
+		'game-title': 'Tên game phải chứa từ 6 đến 35 ký tự.',
+		'game-date-yn': 'Ngày kết thúc phải lớn hơn ngày hiện tại.',
+		'game-bitcoin-price': 'Giá bitcoin không hợp lệ.'		
 
 	};	
 

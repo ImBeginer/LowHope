@@ -60,24 +60,41 @@ class Login extends CI_Controller {
             }
         }
         
-
-        //TODO
         //google login url
-        $data['loginURL'] = $this->google->loginURL();     
+        $data['loginURL'] = $this->google->loginURL();   
 
-        $game = $this->game->getAllGameMiniActive();
+        //load btc yesterday
+        //$this->game->getPriceYesterday();
+        
+        //load btc current
+        $data['price_current'] = $this->game->getPriceCurrent();
 
-        if(isset($game['YN'])){
-            $data['YN'] = $game['YN'];                            
+        //load all game
+        $game = $this->game->getAllGameMini();
+
+        if(isset($game['YN_ALL'])){
+            $data['YN_ALL'] = $game['YN_ALL'];                            
+            foreach ($data['YN_ALL'] as &$value) {
+                $value = (object)$value;
+                $value->TYPE = 'YN';
+                $value = (array)$value;
+            }
         }else{
-            $data['YN'] = array(); 
+            $data['YN_ALL'] = array(); 
         }
 
-        if(isset($game['MUL'])){
-            $data['MUL'] = $game['MUL'];                            
+        if(isset($game['MUL_ALL'])){
+            $data['MUL_ALL'] = $game['MUL_ALL'];                            
+            foreach ($data['MUL_ALL'] as &$value) {
+                $value = (object)$value;
+                $value->TYPE = 'MUL';
+                $value = (array)$value;
+            }
         }else{
-            $data['MUL'] = array();
+            $data['MUL_ALL'] = array();
         }
+
+        $data['all_game'] = array_merge($data['YN_ALL'], $data['MUL_ALL']);
 
         //load google login view
         $this->load->view('login/login_view',$data);
@@ -100,7 +117,6 @@ class Login extends CI_Controller {
                     if($user->ROLE_ID == ROLE_USER){
                         //load user home page
                         $tt_game = $this->game->getGameTT();
-                        $game = $this->game->getAllGameMiniActive();
                         
                         //set session for userID
                         $this->session->set_userdata('sessionUserId', $user->USER_ID);
@@ -111,19 +127,34 @@ class Login extends CI_Controller {
                         $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
                         $data['TT_END_DATE'] = $tt_game->END_DATE;
 
-                        //$data['prices'] = $this->user->getData();
-                       
+                        //load game active
+                        $game = $this->game->getAllGameMiniActive();
                         if(isset($game['YN'])){
                             $data['YN'] = $game['YN'];                            
+                            foreach ($data['YN'] as &$value) {
+                                $value = (object)$value;
+                                $value->TYPE = 'YN';
+                                $value = (array)$value;
+                            }
                         }else{
                             $data['YN'] = array(); 
                         }
 
                         if(isset($game['MUL'])){
                             $data['MUL'] = $game['MUL'];                            
+                            foreach ($data['MUL'] as &$value) {
+                                $value = (object)$value;
+                                $value->TYPE = 'MUL';
+                                $value = (array)$value;
+                            }
                         }else{
                             $data['MUL'] = array();
                         }
+
+                        $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+
+                        // $data['IS_PLAY_GAME_TT_ACTIVE'] = $this->user->isPlayGame_TT_Active($user->USER_ID, $tt_game->GAME_ID);
+                        $data['user_id'] = $user->USER_ID;
                         
                         $this->load->view('user/home', $data);
                     }else{                        
@@ -225,24 +256,43 @@ class Login extends CI_Controller {
                 $this->session->set_userdata('sessionUserId', $user->USER_ID);
                 $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
 
+
+                //check attendance
+
                 $data['USER_NAME'] = $user->USER_NAME;
                 $data['USER_POINT'] = $user->USER_POINT;
                 $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;
                 $data['TT_END_DATE'] = $tt_game->END_DATE;
                 
+                //load game active
+                $game = $this->game->getAllGameMiniActive();
                 if(isset($game['YN'])){
                     $data['YN'] = $game['YN'];                            
+                    foreach ($data['YN'] as &$value) {
+                        $value = (object)$value;
+                        $value->TYPE = 'YN';
+                        $value = (array)$value;
+                    }
                 }else{
                     $data['YN'] = array(); 
                 }
 
                 if(isset($game['MUL'])){
                     $data['MUL'] = $game['MUL'];                            
+                    foreach ($data['MUL'] as &$value) {
+                        $value = (object)$value;
+                        $value->TYPE = 'MUL';
+                        $value = (array)$value;
+                    }
                 }else{
                     $data['MUL'] = array();
                 }
                 
-                //$data['prices'] = $this->user->getData();
+                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+
+                // $data['IS_PLAY_GAME_TT_ACTIVE'] = $this->user->isPlayGame_TT_Active($user->USER_ID, $tt_game->GAME_ID);
+
+                $data['user_id'] = $user->USER_ID;
 
                 $this->load->view('user/home', $data);
                 

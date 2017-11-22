@@ -58,7 +58,6 @@
 </head>
 <body onload="countDown_End_Date(end_date_game_mini,1);user_percent_in_de(ans_yes,ans_no); load_table_log_game(list_bet_log);infinitySlideShow(); set_style_table_log_game();"> 
   <script>
-    var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";
     var ans_yes = "<?php echo $ans_yes; ?>"||0;
     var ans_no = "<?php echo $ans_no; ?>"||0;
@@ -69,7 +68,13 @@
       }
     <?php }else{?>
     var list_bet_log = [];
-    <?php  }?>    
+    <?php  }?>
+
+    <?php 
+      $date = $game_data->END_DATE;
+      $date = new DateTime($date);
+      $time = $date->format('H:i:s d-m-Y');
+    ?>
   </script>
   <!-- body -->
   <div class="container-fluid">
@@ -80,22 +85,14 @@
           <?php if (empty($YN) && empty($MUL)) {
             echo 'Các game đang được hệ thống cập nhật';
           }?> 
-          <?php foreach ($YN as $value): ?>
-            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
+          <?php shuffle($ALL_GAME_ACTIVE) ?>
+          <?php foreach ($ALL_GAME_ACTIVE as $value): ?>
+            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
+              <?php if($value['TYPE'] == 'YN'){ ?>
               <a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
-                <div class="title"><?php echo $value['TITLE']; ?></div>
-                <div class="runner"><?php echo $value['USER_NAME']; ?></div>
-                <div class="prob">
-                  <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
-                </div>
-              </a>
-            </div>            
-          <?php endforeach ?>
-          
-          <?php foreach ($MUL as $value): ?>
-            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
+              <?php }else if($value['TYPE'] == 'MUL'){ ?>
               <a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+              <?php } ?>
                 <div class="title"><?php echo $value['TITLE']; ?></div>
                 <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
@@ -104,7 +101,7 @@
                 </div>
               </a>
             </div>
-          <?php endforeach ?>  
+          <?php endforeach?> 
         </div>
       </section>    
       <!-- /.infinite slideshow -->
@@ -117,6 +114,8 @@
             echo base_url().'login/fb_goHome';
           }else if($this->session->userdata('loggedOther')){
             echo base_url() . 'userct/home';
+          }else{
+            echo base_url();
           }
          ?>">Logo</a>
 
@@ -511,7 +510,11 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-6">
               <div class="mini-game-panel">
                 <div class="mini-game-des">
+                  <?php if($game_data->ACTIVE == 1){ ?>
                   <span class="mini-game-status game-opening">ĐANG MỞ</span>
+                  <?php }else{ ?>
+                  <span class="mini-game-status game-opening">ĐÃ ĐÓNG</span>
+                  <?php } ?>
                   <p class="mini-game-title"><?php echo $game_data->TITLE; ?></p>
                   <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->TOTAL_AMOUNT; ?></p>
                 </div>
@@ -555,11 +558,14 @@
                   </div><!-- /.bet percent -->
                 </div>
 
-                <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB')){ ?>
+                <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
                 <div class="mini-game-bet mt-5">
-                  <form name="mini-yn-bet">
+                  <form name="mini-yn-bet mt-5">
+                    <div class="form-group">
+                      <label class="no-margin">Giá Bitcoin vào lúc: <?php echo $time; ?> trên: <?php echo $game_data->PRICE_BET; ?> USD ?</label>
+                    </div>
                     <div class="form-group d-inline-block">
-                      <label class="no-margin">Lựa chọn của bạn ?</label>
+                      <label class="no-margin">Lựa chọn của bạn: </label>
                     </div>
                     <div class="form-group d-inline-block">  
                       <label class="form-check-label">
@@ -578,7 +584,14 @@
                   </form>                  
                 </div>
                 <?php }else{ ?>
-                <p class="no-margin">Bạn cần <a href="<?php echo base_url(); ?>">Đăng nhập </a> để đặt cược trò chơi !</p> 
+                  <div class="mini-game-bet mt-5">
+                    <form name="mini-yn-bet mt-5">
+                      <div class="form-group">
+                        <label class="no-margin">Giá Bitcoin vào lúc <?php echo $time; ?> sẽ trên: <?php echo $game_data->PRICE_BET; ?> USD ?</label>
+                      </div>
+                    </form>                  
+                  </div>
+                  <p class="no-margin">Bạn cần <a href="<?php echo base_url(); ?>">Đăng nhập </a> để đặt cược trò chơi !</p> 
                 <?php } ?>
               </div>
             </div> <!-- end content game -->
@@ -631,9 +644,6 @@
   <!-- high chart js -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
-
-  <!-- high chart display -->
-  <!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
 
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>

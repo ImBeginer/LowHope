@@ -38,21 +38,16 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/animation/animate.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
 	<!-- custom css -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
-
-	<script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-	<!-- Pusher -->
-	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-	<script src="<?php echo base_url(); ?>js/client/pusher.js"></script>
 </head>
 <body onload="countDown_End_Date(tt_game_end_date,0);infinitySlideShow();">
 	<script>
-		var base_url = "<?php echo base_url(); ?>";
 		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
+		var user_id = <?php echo json_encode($user_id); ?>;
 	</script>
 	<!-- big div on top -->
 	<div class="container-fluid">
@@ -63,22 +58,15 @@
 					<?php if (empty($YN) && empty($MUL)) {
 						echo 'Các game đang được hệ thống cập nhật';
 					}?>
-					<?php foreach ($YN as $value): ?>
-						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
-							<a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
-								<div class="title"><?php echo $value['TITLE']; ?></div>
-								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
-								<div class="prob">
-									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
-								</div>
-							</a>
-						</div>
-					<?php endforeach?>
 
-					<?php foreach ($MUL as $value): ?>
-						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
+					<?php shuffle($ALL_GAME_ACTIVE) ?>
+					<?php foreach ($ALL_GAME_ACTIVE as $value): ?>
+						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
+							<?php if($value['TYPE'] == 'YN'){ ?>
+							<a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+							<?php }else if($value['TYPE'] == 'MUL'){ ?>
 							<a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+							<?php } ?>
 								<div class="title"><?php echo $value['TITLE']; ?></div>
 								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
 								<div class="prob">
@@ -575,16 +563,25 @@
 	<!-- bootstrap js -->
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
+
+	<!-- Pusher -->
+	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/yesNoGame.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
+
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/pusher.js"></script>
+
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>	
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
+
 	<!-- author="Phong Huy" -->
-    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <!-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script> -->
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>node-server/public/js/nodeClient_highstock.js"></script>
 	<!-- author="Phong Huy" -->
