@@ -24,30 +24,32 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <img src="../img/ava-default.png" alt="avatar">
-          <div class="manager-name">Vinh Nguyễn</div>
+          <a class="manager-link" href="#!"><img src="../img/ava-default.png" alt="avatar"></a>
+          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option">Vinh Nguyễn</div>
+          <ul class="sub-menu collapse" id="user-option">
+            <li class="cursor-pointer"><a href="#!">Thông tin cá nhân</a></li>
+            <li class="cursor-pointer"><a href="#!">Sửa thông tin</a></li>
+            <li class="cursor-pointer"><a href="#!">Đổi mật khẩu</a></li>
+          </ul>             
         </li>
-        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website"><a href="#!">Tổng quát</a></li>        
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website"><a href="#!">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="#!">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>        
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+
+        <li data-toggle="collapse" data-target="#admin-option" class="c-active" aria-expanded="true">
+          <a href="#!">Quản lý</a>
+        </li>
+        <ul class="sub-menu collapse" id="admin-option">
+          <li class="c-active"><a href="#!">Block Manager</a></li>
+          <li><a href="#!">Unblock Manager</a></li>
+          <li><a href="#!">Giải thưởng</a></li>
+        </ul>      
       </ul>
-      <div class="manager-option-area c-active">
-        <div class="dropup setting-menu">
-          <a class="setting dropdown-toggle cursor-pointer" id="setting-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-cog" aria-hidden="true"></i>
-          </a>
-          <div class="dropdown-menu animated bounceIn" aria-labelledby="setting-item">
-            <a class="dropdown-item black" href="#!">Thông tin cá nhân</a>
-            <a class="dropdown-item black" href="#!">Sửa thông tin</a>
-            <a class="dropdown-item black" href="#!">Đổi mật khẩu</a>
-          </div>
-        </div>
-        <div class="log-out-option">
-          <a class="log-out cursor-pointer" data-toggle="tooltip" data-placement="top" title="Đăng xuất">
-            <i class="fa fa-power-off" aria-hidden="true"></i>
-          </a>
-        </div>
+      <div class="manager-option-area c-active" title="Đăng xuất">
+        <a class="log-out cursor-pointer">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+        </a>
       </div>
     </div>
   </div><!-- /.side bar -->
@@ -56,6 +58,14 @@
     <!-- game-content-detail -->
     <div id="game-content-detail" class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 game-content">
       <div class="main-function">
+        <!-- icon sidebar -->
+        <div class="sidebar-icon-area" title="Sidebar">
+          <div id="nav-icon1">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>      
+        </div><!-- /.icon sidebar -->        
         <div class="row">
           <div class="function-title">
             <p class="title">GAME NAME</p>

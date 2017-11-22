@@ -13,8 +13,18 @@
 @import 'createGame';
 @import 'datepickerCustom';
 @import 'adminFunc';
+@import 'sidebarIcon';
+@import 'queries';
 
-/********************SIDEBAR*********************/
+/********************SIDEBAR*******************/
+.d-blk {
+  display: block !important;
+}
+
+li.manager-avatar a.manager-link {
+  display: inline-block;
+}
+
 ul.sidebar-content a:focus {
   background-color: initial;
   outline: none;
@@ -57,7 +67,7 @@ li.manager-avatar  {
 ul.sidebar-content {
 	padding: 15px 0;
 	li  {
-	  padding: 9px 15px;
+	  padding: 9px 6px;
     a {
       font-size: 80%;
       padding: 0;
@@ -103,6 +113,14 @@ a span.new-color {
 
 .manager-option-area {
   text-align: center;
+}
+
+ul.sub-menu li a {
+  font-size: 75%;
+}
+
+.rotate-180deg {
+  transform: rotateZ(180deg);
 }
 
 /********************RIGHT SIDE CONTENT*********************/

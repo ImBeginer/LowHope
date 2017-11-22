@@ -20,7 +20,7 @@
 <!-- login content -->
 <div id="login" class="login-content container-fluid">
   <div class="row">
-    <div class="login-panel animated fadeInDown col-sm-6 col-md-6 col-xl-6 col-sm-offset-3 col-md-offset-3 col-xl-offset-3">
+    <div class="login-panel animated fadeInDown col-sm-4 col-md-4 col-xl-4 col-sm-offset-4 col-md-offset-4 col-xl-offset-4">
       <div class="avtar">
         <img class="user-ava text-center" src="../img/ava-default.png" alt="avatar">
         <p class="user-name text-center">Vinh Nguyễn</p>
@@ -29,10 +29,12 @@
         <div class="message"></div>
         <form class="login-form" action="#!">
           <div class="form-group">
-            <input type="text" class="form-control" id="username" placeholder="Tên tài khoản">
+            <label for="password">Tài khoản</label>
+            <input type="text" class="form-control" id="username" placeholder="qbc@fpt.edu.vn">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" id="password" placeholder="Mật khẩu">
+            <label for="password">Mật khẩu</label>
+            <input type="password" class="form-control" id="password">
           </div>          
           <button type="submit" name="login-info" class="btn login-btn cursor-pointer">Đăng nhập</button>
           <p class="forgot-password in-blk"><a href="#!" class="forgot-password-link"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Quên mật khẩu</a></p>
