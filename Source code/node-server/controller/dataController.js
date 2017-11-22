@@ -18,7 +18,7 @@ module.exports = {
             pusher.trigger('bitcoin_rate', 'broadcasting', data);
 
             coin_model.insertCoinRate(connection, data, function(result) {
-              console.log(JSON.stringify(data) + " === Added!");
+              console.log(JSON.stringify(data) + " === Added!\n");
             });
           }
         }
