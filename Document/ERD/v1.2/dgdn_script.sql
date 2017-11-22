@@ -27,8 +27,8 @@ CREATE TABLE USERS (
   PASSWORD varchar(100),
   USER_POINT int(11) NOT NULL,
   EMAIL varchar(100) NOT NULL,
-  PHONE_NUMBER varchar(30) NOT NULL,
-  ADDRESS nvarchar(255) NOT NULL,
+  PHONE_NUMBER varchar(30),
+  ADDRESS nvarchar(255),
   CREATE_DATE date NOT NULL,
   ATTENDANCE tinyint(1) NOT NULL,
   ACTIVE tinyint(1) NOT NULL ,
@@ -48,7 +48,7 @@ INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, 
 CREATE TABLE  NOTIFICATION(
   NOTICE_ID int(11) NOT NULL auto_increment,
   TITLE nvarchar(255) NOT NULL,
-  CONTENT text NOT NULL,
+  CONTENT text CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   CREATE_DATE datetime,
   primary key(NOTICE_ID)
 ) ENGINE=InnoDB;
@@ -59,7 +59,7 @@ CREATE TABLE  NOTIFICATION_DETAILS(
   foreign key(NOTICE_ID) references NOTIFICATION(NOTICE_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   SEND_DATE datetime NOT NULL,
-  SEEN tinyint(1) NOT NULL
+  SEEN tinyint(1) NOT NULL default 0
 ) ENGINE=InnoDB;
 
 CREATE TABLE  CHAT_ROOMS(
