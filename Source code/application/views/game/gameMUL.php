@@ -58,7 +58,6 @@
 </head>
 <body onload="countDown_End_Date(end_date_game_mini,1); user_percent_mul(PRICE_BELOW, PRICE_BETWEEN, PRICE_ABOVE);load_table_log_game(list_bet_log); infinitySlideShow(); set_style_table_log_game();"> 
   <script>
-    var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";
     var PRICE_BELOW = "<?php echo $PRICE_BELOW; ?>" || 0;
     var PRICE_BETWEEN = "<?php echo $PRICE_BETWEEN; ?>" || 0;
@@ -71,6 +70,12 @@
     <?php }else{?>
     var list_bet_log = [];
     <?php  }?>
+
+    <?php 
+      $date = $game_data->END_DATE;
+      $date = new DateTime($date);
+      $time = $date->format('H:i:s d-m-Y');
+    ?>
   </script>
   <!-- body -->
   <div class="container-fluid">
@@ -81,22 +86,14 @@
           <?php if (empty($YN) && empty($MUL)) {
             echo 'Các game đang được hệ thống cập nhật';
           }?>
-          <?php foreach ($YN as $value): ?>
-            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="1">
+          <?php shuffle($ALL_GAME_ACTIVE) ?>
+          <?php foreach ($ALL_GAME_ACTIVE as $value): ?>
+            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
+              <?php if($value['TYPE'] == 'YN'){ ?>
               <a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
-                <div class="title"><?php echo $value['TITLE']; ?></div>
-                <div class="runner"><?php echo $value['USER_NAME']; ?></div>
-                <div class="prob">
-                  <span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-                  <span><?php echo $value['TOTAL_AMOUNT'] ?></span>
-                </div>
-              </a>
-            </div>            
-          <?php endforeach ?>
-          
-          <?php foreach ($MUL as $value): ?>
-            <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="2">
+              <?php }else if($value['TYPE'] == 'MUL'){ ?>
               <a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+              <?php } ?>
                 <div class="title"><?php echo $value['TITLE']; ?></div>
                 <div class="runner"><?php echo $value['USER_NAME']; ?></div>
                 <div class="prob">
@@ -105,7 +102,7 @@
                 </div>
               </a>
             </div>
-          <?php endforeach ?>  
+          <?php endforeach?>
         </div>
       </section>    
       <!-- /.infinite slideshow -->
@@ -118,6 +115,8 @@
             echo base_url().'login/fb_goHome';
           }else if($this->session->userdata('loggedOther')){
             echo base_url() . 'userct/home';
+          }else{
+            echo base_url();
           }
          ?>">Logo</a>
 
@@ -503,118 +502,134 @@
         <?php } ?>
       </nav><!-- /.navbar -->  
 
-
-<div id="mgyn-content-area" class="content-area">
-  <!-- content -->
-  <div class="content">
-    <div class="row">
-
-      <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="mini-game-panel">
-          <div class="mini-game-des">
-            <span class="mini-game-status game-opening">ĐANG MỞ</span>
-            <p class="mini-game-title"><?php echo $game_data->TITLE; ?></p>
-            <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->TOTAL_AMOUNT; ?></p>
-          </div>
-          <div class="mini-game-content mb-5" data-gameID="<?php echo $game_data->GAME_ID; ?>">
-            <table class="mini-game-conten-info">
-              <tr>
-                <td>
-                  <p class="user-create">Người tạo game:</p>
-                </td>
-                <td>
-                  <p class="user-create"><?php echo $game_data->USER_NAME; ?></p>
-                </td>                      
-              </tr>
-              <tr>
-                <td>
-                  <p class="close-date">Đóng trong:</p>
-                </td>
-                <td>
-                  <p class="close-date" id="game_mini_countdown"></p>
-                </td>                      
-              </tr> 
-              <tr>
-                <td>
-                  <p class="create-date">Ngày tạo:</p>
-                </td>
-                <td>
-                  <p class="create-date"><?php echo $game_data->START_DATE; ?></p>
-                </td>                      
-              </tr>                                       
-            </table>
-            
-            <!-- bet percent -->
-            <div class="game-mul percent-panel center">
-              <p class="percent-panel-title">Tỷ lệ đặt cược</p>
-              <div id="increase" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Dưới">
-                <span class="in-num-percent">50%</span>
-              </div>
-              <div id="between" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Giữa">
-                <span class="be-num-percent">50%</span>
-              </div>
-              <div id="decrease" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Trên">
-                <span class="de-num-percent">50%</span>
-              </div>
-            </div><!-- /.bet percent -->
-          </div>
-
-          <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB')){ ?>
-          <div class="mini-game-bet mt-5">
-            <form action="#!" name="mini-yn-bet">
-              <div class="form-group no-margin">
-                <label class="no-margin">Lựa chọn của bạn ?</label>
-              </div>
-              <div class="form-group">  
-                <select name="mul-game" class="mul-mini-game">
-                  <option value="0">Dưới <?php echo $game_data->PRICE_BELOW; ?> USD</option>
-                  <option value="1">Giữa <?php echo $game_data->PRICE_BELOW; ?> - <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
-                  <option value="2">Trên <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 10 point. Hãy cân nhắc</p>
-              </div> 
-              <div class="form-group submit-area">
-                <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="bet-game-mul" name="bet-game-mul">Đặt cược</button>
-              </div>                       
-            </form>                  
-          </div>
-          <?php }else{ ?>
-            <p class="no-margin">Bạn cần <a href="<?php echo base_url(); ?>">Đăng nhập </a> để đặt cược trò chơi !</p> 
-          <?php } ?>
-        </div>
-      </div>
-
-      <div id="mgyn-contact-area" class="col-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="row">
-          <div class="col-sm-12 mb-3 giaodich">
-            <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">
-              <i class="fa fa-gavel" aria-hidden="true"></i> Giao dịch 
-            </a>
-          </div>
-          <div class="col-sm-12">
-            <div class="collapse show" id="game-transaction">
-              <div class="card card-body">
-                <table id="list-bet-log" data-info="false" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                  <thead>
+      <div id="mgyn-content-area" class="content-area">
+        <!-- content -->
+        <div class="content">
+          <div class="row">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+              <div class="mini-game-panel">
+                <div class="mini-game-des">
+                  <?php if($game_data->ACTIVE == 1){ ?>
+                  <span class="mini-game-status game-opening">ĐANG MỞ</span>
+                  <?php }else{ ?>
+                  <span class="mini-game-status game-opening">ĐÃ ĐÓNG</span>
+                  <?php } ?>
+                  <p class="mini-game-title"><?php echo $game_data->TITLE; ?></p>
+                  <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->TOTAL_AMOUNT; ?></p>
+                </div>
+                <div class="mini-game-content mb-5" data-gameID="<?php echo $game_data->GAME_ID; ?>">
+                  <table class="mini-game-conten-info">
                     <tr>
-                      <th>Thời gian</th>
-                      <th>Người chơi</th>
+                      <td>
+                        <p class="user-create">Người tạo game:</p>
+                      </td>
+                      <td>
+                        <p class="user-create"><?php echo $game_data->USER_NAME; ?></p>
+                      </td>                      
                     </tr>
-                  </thead>
-                </table>
+                    <tr>
+                      <td>
+                        <p class="close-date">Đóng trong:</p>
+                      </td>
+                      <td>
+                        <p class="close-date" id="game_mini_countdown"></p>
+                      </td>                      
+                    </tr> 
+                    <tr>
+                      <td>
+                        <p class="create-date">Ngày tạo:</p>
+                      </td>
+                      <td>
+                        <p class="create-date"><?php echo $game_data->START_DATE; ?></p>
+                      </td>                      
+                    </tr>                                       
+                  </table>
+                  
+                  <!-- bet percent -->
+                  <div class="game-mul percent-panel center">
+                    <p class="percent-panel-title">Tỷ lệ đặt cược</p>
+                    <div id="increase" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Dưới">
+                      <span class="in-num-percent">50%</span>
+                    </div>
+                    <div id="between" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Giữa">
+                      <span class="be-num-percent">50%</span>
+                    </div>
+                    <div id="decrease" class="user-percent big-u-p" data-toggle="tooltip" data-placement="top" title="Trên">
+                      <span class="de-num-percent">50%</span>
+                    </div>
+                  </div><!-- /.bet percent -->
+                </div>
+
+                <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
+                <div class="mini-game-bet mt-5">
+                  <form action="#!" name="mini-yn-bet">
+                    <div class="form-group no-margin">
+                      <label class="no-margin">Lựa chọn của bạn ?</label>
+                    </div>
+                    <div class="form-group">  
+                      <select name="mul-game" class="mul-mini-game">
+                        <option value="0">Dưới <?php echo $game_data->PRICE_BELOW; ?> USD</option>
+                        <option value="1">Giữa <?php echo $game_data->PRICE_BELOW; ?> - <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
+                        <option value="2">Trên <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 10 point. Hãy cân nhắc</p>
+                    </div> 
+                    <div class="form-group submit-area">
+                      <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="bet-game-mul" name="bet-game-mul">Đặt cược</button>
+                    </div>                       
+                  </form>                  
+                </div>
+                <?php }else{ ?>
+                <div class="mini-game-bet mt-5">
+                  <form action="#!" name="mini-yn-bet">
+                    <div class="form-group no-margin">
+                      <label class="no-margin">Giá Bitcoin vào lúc: <?php echo $time; ?> sẽ ?</label>
+                    </div>
+                    <div class="form-group">  
+                      <select name="mul-game" class="mul-mini-game">
+                        <option value="0">Dưới <?php echo $game_data->PRICE_BELOW; ?> USD</option>
+                        <option value="1">Giữa <?php echo $game_data->PRICE_BELOW; ?> - <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
+                        <option value="2">Trên <?php echo $game_data->PRICE_ABOVE; ?> USD</option>
+                      </select>
+                    </div>                                       
+                  </form>                  
+                </div>
+                <p class="no-margin">Bạn cần <a href="<?php echo base_url(); ?>">Đăng nhập </a> để đặt cược trò chơi !</p> 
+                <?php } ?>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
+            <div id="mgyn-contact-area" class="col-6 col-sm-6 col-md-6 col-lg-6">
+              <div class="row">
+                <div class="col-sm-12 mb-3 giaodich">
+                  <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">
+                    <i class="fa fa-gavel" aria-hidden="true"></i> Giao dịch 
+                  </a>
+                </div>
+                <div class="col-sm-12">
+                  <div class="collapse show" id="game-transaction">
+                    <div class="card card-body">
+                      <table id="list-bet-log" data-info="false" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th>Thời gian</th>
+                            <th>Người chơi</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /.content -->
+      </div>
     </div>
-  </div><!-- /.content -->
-</div>
-</div>
-</div><!-- /.body -->
+  </div><!-- /.body -->
   <footer>
     <div>LowHope &copy; 2017. All Right Reserved.</div>
     <div>Mọi hình thức sao chép nội dung trên website này mà chưa được sự đồng ý đều là trái phép.</div>
@@ -633,9 +648,6 @@
   <!-- high chart js -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
-
-  <!-- high chart display -->
-  <!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/client/chartBasicLine.js"></script> -->
 
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>

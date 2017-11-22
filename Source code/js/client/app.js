@@ -173,52 +173,51 @@ $(document).ready(function() {
 
 	/********************************************* LOGIN *****************************************************/
 
+	function passwordIsMatch  ($object) {
+		$data = $object.confirmpass;
+		if ($($data[0]).val() === $($data[1]).val()) {
+			return true;
+		} else {
+			displayMessage ($object.panel, '<p class="error animated shake">Mật khẩu mới và mật khẩu xác nhận không chính xác</p>');
+			return false;
+		}
+	}
+
 	/**
 	 * Người chơi đăng nhập vào hệ thống
 	 */
 	$('button#user-login').on('click', function() {
 		event.preventDefault();
 
-		//Dieu kien???
+		$object = login;
+	  	if (isValidData ($object)) {
+			var email = $('#username').val();
+			var pass = $('#userpassword').val();
 
-		var email = $('#username').val();
-		var pass = $('#userpassword').val();
-
-		//Check email exist ??
-		$.ajax({
-			url: base_url + 'userct/checkUserExist',
-			type: 'POST',
-			dataType: 'JSON',
-			data: {email: email, pass: pass},
-		})
-		.done(function(response) {
-			if(response == 1){
-				$.ajax({
-					url: base_url + 'userct/add_other_user',
-					type: 'POST',
-					dataType: 'JSON',
-					data: {email: email, pass: pass}
-				})
-				.done(function(response) {
-					console.log("success");
-					if(response == 1){
-						window.location.href = base_url + 'userct/home';
-					}else{
-						window.location.href = base_url;
-					}
-				})
-				.fail(function(response) {
-					console.log("error");
-				});
-			}else if(response == 2){
-				window.location.href = base_url + 'userct/home';
-			}else if(response == 0){
-				toatMessage('Warning', 'Sai password, vui lòng thử lại !', 'warning');
-			}
-		})
-		.fail(function(response) {
-			console.log("error");
-		});
+			//Check email exist
+			$.ajax({
+				url: base_url + 'userct/checkUserExist',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {email: email, pass: pass},
+			})
+			.done(function(response) {
+				if(response == 1){
+					window.location.href = base_url + 'userct/home';
+				}else if(response == 2){
+					window.location.href = base_url + 'userct/home';
+				}else if(response == 0){
+					toatMessage('Warning', 'Sai password, vui lòng thử lại !', 'warning');
+				}else if(response == 3){
+					toatMessage('Info', 'Hệ thống đang gặp trục trặc !', 'info');
+				}else if(response == 4){
+					toatMessage('Warning', 'Email đã có người sử dụng !', 'warning');
+				}
+			})
+			.fail(function(response) {
+				console.log("error");
+			});
+	  	} 
 	});
 
 	/**
@@ -228,8 +227,28 @@ $(document).ready(function() {
 	  	$object = forgotPass;
 	  	if (isValidData ($object)) {
 		    if (passwordIsMatch ($object)) {
-		      	console.log ("OKE"); 
-		      	//TODO
+		      	var email = $('#forgot-email').val(); 
+		      	var pass = $('#confirmpass').val();
+		      	var code =  $('#confirmcode').val();
+		      	//alert(email + '-' + pass + '-' + code);
+		      	$.ajax({
+		      		url: base_url + 'userct/change_password',
+		      		type: 'POST',
+		      		dataType: 'JSON',
+		      		data: {email: email, pass: pass, code: code}
+		      	})
+		      	.done(function(response) {
+		      		if(response == 0){
+		      			toatMessage('Warning', 'Mã xác nhận không đúng !', 'warning');
+		      		}else if(response == 1){
+		      			toatMessage('Success', 'Bạn đã đổi mật khẩu thành công !', 'success');
+		      		}else{
+		      			toatMessage('Warning', 'Hệ thống đang gặp trục trặc.', 'warning');
+		      		}
+		      	})
+		      	.fail(function(response) {
+		      		console.log("error");
+		      	});
 		    }
 	  	}
 	});
@@ -246,10 +265,29 @@ $(document).ready(function() {
 		    if (!$regexFormat.test($emailVal)) {
 		      	displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không hợp lệ</p>');  
 		    }else {
-		      	console.log('EMAIL OKE');  
+		      	//check email co ton tai khong
+		      	$.ajax({
+		      	  	url: base_url + 'userct/send_confirm_code',
+		      	  	type: 'POST',
+		      	  	dataType: 'html',
+		      	  	data: {email: $emailVal},
+		      	})
+		      	.done(function(response) {
+		      			var res = response.split('<br>');
+		      			res = parseInt(res[res.length-1]);
+			      	  	if(res == 1){
+			      	  		toatMessage('Success', 'Mã xác nhận đã được gửi tới email, vui lòng kiểm tra.', 'success');
+			      	  	}else if(res == 2){
+			      	  		toatMessage('Info', 'Email không tồn tại.', 'info');
+			      	  	}else{
+			      	  		toatMessage('Warning', 'Hệ thống đang gặp trục trặc.', 'warning');
+			      	  	}
+		      	})
+		      	.fail(function(response) {
+		      	 	console.log("error");
+		      	});
 		    }
 	  	}
-
 	});
 	/************************************** END LOGIN **************************************************************/
 
@@ -390,10 +428,21 @@ $(document).ready(function() {
 	 				data: {game_title: game_title, end_date_time: end_date_time, price_bet:game_bitcoin_price},
 	 			})
 	 			.done(function(response) {
-	 				console.log("success");
 	 				if(response.create == 1){
 	 					$('#user-point').text(response.user_point);
-	 					toatMessage('Success', 'Chúc mừng bạn đã tạo game thành công !','success');
+
+	 					$.toast({
+						    heading: 'Success',
+							text: 'Chúc mừng bạn đã tạo game thành công !',
+							showHideTransition: 'slide',
+							icon: 'success',
+							position: 'bottom-right',
+							hideAfter: 5000,
+
+						    afterHidden: function () {
+						        location.href = base_url + 'gamect/yn/' + response.game_id;
+						    }
+						});
 	 				}else if(response.create == 0){
 	 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
 	 				}else if(response.create == 2){
@@ -404,7 +453,7 @@ $(document).ready(function() {
 	 				console.log("error");
 	 			});	 			
 	 		}else{
-	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
+	 			toatMessage('Warning', 'Thời gian kết thúc game phải lớn hơn thời gian hiện tại','warning');
 	 		}
 	 	}
 	});
@@ -442,7 +491,19 @@ $(document).ready(function() {
 		 			console.log("success");
 		 			if(response.create == 1){
 		 				$('#user-point').text(response.user_point); 
-		 				toatMessage('Success', 'Bạn đã tạo game thành công !','success');
+		 				
+		 				$.toast({
+						    heading: 'Success',
+							text: 'Chúc mừng bạn đã tạo game thành công !',
+							showHideTransition: 'slide',
+							icon: 'success',
+							position: 'bottom-right',
+							hideAfter: 5000,
+
+						    afterHidden: function () {
+						        location.href = base_url + 'gamect/mul/' + response.game_id;
+						    }
+						});
 		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
 		 			}else if(response.create == 2){
@@ -453,7 +514,7 @@ $(document).ready(function() {
 		 			console.log("error");
 		 		});
 	 		}else {
-	 			toatMessage('Warning', 'Thời gian kết thúc phải lớn hơn thời gian hiện tại','warning');
+	 			toatMessage('Warning', 'Thời gian kết thúc game phải lớn hơn thời gian hiện tại','warning');
 	 		}
 	 	}
 	});
@@ -476,6 +537,7 @@ $(document).ready(function() {
 			.done(function(response) {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
+					set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -486,7 +548,7 @@ $(document).ready(function() {
 				}else if(response.result == 5){
 					toatMessage('Warning', 'Rất tiếc, game này đã đủ người chơi.<br>Vui lòng chọn game khác để chơi.', 'warning');
 				}
-			}).fail(function() {
+			}).fail(function(response) {
 				console.log("error");
 			});			
 		}else{
@@ -512,6 +574,7 @@ $(document).ready(function() {
 			.done(function(response) {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
+					set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -536,41 +599,41 @@ $(document).ready(function() {
  * @param  {[type]} type            [description]
  * @return {[type]}                 [description]
  */
-function countDown_End_Date(string_end_date,type) {
-	var end_date = (new Date(string_end_date)).getTime();
-	var x = setInterval(function(){
-		// Get todays date and time
-		var now = new Date().getTime();
-    	// Find the distance between now an the count down date
-    	var distance = end_date - now;
-    	// Time calculations for days, hours, minutes and seconds
-    	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+// function countDown_End_Date(string_end_date,type) {
+// 	var end_date = (new Date(string_end_date)).getTime();
+// 	var x = setInterval(function(){
+// 		// Get todays date and time
+// 		var now = new Date().getTime();
+//     	// Find the distance between now an the count down date
+//     	var distance = end_date - now;
+//     	// Time calculations for days, hours, minutes and seconds
+//     	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//     	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//     	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//     	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-	    // Output the result in an element
-	    if(type == 0){
-		    document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
-		    + minutes + "m " + seconds + "s ";
+// 	    // Output the result in an element
+// 	    if(type == 0){
+// 		    document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
+// 		    + minutes + "m " + seconds + "s ";
 		    
-		    // If the count down is over, write some text 
-		    if (distance < 0) {
-		    	clearInterval(x);
-		    	document.getElementById("countDown").innerHTML = "EXPIRED";
-		    }		    	
-	    }else if(type == 1){
-	    	document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
-		    + minutes + "m " + seconds + "s ";
+// 		    // If the count down is over, write some text 
+// 		    if (distance < 0) {
+// 		    	clearInterval(x);
+// 		    	document.getElementById("countDown").innerHTML = "EXPIRED";
+// 		    }		    	
+// 	    }else if(type == 1){
+// 	    	document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
+// 		    + minutes + "m " + seconds + "s ";
 		    
-		    // If the count down is over, write some text 
-		    if (distance < 0) {
-		    	clearInterval(x);
-		    	document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
-		    }
-	    }
-	}, 1000);
-}
+// 		    // If the count down is over, write some text 
+// 		    if (distance < 0) {
+// 		    	clearInterval(x);
+// 		    	document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
+// 		    }
+// 	    }
+// 	}, 1000);
+// }
 
 /**
  * [toatMessage description] Hiển thị message thông báo, warning
@@ -590,90 +653,90 @@ function toatMessage(heading,text,icon) {
 	});
 }
 
-/**
- * [user_percent_in_de description] tỉ lệ người chơi đã cược game yes no
- * @param  {Number} $in_num [description]
- * @param  {Number} $de_num [description]
- * @return {[type]}         [description]
- */
-function user_percent_in_de ($in_num = 0, $de_num = 0) {
-    $percent_width = parseInt($('.percent-panel').css('width'), 10);
+// /**
+//  * [user_percent_in_de description] tỉ lệ người chơi đã cược game yes no
+//  * @param  {Number} $in_num [description]
+//  * @param  {Number} $de_num [description]
+//  * @return {[type]}         [description]
+//  */
+// function user_percent_in_de ($in_num = 0, $de_num = 0) {
+//     $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
-    $in_div = $('#increase');
-    $de_div = $('#decrease');
-    $in_user = $in_num;
-    $de_user = $de_num;
-    $total_user = parseInt($in_user) + parseInt($de_user);
+//     $in_div = $('#increase');
+//     $de_div = $('#decrease');
+//     $in_user = $in_num;
+//     $de_user = $de_num;
+//     $total_user = parseInt($in_user) + parseInt($de_user);
 
-    if ($total_user !== 0 && $total_user > 0) {
-      	$in_div_width = Math.round(($percent_width * $in_user) / $total_user);
-      	$de_div_width = $percent_width - $in_div_width;
-    } else {
-      	$de_div_width = $in_div_width = Math.round($percent_width / 2);
-    }
+//     if ($total_user !== 0 && $total_user > 0) {
+//       	$in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+//       	$de_div_width = $percent_width - $in_div_width;
+//     } else {
+//       	$de_div_width = $in_div_width = Math.round($percent_width / 2);
+//     }
 
-    $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
-    $de_per_string = 100 - $in_per_string;
+//     $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
+//     $de_per_string = 100 - $in_per_string;
 
-    $in_div.css({'width': $in_div_width + 'px'});
-    $de_div.css({'width': $de_div_width + 'px'});
+//     $in_div.css({'width': $in_div_width + 'px'});
+//     $de_div.css({'width': $de_div_width + 'px'});
 
-    $('span.in-num-percent').text($in_per_string + '%');
-    $('span.de-num-percent').text($de_per_string + '%');
-}
+//     $('span.in-num-percent').text($in_per_string + '%');
+//     $('span.de-num-percent').text($de_per_string + '%');
+// }
 
-/**
- * [user_percent_mul description] tỉ lệ người chơi đã cược game multi
- * @param  {Number} $lower   [description]
- * @param  {Number} $between [description]
- * @param  {Number} $upper   [description]
- * @return {[type]}          [description]
- */
-function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
-    $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
-    $total = parseInt($lower) + parseInt($between) + parseInt($upper);
-    $lo_div = $('#increase');
-    $be_div = $('#between');
-    $up_div = $('#decrease');
-    $lo_div_width = $be_div_width = $up_div_width = 0;
+// *
+//  * [user_percent_mul description] tỉ lệ người chơi đã cược game multi
+//  * @param  {Number} $lower   [description]
+//  * @param  {Number} $between [description]
+//  * @param  {Number} $upper   [description]
+//  * @return {[type]}          [description]
+ 
+// function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
+//     $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
+//     $total = parseInt($lower) + parseInt($between) + parseInt($upper);
+//     $lo_div = $('#increase');
+//     $be_div = $('#between');
+//     $up_div = $('#decrease');
+//     $lo_div_width = $be_div_width = $up_div_width = 0;
 
-    if ($total !== 0 && $total > 0) {
-      $lo_div_width = Math.round(($percent_width * $lower) / $total);
-      $be_div_width = Math.round(($percent_width * $between) / $total);
-      $up_div_width = $percent_width - $lo_div_width - $be_div_width;      
-    } else {
-      $lo_div_width = $be_div_width = $lo_div_width = Math.round($percent_width / 3) - 1;
-    }
+//     if ($total !== 0 && $total > 0) {
+//       $lo_div_width = Math.round(($percent_width * $lower) / $total);
+//       $be_div_width = Math.round(($percent_width * $between) / $total);
+//       $up_div_width = $percent_width - $lo_div_width - $be_div_width;      
+//     } else {
+//       $lo_div_width = $be_div_width = $lo_div_width = Math.round($percent_width / 3) - 1;
+//     }
 
-    $lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
-    $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
-    $up_per_string = 100 - $lo_per_string - $be_per_string;
+//     $lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
+//     $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
+//     $up_per_string = 100 - $lo_per_string - $be_per_string;
 
-    $lo_div.css({'width': $lo_div_width + 'px'});
-    $be_div.css({'width': $be_div_width + 'px'});
-    $up_div.css({'width': $up_div_width + 'px'});
+//     $lo_div.css({'width': $lo_div_width + 'px'});
+//     $be_div.css({'width': $be_div_width + 'px'});
+//     $up_div.css({'width': $up_div_width + 'px'});
 
-    $('.game-mul span.in-num-percent').text($lo_per_string + '%');
-    $('.game-mul span.be-num-percent').text($be_per_string + '%');
-    $('.game-mul span.de-num-percent').text($up_per_string + '%');
-}
+//     $('.game-mul span.in-num-percent').text($lo_per_string + '%');
+//     $('.game-mul span.be-num-percent').text($be_per_string + '%');
+//     $('.game-mul span.de-num-percent').text($up_per_string + '%');
+// }
 
 /**
  * [set_style_table_log_game description] đặt lại style cho bảng danh sách người chơi đã tham gia game mini
  */
-function set_style_table_log_game() {
-	var giaodich = $('.giaodich');
-	giaodich[0].style.fontSize = '30px';
-	giaodich[0].style.fontWeight = 'bold';
+// function set_style_table_log_game() {
+// 	var giaodich = $('.giaodich');
+// 	giaodich[0].style.fontSize = '30px';
+// 	giaodich[0].style.fontWeight = 'bold';
 
-	var el_show = $('#list-bet-log_length');
-	el_show[0].children[0].firstChild.textContent = 'Hiển thị ';
-	el_show[0].children[0].firstChild.nextSibling.style.backgroundColor = '#777';
-	el_show[0].children[0].firstChild.nextSibling.nextSibling.textContent = ' bản ghi';
+// 	var el_show = $('#list-bet-log_length');
+// 	el_show[0].children[0].firstChild.textContent = 'Hiển thị ';
+// 	el_show[0].children[0].firstChild.nextSibling.style.backgroundColor = '#777';
+// 	el_show[0].children[0].firstChild.nextSibling.nextSibling.textContent = ' bản ghi';
 
-	var el_search = $('#list-bet-log_filter');
-	el_search[0].firstChild.firstChild.textContent = 'Tìm kiếm: ';
-	el_search[0].style.width = '100%';
-	el_search[0].firstChild.firstChild.nextSibling.style.width = '50%';
-	el_search[0].firstChild.firstChild.nextSibling.style.float = 'right';
-}
+// 	var el_search = $('#list-bet-log_filter');
+// 	el_search[0].firstChild.firstChild.textContent = 'Tìm kiếm: ';
+// 	el_search[0].style.width = '100%';
+// 	el_search[0].firstChild.firstChild.nextSibling.style.width = '50%';
+// 	el_search[0].firstChild.firstChild.nextSibling.style.float = 'right';
+// }

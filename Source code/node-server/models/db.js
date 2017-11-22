@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	host: "mysql8.db4free.net",
-	user: "hotaru",
-	password: "lowhope12345",
-	port: 3307,
-	database: "lowhope_capstone",
+	host: "35.185.45.47",
+	user: "lowhope",
+	password: "p123",
+	port: 3306,
+	database: "lowhope_db",
 	//host: "localhost",
 	//user: "root",
 	//password: "p123",

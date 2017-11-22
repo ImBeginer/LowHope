@@ -11,6 +11,7 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require": {
-		"pusher/pusher-php-server": "^3.0"
+		"pusher/pusher-php-server": "^3.0",
+		"phpmailer/phpmailer": "~5.2"
 	}
 }

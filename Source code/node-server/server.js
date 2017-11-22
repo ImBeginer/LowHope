@@ -34,6 +34,9 @@ app.get('/api/bitcoin', function(req, res) {
 
 data_controller.getData(pusher, mysql_connection);
 game_controller.sys_game_controller_running;
+pusher.trigger('system_game', 'pop_winner',{
+  message: 'hello'
+})
 
 /*=====END======Controllers============*/
 

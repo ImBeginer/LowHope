@@ -21,8 +21,8 @@ var mulGame = (function () {
 
 		'game-title-mul': 'Tên game phải chứa từ 6 đến 35 ký tự',
 		'game-date-mul': 'ĐCM sai ngày kết thúc rồi',
-		'game-bitcoin-price-upper': 'Giá bitcoin trên khoảng phải trên 1 triệu và dưới 1 tỷ VNĐ',
-		'game-bitcoin-price-lower': 'Giá bitcoin dưới khoảng phải trên 1 triệu và dưới 1 tỷ VNĐ',
+		'game-bitcoin-price-upper': 'Giá bitcoin không hợp lệ !',
+		'game-bitcoin-price-lower': 'Giá bitcoin không hợp lệ !',
 
 	};	
 
