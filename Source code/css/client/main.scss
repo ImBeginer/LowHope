@@ -8,13 +8,14 @@
 @import 'infiniteSlideShow';
 @import 'scrollBar';
 @import 'userUpdateInfo';
+@import 'queries';
 /*author: Phong Huy*/
 div#highcharts-8znetyt-0 tspan {
-    font-size: initial !important;
+  font-size: initial !important;
 }
 div#chartContainer input {
-    padding: 0 !important;
-    color: $black !important;
+  padding: 0 !important;
+  color: $black !important;
 }
 /*author: Phong Huy*/
 
@@ -47,6 +48,7 @@ nav#my-navbar {
   background-color: $infinite-color !important;
   border-bottom: 1px solid $footer-word-op;
   width: 100%;
+  min-width: 1009px;
 }
 
 ul#user-func-dropdown {
@@ -145,6 +147,7 @@ li.noti-items a {
   width: 10%;
   margin: 0 auto;
   min-width: 135px;
+  max-width: 135px;
 }
 
 .bitcoin-game-btn:hover {
@@ -254,7 +257,7 @@ button.changepass-btn {
 }
 
 #BTC, #SCJ, #PNJ {
-  width: 32%;
+  // width: 32%;
   p {
     font-size: 130%;
     font-weight: bold;
@@ -653,7 +656,8 @@ input.notifi-checkbox:checked {
 }
 
 .already-read {
-  background-color: initial;
+  background-color: #A3ABAC !important;
+  border: 1px solid #A3ABAC !important;
 }
 
 div#notifi-popup h5, 
@@ -946,6 +950,7 @@ div#history-username-area {
 div#history-user-info {
   padding: 10px;
   background-color: $white;
+
 }
 
 #history-username {

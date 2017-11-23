@@ -476,13 +476,15 @@ display_chat ();
 // user_percent_mul (2, 1, 0);
 
 
-//infinitySlideShow ();
+infinitySlideShow ();
+
+user_percent_in_de (15, 5);
 });
 
 function infinitySlideShow () {
   // tìm stylesheet có chứa rules
   $styleSheet = document.styleSheets[0];
-  // console.log(document.styleSheets);
+  console.log(document.styleSheets);
   // chọn rules đầu tiên trong file stylesheet 
   $infinitySlide = $styleSheet.cssRules[0];
   // get from (0%) của rules
@@ -516,4 +518,5 @@ function infinitySlideShow () {
     // add lại thuộc tính transform của rules (100%)
     $infinitySlide_To_Style.setProperty('transform', 'translate(' + (-1 * ($endSlideShow + 50)) + 'px)');
   }
+
 };

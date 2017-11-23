@@ -11,9 +11,9 @@
   background-color: $white;
 	padding: 30px 20px;
 	border-radius: 6px;
-  // box-shadow: -2px 4px 22px $box-shadow;	
   background-color: rgba(0,0,0,0.7);
   margin-top: 25vh;
+  min-width: 400px;
  .user-ava {
 		width: 70px;
 		max-width: 70px;
@@ -26,7 +26,7 @@
 }
 
 .component {
-  padding: 25px 70px;
+  padding: 25px 20px;
 }
 
 div.avtar {

@@ -1,0 +1,51 @@
+/* smartphones, iPhone, portrait 480x320 phones */ 
+@media only screen and (max-width:320px)  { 
+
+}
+
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+@media only screen and (max-width:481px)  { 
+
+}
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+@media only screen and (max-width:641px)  { 
+	#game-history-popup,
+	div#history-user-info {
+	  min-width: 727px;
+	}
+}
+
+@media only screen and (max-width:767px)  {
+	.content-area, 
+	.traditional-game-content,
+	.minigame .container {
+		min-width: 753px;
+	}
+}
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */ 
+@media only screen and (max-width:961px)  { 
+
+}
+
+/* big landscape tablets, laptops, and desktops */ 
+@media only screen and (max-width:1025px) { 
+	div#history-content-area {
+		div#history-game {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	div#history-user-info {
+    margin-top: 10px;
+	}
+}
+
+/* hi-res laptops and desktops */ 
+@media only screen and (max-width:1281px) { 
+	// div#history-user-info {
+ //    margin-top: 10px;
+	// }
+}
