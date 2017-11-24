@@ -48,7 +48,7 @@ INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, 
 CREATE TABLE  NOTIFICATION(
   NOTICE_ID int(11) NOT NULL auto_increment,
   TITLE nvarchar(255) NOT NULL,
-  CONTENT text CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  CONTENT text CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   CREATE_DATE datetime,
   primary key(NOTICE_ID)
 ) ENGINE=InnoDB;
@@ -58,6 +58,8 @@ CREATE TABLE  NOTIFICATION_DETAILS(
   USER_ID int(11),
   foreign key(NOTICE_ID) references NOTIFICATION(NOTICE_ID),
   foreign key(USER_ID) references USERS(USER_ID),
+  GAME_ID int(11),
+  GAME_TYPE int(1),
   SEND_DATE datetime NOT NULL,
   SEEN tinyint(1) NOT NULL default 0
 ) ENGINE=InnoDB;
@@ -175,7 +177,7 @@ CREATE TABLE YN_GAME_LOGS (
   GAME_ID int(11), 
   ANSWER tinyint(1) NOT NULL,
   ANS_TIME datetime NOT NULL,
-  IS_WINNER tinyint(1) NOT NULL default 0,
+  IS_WINNER tinyint(1) NOT NULL,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references YN_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
@@ -207,7 +209,7 @@ CREATE TABLE MULTI_CHOICE_GAME_LOGS (
   PRICE_BETWEEN boolean NOT NULL, 
   PRICE_ABOVE boolean NOT NULL,
   ANS_TIME datetime NOT NULL,
-  IS_WINNER tinyint(1) NOT NULL default 0,
+  IS_WINNER tinyint(1) NOT NULL,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references MULTI_CHOICE_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
