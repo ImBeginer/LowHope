@@ -4,17 +4,7 @@
   <title>Capstone project</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
-  <!-- jQuery UI css -->
-  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
-  <!-- bootstrap css -->
-  <link rel="stylesheet" type="text/css" href="../assets/bootstrap/bootstrap.min.css">
-  <!-- font awesome -->
-  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
-  <!-- animation -->
-  <link rel="stylesheet" type="text/css" href="../assets/animation/animate.css">  
-  <!-- custom css -->
-  <link rel="stylesheet" type="text/css" href="../css/client/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <style>
     @keyframes changewidth {
       from {
@@ -41,7 +31,18 @@
         margin-top: -18px;
       }
     }    
-  </style>
+  </style>  
+  <!-- jQuery UI css -->
+  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
+  <!-- bootstrap css -->
+  <link rel="stylesheet" type="text/css" href="../assets/bootstrap/bootstrap.min.css">
+  <!-- font awesome -->
+  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
+  <!-- animation -->
+  <link rel="stylesheet" type="text/css" href="../assets/animation/animate.css">  
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="../css/client/main.css">
+
 </head>
 <body>
   <!-- body -->
@@ -253,30 +254,13 @@
       </section>    
       <!-- /.infinite slideshow -->
       <!-- navbar -->
-      <nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <ul class="nav navbar-nav navbar-right">
+    <nav id="my-navbar" class="navbar navbar-expand">
+      <a class="navbar-brand" href="#">Logo</a>
+        <div class="nav-menu navbar-collapse">
+          <ul class="nav navbar-nav navbar-right ml-auto">
             <li class="nav-item">
-              <!-- info dropdown button -->
-              <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-                  Thông tin
-                  <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                </button>
-                <ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
-                  <li class="func-items"><a href="#!">Gmail</a></li>
-                  <li class="func-items"><a href="#!">Facebook</a></li>
-                  <li class="func-items"><a href="#!">Google</a></li>
-                  <li class="func-items"><a href="#!">Về chúng tôi</a></li>
-                  <li class="func-items"><a href="#!">Câu hỏi</a></li>
-                </ul>
-              </div> <!-- /.info dropdown button -->
-            </li> 
+              <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="#!" class="nav-link">Tạo mini game</a></li>
+            </li>
             <li class="nav-item active top-bar-items" data-toggle="tooltip"
         data-placement="top" title="Số point hiện tại">
               <div class="user-point-area">
@@ -287,8 +271,8 @@
         data-placement="top" title="TOP point">
               <a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
             </li>
-<!-- rank popup -->
-<div class="modal fade world-rank" tabindex="-1" role="dialog"
+  <!-- rank popup -->
+  <div class="modal fade world-rank" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -325,8 +309,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- /.rank popup -->
+  </div>
+  <!-- /.rank popup -->
             <li class="nav-item top-bar-items" data-toggle="tooltip"
         data-placement="top" title="Thông báo">
               <div class="dropdown">
@@ -336,8 +320,8 @@
                     <p>8</p>
                   </div>
                 </button>
-<!-- notification list -->
-<ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+  <!-- notification list -->
+  <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
   <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
     <div class="noti-content ellipsis">
       <a href="#!">
@@ -422,9 +406,9 @@
       </a>
     </div>
   </li>                                                                                                 
-</ul><!-- /.notification list -->
-<!-- popup notifi -->
-<div class="modal fade" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="notifi" aria-hidden="true">
+  </ul><!-- /.notification list -->
+  <!-- popup notifi -->
+  <div class="modal fade" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="notifi" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -438,14 +422,19 @@
       </div>
     </div>
   </div>
-</div><!-- /.popup notifi --> 
+  </div><!-- /.popup notifi --> 
 
               </div>              
-            </li>            
-            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Thông tin tài khoản">
+            </li>   
+            <li class="nav-item">
+              <div class="user-avatar">
+                <img src="../images/client/ava-default.png" alt="user default">
+              </div>
+            </li>         
+            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Username">
               <!-- user dropdown button -->
               <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
+                <button id="username-btn" class="user-name btn btn-primary dropdown-toggle cursor-pointer ellipsis" type="button" data-toggle="dropdown">
                   Username
                   <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </button>
@@ -455,13 +444,12 @@
                       Sửa thông tin
                     </button>     
                   </li>
-                  <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="#!">Tạo mini game</a></li>
                   <li class="func-items"><a href="history.html">Lịch sử</a></li>
                   <li class="func-items"><a href="#!">Đăng xuất</a></li>
                 </ul>
               </div><!-- /.user dropdown button -->
-<!-- create game popup -->
-<div id="create-game" class="modal fade" tabindex="-1" role="dialog"
+  <!-- create game popup -->
+  <div id="create-game" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="createGame" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -482,81 +470,87 @@
           </li>        
         </ul><!-- /.nav create game --> 
       </div>
-        <!-- tab game -->
-        <div class="tab-content game-tab-content">
-          <div role="tabpanel" class="tab-pane active" id="yes-no-game">
-            <form action="#!" name="yes-no-create">
-              <div class="form-group d-inline-block">
-                <label for="game-date">Vào ngày</label>
-                <input type="text" class="form-control d-inline-block" id="game-date">
-              </div>
-              <div class="form-group d-inline-block">
-                <label for="game-time">Giờ</label>
-                <input type="number" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
-                <label for="game-minute">Phút</label>
-                <input type="number" class="form-control d-inline-block" id="game-minute" min="1" max="60" placeholder="00">
-              </div>
-              <div class="form-group">
-                <label for="game-bitcoin-price">Giá Bitcoin trên</label>
-                <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1">
-              </div> 
-              <div class="form-group">
-                <label class="d-block" for="">Đúng hay sai ?</label>
-              </div>   
-              <div class="form-group">  
-                <label class="form-check-label">
-                  <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="yes-rd">Yes
-                </label>
-                <label class="form-check-label">  
-                  <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="no-rd">No
-                </label>
-              </div>  
-              <div class="form-group submit-area">
-                <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                <button type="submit" class="game-btn-mul btn-height cursor-pointer" data-dismiss="modal">Tạo</button>
-              </div>                                         
-            </form>
+      <!-- tab game -->
+      <div class="tab-content game-tab-content">
+        <div role="tabpanel" class="tab-pane active" id="yes-no-game">
+          <div class="user-form form" action="#!">
+            <div class="message"></div>
+            <div class="form-group">
+              <label for="game-title">Tên game</label>
+              <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>                
+            </div>
+            <div class="form-group d-inline-block">
+              <label for="game-date">Vào ngày</label>
+              <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required>
+            </div>
+            <div class="form-group d-inline-block">
+              <label for="game-time">Kết thúc vào lúc</label>
+              <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required>
+            </div>
+            <div class="form-group">
+              <label for="game-bitcoin-price">Giá Bitcoin trên</label>
+              <input type="number" class="form-control" id="game-bitcoin-price" placeholder="1" min="1" pattern="^\d{7,10}$" required>
+            </div> 
+            <div class="form-group">
+              <label class="d-block" for="">Đúng hay sai ?</label>
+            </div>   
+            <div class="form-group">  
+              <label class="form-check-label">
+                <input id="yes-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="0" checked>Yes
+              </label>
+              <label class="form-check-label">  
+                <input id="no-radio" class="form-check-input radio-cus" type="radio" name="yes-or-no" value="1">No
+              </label>
+            </div>  
+            <div class="form-group submit-area">
+              <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
+              <button type="submit" class="game-btn-yes-no btn-height cursor-pointer" id="" name="">Tạo</button>
+            </div>                                         
           </div>
-          <div role="tabpanel" class="tab-pane" id="multi-choice-game">
-            <form action="#!" name="mul-create">
-              <div class="form-group d-inline-block">
-                <label for="game-date">Vào ngày</label>
-                <input type="text" class="form-control d-inline-block" id="game-date">
-              </div>
-              <div class="form-group d-inline-block">
-                <label for="game-time">Giờ</label>
-                <input type="number" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1">
-                <label for="game-minute">Phút</label>
-                <input type="number" class="form-control d-inline-block" id="game-minute" min="1" max="60" placeholder="00">
-              </div>
-              <div class="form-group">
-                <label for="">Giá Bitcoin ?</label>
-              </div>              
-              <div class="form-group d-inline-block mr-3">
-                <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
-                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" required>
-              </div> 
-              <div class="form-group d-inline-block mr-3">
-                <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
-                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" required>     
-              </div>            
-              <div class="form-group d-inline-block mr-3">  
-                <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
-                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" required>
-              </div>
-              <div class="form-group d-inline-block mr-3">
-                <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" required>    
-              </div>                              
-              <div class="form-group submit-area">
-                <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                <button type="submit" class="game-btn-mul btn-height cursor-pointer" id="" name="" data-dismiss="modal">Tạo </button>
-              </div>                                         
-            </form>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="multi-choice-game">
+          <div class="user-form form" action="#!">
+            <div class="message"></div>
+            <div class="form-group">
+              <label for="game-title">Tên game</label>
+              <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,35}$" required>                
+            </div>              
+            <div class="form-group d-inline-block">
+              <label for="game-date">Vào ngày</label>
+              <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required>
+            </div>
+            <div class="form-group d-inline-block">
+              <label for="game-time">Kết thúc vào lúc</label>
+              <input type="time" class="form-control d-inline-block" id="game-time" min="1" max="24" placeholder="1" required>
+            </div>
+            <div class="form-group">
+              <label for="">Giá Bitcoin ?</label>
+            </div>              
+            <div class="form-group d-inline-block mr-3">
+              <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
+              <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="1" min="1" pattern="^\\d{7,10}$" required>
+            </div> 
+            <div class="form-group d-inline-block mr-3">
+              <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
+              <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="1" min="1" pattern="^\\d{7,10}$" required>     
+            </div>            
+            <div class="form-group d-inline-block mr-3">  
+              <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
+              <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="1" min="1" pattern="^\\d{7,10}$" disabled>
+            </div>
+            <div class="form-group d-inline-block mr-3">
+              <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="1" min="1" pattern="^\\d{7,10}$" disabled>    
+            </div>                              
+            <div class="form-group submit-area">
+              <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
+              <button type="submit" class="game-btn-mul btn-height cursor-pointer" id="" name="">Tạo</button>
+            </div>                                         
           </div>
-        </div><!-- /.tab game -->             
+        </div>
+      </div><!-- /.tab game -->             
     </div>
   </div>
-</div><!-- /.create game popup -->
+  </div><!-- /.create game popup -->
               <!-- user update form -->
               <div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">                  
@@ -568,10 +562,11 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    <div class="message"></div>
                       <!-- user update info -->
-                      <form class="user-form" action="#!">
+                      <div class="user-form form" action="#!">
                         <div class="row">
-                          <div class="user-info-left col-3">
+                          <div class="user-info-left col-3 form-group">
 
                             <!-- user avatar -->
                             <div class="user-ava-area">
@@ -580,22 +575,27 @@
                             </div><!-- /.user avatar -->
 
                           </div>
-                          <div class="user-info-right col-8 col-centered">
-
-                            <!-- user info -->
-                            <div class="input-area">
-                              <input id="username" type="text" name='username' placeholder="Họ và tên *" value="" required="">
-                              <input id="userphone" type="text" name='userphone' placeholder="Số điện thoại *" value="" required="">
-                              <input id="useraddress" type="text" name='useraddress' placeholder="Địa chỉ *" value="" required="">
-                            </div><!-- /.user info -->
-
-                          </div>
+        <!-- user info -->
+        <div class="user-info-right col-8 col-centered">
+          <div class="form-group">
+            <label for="username">Họ tên</label>
+            <input pattern="^.{6,20}$" id="username" class="form-control" type="text" name='username' value="" required="" title="Họ tên">
+          </div>
+          <div class="form-group">
+            <label for="userphone">Số điện thoại</label>
+            <input id="userphone" class="form-control" type="text" name='userphone' pattern="^(\+84|0)\d{9,10}$" value="" required="" placeholder="(+84)123456789" title="Số điện thoại">
+          </div>
+          <div class="form-group">
+            <label for="useraddress">Địa chỉ</label>
+            <input pattern="^.{10,40}$" id="useraddress" class="form-control" type="text" name='useraddress' value="" required="" title="Địa chỉ">
+          </div>
+        </div><!-- /.user info -->
                         </div>
-                        <div class="submit-area">
-                          <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                          <button type="submit" class="btn-height update-btn cursor-pointer" name="update-btn" data-dismiss="modal">Cập nhật</button>
+                        <div class="submit-area form-group">
+                          <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal" title="Đóng">Đóng</button>
+                          <button type="button" class="btn-height update-btn cursor-pointer" name="update-btn" title="Cập nhật">Cập nhật</button>
                         </div>                     
-                      </form><!-- /.user update info -->
+                      </div><!-- /.user update info -->
 
                   </div><!-- /.modal content -->
 
@@ -605,7 +605,7 @@
 
           </ul>
         </div>
-      </nav><!-- /.navbar -->  
+    </nav><!-- /.navbar -->  
       <div id="mgyn-content-area" class="content-area">
         <!-- content -->
         <div class="content">

@@ -4,17 +4,7 @@
   <title>Capstone project</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
-  <!-- jQuery UI css -->
-  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
-  <!-- bootstrap css -->
-  <link rel="stylesheet" type="text/css" href="../assets/bootstrap/bootstrap.min.css">
-  <!-- font awesome -->
-  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
-  <!-- animation -->
-  <link rel="stylesheet" type="text/css" href="../assets/animation/animate.css">  
-  <!-- custom css -->
-  <link rel="stylesheet" type="text/css" href="../css/client/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <style>
     @keyframes changewidth {
       from {
@@ -41,7 +31,17 @@
         margin-top: -18px;
       }
     }    
-  </style>
+  </style>  
+  <!-- jQuery UI css -->
+  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
+  <!-- bootstrap css -->
+  <link rel="stylesheet" type="text/css" href="../assets/bootstrap/bootstrap.min.css">
+  <!-- font awesome -->
+  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
+  <!-- animation -->
+  <link rel="stylesheet" type="text/css" href="../assets/animation/animate.css">  
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="../css/client/main.css">
 </head>
 <body>
   <!-- big div on top -->
@@ -254,33 +254,13 @@
       </section>    
       <!-- /.infinite slideshow -->
       <!-- navbar -->
-      <nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <ul class="nav navbar-nav navbar-right">
+    <nav id="my-navbar" class="navbar navbar-expand">
+      <a class="navbar-brand" href="#">Logo</a>
+        <div class="nav-menu navbar-collapse">
+          <ul class="nav navbar-nav navbar-right ml-auto">
             <li class="nav-item">
               <li class="func-items" data-toggle="modal" data-target="#create-game"><a href="#!" class="nav-link">Tạo mini game</a></li>
             </li>
-            <li class="nav-item">
-              <!-- info dropdown button -->
-              <div class="dropdown">
-                <button class="user-name btn btn-primary dropdown-toggle cursor-pointer" type="button" data-toggle="dropdown">
-                  Thông tin
-                  <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                </button>
-                <ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
-                  <li class="func-items"><a href="#!">Gmail</a></li>
-                  <li class="func-items"><a href="#!">Facebook</a></li>
-                  <li class="func-items"><a href="#!">Google</a></li>
-                  <li class="func-items"><a href="#!">Về chúng tôi</a></li>
-                  <li class="func-items"><a href="#!">Câu hỏi</a></li>
-                </ul>
-              </div> <!-- /.info dropdown button -->
-            </li> 
             <li class="nav-item active top-bar-items" data-toggle="tooltip"
         data-placement="top" title="Số point hiện tại">
               <div class="user-point-area">
@@ -291,8 +271,8 @@
         data-placement="top" title="TOP point">
               <a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
             </li>
-<!-- rank popup -->
-<div class="modal fade world-rank" tabindex="-1" role="dialog"
+  <!-- rank popup -->
+  <div class="modal fade world-rank" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -329,8 +309,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- /.rank popup -->
+  </div>
+  <!-- /.rank popup -->
             <li class="nav-item top-bar-items" data-toggle="tooltip"
         data-placement="top" title="Thông báo">
               <div class="dropdown">
@@ -340,8 +320,8 @@
                     <p>8</p>
                   </div>
                 </button>
-<!-- notification list -->
-<ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+  <!-- notification list -->
+  <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
   <li class="noti-items" data-toggle="modal" data-target="#notifi-popup">
     <div class="noti-content ellipsis">
       <a href="#!">
@@ -426,9 +406,9 @@
       </a>
     </div>
   </li>                                                                                                 
-</ul><!-- /.notification list -->
-<!-- popup notifi -->
-<div class="modal fade" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="notifi" aria-hidden="true">
+  </ul><!-- /.notification list -->
+  <!-- popup notifi -->
+  <div class="modal fade" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="notifi" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -442,7 +422,7 @@
       </div>
     </div>
   </div>
-</div><!-- /.popup notifi --> 
+  </div><!-- /.popup notifi --> 
 
               </div>              
             </li>   
@@ -455,7 +435,7 @@
               <!-- user dropdown button -->
               <div class="dropdown">
                 <button id="username-btn" class="user-name btn btn-primary dropdown-toggle cursor-pointer ellipsis" type="button" data-toggle="dropdown">
-                  UsernameUsernameUsernameUsername
+                  Username
                   <span class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </button>
                 <ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
@@ -468,8 +448,8 @@
                   <li class="func-items"><a href="#!">Đăng xuất</a></li>
                 </ul>
               </div><!-- /.user dropdown button -->
-<!-- create game popup -->
-<div id="create-game" class="modal fade" tabindex="-1" role="dialog"
+  <!-- create game popup -->
+  <div id="create-game" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="createGame" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -501,7 +481,7 @@
             </div>
             <div class="form-group d-inline-block">
               <label for="game-date">Vào ngày</label>
-              <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required>
+              <input type="text" class="form-control d-inline-block calendar" id="game-date-yn" readonly required>
             </div>
             <div class="form-group d-inline-block">
               <label for="game-time">Kết thúc vào lúc</label>
@@ -570,7 +550,7 @@
       </div><!-- /.tab game -->             
     </div>
   </div>
-</div><!-- /.create game popup -->
+  </div><!-- /.create game popup -->
               <!-- user update form -->
               <div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">                  
@@ -625,7 +605,7 @@
 
           </ul>
         </div>
-      </nav><!-- /.navbar -->
+    </nav><!-- /.navbar -->
 
     </div>
   </div> <!-- /.big div on top -->
