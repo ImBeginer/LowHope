@@ -306,14 +306,21 @@ $('button[name=game-btn-mul]').on('click', function () {
 /**
  * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
  */
- function user_percent_in_de ($in_num = 0, $de_num = 0) {
+ function user_percent_in_de ($in_user = 0, $de_user = 0) {
   $percent_width = parseInt($('.percent-panel').css('width'), 10);
 
   $in_div = $('#increase');
   $de_div = $('#decrease');
-  $in_user = $in_num;
-  $de_user = $de_num;
+  // $in_user = $in_num;
+  // $de_user = $de_num;
   $total_user = parseInt($in_user) + parseInt($de_user);
+
+  if ($total_user === 0) {
+    $in_div.css({'display': 'none'});
+    $de_div.css({'display': 'none'});
+
+    return false;
+  }    
 
   if ($total_user !== 0 && $total_user > 0) {
     $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
@@ -334,12 +341,21 @@ $('button[name=game-btn-mul]').on('click', function () {
 }
 
 function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
-  $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
   $total = $lower + $between + $upper;
-  $lo_div = $('#increase');
-  $be_div = $('#between');
-  $up_div = $('#decrease');
+
+  $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
+  $lo_div = $('.game-mul div#increase');
+  $be_div = $('.game-mul div#between');
+  $up_div = $('.game-mul div#decrease');
   $lo_div_width = $be_div_width = $up_div_width = 0;
+
+  if ($total === 0) {
+    $lo_div.css({'display': 'none'});
+    $be_div.css({'display': 'none'});
+    $up_div.css({'display': 'none'});
+
+    return false;
+  }  
 
   if ($total !== 0 && $total > 0) {
     $lo_div_width = Math.round(($percent_width * $lower) / $total);
@@ -473,12 +489,11 @@ $('a.user-login-form').on('click', function () {
 // /.CHECK LOGIN MỚI 2/11  
 
 display_chat ();
-// user_percent_mul (2, 1, 0);
-
+user_percent_mul (8, 3, 5);
 
 infinitySlideShow ();
 
-user_percent_in_de (15, 5);
+// user_percent_in_de (1, 0);
 });
 
 function infinitySlideShow () {

@@ -22,6 +22,38 @@
 	.minigame .container {
 		min-width: 753px;
 	}
+
+	div#mgyn-contact-area {
+    margin-top: 20px;
+	}	
+
+	h5#world-rank-title {
+		font-size: 80%;
+	}
+
+	.top-user>div {
+    margin: 0 15px !important;
+	}	
+
+	.modal-content .first img {
+    width: 83px !important;
+	}	
+
+	.modal-content .second img {
+    width: 70px !important;
+	}
+
+	.modal-content .third img {
+    width: 60px !important;
+	}	
+
+	figcaption.top-user-name a {
+    font-size: 80%;
+	}
+	
+	.modal-content {
+    min-width: 500px;
+	}
 }
 
 /* tablet, landscape iPad, lo-res laptops ands desktops */ 

@@ -139,7 +139,7 @@ $(function () {
   });
 
   $('#change-gift-panel button[name=gift-tradi-btn]').on ('click', function (event) {
-    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
     $("#dialog-confirm").dialog({
       resizable: false,
       height: "auto",
@@ -169,7 +169,7 @@ $(function () {
 
   $('.game-func p.tag.active-func a.deactive-game').on ('click', function (event) {
     $gameId = $(this).attr('id');
-    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
     $("#dialog-confirm").dialog({
       resizable: false,
       height: "auto",
