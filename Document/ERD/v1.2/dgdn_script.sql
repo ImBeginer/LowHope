@@ -53,13 +53,20 @@ CREATE TABLE  NOTIFICATION(
   primary key(NOTICE_ID)
 ) ENGINE=InnoDB;
 
+CREATE TABLE  NOTIFICATION_TYPE(
+  TYPE_ID int(2) NOT NULL auto_increment,
+  TYPE_NAME nvarchar(20) NOT NULL,
+  primary key(TYPE_ID)
+) ENGINE=InnoDB;
+
 CREATE TABLE  NOTIFICATION_DETAILS(
   NOTICE_ID int(11),
   USER_ID int(11),
+  TYPE_ID int(2),
   foreign key(NOTICE_ID) references NOTIFICATION(NOTICE_ID),
   foreign key(USER_ID) references USERS(USER_ID),
+  foreign key(TYPE_ID) references NOTIFICATION_TYPE(TYPE_ID),
   GAME_ID int(11),
-  GAME_TYPE int(1),
   SEND_DATE datetime NOT NULL,
   SEEN tinyint(1) NOT NULL default 0
 ) ENGINE=InnoDB;
