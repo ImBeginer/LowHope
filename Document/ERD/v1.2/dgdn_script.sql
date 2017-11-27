@@ -229,18 +229,16 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS `GET_SYS_GAME_PLAYERS`$$
 CREATE PROCEDURE `GET_SYS_GAME_PLAYERS`(IN timeToLoad datetime)
 BEGIN
-   set @real_price = null;
-   SELECT @real_price := round(price,2) FROM CURRENCY_DETAILS
-   where UPDATE_AT = timeToLoad;
-   SELECT usr.USER_ID, usr.USER_NAME, log.GAME_ID, log.PRICE_GUESS,
-        abs(log.PRICE_GUESS - @real_price) as distance,
-          @real_price as result,
-          log.DATE_GUESS
-  from USERS usr  
-  inner join SYSTEM_GAME_LOGS log on usr.USER_ID = log.USER_ID
-  inner join SYSTEM_GAMES sgame  on log.GAME_ID = sgame.GAME_ID
-  where sgame.ACTIVE = 1 AND @real_price is not null
-  order by distance , log.DATE_GUESS; 
+    set @real_price = null;
+    SELECT @real_price := round(price,2) as game_result FROM CURRENCY_DETAILS
+    where UPDATE_AT = timeToLoad;
+    SELECT usr.USER_ID, usr.USER_NAME, log.GAME_ID, log.PRICE_GUESS,
+        abs(log.PRICE_GUESS - @real_price) as distance, log.DATE_GUESS
+    from USERS usr  
+    inner join SYSTEM_GAME_LOGS log on usr.USER_ID = log.USER_ID
+    inner join SYSTEM_GAMES sgame  on log.GAME_ID = sgame.GAME_ID
+    where sgame.ACTIVE = 1 AND @real_price is not null
+    order by distance , log.DATE_GUESS; 
     set @real_price = null;
 END$$
 DELIMITER ;
@@ -249,26 +247,25 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS `GET_YN_GAME_PLAYERS`$$
 CREATE PROCEDURE `GET_YN_GAME_PLAYERS`(IN timeToLoad datetime, IN gameID int)
 BEGIN
-    select @real_price := round(price,2) from CURRENCY_DETAILS
+    -- game result
+    select @real_price := round(price,2) as game_result from CURRENCY_DETAILS
     where UPDATE_AT = timeToLoad;
-	-- select winners
-    select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, @real_price as RESULT,
-       log.ANS_TIME
+    -- game winners
+    select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, log.ANS_TIME
     from YN_GAME_LOGS log 
     inner join USERS usr on usr.USER_ID = log.USER_ID
     inner join YN_GAMES yngame on yngame.GAME_ID = log.GAME_ID
     where yngame.ACTIVE = 1 AND yngame.GAME_ID = gameID
     AND log.ANSWER = (@real_price-yngame.PRICE_BET >= 0);
-	-- select loosers
-	select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, @real_price as RESULT,
-       log.ANS_TIME
+    -- game loosers
+	select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, log.ANS_TIME
     from YN_GAME_LOGS log 
     inner join USERS usr on usr.USER_ID = log.USER_ID
     inner join YN_GAMES yngame on yngame.GAME_ID = log.GAME_ID
     where yngame.ACTIVE = 1 AND yngame.GAME_ID = gameID
     AND log.ANSWER != (@real_price-yngame.PRICE_BET >= 0);
-	-- select owner
-	select OWNER_ID as USER_ID, USER_POINT from YN_GAMES join USERS on OWNER_ID = USER_ID 
+    -- game owner
+    select OWNER_ID as USER_ID, USER_POINT from YN_GAMES join USERS on OWNER_ID = USER_ID 
     where GAME_ID=gameID;
     set @real_price = null;
 END$$
@@ -278,8 +275,8 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS `GET_MULTI_GAME_PLAYERS`$$
 CREATE PROCEDURE `GET_MULTI_GAME_PLAYERS`(IN timeToLoad datetime, IN gameID int)
 BEGIN
-    -- load the result
-    select @real_price := round(price,2) from CURRENCY_DETAILS
+        -- load the result
+    select @real_price := round(price,2) as game_result from CURRENCY_DETAILS
     where UPDATE_AT = timeToLoad;
     -- load the question point
 	select @price_below := PRICE_BELOW, @price_above := PRICE_ABOVE
@@ -289,16 +286,14 @@ BEGIN
 	if @real_price < @price_below then
 		set @result_game = 1;
         -- winners
-        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
-               log.ANS_TIME
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANS_TIME
 		from MULTI_CHOICE_GAME_LOGS log
         join USERS usr on log.USER_ID=usr.USER_ID
         join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
         where game.ACTIVE=1 AND game.GAME_ID=gameID
         AND log.PRICE_BELOW=@result_game;
         -- loosers
-        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
-               log.ANS_TIME
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANS_TIME
 		from MULTI_CHOICE_GAME_LOGS log
         join USERS usr on log.USER_ID=usr.USER_ID
         join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
@@ -307,16 +302,14 @@ BEGIN
 	elseif @real_price > @price_above then
         set @result_game = 1;
         -- winners
-        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
-               log.ANS_TIME
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANS_TIME
 		from MULTI_CHOICE_GAME_LOGS log
         join USERS usr on log.USER_ID=usr.USER_ID
         join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
         where game.ACTIVE=1 AND game.GAME_ID=gameID
         AND log.PRICE_ABOVE=@result_game;
         -- loosers
-        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
-               log.ANS_TIME
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANS_TIME
 		from MULTI_CHOICE_GAME_LOGS log
         join USERS usr on log.USER_ID=usr.USER_ID
         join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
@@ -325,16 +318,14 @@ BEGIN
 	else
         set @result_game = 1;
         -- winners
-        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
-               log.ANS_TIME
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANS_TIME
 		from MULTI_CHOICE_GAME_LOGS log
         join USERS usr on log.USER_ID=usr.USER_ID
         join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
         where game.ACTIVE=1 AND game.GAME_ID=gameID
         AND log.PRICE_BETWEEN=@result_game;
         -- loosers
-        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
-               log.ANS_TIME
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANS_TIME
 		from MULTI_CHOICE_GAME_LOGS log
         join USERS usr on log.USER_ID=usr.USER_ID
         join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
@@ -342,7 +333,7 @@ BEGIN
         AND log.PRICE_BETWEEN!=@result_game;
 	end if;
     -- select owner of game
-    select OWNER_ID, USER_POINT from MULTI_CHOICE_GAMES join USERS on OWNER_ID = USER_ID 
+    select OWNER_ID as USER_ID, USER_POINT from MULTI_CHOICE_GAMES join USERS on OWNER_ID = USER_ID 
     where GAME_ID=gameID;
 
 	set @real_price = null;
