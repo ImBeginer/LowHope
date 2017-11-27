@@ -428,7 +428,7 @@
 
       <div id="history-content-area" class="content-area">
         <div class="col-12 col-centered text-center">
-          <h5 id="game-history-title">Lịch sử game đã chơi</h5>
+          <h5 id="game-history-title">Lịch sử chơi game của: </h5>
         </div>
         <!-- content -->
         <div class="content">

@@ -466,10 +466,32 @@ $(document).ready(function() {
 								position: 'bottom-right',
 								hideAfter: 5000,
 
-							    afterHidden: function () {
-							        location.href = base_url + 'gamect/yn/' + response.game_id;
-							    }
+							    // afterHidden: function () {
+							    //     location.href = base_url + 'gamect/yn/' + response.game_id;
+							    // }
 							});
+
+		 					//send data to server
+							$.ajax({
+								url: 'http://localhost:3333/api/game/yngame',
+								type: 'POST',
+								dataType: 'JSON',
+								data: {GAME_ID: response.game_id, END_DATE: end_date_time},
+							})
+							.done(function() {
+								console.log("success");
+							})
+							.fail(function() {
+								console.log("error");
+							})
+							.always(function() {
+								console.log("complete");
+							});
+
+
+
+
+							
 		 				}else if(response.create == 0){
 		 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
 		 				}else if(response.create == 2){
@@ -529,10 +551,29 @@ $(document).ready(function() {
 							position: 'bottom-right',
 							hideAfter: 5000,
 
-						    afterHidden: function () {
-						        location.href = base_url + 'gamect/mul/' + response.game_id;
-						    }
+						    // afterHidden: function () {
+						    //     location.href = base_url + 'gamect/mul/' + response.game_id;
+						    // }
 						});
+
+		 				//send data to server
+						$.ajax({
+							url: 'http://localhost:3333/api/game/multigame',
+							type: 'POST',
+							dataType: 'JSON',
+							data: {GAME_ID: response.game_id, END_DATE: end_date_time},
+						})
+						.done(function() {
+							console.log("success");
+						})
+						.fail(function() {
+							console.log("error");
+						})
+						.always(function() {
+							console.log("complete");
+						});
+		 				
+
 		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
 		 			}else if(response.create == 2){
