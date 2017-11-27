@@ -35,30 +35,10 @@ class UserCT extends CI_Controller {
 		        $data['TT_END_DATE'] = $tt_game->END_DATE;
 
 		        //load game active
-                $game = $this->game->getAllGameMiniActive();
-                if(isset($game['YN'])){
-                    $data['YN'] = $game['YN'];                            
-                    foreach ($data['YN'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'YN';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['YN'] = array(); 
-                }
-
-                if(isset($game['MUL'])){
-                    $data['MUL'] = $game['MUL'];                            
-                    foreach ($data['MUL'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'MUL';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['MUL'] = array();
-                }
-                
-                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+                $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+                $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+                $data['top_point'] = $this->user->get_top_point();
+                $data['user_id'] = $user->USER_ID;
 
 				$this->load->view('user/home', $data);		
     		}else{
@@ -161,6 +141,59 @@ class UserCT extends CI_Controller {
 	}
 
 	/**
+	 * Cập nhật lại trạng thái đã xem, lấy nội dung thông báo ra
+	 * @return [type] [description]
+	 */
+	public function update_seen_noti()
+	{
+		if(isset($_POST['noti_id']) && isset($_POST['send_date'])){
+			
+			$noti_id = $this->input->post('noti_id');
+			
+			$send_date = $this->input->post('send_date');
+			$send_date = new DateTime($send_date);
+			$send_date = $send_date->format('Y-m-d H:i:s');
+
+			$userID = $this->session->userdata('sessionUserId');
+			
+			//1. Set seen
+			$result = $this->user->update_seen_notifi($noti_id, $userID, $send_date);
+			$noti_not_seen = $this->user->get_all_noti_not_seen($userID);
+
+			//2.Get content
+			$noti_content = $this->user->get_noti_content($noti_id, $userID, $send_date);
+
+			if($noti_content){
+				echo json_encode(array('noti_content'=>$noti_content, 'noti_not_seen'=>$noti_not_seen));
+			}
+		}
+	}
+
+	/**
+	 * Lấy nội dung thông báo
+	 * @return [type] [description]
+	 */
+	public function get_noti_content()
+	{
+		if(isset($_POST['noti_id']) && isset($_POST['send_date'])){
+			
+			$noti_id = $this->input->post('noti_id');
+			
+			$send_date = $this->input->post('send_date');
+			$send_date = new DateTime($send_date);
+			$send_date = $send_date->format('Y-m-d H:i:s');
+
+			$userID = $this->session->userdata('sessionUserId');
+			
+			$noti_content = $this->user->get_noti_content($noti_id, $userID, $send_date);
+
+			if($noti_content){
+				echo json_encode(array('noti_content'=>$noti_content));
+			}
+		}
+	}
+
+	/**
 	 * [change_password description]
 	 * @param  string $value [description]
 	 * @return [type]        [description]
@@ -194,6 +227,7 @@ class UserCT extends CI_Controller {
 			}
 		}
 	}
+
 	/**
 	 * [check_mail description]
 	 * @return [type] [description]
@@ -218,6 +252,41 @@ class UserCT extends CI_Controller {
 				//email khong ton tai
 				echo json_encode(2);
 			}
+		}
+	}
+
+	/**
+	 * [profile description] view profile: history 
+	 * @return [type] [description]
+	 */
+	public function profile()
+	{
+		$profile_userID = $this->uri->segment(3);
+		if(isset($_SESSION['sessionUserId'])){
+
+			$userID = $this->session->userdata('sessionUserId');
+			$user = $this->user->getUserById($userID);
+
+	        $data['USER_NAME'] = $user->USER_NAME;
+	        $data['USER_POINT'] = $user->USER_POINT;
+
+	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+	        
+	        // list notification
+	        $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+	        $data['user_id'] = $user->USER_ID;
+	        $data['top_point'] = $this->user->get_top_point();
+
+
+	        //data viewer
+	        $data['viewer'] = $this->user->get_profile_viewer($profile_userID);
+
+
+
+			$this->load->view('user/history', $data);
+			
+		}else{
+			$this->load->view('user/history');
 		}
 	}
 

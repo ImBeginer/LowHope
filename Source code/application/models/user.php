@@ -71,6 +71,84 @@ class User extends CI_Model {
 	}
 
 	/**
+	 * [get_all_noti_user description]
+	 * @param  [type] $userID [description]
+	 * @return [type]         [description]
+	 */
+	function get_all_noti_user($userID)
+	{
+		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.USER_ID', $userID)->order_by('NOTIFICATION_DETAILS.SEND_DATE', 'DESC');
+		$result = $this->db->get();
+		if($result !== FALSE && $result->num_rows()>0){
+
+			$all_noti = $result->result_array();
+			$noti_not_seen = 0;
+
+			foreach ($all_noti as $value) {
+				if ($value['SEEN'] == 0) {
+					$noti_not_seen++;
+				}
+			}
+			$result->all_noti = $all_noti;
+			$result->noti_not_seen = $noti_not_seen;
+			
+			return $result;
+		}else{ 
+			$result->all_noti = array();
+			$result->noti_not_seen = 0;
+			return $result;
+		}
+	}
+
+	/**
+	 * Số lượng thông báo chưa đọc của mỗi người chơi
+	 * @param  [type] $userID [description]
+	 * @return [type]         [description]
+	 */
+	public function get_all_noti_not_seen($userID)
+	{
+		$result = $this->db->select('*')->from('NOTIFICATION_DETAILS')->where('NOTIFICATION_DETAILS.USER_ID', $userID)->where('NOTIFICATION_DETAILS.SEEN', 0);
+		$result = $this->db->get();
+		if($result !== FALSE && $result->num_rows()>0){
+			return $result->num_rows();
+		}else{
+			return 0;
+		}
+	}
+
+	/**
+	 * [set_seen_noti description]
+	 * @param [type] $noti_id   [description]
+	 * @param [type] $userID    [description]
+	 * @param [type] $send_date [description]
+	 */
+	public function update_seen_notifi($noti_id, $userID, $send_date)
+	{
+		$condi = array('NOTICE_ID'=> $noti_id, 'USER_ID'=> $userID, 'SEND_DATE'=> $send_date);
+		$field =  array('SEEN'=> 1);
+		$this->db->where($condi);
+		$this->db->update('NOTIFICATION_DETAILS', $field);
+		return $this->db->affected_rows();
+	}
+
+	/**
+	 * [get_noti_content description]
+	 * @param  [type] $noti_id   [description]
+	 * @param  [type] $userID    [description]
+	 * @param  [type] $send_date [description]
+	 * @return [type]            [description]
+	 */
+	public function get_noti_content($noti_id, $userID, $send_date)
+	{
+		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id)->where('NOTIFICATION_DETAILS.USER_ID', $userID)->where('NOTIFICATION_DETAILS.SEND_DATE', $send_date);
+		$result = $this->db->get();
+		if($result !== FALSE && $result->num_rows()>0){
+			$result = $result->row();
+			return $result;
+		}else{ return null;}
+	}
+
+	/**
 	 * [addUser description]
 	 * @param [string] $USER_CIF     [mã số google or facebook của user]
 	 * @param [string] $USER_NAME    [description]
@@ -304,6 +382,30 @@ class User extends CI_Model {
 	}
 
 	/**
+	 * [canBetGameTT description]
+	 * @param  [type] $userID [description]
+	 * @return [type]         [description]
+	 */
+	public function canBetGameTT($userID)
+	{
+		$user = $this->db->select('*')->where('USER_ID', $userID)->get('USERS');
+		$user = $user->row();
+		$user_point = $user->USER_POINT;
+
+		$condi = array('OWNER_ID'=>$userID, 'ACTIVE'=>1);
+
+		$result_YN = $this->db->select('*')->where($condi)->get('YN_GAMES');
+		$rows_YN = $result_YN->num_rows();
+
+		$result_MUL = $this->db->select('*')->where($condi)->get('MULTI_CHOICE_GAMES');
+		$rows_MUL = $result_MUL->num_rows();
+
+		$rows = $rows_YN + $rows_MUL;
+		
+		return $user_point>=(FEE_BET_TT + $rows*FEE_BET_MINI*MAX_PLAYER);
+	}
+
+	/**
 	 * [isOwnerGame description]
 	 * @param  [type]  $userID [description]
 	 * @param  [type]  $gameID [description]
@@ -324,7 +426,7 @@ class User extends CI_Model {
 	}
 	
 	/**
-	 * [updatePoint description]
+	 * Update lại point của người chơi
 	 * @param  [type] $userID     [description]
 	 * @param  [type] $user_point [description]
 	 * @return [type]             [description]
@@ -334,6 +436,32 @@ class User extends CI_Model {
 		$point = array('USER_POINT'=>$user_point);
 		$this->db->where('USER_ID', $userID);
 		$this->db->update('USERS', $point);
+	}
+
+	/**
+	 * Top 3 người chơi có nhiều point nhất
+	 * @return [type] [description]
+	 */
+	public function get_top_point()
+	{
+		$this->db->select('USER_ID, USER_NAME, USER_POINT');
+		$this->db->order_by('USER_POINT', 'desc');
+		$top_point = $this->db->get('USERS', 3);
+		if($top_point){
+			$top_point = $top_point->result_array();
+			return $top_point;
+		}
+	}	
+
+	/**
+	 * [get_profile_user description]
+	 * @param  [type] $profile_userID [description]
+	 * @return [type]                 [description]
+	 */
+	public function get_profile_viewer($viewer_id)
+	{
+		//$STT, GAME_ID, START_DATE, END_DATE, 
+		$his_game_tt = '';
 	}
 }
 

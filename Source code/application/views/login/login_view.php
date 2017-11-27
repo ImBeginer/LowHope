@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Website dự đoán giá bitcoin</title>
-	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<style>
@@ -173,7 +172,7 @@
 					<div class="special-index">
 						<div class="row">
 							<div id="btc_yesterday" class="text-center col-sm-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-								<p>8000.0 USD</p>
+								<p><?php echo $price_yesterday; ?> USD</p>
 								<span>Hôm qua</span>
 							</div>
 							<div id="btc_today" class="text-center col-sm-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -244,7 +243,7 @@
 	</div> <!-- end minigame -->
 
 	<footer>
-    	<span>&copy; 2017</span>
+    	<div>LowHope &copy; 2017. All Right Reserved.</div>
   	</footer>
 
 	<style type="text/css">  
