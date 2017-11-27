@@ -6,7 +6,8 @@ var express = require('express'),
 
 router.post('/yngame', function(req, res){
 	let game = req.body;
-	//needed: GAME_ID, END_DATE("%Y-%m-%d %H:%i:00"), TOTAL_AMOUNT, OWNER_ID
+	console.log(game);
+/*	//needed: GAME_ID, END_DATE("%Y-%m-%d %H:%i:00"), TOTAL_AMOUNT, OWNER_ID
 	//or load from db
 	let date_schedule = new Date(game.END_DATE);
 			date_schedule.setSeconds(date_schedule.getSeconds() + 1);
@@ -14,12 +15,13 @@ router.post('/yngame', function(req, res){
 		//load total amount
 		//game_controller.yn_award_users(game);
 		console.log('hello anh phong');
-	});
-	console.log('*New YN_GAMES is create at ...');
+	});*/
+	// console.log('*New YN_GAMES is create at ...');
 	res.end();
 });
 router.post('/multigame', function(req, res){
-	console.log(req.body);
+	let game = req.body;
+	console.log(game);
 	res.end();
 });
 
