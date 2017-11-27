@@ -246,11 +246,12 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS `GET_YN_GAME_WINNERS`$$
-CREATE PROCEDURE `GET_YN_GAME_WINNERS`(IN timeToLoad datetime, IN gameID int)
+DROP PROCEDURE IF EXISTS `GET_YN_GAME_PLAYERS`$$
+CREATE PROCEDURE `GET_YN_GAME_PLAYERS`(IN timeToLoad datetime, IN gameID int)
 BEGIN
     select @real_price := round(price,2) from CURRENCY_DETAILS
     where UPDATE_AT = timeToLoad;
+	-- select winners
     select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, @real_price as RESULT,
        log.ANS_TIME
     from YN_GAME_LOGS log 
@@ -258,6 +259,17 @@ BEGIN
     inner join YN_GAMES yngame on yngame.GAME_ID = log.GAME_ID
     where yngame.ACTIVE = 1 AND yngame.GAME_ID = gameID
     AND log.ANSWER = (@real_price-yngame.PRICE_BET >= 0);
+	-- select loosers
+	select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, log.ANSWER, @real_price as RESULT,
+       log.ANS_TIME
+    from YN_GAME_LOGS log 
+    inner join USERS usr on usr.USER_ID = log.USER_ID
+    inner join YN_GAMES yngame on yngame.GAME_ID = log.GAME_ID
+    where yngame.ACTIVE = 1 AND yngame.GAME_ID = gameID
+    AND log.ANSWER != (@real_price-yngame.PRICE_BET >= 0);
+	-- select owner
+	select OWNER_ID as USER_ID, USER_POINT from YN_GAMES join USERS on OWNER_ID = USER_ID 
+    where GAME_ID=gameID;
     set @real_price = null;
 END$$
 DELIMITER ;
