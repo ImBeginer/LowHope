@@ -39,13 +39,21 @@ button.confirm-yes-btn, button.confirm-cancel-btn {
 	color: $white;
 }
 
+button.confirm-yes-btn {
+  background-color: $deactive;
+}
+
+button.confirm-cancel-btn {
+  background-color: $link-active;
+}
+
 button.confirm-yes-btn:hover {
-	background-color: $bet-btn-color;
+	background-color: $deactive;
 	color: initial;
 }
 
 button.confirm-cancel-btn:hover {
-	background-color: $deactive;
+	background-color: $bet-btn-color;
 	color: initial;
 }
 

@@ -27,8 +27,8 @@ CREATE TABLE USERS (
   PASSWORD varchar(100),
   USER_POINT int(11) NOT NULL,
   EMAIL varchar(100) NOT NULL,
-  PHONE_NUMBER varchar(30) NOT NULL,
-  ADDRESS nvarchar(255) NOT NULL,
+  PHONE_NUMBER varchar(30),
+  ADDRESS nvarchar(255),
   CREATE_DATE date NOT NULL,
   ATTENDANCE tinyint(1) NOT NULL,
   ACTIVE tinyint(1) NOT NULL ,
@@ -48,18 +48,27 @@ INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, 
 CREATE TABLE  NOTIFICATION(
   NOTICE_ID int(11) NOT NULL auto_increment,
   TITLE nvarchar(255) NOT NULL,
-  CONTENT text NOT NULL,
+  CONTENT text CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   CREATE_DATE datetime,
   primary key(NOTICE_ID)
+) ENGINE=InnoDB;
+
+CREATE TABLE  NOTIFICATION_TYPE(
+  TYPE_ID int(2) NOT NULL auto_increment,
+  TYPE_NAME nvarchar(20) NOT NULL,
+  primary key(TYPE_ID)
 ) ENGINE=InnoDB;
 
 CREATE TABLE  NOTIFICATION_DETAILS(
   NOTICE_ID int(11),
   USER_ID int(11),
+  TYPE_ID int(2),
   foreign key(NOTICE_ID) references NOTIFICATION(NOTICE_ID),
   foreign key(USER_ID) references USERS(USER_ID),
+  foreign key(TYPE_ID) references NOTIFICATION_TYPE(TYPE_ID),
+  GAME_ID int(11),
   SEND_DATE datetime NOT NULL,
-  SEEN tinyint(1) NOT NULL
+  SEEN tinyint(1) NOT NULL default 0
 ) ENGINE=InnoDB;
 
 CREATE TABLE  CHAT_ROOMS(
@@ -175,7 +184,7 @@ CREATE TABLE YN_GAME_LOGS (
   GAME_ID int(11), 
   ANSWER tinyint(1) NOT NULL,
   ANS_TIME datetime NOT NULL,
-  IS_WINNER tinyint(1) NOT NULL default 0,
+  IS_WINNER tinyint(1) NOT NULL,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references YN_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
@@ -207,7 +216,7 @@ CREATE TABLE MULTI_CHOICE_GAME_LOGS (
   PRICE_BETWEEN boolean NOT NULL, 
   PRICE_ABOVE boolean NOT NULL,
   ANS_TIME datetime NOT NULL,
-  IS_WINNER tinyint(1) NOT NULL default 0,
+  IS_WINNER tinyint(1) NOT NULL,
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references MULTI_CHOICE_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
@@ -250,5 +259,83 @@ BEGIN
     where yngame.ACTIVE = 1 AND yngame.GAME_ID = gameID
     AND log.ANSWER = (@real_price-yngame.PRICE_BET >= 0);
     set @real_price = null;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `GET_MULTI_GAME_PLAYERS`$$
+CREATE PROCEDURE `GET_MULTI_GAME_PLAYERS`(IN timeToLoad datetime, IN gameID int)
+BEGIN
+    -- load the result
+    select @real_price := round(price,2) from CURRENCY_DETAILS
+    where UPDATE_AT = timeToLoad;
+    -- load the question point
+	select @price_below := PRICE_BELOW, @price_above := PRICE_ABOVE
+		from MULTI_CHOICE_GAMES
+		where ACTIVE=1 AND GAME_ID=gameID;
+	-- find who's winner or looser
+	if @real_price < @price_below then
+		set @result_game = 1;
+        -- winners
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
+               log.ANS_TIME
+		from MULTI_CHOICE_GAME_LOGS log
+        join USERS usr on log.USER_ID=usr.USER_ID
+        join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
+        where game.ACTIVE=1 AND game.GAME_ID=gameID
+        AND log.PRICE_BELOW=@result_game;
+        -- loosers
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
+               log.ANS_TIME
+		from MULTI_CHOICE_GAME_LOGS log
+        join USERS usr on log.USER_ID=usr.USER_ID
+        join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
+        where game.ACTIVE=1 AND game.GAME_ID=gameID
+        AND log.PRICE_BELOW!=@result_game;
+	elseif @real_price > @price_above then
+        set @result_game = 1;
+        -- winners
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
+               log.ANS_TIME
+		from MULTI_CHOICE_GAME_LOGS log
+        join USERS usr on log.USER_ID=usr.USER_ID
+        join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
+        where game.ACTIVE=1 AND game.GAME_ID=gameID
+        AND log.PRICE_ABOVE=@result_game;
+        -- loosers
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
+               log.ANS_TIME
+		from MULTI_CHOICE_GAME_LOGS log
+        join USERS usr on log.USER_ID=usr.USER_ID
+        join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
+        where game.ACTIVE=1 AND game.GAME_ID=gameID
+        AND log.PRICE_ABOVE!=@result_game;
+	else
+        set @result_game = 1;
+        -- winners
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
+               log.ANS_TIME
+		from MULTI_CHOICE_GAME_LOGS log
+        join USERS usr on log.USER_ID=usr.USER_ID
+        join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
+        where game.ACTIVE=1 AND game.GAME_ID=gameID
+        AND log.PRICE_BETWEEN=@result_game;
+        -- loosers
+        select usr.USER_ID, usr.USER_NAME, usr.USER_POINT, log.GAME_ID, @real_price as RESULT,
+               log.ANS_TIME
+		from MULTI_CHOICE_GAME_LOGS log
+        join USERS usr on log.USER_ID=usr.USER_ID
+        join MULTI_CHOICE_GAMES game on game.GAME_ID=log.GAME_ID
+        where game.ACTIVE=1 AND game.GAME_ID=gameID
+        AND log.PRICE_BETWEEN!=@result_game;
+	end if;
+    -- select owner of game
+    select OWNER_ID, USER_POINT from MULTI_CHOICE_GAMES join USERS on OWNER_ID = USER_ID 
+    where GAME_ID=gameID;
+
+	set @real_price = null;
+	set @price_below = null;
+	set @price_above = null;
+    set @result_game = null;
 END$$
 DELIMITER ;

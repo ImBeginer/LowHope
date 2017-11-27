@@ -1,38 +1,46 @@
 var express = require('express'),
   app = express(),
+  bodyParser = require('body-parser'),
   http = require('http').Server(app),
   data_controller = require('./controller/dataController.js'),
   game_controller = require('./controller/gameController.js'),
+  user_controller = require('./controller/userController.js'),
   coin_model = new(require('./models/coinModel.js'))(),
   game_model = new(require('./models/gameModel.js'))(),
-  pusher = require('./third-partyservice/pusher.js'),
-  mysql = require('./models/db.js');
+  mysql = require('./models/db.js'),
+  coin_router = require('./routers/bitcoin.js'),
+  game_router = require('./routers/game.js'),
+  notice_model = new(require('./models/noticeModel.js'))(),
+  user_model = new(require('./models/userModel.js'))();
+
+
 mysql.connect(function(err) {
   if (err) throw err;
   console.log('connected to database!\n');
 });
-var user_model = new(require('./models/userModel.js'))();
 
 /*=====START=====Router============*/
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.get('/api/bitcoin', function(req, res) {
-  coin_model.getCoinRate(mysql, function(result) {
-    res.jsonp(result);
-  });
-});
+app.use('/api/bitcoin', coin_router);
+app.use('/api/game', game_router);
+
 /*=====END=====Router============*/
 
 /*=====START=====Controllers============*/
 
-data_controller.getData(pusher, mysql);
-game_controller.sys_game_controller_running;
-// game_controller.yn_game_controller_running();
-
+data_controller.getData();
+/* game_controller.sys_game_schedule(); */
+user_controller.reset_user_attendance();
+game_controller.sys_game_controller_running();
+game_controller.yn_game_controller_running();
+game_controller.multi_game_controller_running();
 /*=====END======Controllers============*/
 
 

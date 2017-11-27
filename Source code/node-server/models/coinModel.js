@@ -1,27 +1,35 @@
 "use strict"
+var q = require('q'),
+    mysql = require('./../models/db.js');
 class coinModel {
-	insertCoinRate(connection, data, callback) {
+	insertCoinRate(data) {
+		let d = q.defer();
 		var query = 'INSERT INTO CURRENCY_DETAILS SET ?';
 		data['type_id'] = 1;
-		connection.query(query, data, function(err, result) {
-			if (err) throw err;
-			return callback(result);
+		mysql.query(query, data, function(err, result) {
+			if (err) d.reject(new Error(err));
+			d.resolve(result);
 		});
+		return d.promise;
 	}
-	getCoinRate(connection, callback) {
+	getCoinRate() {
+		let d = q.defer();
 		var query = 'SELECT (unix_timestamp(UPDATE_AT)*1000) as x, round(PRICE,2) as y FROM CURRENCY_DETAILS';
-		connection.query(query, function(err, result) {
-			if (err) throw err;
-			return callback(result);
+		mysql.query(query, function(err, result) {
+			if (err) d.reject(new Error(err));
+			d.resolve(result);
 		});
+		return d.promise;
 	}
-	get_coin_at(connection, date, callback) {
-		var query = 'select round(PRICE,2) from CURRENCY_DETAILS where UPDATE_AT = ?';
-		connection.query(query, date, function(err, result) {
-			if (err) throw err;
+	get_coin_at(date) {
+		let d = q.defer();
+		var query = 'select round(PRICE,2) as PRICE from CURRENCY_DETAILS where UPDATE_AT = ?';
+		mysql.query(query, date, function(err, result) {
+			if (err) d.reject(err);
 			var data = JSON.parse(JSON.stringify(result))[0].PRICE;
-			return callback(data);
+			d.resolve(data);
 		});
+		return d.promise;
 	}
 }
 
