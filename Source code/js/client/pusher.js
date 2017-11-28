@@ -1,6 +1,5 @@
 /*********************************************** PUSHER **********************************************************/
-Pusher.logToConsole = true;
-
+//Pusher.logToConsole = true;
 var pusher = new Pusher('711b956416d9d15de4b8', {
   cluster: 'ap1',
   encrypted: true,
@@ -21,7 +20,7 @@ var pusher_3 = new Pusher('df4ed713f2f76fde17d4', {
   disableStats:true
 });
 
-/**************************************** NOTI **********************************************/
+/**************************************** NOTIFICATION **********************************************/
 $('.noti-items').on('click', function(event) {
   event.preventDefault();
   var current = $(this);
@@ -64,64 +63,63 @@ function set_and_get_noti(noti_id, send_date, function_name) {
     });
 }
 
-//Nhận thông báo sau khi kết thúc game 
-var channel_yn_game = pusher_3.subscribe('yn-game');
-channel_yn_game.bind('pop-players', function(data) {
-  //thông báo game tt da ket thuc, game tt moi duoc tao
-  //load lại game truyền thống mới
+function add_noti(noti_id, noti_title, send_date) {
+  var html = '';
+  html += '<li class="noti-items" data-noID="'+ noti_id +'" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">';
+  html += '<div class="noti-content ellipsis">';
+  html += '<a href="#!">';
+  html += '<p class="notifi-title" class="ellipsis">';
+  html += '<div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>';
+  html +=  noti_title;
+  html += '<div class="time-area">';
+  html += '<span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>';
+  html += '<span class="send-date">' + send_date + '</span>';
+  html += '</div>';
+  html += '</p>';
+  html += '</a>';
+  html += '</div>';
+  html += '</li>';
+
+  $('#user-notifi').prepend(html);
   
-    console.log('from yes no game: '+ data);
+}
 
-  // if(typeof user_id !== 'undefined'){
-  //   //Kiểm tra user có phải là người trúng giải hay không?
-  //   //Nếu trúng giải thì:
-  //   //1. Update lại list thông báo
-    
+if(typeof user_id !== 'undefined'){
+  //Kênh hệ thống
+  var channel_system_game = pusher_3.subscribe('system-game');
+  //Tất cả người chơi
+  channel_system_game.bind('pop-user', function(data) {
+      console.log('from system game for all: '+ data);
+      //TODO
+  });
 
-  //   var html = '';
-  //   html += '<li class="noti-items" data-noID="'+ noti_id +'" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">';
-  //   html += '<div class="noti-content ellipsis">';
-  //   html += '<a href="#!">';
-  //   html += '<p class="notifi-title" class="ellipsis">';
-  //   html += '<div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>';
-  //   html +=  noti_title;
-  //   html += '<div class="time-area">';
-  //   html += '<span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>';
-  //   html += '<span class="send-date">' + send_date + '</span>';
-  //   html += '</div>';
-  //   html += '</p>';
-  //   html += '</a>';
-  //   html += '</div>';
-  //   html += '</li>';
+  channel_system_game.bind('pop-winner', function(data) {
+      console.log('from system game for winners: '+ data);
+      //TODO
+  });
 
-  //   $('#user-notifi').prepend(html);
+  //Kiểm tra user có là chủ game yes/no nào không, hay chơi game yes/no nào không?
+  //Nhận thông báo sau khi kết thúc game YES NO
+  if(is_related_YN){
+    var channel_yn_game = pusher_3.subscribe('yn-game');
+    channel_yn_game.bind('pop-players', function(data) {
+      console.log('from yes no game: '+ data);
+      //add_noti(data.);
 
-  //   //2. Update lại game truyền thống mới
-  //   $.ajax({
-  //     url: base_url + 'gamect/getGameTT',
-  //     type: 'POST',
-  //     dataType: 'JSON',
-  //   }).done(function(response) {
-  //     $('.game_tt_content.text-center')[0].innerText = "abc";
-  //     countDown_End_Date(data.END_DATE, 0);
-  //     console.log("success");
-  //   }).fail(function(response) {
-  //     console.log("error");
-  //   });
+    });
+  }
 
-  // }
+  if(is_related_MUL){
+    //Nhận thông báo sau khi kết thúc game multi
+    var channel_multi_game = pusher_3.subscribe('multi-game');
+    channel_multi_game.bind('pop-players', function(data) {
+        console.log('from multi game: '+ data);
+        //TODO
+    });
+  }
+}
 
-});
 
-//Nhận thông báo sau khi kết thúc game 
-var channel_multi_game = pusher_3.subscribe('multi-game');
-channel_multi_game.bind('pop-players', function(data) {
-  //thông báo game tt da ket thuc, game tt moi duoc tao
-  //load lại game truyền thống mới
-  
-    console.log('from multi game: '+ data);
-
-});
 
 /**********************************************************************************************************/
 

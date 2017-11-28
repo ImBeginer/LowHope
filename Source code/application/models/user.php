@@ -166,7 +166,7 @@ class User extends CI_Model {
 			'EMAIL'			=> $USER_EMAIL,
 			'PHONE_NUMBER'	=> $USER_PHONE,
 			'ADDRESS' 		=> $USER_ADDRESS,
-			'ATTENDANCE'	=> 1,
+			'ATTENDANCE'	=> 0,
 			'ACTIVE'		=> 1,
 			'CREATED_DATE'  => $CREATED_DATE
 		);
@@ -191,7 +191,7 @@ class User extends CI_Model {
 					'USER_NAME' 	=> 'Unknow',
 					'USER_POINT' 	=> 500,
 					'EMAIL'			=> $email,
-					'ATTENDANCE'	=> 1,
+					'ATTENDANCE'	=> 0,
 					'ACTIVE'		=> 1,
 					'PASSWORD'		=> $pass,
 					'CREATE_DATE'  => $CREATED_DATE
@@ -439,6 +439,19 @@ class User extends CI_Model {
 	}
 
 	/**
+	 * [update_attendance description]
+	 * @param  [type] $userID [description]
+	 * @return [type]         [description]
+	 */
+	public function update_attendance($userID)
+	{
+		$obj = array('ATTENDANCE' => 1);
+		$this->db->where('USER_ID', $userID);
+		$this->db->update('USERS', $obj);
+		return $this->db->affected_rows();
+	}
+
+	/**
 	 * Top 3 người chơi có nhiều point nhất
 	 * @return [type] [description]
 	 */
@@ -452,6 +465,62 @@ class User extends CI_Model {
 			return $top_point;
 		}
 	}	
+
+	/**
+	 * Kiểm tra xem người dùng có liên quan tới game yes/no không?
+	 * @param  [type]  $userID [description]
+	 * @return boolean         [description]
+	 */
+	public function is_related_YN($userID)
+	{
+		$is_owner = false;
+		$is_play = false;
+
+		$this->db->where('OWNER_ID', $userID);
+		$owner_YN = $this->db->get('YN_GAMES');
+
+		if($owner_YN->num_rows()>0){
+			$is_owner = true;
+		}
+
+		$this->db->where('USER_ID', $userID);
+		$play_YN = $this->db->get('YN_GAME_LOGS');
+
+		if($play_YN->num_rows()>0){
+			$is_play = true;
+		}
+
+		if($is_owner || $is_play)return true;
+		else return false;
+	}
+
+	/**
+	 * Kiểm tra xem người dùng có liên quan tới game multi-choice không?
+	 * @param  [type]  $userID [description]
+	 * @return boolean         [description]
+	 */
+	public function is_related_MUL($userID)
+	{
+		$is_owner = false;
+		$is_play = false;
+
+		$this->db->where('OWNER_ID', $userID);
+		$owner_MUL = $this->db->get('MULTI_CHOICE_GAMES');
+
+		if($owner_MUL->num_rows()>0){
+			$is_owner = true;
+		}
+
+		$this->db->where('USER_ID', $userID);
+		$play_MUL = $this->db->get('MULTI_CHOICE_GAME_LOGS');
+
+		if($play_MUL->num_rows()>0){
+			$is_play = true;
+		}
+
+		if($is_owner || $is_play)return true;
+		else return false;
+	}
 
 	/**
 	 * [get_profile_user description]

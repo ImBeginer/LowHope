@@ -279,8 +279,20 @@ class Login extends CI_Controller {
 
     public function load_data_after_login_success($user)
     {
+        if($user->ATTENDANCE == 0){
+            $this->user->updatePoint($user->USER_ID, $user->USER_POINT + REWARD_POINT);
+            $is_update_attendance = $this->user->update_attendance($user->USER_ID);
+            if($is_update_attendance){
+                $data['is_reward'] = true;
+            }
+        }else{
+            $data['is_reward'] = false;
+        }
+
+        $user = $this->user->getUserById($user->USER_ID);
+
         //load data home page
-        $tt_game = $this->game->getGameTT($user);
+        $tt_game = $this->game->getGameTT();
         //set session for userID
         
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
@@ -298,6 +310,8 @@ class Login extends CI_Controller {
         $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
         $data['user_id'] = $user->USER_ID;
         $data['top_point'] = $this->user->get_top_point();
+        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
         
         $this->load->view('user/home', $data);
     }

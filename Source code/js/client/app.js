@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-// ************************CHECK DỮ LIỆU ĐẦU VÀO**************************
+	/************************CHECK DỮ LIỆU ĐẦU VÀO**************************/
 
   /**
    * [isEmpty kiểm tra xem input có rỗng hay không]
@@ -296,7 +296,6 @@ $(document).ready(function() {
 	/************************************** END LOGIN **************************************************************/
 
 
-
 	/************************************ USER ACTIVITIES ******************************************************/
 	/**
 	 * update informations of user, (click Cập nhật thông tin -> popup update)
@@ -487,10 +486,6 @@ $(document).ready(function() {
 							.always(function() {
 								console.log("complete");
 							});
-
-
-
-
 							
 		 				}else if(response.create == 0){
 		 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
@@ -682,4 +677,10 @@ function toatMessage(heading,text,icon) {
 		position: 'bottom-right',
 		hideAfter: 5000
 	});
+}
+
+if(typeof is_reward !== 'undefined'){
+	if(is_reward){
+		toatMessage('Success', 'Chúc mừng bạn đã được cộng 20 point vào tài khoản cho lần đăng nhập đầu tiên trong ngày.', 'success');
+	}
 }

@@ -48,6 +48,9 @@
 		var base_url = "<?php echo base_url(); ?>";
 		var tt_game_end_date = "<?php echo $TT_END_DATE; ?>";
 		var user_id = <?php echo json_encode($user_id); ?>;
+		var is_related_YN = <?php echo json_encode($is_related_YN); ?>;
+		var is_related_MUL = <?php echo json_encode($is_related_MUL); ?>;
+		var is_reward = <?php echo json_encode($is_reward); ?>;
 	</script>
 	<!-- big div on top -->
 	<div class="container-fluid">

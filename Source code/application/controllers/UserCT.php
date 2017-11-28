@@ -23,6 +23,19 @@ class UserCT extends CI_Controller {
     		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
 
     		if($user->ROLE_ID == ROLE_USER){
+
+    			if($user->ATTENDANCE == 0){
+		            $this->user->updatePoint($user->USER_ID, $user->USER_POINT + REWARD_POINT);
+		            $is_update_attendance = $this->user->update_attendance($user->USER_ID);
+		            if($is_update_attendance){
+		                $data['is_reward'] = true;
+		            }
+		        }else{
+		            $data['is_reward'] = false;
+		        }
+
+		        $user = $this->user->getUserById($user->USER_ID);
+
 				$tt_game = $this->game->getGameTT();
 				
 				//set sessionUserID
@@ -39,6 +52,8 @@ class UserCT extends CI_Controller {
                 $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
                 $data['top_point'] = $this->user->get_top_point();
                 $data['user_id'] = $user->USER_ID;
+                $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+                $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 
 				$this->load->view('user/home', $data);		
     		}else{
@@ -103,7 +118,7 @@ class UserCT extends CI_Controller {
 				//email tồn tại và không trùng tài khoản google hay facebook, kiểm tra xem pass có đúng không
 				if(!$is_Mail_FB_GG){
 					$user = $this->user->getUserByMail($email);
-					//$pass = password_hash($pass, PASSWORD_DEFAULT);
+					$pass = md5($pass);
 					if($pass === $user->PASSWORD){
 						$userData['USER_EMAIL'] = $email;
 						$userData['USER_AVATAR'] = null;
@@ -121,6 +136,7 @@ class UserCT extends CI_Controller {
 				}
 			}else{
 				//email chưa có => add user
+				$pass = md5($pass);
 				$created_date = date("Y-m-d");
 				$id = $this->user->add_other_user($email, $pass, $created_date);
 				if($id > 0){
@@ -204,6 +220,9 @@ class UserCT extends CI_Controller {
 			$email = $this->input->post('email');
 			$pass = $this->input->post('pass');
 			$code = $this->input->post('code');
+
+			//Kiểm tra lại pass
+			//TODO
 
 			//kiem tra email xem co phai la email google hay facebook hay khong,
 			//neu la email google, fb thi khong co quyen doi mat khau
