@@ -21,7 +21,10 @@ class gameModel {
 			if (data[0].length === 0) {
 				d.resolve('Bitcoin rate is not available at ' + date);
 			}
-			d.resolve(data[1]);
+			d.resolve({
+				game_result: data[0][0].game_result,
+				winners: data[1]
+			});
 		});
 		return d.promise;
 	}
@@ -64,7 +67,7 @@ class gameModel {
 	}
 	get_yn_game_players(dataInput) {
 		let d = q.defer();
-		let query = 'call GET_YN_GAME_WINNERS(?,?)';
+		let query = 'call GET_YN_GAME_PLAYERS(?,?)';
 		mysql.query(query, dataInput, function(err, res) {
 			if (err) throw err;
 			let data = JSON.parse(JSON.stringify(res));
@@ -72,6 +75,7 @@ class gameModel {
 				d.resolve('Bitcoin rate is not available at ' + dataInput[0]);
 			}
 			d.resolve({
+				game_result: data[0][0].game_result,
 				winners: data[1],
 				loosers: data[2],
 				owner: data[3][0]
@@ -102,13 +106,18 @@ class gameModel {
 		let d = q.defer(),
 			queries = '',
 			query = 'UPDATE YN_GAME_LOGS SET IS_WINNER = ? WHERE USER_ID = ? AND GAME_ID = ?; ';
-		players.forEach((player) =>{
-			queries += mysql.format(query, [result, player.USER_ID, game_id]);
-		});
-		mysql.query(queries, function(err, res){
-			if(err) throw err;
-			d.resolve('*(YN_GAMES)Update users result: ok!\n');
-		});
+		if(players.length != 0){
+			players.forEach((player) =>{
+				queries += mysql.format(query, [result, player.USER_ID, game_id]);
+			});
+			mysql.query(queries, function(err, res){
+				if(err) throw err;
+				d.resolve('*(YN_GAMES)Update users result: ok!\n');
+			});
+		}
+		else{
+			d.resolve('*(YN_GAMES)No data modified!');
+		}
 		return d.promise;
 	}
 	get_active_multi_games(){
@@ -132,6 +141,7 @@ class gameModel {
 				d.resolve('Bitcoin rate is not available at ' + data_input[0]);
 			}
 			d.resolve({
+				game_result: data[0][0].game_result,
 				winners: data[2],
 				loosers: data[3],
 				owner: data[4][0]
@@ -152,12 +162,67 @@ class gameModel {
 		let d = q.defer(),
 			queries = '',
 			query = 'UPDATE MULTI_CHOICE_GAME_LOGS SET IS_WINNER = ? WHERE USER_ID = ? AND GAME_ID = ?; ';
-		players.forEach((player) => {
-			queries += mysql.format(query, [result, player.USER_ID, game_id]);
-		});
-		mysql.query(queries, function(err, res) {
+		if (players.length != 0) {
+			players.forEach((player) => {
+				queries += mysql.format(query, [result, player.USER_ID, game_id]);
+			});
+			mysql.query(queries, function(err, res) {
+				if (err) throw err;
+				d.resolve('(MULTI_CHOICE_GAMES) Update users result: ok!\n');
+			});
+		}
+		else {
+			d.resolve('*(MULTI_CHOICE_GAMES)No data modified!');
+		}
+		return d.promise;
+	}
+	is_active_yn_game(game_id){
+		let d = q.defer(),
+			query = 'select ACTIVE from YN_GAMES where GAME_ID = ?;';
+		mysql.query(query, [game_id],function(err, res){
 			if (err) throw err;
-			d.resolve('(MULTI_CHOICE_GAMES)Update users result: ok!\n');
+			let active = JSON.parse(JSON.stringify(res))[0].ACTIVE;
+			if(active){
+				d.resolve(true);
+			}
+			else{
+				d.resolve(false);
+			}
+		});
+		return d.promise;
+	}
+	is_active_multi_game(game_id){
+		let d = q.defer(),
+			query = 'select ACTIVE from MULTI_CHOICE_GAMES where GAME_ID = ?;';
+		mysql.query(query, [game_id],function(err, res){
+			if (err) throw err;
+			let active = JSON.parse(JSON.stringify(res))[0].ACTIVE;
+			if(active){
+				d.resolve(true);
+			}
+			else{
+				d.resolve(false);
+			}
+		});
+		return d.promise;
+	}
+	get_yn_game_by_id(game_id){
+		let d = q.defer(),
+			query = 'SELECT GAME_ID, START_DATE, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, TOTAL_AMOUNT, OWNER_ID FROM YN_GAMES where GAME_ID = ?'
+		mysql.query(query, [game_id], function(err, res){
+			if (err) throw err;
+			let data = JSON.parse(JSON.stringify(res));
+			d.resolve(data[0]);
+		});
+		return d.promise;
+	}
+	get_multi_game_by_id(game_id){
+		let d = q.defer(),
+		    query = 'SELECT GAME_ID, START_DATE, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, TOTAL_AMOUNT, OWNER_ID FROM MULTI_CHOICE_GAMES where GAME_ID = ?'
+		mysql.query(query, [game_id], function (err, res) {
+			if (err) throw err;
+			let data = JSON.parse(JSON.stringify(res));
+			d.resolve(data[0]);
 		});
 		return d.promise;
 	}
