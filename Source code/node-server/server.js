@@ -36,12 +36,12 @@ app.use('/api/game', game_router);
 /*=====START=====Controllers============*/
 
 data_controller.getData();
-/* game_controller.sys_game_schedule(); */
 user_controller.reset_user_attendance();
 game_controller.sys_game_controller_running();
 game_controller.yn_game_controller_running();
 game_controller.multi_game_controller_running();
 /*=====END======Controllers============*/
+// game_controller.sys_game_schedule();
 
 
 

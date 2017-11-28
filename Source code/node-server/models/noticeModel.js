@@ -24,8 +24,8 @@ class noticeModel {
 	}
 	pusher_notice_sys_game(game_id){
 		var d = q.defer();
-		var query = 'SELECT n.NOTICE_ID, d.USER_ID, n.TITLE, n.CONTENT, '
-		           +'d.SEND_DATE, d.SEEN, g.GAME_ID, d.TYPE_ID, '
+		var query = 'SELECT n.NOTICE_ID, d.USER_ID, n.TITLE as NOTICE_TITLE, n.CONTENT, '
+		           +'d.SEND_DATE, d.SEEN, g.GAME_ID, d.TYPE_ID, g.TITLE as GAME_TITLE, '
 		           +'g.START_DATE, g.END_DATE '
 		           +'FROM NOTIFICATION n '
 		           +'join NOTIFICATION_DETAILS d on n.NOTICE_ID=d.NOTICE_ID '
@@ -42,27 +42,28 @@ class noticeModel {
 		let d = q.defer(),
 		    data_insert = [];
 		let query = 'INSERT INTO NOTIFICATION_DETAILS (NOTICE_ID,USER_ID,GAME_ID,TYPE_ID,SEND_DATE) VALUES ?';
-		if(data_input!=null){
+		if(data_input.length != 0){
 			data_input.forEach((item) => {
 				data_insert.push([notice_id, item.USER_ID, game_id, game_type, moment().format("YYYY-MM-DD HH:mm:ss")]);
 			});
+			mysql.query(query, [data_insert], function(err, res){
+				if(err) throw err;
+				d.resolve(res);
+			});
 		}
 		else
-			d.reject('4th parameter must be array for add_notice_yn_game function!\n');
-		mysql.query(query, [data_insert], function(err, res){
-			if(err) throw err;
-			d.resolve(res);
-		});
+			d.resolve('* No record inserted!');
 		return d.promise;
 	}
 	pusher_notice_yn_game(game_id){
 		let d = q.defer(),
-			query = 'SELECT n.NOTICE_ID, d.USER_ID, n.TITLE, n.CONTENT, '
-	               +'d.SEND_DATE, d.SEEN, g.GAME_ID, d.TYPE_ID, '
+			query = 'SELECT n.NOTICE_ID, d.USER_ID, usr.USER_POINT, n.TITLE as NOTICE_TITLE, n.CONTENT, '
+	               +'d.SEND_DATE, d.SEEN, g.GAME_ID, d.TYPE_ID, g.TITLE as GAME_TITLE, '
                    +'g.START_DATE, g.END_DATE '
                    +'FROM NOTIFICATION n '
                    +'join NOTIFICATION_DETAILS d on n.NOTICE_ID=d.NOTICE_ID '
-                   +'join YN_GAMES g on g.GAME_ID=d.GAME_ID '
+				   +'join YN_GAMES g on g.GAME_ID=d.GAME_ID '
+				   +'join USERS usr on  usr.USER_ID=d.USER_ID '
                    +'where d.TYPE_ID=1 AND g.GAME_ID = ?';
         mysql.query(query, [game_id], function(err, res){
         	if(err) throw err;
@@ -73,12 +74,13 @@ class noticeModel {
 	}
 	pusher_notice_multi_game(game_id) {
 		let d = q.defer(),
-			query = 'SELECT n.NOTICE_ID, d.USER_ID, n.TITLE, n.CONTENT, '
-	               +'d.SEND_DATE, d.SEEN, g.GAME_ID, d.TYPE_ID, '
+			query = 'SELECT n.NOTICE_ID, d.USER_ID, usr.USER_POINT, n.TITLE as NOTICE_TITLE, n.CONTENT, '
+	               +'d.SEND_DATE, d.SEEN, g.GAME_ID, d.TYPE_ID, g.TITLE as GAME_TITLE, '
                    +'g.START_DATE, g.END_DATE '
                    +'FROM NOTIFICATION n '
                    +'join NOTIFICATION_DETAILS d on n.NOTICE_ID=d.NOTICE_ID '
-                   +'join MULTI_CHOICE_GAMES g on g.GAME_ID=d.GAME_ID '
+				   +'join MULTI_CHOICE_GAMES g on g.GAME_ID=d.GAME_ID '
+				   +'join USERS usr on  usr.USER_ID=d.USER_ID '
                    +'where d.TYPE_ID=2 AND g.GAME_ID = ?';
         mysql.query(query, [game_id], function(err, res){
         	if(err) throw err;
@@ -100,26 +102,12 @@ class noticeModel {
 			});
 			mysql.query(notice_query, [notice_data], function(err, res){
 				if(err) throw err;
-				//time_add to select notice
+				//game_id to select notice
 				d.resolve(game_id);
 			});
 		});
 		return d.promise; 
 	}
-/* 	pusher_new_opened_sys_game(){
-		let d = q.defer(),
-			query = 'SELECT n.NOTICE_ID, d.USER_ID, n.TITLE, n.CONTENT, ' 
-					+'d.SEND_DATE, d.SEEN, d.TYPE_ID '
-					+'FROM NOTIFICATION n '
-					+'join NOTIFICATION_DETAILS d on n.NOTICE_ID=d.NOTICE_ID '
-					+'where d.TYPE_ID=3 AND d.SEND_DATE=?';
-		mysql.query(query, [date], function(err, res){
-			if(err) throw err;
-			let data = JSON.parse(JSON.stringify(res));
-			d.resolve(data);
-		});
-		return d.promise;
-	} */
 }
 
 module.exports = noticeModel;

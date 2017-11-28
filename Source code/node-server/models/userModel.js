@@ -16,7 +16,7 @@ class userModel {
 		var d = q.defer();
 		var query = 'UPDATE USERS SET USER_POINT = ? WHERE USER_ID = ?';
 		mysql.query(query, dataInput, function(err, res) {
-			if (err) d.reject(err);
+			if (err) throw err;
 			d.resolve('ok');
 		});
 		return d.promise;
@@ -26,14 +26,16 @@ class userModel {
 		var query = 'UPDATE USERS SET USER_POINT = ? WHERE USER_ID = ?; ';
 		var queries = '';
 		let total_spend = 0;
-		for(var i = 0; i< dataInput.length; i++){
-			queries += mysql.format(query, [dataInput[i].USER_POINT + 20, dataInput[i].USER_ID]);
-			total_spend+=20;
+		if(dataInput.length != 0){
+			for(var i = 0; i< dataInput.length; i++){
+				queries += mysql.format(query, [dataInput[i].USER_POINT + 20, dataInput[i].USER_ID]);
+				total_spend+=20;
+			}
+			mysql.query(queries, function(err, res){
+				if(err) throw err;
+			});
 		}
-		mysql.query(queries, function(err, res){
-			if(err) throw err;
-			d.resolve(total_spend);
-		});
+		d.resolve(total_spend);
 		return d.promise;
 	}
 	reset_attendance(){
