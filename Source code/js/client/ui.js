@@ -493,7 +493,7 @@ user_percent_mul (8, 3, 5);
 
 infinitySlideShow ();
 
-// user_percent_in_de (1, 0);
+// user_percent_in_de (9, 5);
 });
 
 function infinitySlideShow () {
