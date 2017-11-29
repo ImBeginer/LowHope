@@ -493,7 +493,7 @@ display_chat ();
 
 // infinitySlideShow ();
 
-// user_percent_in_de (1, 0);
+// user_percent_in_de (9, 5);
 });
 
 function infinitySlideShow () {

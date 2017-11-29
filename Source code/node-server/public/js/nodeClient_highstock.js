@@ -154,6 +154,7 @@ $(function() {
     addDataChart(data.price);
   });
 
+<<<<<<< .mine
   // var yn_game = pusher.subscribe('yn-game');
   // yn_game.bind('pop-players', function(data){
   //   console.log('yn-game winner');
@@ -164,7 +165,20 @@ $(function() {
   //   console.log('multi-game winner');
   //   console.log(data)
   // });
+=======
+/*   var yn_game = pusher.subscribe('yn-game');
+  yn_game.bind('pop-players', function(data){
+    console.log('yn-game winner');
+    console.log(data)
+  });
+  var multi_game = pusher.subscribe('multi-game');
+  multi_game.bind('pop-players', function(data){
+    console.log('multi-game winner');
+    console.log(data)
+  }); */
+>>>>>>> .theirs
 
+<<<<<<< .mine
   // var system_game = pusher.subscribe('system-game');
   // system_game.bind('pop-users', function(data){
   //   console.log('system-game open');
@@ -174,4 +188,15 @@ $(function() {
   //   console.log('system-game winner');
   //   console.log(data)
   // });
+=======
+/*   var system_game = pusher.subscribe('system-game');
+  system_game.bind('pop-users', function(data){
+    console.log('system-game open');
+    console.log(data)
+  });
+  system_game.bind('pop-winners', function(data){
+    console.log('system-game winner');
+    console.log(data)
+  }); */
+>>>>>>> .theirs
 })

@@ -11,7 +11,7 @@ module.exports = {
         function(error, response, body) {
           if (!error && response.statusCode === 200) {
             body = JSON.parse(body);
-            var data = {
+            let data = {
               price: body.bpi.USD.rate_float,
               update_at: moment().format("YYYY-MM-DD HH:mm")
             };
@@ -20,12 +20,16 @@ module.exports = {
 
             coin_model.insertCoinRate(data)
             .then((result)=>{
-              console.log(JSON.stringify(data) + " === Added!\n");
+              console.log('* Bitcoin rate: $ '+ data.price + ' at ' + data.update_at + " FOUND!\n");
             })
             .catch(err => console.log(err));
           }
           else{
-            throw error;
+            console.log('\n****************************************************************************');
+            console.log('*                                                                          *');
+            console.log('*    Unable to get bitcoin data. Plesase check your API or network! (>‿ ♥) *');
+            console.log('*                                                                          *');
+            console.log('****************************************************************************\n');
           }
         }
       );
