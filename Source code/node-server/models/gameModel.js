@@ -85,7 +85,7 @@ class gameModel {
 	}
 	get_active_yn_games() {
 		let d = q.defer();
-		let query = 'SELECT GAME_ID, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, TOTAL_AMOUNT, OWNER_ID FROM YN_GAMES WHERE ACTIVE = 1';
+		let query = 'SELECT GAME_ID, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, OWNER_ID FROM YN_GAMES WHERE ACTIVE = 1';
 		mysql.query(query, function(err, res) {
 			if (err) throw err;
 			let games = JSON.parse(JSON.stringify(res));
@@ -123,7 +123,7 @@ class gameModel {
 	get_active_multi_games(){
 		let d = q.defer(),
 		    query = 'SELECT GAME_ID, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, '
-		           +'TOTAL_AMOUNT, OWNER_ID FROM MULTI_CHOICE_GAMES WHERE ACTIVE = 1';
+		           +'OWNER_ID FROM MULTI_CHOICE_GAMES WHERE ACTIVE = 1';
 		mysql.query(query, function(err, res) {
 			if (err) throw err;
 			let games = JSON.parse(JSON.stringify(res));
@@ -176,39 +176,27 @@ class gameModel {
 		}
 		return d.promise;
 	}
-	is_active_yn_game(game_id){
+	check_info_yn_game(game_id){
 		let d = q.defer(),
-			query = 'select ACTIVE from YN_GAMES where GAME_ID = ?;';
+			query = 'select ACTIVE, TOTAL_AMOUNT from YN_GAMES where GAME_ID = ?;';
 		mysql.query(query, [game_id],function(err, res){
 			if (err) throw err;
-			let active = JSON.parse(JSON.stringify(res))[0].ACTIVE;
-			if(active){
-				d.resolve(true);
-			}
-			else{
-				d.resolve(false);
-			}
+			d.resolve(JSON.parse(JSON.stringify(res))[0]);
 		});
 		return d.promise;
 	}
-	is_active_multi_game(game_id){
+	check_info_multi_game(game_id){
 		let d = q.defer(),
-			query = 'select ACTIVE from MULTI_CHOICE_GAMES where GAME_ID = ?;';
+			query = 'select ACTIVE, TOTAL_AMOUNT from MULTI_CHOICE_GAMES where GAME_ID = ?;';
 		mysql.query(query, [game_id],function(err, res){
 			if (err) throw err;
-			let active = JSON.parse(JSON.stringify(res))[0].ACTIVE;
-			if(active){
-				d.resolve(true);
-			}
-			else{
-				d.resolve(false);
-			}
+			d.resolve(JSON.parse(JSON.stringify(res))[0]);
 		});
 		return d.promise;
 	}
 	get_yn_game_by_id(game_id){
 		let d = q.defer(),
-			query = 'SELECT GAME_ID, START_DATE, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, TOTAL_AMOUNT, OWNER_ID FROM YN_GAMES where GAME_ID = ?'
+			query = 'SELECT GAME_ID, START_DATE, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, OWNER_ID FROM YN_GAMES where GAME_ID = ?'
 		mysql.query(query, [game_id], function(err, res){
 			if (err) throw err;
 			let data = JSON.parse(JSON.stringify(res));
@@ -218,7 +206,7 @@ class gameModel {
 	}
 	get_multi_game_by_id(game_id){
 		let d = q.defer(),
-		    query = 'SELECT GAME_ID, START_DATE, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, TOTAL_AMOUNT, OWNER_ID FROM MULTI_CHOICE_GAMES where GAME_ID = ?'
+		    query = 'SELECT GAME_ID, START_DATE, date_format(END_DATE, "%Y-%m-%d %H:%i:00") as END_DATE, OWNER_ID FROM MULTI_CHOICE_GAMES where GAME_ID = ?'
 		mysql.query(query, [game_id], function (err, res) {
 			if (err) throw err;
 			let data = JSON.parse(JSON.stringify(res));

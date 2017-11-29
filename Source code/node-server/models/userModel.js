@@ -1,6 +1,7 @@
 var q = require('q'),
 	mysql = require('./../models/db.js'),
 	async = require('async');
+const  AWARD_POINT = 20;
 class userModel {
 	get_user_point(dataInput) {
 		var d = q.defer();
@@ -28,8 +29,8 @@ class userModel {
 		let total_spend = 0;
 		if(dataInput.length != 0){
 			for(var i = 0; i< dataInput.length; i++){
-				queries += mysql.format(query, [dataInput[i].USER_POINT + 20, dataInput[i].USER_ID]);
-				total_spend+=20;
+				queries += mysql.format(query, [dataInput[i].USER_POINT + AWARD_POINT, dataInput[i].USER_ID]);
+				total_spend+=AWARD_POINT;
 			}
 			mysql.query(queries, function(err, res){
 				if(err) throw err;
@@ -40,7 +41,7 @@ class userModel {
 	}
 	reset_attendance(){
 		let d = q.defer();
-		var query = 'UPDATE USERS SET ATTENDANCE=0, DAILYGAME_CHECKOUT=0 WHERE USER_ID>0;';
+		var query = 'UPDATE USERS SET ATTENDANCE=0 WHERE USER_ID>0;';
 		mysql.query(query, function(err, result){
 			if(err) d.reject(err);
 			d.resolve(result);

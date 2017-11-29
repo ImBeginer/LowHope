@@ -126,15 +126,19 @@ $(function() {
     }]
   });
 
-
-
   function createCoinChart(data) {
     chart.series[0].setData(data)
   }
+  function load_chart_data(url, chart_name){
+    chart_name.showLoading();
+    $.getJSON(url, function(result) {
+      createCoinChart(result);
+      chart_name.hideLoading();
+    });
+  }
 
-  $.getJSON('http://localhost:3333/api/bitcoin/rate', function(result) {
-    createCoinChart(result);
-  });
+  load_chart_data('http://localhost:3333/api/bitcoin/rate', chart);
+
 
   function addDataChart(data) {
     var series = chart.series[0];
@@ -154,7 +158,6 @@ $(function() {
     addDataChart(data.price);
   });
 
-
 /*   var yn_game = pusher.subscribe('yn-game');
   yn_game.bind('pop-players', function(data){
     console.log('yn-game winner');
@@ -165,7 +168,6 @@ $(function() {
     console.log('multi-game winner');
     console.log(data)
   }); */
- 
 
 /*   var system_game = pusher.subscribe('system-game');
   system_game.bind('pop-users', function(data){
@@ -176,5 +178,4 @@ $(function() {
     console.log('system-game winner');
     console.log(data)
   }); */
-
 })

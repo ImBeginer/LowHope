@@ -130,9 +130,9 @@ var sys_game_schedule = function() {
 };
 
 function yn_award_users(game) {
-	game_model.is_active_yn_game(game.GAME_ID)
-	.then(active => {
-		if(active){
+	game_model.check_info_yn_game(game.GAME_ID)
+	.then(game_info => {
+		if(game_info.ACTIVE){
 			game_model.get_yn_game_players([game.END_DATE, game.GAME_ID])
 			.then(data=>{
 				if(data.winners.length == 0 && data.loosers.length == 0 ){
@@ -155,8 +155,7 @@ function yn_award_users(game) {
 					//award users
 					user_model.update_winners_points(data.winners)
 					.then((total_spend)=>{
-						return user_model.update_user_points([(data.owner.USER_POINT+(game.TOTAL_AMOUNT-total_spend)),
-							                                  data.owner.USER_ID]);
+						return user_model.update_user_points([(data.owner.USER_POINT+game_info.TOTAL_AMOUNT-total_spend),	                                  data.owner.USER_ID]);
 					})
 					.then(res => game_model.update_yn_game_result([data.game_result, game.GAME_ID]))
 					.then(res => console.log('*(YN_GAMES)Game id: ' + game.GAME_ID + ' closed!\n\n*Winners id awarded!\n'));
@@ -190,9 +189,9 @@ function yn_award_users(game) {
 };
 
 function multi_award_users(game){
-	game_model.is_active_multi_game(game.GAME_ID)
-	.then(active =>{
-		if(active){
+	game_model.check_info_multi_game(game.GAME_ID)
+	.then(game_info =>{
+		if(game_info.ACTIVE){
 			game_model.get_multi_game_players([game.END_DATE, game.GAME_ID])
 			.then((data) =>{
 				if(data.winners.length == 0 && data.loosers.length == 0 ){
@@ -215,7 +214,7 @@ function multi_award_users(game){
 					//award users
 					user_model.update_winners_points(data.winners)
 					.then((total_spend)=>{
-						return user_model.update_user_points([(data.owner.USER_POINT+(game.TOTAL_AMOUNT-total_spend)),
+						return user_model.update_user_points([(data.owner.USER_POINT+game_info.TOTAL_AMOUNT-total_spend),
 							                                   data.owner.USER_ID]);
 					})
 					.then(res => game_model.update_multi_game_result([data.game_result, game.GAME_ID]))
