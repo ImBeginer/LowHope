@@ -246,6 +246,8 @@ $(document).ready(function() {
 		      			toatMessage('Warning', 'Mã xác nhận không đúng !', 'warning');
 		      		}else if(response == 1){
 		      			toatMessage('Success', 'Bạn đã đổi mật khẩu thành công !', 'success');
+		      		}else if(response == 3){
+		      			toatMessage('Warning', 'Mật khẩu mới không hợp lệ.', 'warning');
 		      		}else{
 		      			toatMessage('Warning', 'Hệ thống đang gặp trục trặc.', 'warning');
 		      		}
@@ -457,19 +459,17 @@ $(document).ready(function() {
 		 			.done(function(response) {
 		 				if(response.create == 1){
 		 					$('#user-point').text(response.user_point);
-		 					$.toast({
-							    heading: 'Success',
-								text: 'Chúc mừng bạn đã tạo game thành công !<br>(Bạn sẽ được sang trang game trong giây lát)',
-								showHideTransition: 'slide',
-								icon: 'success',
-								position: 'bottom-right',
-								hideAfter: 5000,
-
-							    // afterHidden: function () {
-							    //     location.href = base_url + 'gamect/yn/' + response.game_id;
-							    // }
-							});
-
+		 					if(!is_related_YN){
+		 						var channel_yn_game = pusher_3.subscribe('yn-game');
+							    channel_yn_game.bind('pop-players', function(data) {
+						      		console.log('from create-game-btn-yes-no: '+ data);
+						      		$.each(data, function(key, value) {
+							        	if(user_id == value.USER_ID){
+							          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+							        	}
+							      	});
+						    	});
+		 					}
 		 					//send data to server
 							$.ajax({
 								url: 'http://localhost:3333/api/game/yngame',
@@ -486,7 +486,19 @@ $(document).ready(function() {
 							.always(function() {
 								console.log("complete");
 							});
-							
+
+		 					$.toast({
+							    heading: 'Success',
+								text: 'Chúc mừng bạn đã tạo game thành công !<br>(Bạn sẽ được sang trang game trong giây lát)',
+								showHideTransition: 'slide',
+								icon: 'success',
+								position: 'bottom-right',
+								hideAfter: 5000,
+
+							    afterHidden: function () {
+							        location.href = base_url + 'gamect/yn/' + response.game_id;
+							    }
+							});
 		 				}else if(response.create == 0){
 		 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
 		 				}else if(response.create == 2){
@@ -538,19 +550,18 @@ $(document).ready(function() {
 		 			console.log("success");
 		 			if(response.create == 1){
 		 				$('#user-point').text(response.user_point); 
-		 				$.toast({
-						    heading: 'Success',
-							text: 'Chúc mừng bạn đã tạo game thành công !<br>(Bạn sẽ được sang trang game trong giây lát)',
-							showHideTransition: 'slide',
-							icon: 'success',
-							position: 'bottom-right',
-							hideAfter: 5000,
-
-						    // afterHidden: function () {
-						    //     location.href = base_url + 'gamect/mul/' + response.game_id;
-						    // }
-						});
-
+		 				if(!is_related_MUL){
+						    //Nhận thông báo sau khi kết thúc game multi
+						    var channel_multi_game = pusher_3.subscribe('multi-game');
+						    channel_multi_game.bind('pop-players', function(data) {
+						        console.log('from create-game-btn-mul: '+ data);
+						        $.each(data, function(key, value) {
+						        	if(user_id == value.USER_ID){
+						          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+						        	}
+						      	});
+						    });
+						}
 		 				//send data to server
 						$.ajax({
 							url: 'http://localhost:3333/api/game/multigame',
@@ -567,8 +578,19 @@ $(document).ready(function() {
 						.always(function() {
 							console.log("complete");
 						});
-		 				
 
+		 				$.toast({
+						    heading: 'Success',
+							text: 'Chúc mừng bạn đã tạo game thành công !<br>(Bạn sẽ được sang trang game trong giây lát)',
+							showHideTransition: 'slide',
+							icon: 'success',
+							position: 'bottom-right',
+							hideAfter: 5000,
+
+						    afterHidden: function () {
+						        location.href = base_url + 'gamect/mul/' + response.game_id;
+						    }
+						});
 		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
 		 			}else if(response.create == 2){
@@ -605,6 +627,17 @@ $(document).ready(function() {
 			.done(function(response) {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
+					if(!is_related_YN){
+ 						var channel_yn_game = pusher_3.subscribe('yn-game');
+					    channel_yn_game.bind('pop-players', function(data) {
+					      	console.log('from bet-game-yes-no: '+ data);
+					      	$.each(data, function(key, value) {
+					        	if(user_id == value.USER_ID){
+					          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+					        	}
+					      	});
+					    });
+ 					}
 					set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
@@ -642,6 +675,18 @@ $(document).ready(function() {
 			.done(function(response) {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
+					if(!is_related_MUL){
+					    //Nhận thông báo sau khi kết thúc game multi
+					    var channel_multi_game = pusher_3.subscribe('multi-game');
+					    channel_multi_game.bind('pop-players', function(data) {
+					        console.log('from bet-game-mul: '+ data);
+					        $.each(data, function(key, value) {
+					        	if(user_id == value.USER_ID){
+					          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+					        	}
+					      	});
+					    });
+					}
 					set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){

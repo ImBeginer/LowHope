@@ -177,7 +177,7 @@
 								<?php if($noti->all_noti){ ?>
 								<ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
 									<?php foreach ($noti->all_noti as $value): ?>
-										<li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+										<li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" data-gameType="<?php echo $value['TYPE_ID']; ?>" data-gameID="<?php echo $value['GAME_ID']; ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 											<div class="noti-content ellipsis">
 												<a href="#!">
 													<p class="notifi-title notifi-1" class="ellipsis">

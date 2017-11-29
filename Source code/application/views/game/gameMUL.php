@@ -53,7 +53,7 @@
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
   <!-- Pusher -->
   <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-  <script src="<?php echo base_url(); ?>js/client/pusher.js"></script>
+  
 </head>
 <body onload="countDown_End_Date(end_date_game_mini,1); user_percent_mul(PRICE_BELOW, PRICE_BETWEEN, PRICE_ABOVE);load_table_log_game(list_bet_log); infinitySlideShow(); set_style_table_log_game()"> 
   <script>
@@ -78,6 +78,11 @@
       $date = new DateTime($date);
       $time = $date->format('H:i:s d-m-Y');
     ?>
+    <?php if(isset($user_id)){ ?>
+      var user_id = <?php echo json_encode($user_id); ?>;
+      var is_related_YN = <?php echo json_encode($is_related_YN); ?>;
+      var is_related_MUL = <?php echo json_encode($is_related_MUL); ?>;
+    <?php } ?>
   </script>
   <!-- body -->
   <div class="container-fluid">
@@ -205,11 +210,11 @@
                 <?php if($noti->all_noti){ ?>
                 <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
                   <?php foreach ($noti->all_noti as $value): ?>
-                    <li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" data-gameType="<?php echo $value['TYPE_ID']; ?>" data-gameID="<?php echo $value['GAME_ID']; ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
                       <div class="noti-content ellipsis">
                         <a href="#!">
                           <p class="notifi-title notifi-1" class="ellipsis">
-                            <div class="green-circle <?php if($value['SEEN'] == 0){echo '';}else{ echo 'something-circle';} ?> d-inline-block"></div>
+                            <div class="green-circle <?php if($value['SEEN'] == 0){echo '';}else{ echo 'already-read';} ?> d-inline-block"></div>
                             <?php echo $value['TITLE']; ?>
                             <div class="time-area">
                               <span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
@@ -217,8 +222,8 @@
                                 <?php 
                                     $date = $value['SEND_DATE'];
                                     $date = new DateTime($date);
-                                    $time = $date->format('H:i:s d-m-Y');
-                                    echo $time;
+                                    $send_time = $date->format('H:i:s d-m-Y');
+                                    echo $send_time;
                                   ?>
                                 </span>
                             </div>
@@ -522,7 +527,10 @@
                 <div class="mini-game-bet mt-5">
                   <form action="#!" name="mini-yn-bet">
                     <div class="form-group no-margin">
-                      <label class="no-margin">Lựa chọn của bạn ?</label>
+                      <label class="no-margin">Giá Bitcoin vào lúc: <?php echo $time; ?> sẽ ?</label>
+                    </div>
+                    <div class="form-group no-margin">
+                      <label class="no-margin">Lựa chọn của bạn:</label>
                     </div>
                     <div class="form-group">  
                       <select name="mul-game" class="mul-mini-game">
@@ -613,6 +621,9 @@
   <script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>js/client/yesNoGame.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>js/client/mulGame.js"></script>
+
+  <script src="<?php echo base_url(); ?>js/client/pusher.js"></script>
+
   <script type="text/javascript" src="<?php echo base_url(); ?>js/client/ui.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>js/client/app.js"></script>
 </body>

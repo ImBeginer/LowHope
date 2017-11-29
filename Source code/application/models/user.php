@@ -77,7 +77,7 @@ class User extends CI_Model {
 	 */
 	function get_all_noti_user($userID)
 	{
-		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.USER_ID', $userID)->order_by('NOTIFICATION_DETAILS.SEND_DATE', 'DESC');
+		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.GAME_ID, NOTIFICATION_DETAILS.TYPE_ID, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.USER_ID', $userID)->order_by('NOTIFICATION_DETAILS.SEND_DATE', 'DESC');
 		$result = $this->db->get();
 		if($result !== FALSE && $result->num_rows()>0){
 
@@ -122,9 +122,9 @@ class User extends CI_Model {
 	 * @param [type] $userID    [description]
 	 * @param [type] $send_date [description]
 	 */
-	public function update_seen_notifi($noti_id, $userID, $send_date)
+	public function update_seen_notifi($noti_id, $userID, $game_id, $type_id, $send_date)
 	{
-		$condi = array('NOTICE_ID'=> $noti_id, 'USER_ID'=> $userID, 'SEND_DATE'=> $send_date);
+		$condi = array('NOTICE_ID'=> $noti_id, 'USER_ID'=> $userID, 'GAME_ID'=>$game_id, 'TYPE_ID'=>$type_id, 'SEND_DATE'=> $send_date);
 		$field =  array('SEEN'=> 1);
 		$this->db->where($condi);
 		$this->db->update('NOTIFICATION_DETAILS', $field);
@@ -138,9 +138,9 @@ class User extends CI_Model {
 	 * @param  [type] $send_date [description]
 	 * @return [type]            [description]
 	 */
-	public function get_noti_content($noti_id, $userID, $send_date)
+	public function get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date)
 	{
-		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id)->where('NOTIFICATION_DETAILS.USER_ID', $userID)->where('NOTIFICATION_DETAILS.SEND_DATE', $send_date);
+		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id)->where('NOTIFICATION_DETAILS.USER_ID', $userID)->where('NOTIFICATION_DETAILS.GAME_ID', $game_id)->where('NOTIFICATION_DETAILS.TYPE_ID', $type_id)->where('NOTIFICATION_DETAILS.SEND_DATE', $send_date);
 		$result = $this->db->get();
 		if($result !== FALSE && $result->num_rows()>0){
 			$result = $result->row();
@@ -168,7 +168,7 @@ class User extends CI_Model {
 			'ADDRESS' 		=> $USER_ADDRESS,
 			'ATTENDANCE'	=> 0,
 			'ACTIVE'		=> 1,
-			'CREATED_DATE'  => $CREATED_DATE
+			'CREATE_DATE'  => $CREATED_DATE
 		);
 
 		if($this->db->insert('USERS', $user)){

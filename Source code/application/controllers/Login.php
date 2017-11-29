@@ -121,7 +121,7 @@ class Login extends CI_Controller {
                     if($user->ROLE_ID == ROLE_USER){
                         $this->load_data_after_login_success($user);
                     }else{                        
-                        redirect(base_url());
+                        $this->load->view('errors/error_page');
                     }                    
                 } catch (Exception $e) {
                     log_message('error',$e->getMessage());

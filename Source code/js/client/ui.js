@@ -489,9 +489,9 @@ $('a.user-login-form').on('click', function () {
 // /.CHECK LOGIN MỚI 2/11  
 
 display_chat ();
-user_percent_mul (8, 3, 5);
+// user_percent_mul (8, 3, 5);
 
-infinitySlideShow ();
+// infinitySlideShow ();
 
 // user_percent_in_de (1, 0);
 });

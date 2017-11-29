@@ -196,6 +196,9 @@ class GameCT extends CI_Controller {
                 $data['top_point'] = $this->user->get_top_point();
 
 				$data['game_data'] = $this->game->getGameYN_ById($game_id);
+				$data['user_id'] = $user->USER_ID;
+				$data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+        		$data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 
 				// Lấy danh sách lịch sử log của game này
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
@@ -416,6 +419,9 @@ class GameCT extends CI_Controller {
 				}
 				
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
+				$data['user_id'] = $user->USER_ID;
+				$data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+        		$data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 
 				if($data['game_data']){
 					//lay ti le phan tram nguoi choi da tra loi

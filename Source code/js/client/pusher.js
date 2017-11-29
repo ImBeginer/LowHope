@@ -1,5 +1,5 @@
 /*********************************************** PUSHER **********************************************************/
-//Pusher.logToConsole = true;
+// Pusher.logToConsole = true;
 var pusher = new Pusher('711b956416d9d15de4b8', {
   cluster: 'ap1',
   encrypted: true,
@@ -29,11 +29,14 @@ $('.noti-items').on('click', function(event) {
   //2.Load conten noti
   //3.Gui thong bao da xem cho server check 
   var noti_id = current.attr("data-noID");
+  var game_id = current.attr("data-gameID");
+  var type_id = current.attr("data-gameType");
   var send_date = current[0].firstElementChild.firstElementChild.children[2].children[1].innerText;
   if(current.attr("data-seen") == 0){
-    set_and_get_noti(noti_id, send_date, 'update_seen_noti');
+    current.attr('data-seen', 1);
+    set_and_get_noti(noti_id, game_id, type_id, send_date, 'update_seen_noti');
   }else if(current.attr("data-seen") == 1){
-    set_and_get_noti(noti_id, send_date, 'get_noti_content');
+    set_and_get_noti(noti_id, game_id, type_id, send_date, 'get_noti_content');
   }
 });
 
@@ -43,12 +46,12 @@ $('.noti-items').on('click', function(event) {
  * @param {[type]} send_date     [description]
  * @param {[type]} function_name [description]
  */
-function set_and_get_noti(noti_id, send_date, function_name) {
+function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
   $.ajax({
       url: base_url + 'userct/' + function_name,
       type: 'POST',
       dataType: 'JSON',
-      data: {noti_id: noti_id, send_date: send_date},
+      data: {noti_id: noti_id, game_id: game_id, type_id:type_id, send_date: send_date},
     }).done(function(response) {
       if(response){
         $('#notifi-popup-title')[0].innerText = response.noti_content.TITLE;
@@ -63,9 +66,9 @@ function set_and_get_noti(noti_id, send_date, function_name) {
     });
 }
 
-function add_noti(noti_id, noti_title, send_date) {
+function add_noti(noti_id, noti_seen, game_type, game_id, noti_title, send_date, user_point) {
   var html = '';
-  html += '<li class="noti-items" data-noID="'+ noti_id +'" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">';
+  html += '<li class="noti-items" data-noID="'+ noti_id +'" data-seen="'+ noti_seen +'" data-gameType="'+ game_type +'" data-gameID="'+ game_id +'" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">';
   html += '<div class="noti-content ellipsis">';
   html += '<a href="#!">';
   html += '<p class="notifi-title" class="ellipsis">';
@@ -81,7 +84,7 @@ function add_noti(noti_id, noti_title, send_date) {
   html += '</li>';
 
   $('#user-notifi').prepend(html);
-  
+  $('#user-point').text(user_point);
 }
 
 if(typeof user_id !== 'undefined'){
@@ -104,8 +107,11 @@ if(typeof user_id !== 'undefined'){
     var channel_yn_game = pusher_3.subscribe('yn-game');
     channel_yn_game.bind('pop-players', function(data) {
       console.log('from yes no game: '+ data);
-      //add_noti(data.);
-
+      $.each(data, function(key, value) {
+        if(user_id == value.USER_ID){
+          add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+        }
+      });
     });
   }
 
@@ -113,16 +119,19 @@ if(typeof user_id !== 'undefined'){
     //Nhận thông báo sau khi kết thúc game multi
     var channel_multi_game = pusher_3.subscribe('multi-game');
     channel_multi_game.bind('pop-players', function(data) {
-        console.log('from multi game: '+ data);
-        //TODO
+      console.log('from multi game: '+ data);
+      $.each(data, function(key, value) {
+        if(user_id == value.USER_ID){
+          add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+        }
+      });
     });
   }
+}else{
+  console.log('Not user');
 }
 
-
-
 /**********************************************************************************************************/
-
 /**
  * update lại table lịch sử log game yes no
  * [channel description]
@@ -159,6 +168,7 @@ channel_log_game_mul.bind('log_game_mul_event', function(data) {
 var channel_create_game_yn = pusher.subscribe('create_game_yes_no_channel');
 channel_create_game_yn.bind('create_game_yes_no_event', function(data) {
   addItemSlide(data.gameID, 1, data.game_title, data.user_create, data.total_amount);
+  infinitySlideShow();
 });
 
 /**
@@ -168,13 +178,7 @@ channel_create_game_yn.bind('create_game_yes_no_event', function(data) {
 var channel_create_game_mul = pusher.subscribe('create_game_mul_channel');
 channel_create_game_mul.bind('create_game_mul_event', function(data) {
   addItemSlide(data.gameID, 2, data.game_title, data.user_create, data.total_amount);
-});
-
-
-//test
-var channel_create_noti = pusher.subscribe('create_noti_channel');
-channel_create_noti.bind('create_noti_event', function(data) {
-  alert(data.content);
+  infinitySlideShow();
 });
 
 
@@ -401,3 +405,43 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
     $('.game-mul span.be-num-percent').text($be_per_string + '%');
     $('.game-mul span.de-num-percent').text($up_per_string + '%');
 }
+
+function infinitySlideShow () {
+  // tìm stylesheet có chứa rules
+  $styleSheet = document.styleSheets[0];
+  console.log(document.styleSheets);
+  // chọn rules đầu tiên trong file stylesheet 
+  $infinitySlide = $styleSheet.cssRules[0];
+  // get from (0%) của rules
+  $infinitySlide_From = $infinitySlide.cssRules[0];
+  // get to (100%) của rules 
+  $infinitySlide_To = $infinitySlide.cssRules[1];
+
+  // get đối tượng parentHotItem
+  $parentHotItem = $('#hot-mini-game-content');
+  // get chiều rộng màn hình browser
+  $bodyWidth = parseInt ($('body').css('width'), 10);
+  // get số lượng hotItems
+  $hotItems = $parentHotItem.children().length;
+  // tính toán thời điểm kết thúc slideshow
+  if ($hotItems > 9) {
+    // get chiều rộng của 1 phần tử hotItems
+    $widthOfHotItem = 150;
+    // tính toán số phần tử hotItems tối đa có thể hiển thị trên màn hình
+    $itemPerScreen = Math.floor ($bodyWidth / $widthOfHotItem);
+    // chiều rộng của tất cả phần tử hotItems
+    $widthOfAllItem = $hotItems * $widthOfHotItem;
+    // thời điểm kết thúc slideshow
+    $endSlideShow = $widthOfAllItem - ($itemPerScreen * $widthOfHotItem);
+    // tỷ lệ thời gian kết thúc slideshow
+    $endTime = Math.ceil($endSlideShow / 20);
+    // đặt lại chiều rộng và thời gian cho đối tượng parentHotItem
+    $parentHotItem.css('width', $widthOfAllItem);
+    $parentHotItem.css('animation-duration', $endTime + 's');
+    // get đối tượng style của rules (100%)
+    $infinitySlide_To_Style = $infinitySlide_To.style;
+    // add lại thuộc tính transform của rules (100%)
+    $infinitySlide_To_Style.setProperty('transform', 'translate(' + (-1 * ($endSlideShow + 50)) + 'px)');
+  }
+
+};

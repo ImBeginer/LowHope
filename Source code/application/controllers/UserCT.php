@@ -162,9 +162,11 @@ class UserCT extends CI_Controller {
 	 */
 	public function update_seen_noti()
 	{
-		if(isset($_POST['noti_id']) && isset($_POST['send_date'])){
+		if(isset($_POST['noti_id']) && isset($_POST['game_id']) && isset($_POST['type_id']) && isset($_POST['send_date'])){
 			
 			$noti_id = $this->input->post('noti_id');
+			$game_id = $this->input->post('game_id');
+			$type_id = $this->input->post('type_id');
 			
 			$send_date = $this->input->post('send_date');
 			$send_date = new DateTime($send_date);
@@ -173,11 +175,11 @@ class UserCT extends CI_Controller {
 			$userID = $this->session->userdata('sessionUserId');
 			
 			//1. Set seen
-			$result = $this->user->update_seen_notifi($noti_id, $userID, $send_date);
+			$result = $this->user->update_seen_notifi($noti_id, $userID, $game_id, $type_id, $send_date);
 			$noti_not_seen = $this->user->get_all_noti_not_seen($userID);
 
 			//2.Get content
-			$noti_content = $this->user->get_noti_content($noti_id, $userID, $send_date);
+			$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
 
 			if($noti_content){
 				echo json_encode(array('noti_content'=>$noti_content, 'noti_not_seen'=>$noti_not_seen));
@@ -191,9 +193,11 @@ class UserCT extends CI_Controller {
 	 */
 	public function get_noti_content()
 	{
-		if(isset($_POST['noti_id']) && isset($_POST['send_date'])){
+		if(isset($_POST['noti_id']) && isset($_POST['game_id']) && isset($_POST['type_id']) && isset($_POST['send_date'])){
 			
 			$noti_id = $this->input->post('noti_id');
+			$game_id = $this->input->post('game_id');
+			$type_id = $this->input->post('type_id');
 			
 			$send_date = $this->input->post('send_date');
 			$send_date = new DateTime($send_date);
@@ -201,7 +205,7 @@ class UserCT extends CI_Controller {
 
 			$userID = $this->session->userdata('sessionUserId');
 			
-			$noti_content = $this->user->get_noti_content($noti_id, $userID, $send_date);
+			$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
 
 			if($noti_content){
 				echo json_encode(array('noti_content'=>$noti_content));
@@ -222,28 +226,28 @@ class UserCT extends CI_Controller {
 			$code = $this->input->post('code');
 
 			//Kiểm tra lại pass
-			//TODO
-
-			//kiem tra email xem co phai la email google hay facebook hay khong,
-			//neu la email google, fb thi khong co quyen doi mat khau
-			
-			$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);
-
-			//trung ma code
-			if($code === $this->session->userdata('code')){
-				//doi mat khau
-				
-				$result = $this->user->update_password($email, $pass);
-				if($result > 0){
-					echo json_encode(1);
+			// if(preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$', $pass)){
+				//kiem tra email xem co phai la email google hay facebook hay khong,
+				//neu la email google, fb thi khong co quyen doi mat khau
+				$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);
+				//trung ma code
+				if($code === $this->session->userdata('code')){
+					//doi mat khau
+					$pass = md5($pass);
+					$result = $this->user->update_password($email, $pass);
+					if($result > 0){
+						echo json_encode(1);
+					}else{
+						//loi he thong
+						echo json_encode(2);
+					}
 				}else{
-					//loi he thong
-					echo json_encode(2);
+					//khong trung code
+					echo json_encode(0);
 				}
-			}else{
-				//khong trung code
-				echo json_encode(0);
-			}
+			// }else{
+			// 	echo json_encode(3);
+			// }
 		}
 	}
 
