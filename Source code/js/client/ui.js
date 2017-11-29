@@ -166,8 +166,8 @@ $(function() {
       $message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
     } else if (isNaN($upper) || isNaN($lower)) {
       $message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không hợp lệ</p>'; 
-    } else if ($lower > $upper) {
-      $message += '<p class="error animated shake">Giá bitcoin trên khoảng phải nhỏ hơn dưới khoảng</p>';
+    } else if ($lower >= $upper) {
+      $message += '<p class="error animated shake">Giá bitcoin trên phải lớn hơn dưới</p>';
     }
   } catch (error) {
     console.log (error);

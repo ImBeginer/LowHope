@@ -1,9 +1,9 @@
-var Pusher = require('pusher'),
-	pusher = new Pusher({
-		appId: '416493',
-		key: '802fc577223f4567a8df',
-		secret: '251f06b4c247f87f7593',
-		cluster: 'ap1',
-		encrypted: true
-	});
+var Pusher = require('pusher');
+var pusher = new Pusher({
+	appId: '435007',
+	key: 'df4ed713f2f76fde17d4',
+	secret: 'd2480ef6be7773efb2d0',
+	cluster: 'ap1',
+	encrypted: true
+});
 module.exports = pusher;

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-// ************************CHECK DỮ LIỆU ĐẦU VÀO**************************
+	/************************CHECK DỮ LIỆU ĐẦU VÀO**************************/
 
   /**
    * [isEmpty kiểm tra xem input có rỗng hay không]
@@ -19,10 +19,14 @@ $(document).ready(function() {
    * @return {Boolean}              [trả về true nếu đúng format ngược lại trả về false]
    */
    function isValidFormat ($inputTarget = null, $regex = '') {
-		$inputData = $inputTarget.val();
-	   	$regexFormat = new RegExp ($regex);
-
-	   	return $regexFormat.test($inputData);
+   		$inputType = $inputTarget.attr('type');
+   		$inputData = $inputTarget.val();
+   		$regexFormat = new RegExp ($regex);
+		// if ($inputType === 'number') {
+		// 	// $inputData = parseInt ($inputData);
+		// 	return /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/.test($inputData);
+		// } 
+		return $regexFormat.test($inputData);
    }
 
   /**
@@ -112,8 +116,8 @@ $(document).ready(function() {
 	   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
 	   		} else if (isNaN($upper) || isNaN($lower)) {
 	   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không hợp lệ</p>'; 
-	   		} else if ($lower > $upper) {
-	   			$message += '<p class="error animated shake">Giá bitcoin trên khoảng phải nhỏ hơn dưới khoảng</p>';
+	   		} else if ($lower >= $upper) {
+	   			$message += '<p class="error animated shake">Giá bitcoin trên phải lớn hơn dưới</p>';
 	   		}
 	   	} catch (error) {
 	   		console.log (error);
@@ -215,7 +219,7 @@ $(document).ready(function() {
 				}
 			})
 			.fail(function(response) {
-				console.log("error");
+				console.log("checkUserExist: error");
 			});
 	  	} 
 	});
@@ -247,7 +251,7 @@ $(document).ready(function() {
 		      		}
 		      	})
 		      	.fail(function(response) {
-		      		console.log("error");
+		      		console.log("change_password: error");
 		      	});
 		    }
 	  	}
@@ -284,13 +288,12 @@ $(document).ready(function() {
 			      	  	}
 		      	})
 		      	.fail(function(response) {
-		      	 	console.log("error");
+		      	 	console.log("send_confirm_code: error");
 		      	});
 		    }
 	  	}
 	});
 	/************************************** END LOGIN **************************************************************/
-
 
 
 	/************************************ USER ACTIVITIES ******************************************************/
@@ -330,7 +333,7 @@ $(document).ready(function() {
 	 				}
 	 			})
 	 			.fail(function(response) {
-	 				console.log("error");
+	 				console.log("updateUser: error");
 	 			});
 	 		}else {
 	 			toatMessage('Warning','Vui lòng nhập đúng định dạng trường thông tin !','warning');
@@ -342,35 +345,60 @@ $(document).ready(function() {
 	 * Người chơi đặt giá bitcoin cho game truyền thống
 	 */
 	$('#bet-game_tt').on('click', function(event) {
-	 	event.preventDefault();
-	 	/* Act on the event */
+
+		// $("#dialog-confirm-bet-game-tt").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn sẽ mất 100 point cho để đặt cược. Chơi không?</p>');
+		// $("#dialog-confirm-bet-game-tt").dialog({
+		// 	resizable: false,
+		// 	height: "auto",
+		// 	width: 400,
+		// 	modal: true,
+		// 	draggable: false,
+		// 	buttons: [
+		// 	{
+		// 		text: "Xác nhận",
+		// 		"class": 'confirm-yes-btn btn medium-font-size',
+		// 		click: function() {
+		// 			$( this ).dialog( "close" );
+		// 		}
+		// 	},
+		// 	{
+		// 		text: "Hủy bỏ",
+		// 		"class": 'confirm-cancel-btn btn medium-font-size',
+		// 		click: function() {
+		// 			$( this ).dialog( "close" );
+		// 		}
+		// 	}
+		// 	],
+		// });
+
 	 	var el = $('#point-input').val();
 	 	var price_bet = parseFloat(el)|| 0;
-	 	if(price_bet > 0){				
+	 	if(price_bet > 0 && /^\s*(?=.*[1-9])\d*(?:[^,;]+\.\d{1,2})?\s*$/.test(price_bet)){	
 	 		$.ajax({
 	 			url: base_url + 'gamect/log_game_tt',
 	 			type: 'POST',
 	 			dataType: 'JSON',
 	 			data: {price_bet: price_bet},
-	 		})
-	 		.done(function(response) {
-	 			if(response == 0){
+	 		}).done(function(response) {
+	 			if(response.result == 0){
 	 				toatMessage('Warning','Đại ca! Có gì đó sai sai, ta nên thử lại sau...','warning');
 	 				$('#point-input').val("");						
-	 			}else if(response == 1){
-	 				toatMessage('Success','Bạn đã dự đoán thành công, Chờ có kết quả thôi nào !!!','success');
+	 			}else if(response.result == 1){
 	 				$('#point-input').val("");
-	 			}else if(response == 2) {
-	 				toatMessage('Warning','Vui lòng nhập đúng định dạng trường dự đoán !','warning');
+	 				$('#user-point').text(response.user_point);
+	 				toatMessage('Success','Bạn đã dự đoán thành công. <br>Cùng chờ có kết quả thôi nào !!!','success');
+	 			}else if(response.result == 2) {
+	 				toatMessage('Warning','Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
 	 				$('#point-input').val("");
 	 				$('#point-input').focus();
+	 			}else if(response.result == 3){
+	 				toatMessage('Info', 'Bạn không có đủ Point để đặt cược game này !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
 	 			}
-	 		})
-	 		.fail(function(response) {
-	 			console.log("error");
+	 		}).fail(function(response) {
+	 			console.log("log_game_tt: error");
 	 		});
 	 	}else {
-	 		toatMessage('Warning','Vui lòng nhập đúng định dạng trường dự đoán !','warning');
+	 		toatMessage('Warning','Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
 	 		$('#point-input').val("");
 	 		$('#point-input').focus();
 	 	}
@@ -404,12 +432,9 @@ $(document).ready(function() {
 	 * Tạo game mini yes no
 	 */
 	$('#create-game-btn-yes-no').on('click', function(event) {
-	 	event.preventDefault();
-
 	 	$ynGameObject = yesnogame;
 	 	if (isValidData ($ynGameObject)) {
 	 		$('#create-game').modal('hide');
-
 	 		var game_title = $('#game-title').val()||"";
 	 		var end_date = $('#game-date-yn').val() || "";
 	 		var end_time = $('#game-time').val() || "";
@@ -420,38 +445,64 @@ $(document).ready(function() {
 	 		var end_date_time = (new Date(end_date[2],end_date[1]-1,end_date[0], end_time[0], end_time[1])).getTime();
 	 		var current_date = new Date().getTime();
 
+	 		var isPrice = /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/.test(game_bitcoin_price);
 	 		if(end_date_time > current_date){
-	 			$.ajax({
-	 				url: base_url + 'gameCT/createGameYN',
-	 				type: 'POST',
-	 				dataType: 'JSON',
-	 				data: {game_title: game_title, end_date_time: end_date_time, price_bet:game_bitcoin_price},
-	 			})
-	 			.done(function(response) {
-	 				if(response.create == 1){
-	 					$('#user-point').text(response.user_point);
+	 			if(isPrice){
+		 			$.ajax({
+		 				url: base_url + 'gameCT/createGameYN',
+		 				type: 'POST',
+		 				dataType: 'JSON',
+		 				data: {game_title: game_title, end_date_time: end_date_time, price_bet:game_bitcoin_price},
+		 			})
+		 			.done(function(response) {
+		 				if(response.create == 1){
+		 					$('#user-point').text(response.user_point);
+		 					$.toast({
+							    heading: 'Success',
+								text: 'Chúc mừng bạn đã tạo game thành công !<br>(Bạn sẽ được sang trang game trong giây lát)',
+								showHideTransition: 'slide',
+								icon: 'success',
+								position: 'bottom-right',
+								hideAfter: 5000,
 
-	 					$.toast({
-						    heading: 'Success',
-							text: 'Chúc mừng bạn đã tạo game thành công !',
-							showHideTransition: 'slide',
-							icon: 'success',
-							position: 'bottom-right',
-							hideAfter: 5000,
+							    // afterHidden: function () {
+							    //     location.href = base_url + 'gamect/yn/' + response.game_id;
+							    // }
+							});
 
-						    afterHidden: function () {
-						        location.href = base_url + 'gamect/yn/' + response.game_id;
-						    }
-						});
-	 				}else if(response.create == 0){
-	 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
-	 				}else if(response.create == 2){
-	 					toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
-	 				}
-	 			})
-	 			.fail(function(response) {
-	 				console.log("error");
-	 			});	 			
+		 					//send data to server
+							$.ajax({
+								url: 'http://localhost:3333/api/game/yngame',
+								type: 'POST',
+								dataType: 'JSON',
+								data: {GAME_ID: response.game_id, END_DATE: end_date_time},
+							})
+							.done(function() {
+								console.log("success");
+							})
+							.fail(function() {
+								console.log("error");
+							})
+							.always(function() {
+								console.log("complete");
+							});
+							
+		 				}else if(response.create == 0){
+		 					toatMessage('Warning', 'Hệ thống có lỗi xảy ra, vui lòng thử lại sau !','warning');
+		 				}else if(response.create == 2){
+		 					toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
+		 				}else if(response.create == 3){
+		 					toatMessage('Warning', 'Thời gian kết thúc game phải lớn hơn thời gian hiện tại','warning');
+		 				}else if(response.create == 4){
+		 					toatMessage('Warning', 'Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
+		 				}
+		 			})
+		 			.fail(function(response) {
+		 				console.log("createGameYN: error");
+		 			});
+	 			}else{
+	 				toatMessage('Warning', 'Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
+	 			}	 			
 	 		}else{
 	 			toatMessage('Warning', 'Thời gian kết thúc game phải lớn hơn thời gian hiện tại','warning');
 	 		}
@@ -462,8 +513,6 @@ $(document).ready(function() {
 	 * Tạo game mini multi
 	 */
 	$('#create-game-btn-mul').on('click', function(event) {
-	 	event.preventDefault();
-	 	/* Act on the event */
 	 	$mulGameObject = mulGame;
 	 	if (isValidData ($mulGameObject) && isPriceValid ($mulGameObject)) {
 
@@ -480,38 +529,57 @@ $(document).ready(function() {
 	 		var current_date = new Date().getTime();
 
 	 		if(end_date_time > current_date){
-
 		 		$.ajax({
 		 			url: base_url + 'gamect/createGameMulti',
 		 			type: 'POST',
 		 			dataType: 'JSON',
 		 			data: {game_title_mul: game_title_mul, end_date_time:end_date_time, price_below:price_below, price_above:price_above},
-		 		})
-		 		.done(function(response) {
+		 		}).done(function(response) {
 		 			console.log("success");
 		 			if(response.create == 1){
 		 				$('#user-point').text(response.user_point); 
-		 				
 		 				$.toast({
 						    heading: 'Success',
-							text: 'Chúc mừng bạn đã tạo game thành công !',
+							text: 'Chúc mừng bạn đã tạo game thành công !<br>(Bạn sẽ được sang trang game trong giây lát)',
 							showHideTransition: 'slide',
 							icon: 'success',
 							position: 'bottom-right',
 							hideAfter: 5000,
 
-						    afterHidden: function () {
-						        location.href = base_url + 'gamect/mul/' + response.game_id;
-						    }
+						    // afterHidden: function () {
+						    //     location.href = base_url + 'gamect/mul/' + response.game_id;
+						    // }
 						});
+
+		 				//send data to server
+						$.ajax({
+							url: 'http://localhost:3333/api/game/multigame',
+							type: 'POST',
+							dataType: 'JSON',
+							data: {GAME_ID: response.game_id, END_DATE: end_date_time},
+						})
+						.done(function() {
+							console.log("success");
+						})
+						.fail(function() {
+							console.log("error");
+						})
+						.always(function() {
+							console.log("complete");
+						});
+		 				
+
 		 			}else if(response.create == 0){
 		 				toatMessage('Warning', 'Có lỗi xảy ra, vui lòng thử lại sau !','warning');
 		 			}else if(response.create == 2){
 		 				toatMessage('Info', 'Bạn không có đủ Point để tạo thêm game mới !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
+		 			}else if(response.create == 3){
+		 				toatMessage('Warning', 'Thời gian kết thúc game phải lớn hơn thời gian hiện tại','warning');
+		 			}else if(response.create == 4){
+		 				toatMessage('Warning', 'Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
 		 			}
-		 		})
-		 		.fail(function(response) {
-		 			console.log("error");
+		 		}).fail(function(response) {
+		 			console.log("createGameMulti: error");
 		 		});
 	 		}else {
 	 			toatMessage('Warning', 'Thời gian kết thúc game phải lớn hơn thời gian hiện tại','warning');
@@ -549,7 +617,7 @@ $(document).ready(function() {
 					toatMessage('Warning', 'Rất tiếc, game này đã đủ người chơi.<br>Vui lòng chọn game khác để chơi.', 'warning');
 				}
 			}).fail(function(response) {
-				console.log("error");
+				console.log("log_game_yes_no: error");
 			});			
 		}else{
 			toatMessage('Warning','Bạn hãy đưa ra sự lựa chọn của mình !', 'warning');
@@ -587,53 +655,11 @@ $(document).ready(function() {
 				}
 			})
 			.fail(function(response) {
-				console.log("error");
+				console.log("log_game_mul: error");
 			});
 		}
 	});
 });
-
-/**
- * [countDown_End_Date description] Đếm ngược thời gian hết hạn game truyền thống, game mini
- * @param  {[type]} string_end_date [description]
- * @param  {[type]} type            [description]
- * @return {[type]}                 [description]
- */
-// function countDown_End_Date(string_end_date,type) {
-// 	var end_date = (new Date(string_end_date)).getTime();
-// 	var x = setInterval(function(){
-// 		// Get todays date and time
-// 		var now = new Date().getTime();
-//     	// Find the distance between now an the count down date
-//     	var distance = end_date - now;
-//     	// Time calculations for days, hours, minutes and seconds
-//     	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//     	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//     	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//     	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-// 	    // Output the result in an element
-// 	    if(type == 0){
-// 		    document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
-// 		    + minutes + "m " + seconds + "s ";
-		    
-// 		    // If the count down is over, write some text 
-// 		    if (distance < 0) {
-// 		    	clearInterval(x);
-// 		    	document.getElementById("countDown").innerHTML = "EXPIRED";
-// 		    }		    	
-// 	    }else if(type == 1){
-// 	    	document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
-// 		    + minutes + "m " + seconds + "s ";
-		    
-// 		    // If the count down is over, write some text 
-// 		    if (distance < 0) {
-// 		    	clearInterval(x);
-// 		    	document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
-// 		    }
-// 	    }
-// 	}, 1000);
-// }
 
 /**
  * [toatMessage description] Hiển thị message thông báo, warning
@@ -653,90 +679,8 @@ function toatMessage(heading,text,icon) {
 	});
 }
 
-// /**
-//  * [user_percent_in_de description] tỉ lệ người chơi đã cược game yes no
-//  * @param  {Number} $in_num [description]
-//  * @param  {Number} $de_num [description]
-//  * @return {[type]}         [description]
-//  */
-// function user_percent_in_de ($in_num = 0, $de_num = 0) {
-//     $percent_width = parseInt($('.percent-panel').css('width'), 10);
-
-//     $in_div = $('#increase');
-//     $de_div = $('#decrease');
-//     $in_user = $in_num;
-//     $de_user = $de_num;
-//     $total_user = parseInt($in_user) + parseInt($de_user);
-
-//     if ($total_user !== 0 && $total_user > 0) {
-//       	$in_div_width = Math.round(($percent_width * $in_user) / $total_user);
-//       	$de_div_width = $percent_width - $in_div_width;
-//     } else {
-//       	$de_div_width = $in_div_width = Math.round($percent_width / 2);
-//     }
-
-//     $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
-//     $de_per_string = 100 - $in_per_string;
-
-//     $in_div.css({'width': $in_div_width + 'px'});
-//     $de_div.css({'width': $de_div_width + 'px'});
-
-//     $('span.in-num-percent').text($in_per_string + '%');
-//     $('span.de-num-percent').text($de_per_string + '%');
-// }
-
-// *
-//  * [user_percent_mul description] tỉ lệ người chơi đã cược game multi
-//  * @param  {Number} $lower   [description]
-//  * @param  {Number} $between [description]
-//  * @param  {Number} $upper   [description]
-//  * @return {[type]}          [description]
- 
-// function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
-//     $percent_width = parseInt($('.game-mul.percent-panel').css('width'), 10) - 2;
-//     $total = parseInt($lower) + parseInt($between) + parseInt($upper);
-//     $lo_div = $('#increase');
-//     $be_div = $('#between');
-//     $up_div = $('#decrease');
-//     $lo_div_width = $be_div_width = $up_div_width = 0;
-
-//     if ($total !== 0 && $total > 0) {
-//       $lo_div_width = Math.round(($percent_width * $lower) / $total);
-//       $be_div_width = Math.round(($percent_width * $between) / $total);
-//       $up_div_width = $percent_width - $lo_div_width - $be_div_width;      
-//     } else {
-//       $lo_div_width = $be_div_width = $lo_div_width = Math.round($percent_width / 3) - 1;
-//     }
-
-//     $lo_per_string = Math.round(($lo_div_width / $percent_width) * 100);
-//     $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
-//     $up_per_string = 100 - $lo_per_string - $be_per_string;
-
-//     $lo_div.css({'width': $lo_div_width + 'px'});
-//     $be_div.css({'width': $be_div_width + 'px'});
-//     $up_div.css({'width': $up_div_width + 'px'});
-
-//     $('.game-mul span.in-num-percent').text($lo_per_string + '%');
-//     $('.game-mul span.be-num-percent').text($be_per_string + '%');
-//     $('.game-mul span.de-num-percent').text($up_per_string + '%');
-// }
-
-/**
- * [set_style_table_log_game description] đặt lại style cho bảng danh sách người chơi đã tham gia game mini
- */
-// function set_style_table_log_game() {
-// 	var giaodich = $('.giaodich');
-// 	giaodich[0].style.fontSize = '30px';
-// 	giaodich[0].style.fontWeight = 'bold';
-
-// 	var el_show = $('#list-bet-log_length');
-// 	el_show[0].children[0].firstChild.textContent = 'Hiển thị ';
-// 	el_show[0].children[0].firstChild.nextSibling.style.backgroundColor = '#777';
-// 	el_show[0].children[0].firstChild.nextSibling.nextSibling.textContent = ' bản ghi';
-
-// 	var el_search = $('#list-bet-log_filter');
-// 	el_search[0].firstChild.firstChild.textContent = 'Tìm kiếm: ';
-// 	el_search[0].style.width = '100%';
-// 	el_search[0].firstChild.firstChild.nextSibling.style.width = '50%';
-// 	el_search[0].firstChild.firstChild.nextSibling.style.float = 'right';
-// }
+if(typeof is_reward !== 'undefined'){
+	if(is_reward){
+		toatMessage('Success', 'Chúc mừng bạn đã được cộng 20 point vào tài khoản cho lần đăng nhập đầu tiên trong ngày.', 'success');
+	}
+}
