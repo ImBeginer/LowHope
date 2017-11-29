@@ -153,7 +153,7 @@ $(function() {
     addDataChart(data.price);
   });
 
-  var yn_game = pusher.subscribe('yn-game');
+/*   var yn_game = pusher.subscribe('yn-game');
   yn_game.bind('pop-players', function(data){
     console.log('yn-game winner');
     console.log(data)
@@ -162,9 +162,9 @@ $(function() {
   multi_game.bind('pop-players', function(data){
     console.log('multi-game winner');
     console.log(data)
-  });
+  }); */
 
-  var system_game = pusher.subscribe('system-game');
+/*   var system_game = pusher.subscribe('system-game');
   system_game.bind('pop-users', function(data){
     console.log('system-game open');
     console.log(data)
@@ -172,5 +172,5 @@ $(function() {
   system_game.bind('pop-winners', function(data){
     console.log('system-game winner');
     console.log(data)
-  });
+  }); */
 })

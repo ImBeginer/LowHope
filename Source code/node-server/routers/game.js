@@ -30,7 +30,6 @@ router.post('/multigame', function(req, res){
 		console.log('*(MULTI_CHOICE_GAME)New MULTI_CHOICE_GAME is created at ' + game_info.START_DATE + ' ...\n');
 	});
 	res.end();
-	res.end();
 });
 
 module.exports = router;
