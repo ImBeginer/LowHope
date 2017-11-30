@@ -217,6 +217,10 @@ $(function () {
     if (isValidData ($object)) {
       if (userCheckBox (30)) {
         displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+		//quanth add function send noti
+        $.getScript(base_url + 'js/notification.js', function () { 
+          checkToSentNoti();
+        }); 
       }
     }
   }); 
@@ -225,7 +229,10 @@ $(function () {
     $object = login;
     if (isValidData ($object)) {
       displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
-      
+	  //quanth even when click login button in login page
+      $.getScript(base_url + 'js/checkLogin.js', function () { 
+        checkLogin();
+      });
     }
   });
 
@@ -251,6 +258,10 @@ $(function () {
     $object = managerInfo;
     if (isValidData ($object)) {
       displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+	  //quanth
+      $.getScript(base_url + 'js/checkLogin.js', function () { 
+        updateInfor();
+      });
     }
   });  
 

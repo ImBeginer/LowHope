@@ -12,14 +12,17 @@ var login = (function () {
 	};
 
 	var validFormat = {
-
-		'username': '^.{6,25}$',
+		'username':'^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
+		// 'username': '^.{6,25}$',
+		'password' : '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d.*)(?=.*\\W.*)[a-zA-Z0-9\\S]{8,15}$',
+		//Strong passwords with min 8 - max 15 character length, at least one uppercase letter, one lowercase letter, one number, one special character (all, not just defined), space is not allowed.
 
 	};	
 
 	var invalidFormatMessage = {
 
-		'username': 'Tên tài khoản phải nhiều hơn 6 và ít hơn 25 ký tự',
+		'username': 'Vui lòng nhập đúng email',
+		'password': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
 
 	};
 
