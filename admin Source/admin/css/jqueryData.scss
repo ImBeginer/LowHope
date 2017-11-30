@@ -1,0 +1,24 @@
+div#notifi-list_wrapper {
+	input {
+	  border: 1px solid rgba(153,153,153,0.3) !important;
+	  border-radius: 3px !important;
+	}
+
+	select option {
+	  color: #000 !important;
+	  font-size: 100%;
+	}
+	div#notifi-list_info,
+	div#notifi-list_paginate a {
+    font-size: 70% !important;
+	}
+	a.paginate_button.current {
+	  background: none !important;
+	  background-color: #5DADE2 !important;
+	}
+	label {
+    position: relative;
+    top: 0;
+    left: 0;
+	}
+}
