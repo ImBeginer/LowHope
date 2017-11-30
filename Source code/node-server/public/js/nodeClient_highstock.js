@@ -126,22 +126,19 @@ $(function() {
     }]
   });
 
-
-
   function createCoinChart(data) {
     chart.series[0].setData(data)
   }
+  function load_chart_data(url, chart_name){
+    chart_name.showLoading();
+    $.getJSON(url, function(result) {
+      createCoinChart(result);
+      chart_name.hideLoading();
+    });
+  }
 
-  $.getJSON('http://localhost:3333/api/bitcoin', function(result) {
-    createCoinChart(result);
-  });
+  load_chart_data('http://localhost:3333/api/bitcoin/rate', chart);
 
-  var pusher = new Pusher('802fc577223f4567a8df', {
-    cluster: 'ap1',
-    encrypted: true
-  });
-
-  var channel = pusher.subscribe('bitcoin_rate');
 
   function addDataChart(data) {
     var series = chart.series[0];
@@ -150,7 +147,35 @@ $(function() {
     series.addPoint([x, y], true, true);
   }
 
+  var pusher = new Pusher('df4ed713f2f76fde17d4', {
+    cluster: 'ap1',
+    encrypted: true,
+    disableStats:true
+  });
+
+  var channel = pusher.subscribe('bitcoin_rate');
   channel.bind('broadcasting', function(data) {
     addDataChart(data.price);
   });
+
+/*   var yn_game = pusher.subscribe('yn-game');
+  yn_game.bind('pop-players', function(data){
+    console.log('yn-game winner');
+    console.log(data)
+  });
+  var multi_game = pusher.subscribe('multi-game');
+  multi_game.bind('pop-players', function(data){
+    console.log('multi-game winner');
+    console.log(data)
+  }); */
+
+/*   var system_game = pusher.subscribe('system-game');
+  system_game.bind('pop-users', function(data){
+    console.log('system-game open');
+    console.log(data)
+  });
+  system_game.bind('pop-winners', function(data){
+    console.log('system-game winner');
+    console.log(data)
+  }); */
 })

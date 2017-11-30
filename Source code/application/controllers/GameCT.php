@@ -59,34 +59,53 @@ class GameCT extends CI_Controller {
 
 			$PRICE = $this->input->post('price_bet');	
 
-			if($PRICE && (double)$PRICE > 0){
-
+			if($PRICE && (double)$PRICE > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $PRICE)){
 				$GAME_TT_ID = $this->session->userdata('session_Game_TT_ID');
 				$USER_ID = $this->session->userdata('sessionUserId');
 				$DATE = date("Y-m-d H:i:s");
 
 				$check_Log_Game_TT = $this->game->check_Log_Game_TT($USER_ID, $GAME_TT_ID);
-				if($check_Log_Game_TT){
-					$check = $this->game->update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
-					if($check){
-						echo json_encode("1");
+				//Kiểm tra có đủ tiền để đặt cược game truyền thống hay không?
+				$canBetGameTT = $this->user->canBetGameTT($USER_ID);
+
+				if($canBetGameTT){
+					if($check_Log_Game_TT){
+						$check = $this->game->update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
+						if($check){
+							$user = $this->user->getUserById($USER_ID);
+							$res = array('result'=>1, 'user_point'=>$user->USER_POINT);
+							echo json_encode($res);
+						}else{
+							$res = array('result'=>0);
+							echo json_encode($res);
+						}
 					}else{
-						echo json_encode("0");
-					}
+						$check = $this->game->add_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
+						if($check){
+							$user = $this->user->getUserById($USER_ID);
+							$user_point = $user->USER_POINT;
+							$user_point = $user_point - FEE_BET_TT;
+							$this->user->updatePoint($USER_ID,$user_point);
+							$userNew = $this->user->getUserById($USER_ID);
+
+							$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT);
+							echo json_encode($res);
+						}else{
+							$res = array('result'=>0);
+							echo json_encode($res);
+						}
+					} 
 				}else{
-					$check = $this->game->add_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
-					if($check){
-						echo json_encode("1");
-					}else{
-						echo json_encode("0");
-					}
-				} 
+					$res = array('result'=>3);
+					echo json_encode($res);
+				}
 			}else {
-				echo json_encode("2");
+				$res = array('result'=>2);
+				echo json_encode($res);
 			}
 		}else{
-			//TODO
-			echo json_encode("0");
+			$res = array('result'=>0);
+			echo json_encode($res);
 		}
 	}
 
@@ -117,25 +136,34 @@ class GameCT extends CI_Controller {
 					$price_bet = $this->input->post('price_bet');
 					$start_date = date('Y-m-d H:i:s');
 
-					if(!$this->game->checkGameYN($userID, $start_date, $end_date)){
-						$gameID = $this->game->createGameYN($userID, $game_title, $end_date, $price_bet, $start_date);
-						$game = $this->game->getGameYN_ById($gameID);
+					if($price_bet && (double)$price_bet > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $price_bet)){
+						//ngày hiện tại nhỏ hơn ngày kết thúc
+						if(strtotime($end_date) > strtotime($start_date)){
+							if(!$this->game->checkGameYN($userID, $start_date, $end_date)){
+								$gameID = $this->game->createGameYN($userID, $game_title, $end_date, $price_bet, $start_date);
+								$game = $this->game->getGameYN_ById($gameID);
 
-						$user_point = $user_point - FEE_CREATE;
-						$this->user->updatePoint($userID,$user_point);
+								$user_point = $user_point - FEE_CREATE;
+								$this->user->updatePoint($userID,$user_point);
 
-						$userNew = $this->user->getUserById($userID);
+								$userNew = $this->user->getUserById($userID);
 
-						//call pusher để update item slide
-						$data['gameID'] = $gameID;
-						$data['game_title'] = $game_title;
-						$data['user_create'] = $user->USER_NAME;
-						$data['total_amount'] = $game->TOTAL_AMOUNT;
-						$this->pusher->trigger('create_game_yes_no_channel', 'create_game_yes_no_event', $data);
+								//call pusher để update item slide
+								$data['gameID'] = $gameID;
+								$data['game_title'] = $game_title;
+								$data['user_create'] = $user->USER_NAME;
+								$data['total_amount'] = $game->TOTAL_AMOUNT;
+								$this->pusher->trigger('create_game_yes_no_channel', 'create_game_yes_no_event', $data);
 
-						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT, 'game_id'=>$gameID));					
+								echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT, 'game_id'=>$gameID));					
+							}else{
+								echo json_encode(array('create'=>0));
+							}
+						}else{
+							echo json_encode(array('create'=>3));
+						}
 					}else{
-						echo json_encode(array('create'=>0));
+						echo json_encode(array('create'=>4));
 					}
 				}else{
 					echo json_encode(array('create'=>2));
@@ -163,34 +191,14 @@ class GameCT extends CI_Controller {
 				$data['USER_NAME'] = $user->USER_NAME;
 	            $data['USER_POINT'] = $user->USER_POINT;
 
-	            //load game active
-                $game = $this->game->getAllGameMiniActive();
-                if(isset($game['YN'])){
-                    $data['YN'] = $game['YN'];                            
-                    foreach ($data['YN'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'YN';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['YN'] = array(); 
-                }
-
-                if(isset($game['MUL'])){
-                    $data['MUL'] = $game['MUL'];                            
-                    foreach ($data['MUL'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'MUL';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['MUL'] = array();
-                }
-
-                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
-                
+                $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+                $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+                $data['top_point'] = $this->user->get_top_point();
 
 				$data['game_data'] = $this->game->getGameYN_ById($game_id);
+				$data['user_id'] = $user->USER_ID;
+				$data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+        		$data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 
 				// Lấy danh sách lịch sử log của game này
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
@@ -214,33 +222,9 @@ class GameCT extends CI_Controller {
 				}
 
 			}else{
-				
 				//GEST view
 				//load game active
-                $game = $this->game->getAllGameMiniActive();
-                if(isset($game['YN'])){
-                    $data['YN'] = $game['YN'];                            
-                    foreach ($data['YN'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'YN';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['YN'] = array(); 
-                }
-
-                if(isset($game['MUL'])){
-                    $data['MUL'] = $game['MUL'];                            
-                    foreach ($data['MUL'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'MUL';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['MUL'] = array();
-                }
-
-                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+                $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
 
 				// Lấy danh sách lịch sử log của game này
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
@@ -370,25 +354,33 @@ class GameCT extends CI_Controller {
 					$price_below = $this->input->post('price_below');
 					$price_above = $this->input->post('price_above');
 
-					if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
-						$gameID = $this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
+					if($price_below && (double)$price_below > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $price_below) && $price_above && (double)$price_above > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $price_above)){
+						if(strtotime($end_date) > strtotime($start_date)){
+							if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
+								$gameID = $this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
 
-						$game = $this->game->getGameMUL_ById($gameID);
+								$game = $this->game->getGameMUL_ById($gameID);
 
-						$user_point = $user_point - FEE_CREATE;
-						$this->user->updatePoint($userID,$user_point);
+								$user_point = $user_point - FEE_CREATE;
+								$this->user->updatePoint($userID,$user_point);
 
-						$userNew = $this->user->getUserById($userID);
+								$userNew = $this->user->getUserById($userID);
 
-						//call pusher để update item slide
-						$data['gameID'] = $gameID;
-						$data['game_title'] = $game_title;
-						$data['user_create'] = $user->USER_NAME;
-						$data['total_amount'] = $game->TOTAL_AMOUNT;
-						$this->pusher->trigger('create_game_mul_channel', 'create_game_mul_event', $data);
-						echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT, 'game_id'=>$gameID));
+								//call pusher để update item slide
+								$data['gameID'] = $gameID;
+								$data['game_title'] = $game_title;
+								$data['user_create'] = $user->USER_NAME;
+								$data['total_amount'] = $game->TOTAL_AMOUNT;
+								$this->pusher->trigger('create_game_mul_channel', 'create_game_mul_event', $data);
+								echo json_encode(array('create'=>1, 'user_point'=>$userNew->USER_POINT, 'game_id'=>$gameID));
+							}else{
+								echo json_encode(array('create'=>0));
+							}
+						}else{
+							echo json_encode(array('create'=>3));
+						}
 					}else{
-						echo json_encode(array('create'=>0));
+						echo json_encode(array('create'=>4));
 					}
 				}else{
 					echo json_encode(array('create'=>2));
@@ -415,31 +407,9 @@ class GameCT extends CI_Controller {
 				$data['USER_NAME'] = $user->USER_NAME;
 	            $data['USER_POINT'] = $user->USER_POINT;
 
-	            //load game active
-                $game = $this->game->getAllGameMiniActive();
-                if(isset($game['YN'])){
-                    $data['YN'] = $game['YN'];                            
-                    foreach ($data['YN'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'YN';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['YN'] = array(); 
-                }
-
-                if(isset($game['MUL'])){
-                    $data['MUL'] = $game['MUL'];                            
-                    foreach ($data['MUL'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'MUL';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['MUL'] = array();
-                }
-
-                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+                $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+                $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+                $data['top_point'] = $this->user->get_top_point();
 
 				// Lấy danh sách lịch sử log của game này
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_MUL);
@@ -449,6 +419,9 @@ class GameCT extends CI_Controller {
 				}
 				
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
+				$data['user_id'] = $user->USER_ID;
+				$data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+        		$data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 
 				if($data['game_data']){
 					//lay ti le phan tram nguoi choi da tra loi
@@ -464,38 +437,12 @@ class GameCT extends CI_Controller {
 				}else{
 					$this->goHome();
 				}
-
 			}else{
 				//GEST view
-				
 				//load game active
-                $game = $this->game->getAllGameMiniActive();
-                if(isset($game['YN'])){
-                    $data['YN'] = $game['YN'];                            
-                    foreach ($data['YN'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'YN';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['YN'] = array(); 
-                }
-
-                if(isset($game['MUL'])){
-                    $data['MUL'] = $game['MUL'];                            
-                    foreach ($data['MUL'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'MUL';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['MUL'] = array();
-                }
-
-                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+                $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
 
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
-
 				// Lấy danh sách lịch sử log của game này
 
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_MUL);

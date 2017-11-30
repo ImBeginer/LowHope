@@ -166,8 +166,8 @@ $(function() {
       $message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không thể âm</p>';
     } else if (isNaN($upper) || isNaN($lower)) {
       $message += '<p class="error animated shake">Giá bitcoin trên khoảng hoặc dưới khoảng không hợp lệ</p>'; 
-    } else if ($lower > $upper) {
-      $message += '<p class="error animated shake">Giá bitcoin trên khoảng phải nhỏ hơn dưới khoảng</p>';
+    } else if ($lower >= $upper) {
+      $message += '<p class="error animated shake">Giá bitcoin trên phải lớn hơn dưới</p>';
     }
   } catch (error) {
     console.log (error);
@@ -489,11 +489,11 @@ $('a.user-login-form').on('click', function () {
 // /.CHECK LOGIN MỚI 2/11  
 
 display_chat ();
-user_percent_mul (8, 3, 5);
+// user_percent_mul (8, 3, 5);
 
-infinitySlideShow ();
+// infinitySlideShow ();
 
-// user_percent_in_de (1, 0);
+// user_percent_in_de (9, 5);
 });
 
 function infinitySlideShow () {

@@ -23,6 +23,19 @@ class UserCT extends CI_Controller {
     		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
 
     		if($user->ROLE_ID == ROLE_USER){
+
+    			if($user->ATTENDANCE == 0){
+		            $this->user->updatePoint($user->USER_ID, $user->USER_POINT + REWARD_POINT);
+		            $is_update_attendance = $this->user->update_attendance($user->USER_ID);
+		            if($is_update_attendance){
+		                $data['is_reward'] = true;
+		            }
+		        }else{
+		            $data['is_reward'] = false;
+		        }
+
+		        $user = $this->user->getUserById($user->USER_ID);
+
 				$tt_game = $this->game->getGameTT();
 				
 				//set sessionUserID
@@ -35,30 +48,12 @@ class UserCT extends CI_Controller {
 		        $data['TT_END_DATE'] = $tt_game->END_DATE;
 
 		        //load game active
-                $game = $this->game->getAllGameMiniActive();
-                if(isset($game['YN'])){
-                    $data['YN'] = $game['YN'];                            
-                    foreach ($data['YN'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'YN';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['YN'] = array(); 
-                }
-
-                if(isset($game['MUL'])){
-                    $data['MUL'] = $game['MUL'];                            
-                    foreach ($data['MUL'] as &$value) {
-                        $value = (object)$value;
-                        $value->TYPE = 'MUL';
-                        $value = (array)$value;
-                    }
-                }else{
-                    $data['MUL'] = array();
-                }
-                
-                $data['ALL_GAME_ACTIVE'] = array_merge($data['YN'], $data['MUL']);
+                $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+                $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+                $data['top_point'] = $this->user->get_top_point();
+                $data['user_id'] = $user->USER_ID;
+                $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+                $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 
 				$this->load->view('user/home', $data);		
     		}else{
@@ -123,7 +118,7 @@ class UserCT extends CI_Controller {
 				//email tồn tại và không trùng tài khoản google hay facebook, kiểm tra xem pass có đúng không
 				if(!$is_Mail_FB_GG){
 					$user = $this->user->getUserByMail($email);
-					//$pass = password_hash($pass, PASSWORD_DEFAULT);
+					$pass = md5($pass);
 					if($pass === $user->PASSWORD){
 						$userData['USER_EMAIL'] = $email;
 						$userData['USER_AVATAR'] = null;
@@ -141,6 +136,7 @@ class UserCT extends CI_Controller {
 				}
 			}else{
 				//email chưa có => add user
+				$pass = md5($pass);
 				$created_date = date("Y-m-d");
 				$id = $this->user->add_other_user($email, $pass, $created_date);
 				if($id > 0){
@@ -161,6 +157,63 @@ class UserCT extends CI_Controller {
 	}
 
 	/**
+	 * Cập nhật lại trạng thái đã xem, lấy nội dung thông báo ra
+	 * @return [type] [description]
+	 */
+	public function update_seen_noti()
+	{
+		if(isset($_POST['noti_id']) && isset($_POST['game_id']) && isset($_POST['type_id']) && isset($_POST['send_date'])){
+			
+			$noti_id = $this->input->post('noti_id');
+			$game_id = $this->input->post('game_id');
+			$type_id = $this->input->post('type_id');
+			
+			$send_date = $this->input->post('send_date');
+			$send_date = new DateTime($send_date);
+			$send_date = $send_date->format('Y-m-d H:i:s');
+
+			$userID = $this->session->userdata('sessionUserId');
+			
+			//1. Set seen
+			$result = $this->user->update_seen_notifi($noti_id, $userID, $game_id, $type_id, $send_date);
+			$noti_not_seen = $this->user->get_all_noti_not_seen($userID);
+
+			//2.Get content
+			$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
+
+			if($noti_content){
+				echo json_encode(array('noti_content'=>$noti_content, 'noti_not_seen'=>$noti_not_seen));
+			}
+		}
+	}
+
+	/**
+	 * Lấy nội dung thông báo
+	 * @return [type] [description]
+	 */
+	public function get_noti_content()
+	{
+		if(isset($_POST['noti_id']) && isset($_POST['game_id']) && isset($_POST['type_id']) && isset($_POST['send_date'])){
+			
+			$noti_id = $this->input->post('noti_id');
+			$game_id = $this->input->post('game_id');
+			$type_id = $this->input->post('type_id');
+			
+			$send_date = $this->input->post('send_date');
+			$send_date = new DateTime($send_date);
+			$send_date = $send_date->format('Y-m-d H:i:s');
+
+			$userID = $this->session->userdata('sessionUserId');
+			
+			$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
+
+			if($noti_content){
+				echo json_encode(array('noti_content'=>$noti_content));
+			}
+		}
+	}
+
+	/**
 	 * [change_password description]
 	 * @param  string $value [description]
 	 * @return [type]        [description]
@@ -172,28 +225,32 @@ class UserCT extends CI_Controller {
 			$pass = $this->input->post('pass');
 			$code = $this->input->post('code');
 
-			//kiem tra email xem co phai la email google hay facebook hay khong,
-			//neu la email google, fb thi khong co quyen doi mat khau
-			
-			$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);
-
-			//trung ma code
-			if($code === $this->session->userdata('code')){
-				//doi mat khau
-				
-				$result = $this->user->update_password($email, $pass);
-				if($result > 0){
-					echo json_encode(1);
+			//Kiểm tra lại pass
+			// if(preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$', $pass)){
+				//kiem tra email xem co phai la email google hay facebook hay khong,
+				//neu la email google, fb thi khong co quyen doi mat khau
+				$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);
+				//trung ma code
+				if($code === $this->session->userdata('code')){
+					//doi mat khau
+					$pass = md5($pass);
+					$result = $this->user->update_password($email, $pass);
+					if($result > 0){
+						echo json_encode(1);
+					}else{
+						//loi he thong
+						echo json_encode(2);
+					}
 				}else{
-					//loi he thong
-					echo json_encode(2);
+					//khong trung code
+					echo json_encode(0);
 				}
-			}else{
-				//khong trung code
-				echo json_encode(0);
-			}
+			// }else{
+			// 	echo json_encode(3);
+			// }
 		}
 	}
+
 	/**
 	 * [check_mail description]
 	 * @return [type] [description]
@@ -218,6 +275,41 @@ class UserCT extends CI_Controller {
 				//email khong ton tai
 				echo json_encode(2);
 			}
+		}
+	}
+
+	/**
+	 * [profile description] view profile: history 
+	 * @return [type] [description]
+	 */
+	public function profile()
+	{
+		$profile_userID = $this->uri->segment(3);
+		if(isset($_SESSION['sessionUserId'])){
+
+			$userID = $this->session->userdata('sessionUserId');
+			$user = $this->user->getUserById($userID);
+
+	        $data['USER_NAME'] = $user->USER_NAME;
+	        $data['USER_POINT'] = $user->USER_POINT;
+
+	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+	        
+	        // list notification
+	        $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+	        $data['user_id'] = $user->USER_ID;
+	        $data['top_point'] = $this->user->get_top_point();
+
+
+	        //data viewer
+	        $data['viewer'] = $this->user->get_profile_viewer($profile_userID);
+
+
+
+			$this->load->view('user/history', $data);
+			
+		}else{
+			$this->load->view('user/history');
 		}
 	}
 

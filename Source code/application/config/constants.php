@@ -95,7 +95,8 @@ define('GAME_YN',1);
 define('GAME_MUL',2);
 
 define('FEE_BET_MINI',10);
-define('FEE_BET_TT',10);
+define('FEE_BET_TT',100);
 define('FEE_CREATE',50);
+define('REWARD_POINT',20);
 
 define('MAX_PLAYER',40);

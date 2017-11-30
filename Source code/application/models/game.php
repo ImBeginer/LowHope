@@ -17,6 +17,17 @@ class Game extends CI_Model {
 		return $price->PRICE;
 	}
 
+	public function getPriceYesterday($time)
+	{
+		$this->db->select('*');
+		$this->db->where('UPDATE_AT', $time);
+		$price = $this->db->get('CURRENCY_DETAILS');
+		if($price){
+			$price = $price->row();
+			return $price->PRICE;
+		}
+	}
+
 	/********************************* GAME TT ***********************************************/
 
 	/**
@@ -112,6 +123,39 @@ class Game extends CI_Model {
 		}
 
 		return $game;
+	}
+
+	/**
+	 * [load_games_active description]
+	 * @return [type] [description]
+	 */
+	public function load_games_active()
+	{
+		//load game active
+        $game = $this->getAllGameMiniActive();
+        if(isset($game['YN'])){
+            $data['YN'] = $game['YN'];                            
+            foreach ($data['YN'] as &$value) {
+                $value = (object)$value;
+                $value->TYPE = 'YN';
+                $value = (array)$value;
+            }
+        }else{
+            $data['YN'] = array(); 
+        }
+
+        if(isset($game['MUL'])){
+            $data['MUL'] = $game['MUL'];                            
+            foreach ($data['MUL'] as &$value) {
+                $value = (object)$value;
+                $value->TYPE = 'MUL';
+                $value = (array)$value;
+            }
+        }else{
+            $data['MUL'] = array();
+        }
+
+        return array_merge($data['YN'], $data['MUL']);
 	}
 
 	/**
