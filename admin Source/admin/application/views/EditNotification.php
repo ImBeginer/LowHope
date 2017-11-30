@@ -84,10 +84,6 @@
           <div class="function-title no-border">
             <p class="title">Thông báo</p>
           </div>
-          <div class="search-panel">
-            <input class="manger-block-search" type="text" placeholder="Tìm kiếm" name="manager-unblock-search" id="manager-search">
-            <button class="btn search-btn" name="search-btn" onclick="search();"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
-          </div>            
           <div class="pre-scrollable pre-padding">
             <table id="notifi-list" class="full-width c-table">
               <thead>
