@@ -41,7 +41,7 @@ game_controller.sys_game_controller_running();
 game_controller.yn_game_controller_running();
 game_controller.multi_game_controller_running();
 /*=====END======Controllers============*/
-// game_controller.sys_game_schedule();
+game_controller.sys_game_schedule();
 
 
 
