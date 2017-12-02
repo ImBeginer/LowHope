@@ -165,19 +165,67 @@ class Game extends CI_Model {
 	public function getAllGameMini()
 	{
 		$game = array();
+		$number_gameYN_active = 0;
+		$number_gameMUL_active = 0;
+		$game['YN_ACTIVE'] = $number_gameYN_active;
+		$game['MUL_ACTIVE'] = $number_gameMUL_active;
 
 		$game_YN = $this->db->select('YN_GAMES.GAME_ID, YN_GAMES.OWNER_ID, USERS.USER_NAME, YN_GAMES.TITLE, YN_GAMES.TOTAL_AMOUNT, YN_GAMES.END_DATE, YN_GAMES.ACTIVE, YN_GAMES.PRICE_BET')->from('YN_GAMES')->join('USERS','YN_GAMES.OWNER_ID = USERS.USER_ID');
 		$game_YN = $this->db->get();
 		if($game_YN !== false && $game_YN->num_rows()>0){
 			$game['YN_ALL'] = $game_YN->result_array();
+
+			foreach ($game['YN_ALL'] as $value) {
+				if($value['ACTIVE'] == 1){
+					$number_gameYN_active++;
+				}
+			}
+
+			$game['YN_ACTIVE'] = $number_gameYN_active;
 		}
 
 		$game_MUL = $this->db->select('MULTI_CHOICE_GAMES.GAME_ID, MULTI_CHOICE_GAMES.OWNER_ID, USERS.USER_NAME, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.PRICE_BELOW, MULTI_CHOICE_GAMES.PRICE_ABOVE, MULTI_CHOICE_GAMES.TOTAL_AMOUNT, MULTI_CHOICE_GAMES.END_DATE, MULTI_CHOICE_GAMES.ACTIVE')->from('MULTI_CHOICE_GAMES')->join('USERS','MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID');
 		$game_MUL = $this->db->get();
 		if($game_MUL !== false && $game_MUL->num_rows()>0){
 			$game['MUL_ALL'] = $game_MUL->result_array();
+
+			foreach ($game['MUL_ALL'] as $value) {
+				if($value['ACTIVE'] == 1){
+					$number_gameMUL_active++;
+				}
+			}
+
+			$game['MUL_ACTIVE'] = $number_gameMUL_active;
 		}
 		return $game;
+	}
+
+	/**
+	 * [isClosed description]
+	 * @param  [type]  $gameID [description]
+	 * @param  [type]  $type   [description]
+	 * @return boolean         [description]
+	 */
+	function isClosed($gameID, $type)
+	{
+		$condi = array('GAME_ID' => $gameID, 'ACTIVE' => 1);
+		if($type == GAME_YN){
+			$gameYN = $this->db->select('*')->where($condi);
+			$gameYN = $this->db->get('YN_GAMES');
+			if($gameYN && $gameYN->num_rows()>0){
+				return false;
+			}else{
+				return true;
+			}
+		}else if($type == GAME_MUL){
+			$gameMUL = $this->db->select('*')->where($condi);
+			$gameMUL = $this->db->get('MULTI_CHOICE_GAMES');
+			if($gameMUL && $gameMUL->num_rows()>0){
+				return false;
+			}else{
+				return true;
+			}
+		}
 	}
 
 	/**

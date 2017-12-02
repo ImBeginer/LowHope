@@ -293,5 +293,7 @@ module.exports = {
 	yn_game_controller_running: yn_game_schedule,
 	multi_game_controller_running: multi_game_schedule,
 	yn_award_users:yn_award_users,
-	multi_award_users:multi_award_users
+	multi_award_users:multi_award_users,
+	//temp
+	sys_game_schedule:sys_game_schedule
 }

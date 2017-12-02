@@ -101,6 +101,33 @@ class User extends CI_Model {
 	}
 
 	/**
+	 * Danh sách 3 người chơi đạt giải của game truyền thống trước đó
+	 * @param  [type] $gameID [description]
+	 * @return [type]         [description]
+	 */
+	function get_user_achievement_before()
+	{
+		$gameID = $this->db->select('GAME_ID')->where('ACTIVE', 0)->order_by('GAME_ID', 'DESC');
+		$gameID = $this->db->get('SYSTEM_GAMES', 1);
+		if($gameID !== false && $gameID->num_rows()>0){
+			$gameID = $gameID->row();
+			$gameID = $gameID->GAME_ID;
+		}else{
+			$gameID = null;
+		}
+
+		if($gameID){
+			$top_users = $this->db->select('AWARD.PRIZE, USERS.USER_NAME')->from('ACHIEVEMENT')->join('AWARD', 'ACHIEVEMENT.AWARD_ID = AWARD.AWARD_ID')->join('USERS', 'ACHIEVEMENT.USER_ID = USERS.USER_ID')->where('AWARD.ACTIVE', 1)->where('ACHIEVEMENT.GAME_ID', $gameID);
+			$top_users = $this->db->get();
+			if($top_users !== false && $top_users->num_rows()>0){
+				return $top_users->result_array();
+			}else{
+				return array();
+			}
+		}
+	}
+
+	/**
 	 * Số lượng thông báo chưa đọc của mỗi người chơi
 	 * @param  [type] $userID [description]
 	 * @return [type]         [description]
@@ -527,10 +554,58 @@ class User extends CI_Model {
 	 * @param  [type] $profile_userID [description]
 	 * @return [type]                 [description]
 	 */
-	public function get_profile_viewer($viewer_id)
+	public function get_profile_user($id_user_view)
 	{
-		//$STT, GAME_ID, START_DATE, END_DATE, 
-		$his_game_tt = '';
+		$user_profile = array();
+		//giai he thong
+		$achievements_system = $this->db->select('USERS.USER_NAME, ACHIEVEMENT.GAME_ID, SYSTEM_GAMES.START_DATE, SYSTEM_GAMES.END_DATE, AWARD.PRIZE')->from('ACHIEVEMENT')->join('AWARD', 'ACHIEVEMENT.AWARD_ID = AWARD.AWARD_ID')->join('USERS', 'ACHIEVEMENT.USER_ID = USERS.USER_ID')->join('SYSTEM_GAMES', 'ACHIEVEMENT.GAME_ID = SYSTEM_GAMES.GAME_ID')->where('AWARD.ACTIVE', 1)->where('ACHIEVEMENT.USER_ID', $id_user_view)->order_by('SYSTEM_GAMES.START_DATE');
+
+		$achievements_system = $this->db->get();
+
+		if($achievements_system !== false && $achievements_system->num_rows()>0){
+			$user_profile['achievements_system'] = $achievements_system->result_array();
+		}else{
+			$user_profile['achievements_system'] = array();
+		}
+
+		//giai thu thach
+		//yes/no
+		$result_bet_yes_no_game = $this->db->select('YN_GAME_LOGS.USER_ID, YN_GAME_LOGS.GAME_ID, YN_GAMES.TITLE, YN_GAME_LOGS.IS_WINNER')->from('YN_GAME_LOGS')->join('YN_GAMES', 'YN_GAME_LOGS.GAME_ID = YN_GAMES.GAME_ID')->where('YN_GAME_LOGS.USER_ID', $id_user_view);
+
+		$result_bet_yes_no_game = $this->db->get();
+		
+		if($result_bet_yes_no_game !== false && $result_bet_yes_no_game->num_rows()>0){
+			$result_bet_yes_no_game = $result_bet_yes_no_game->result_array();
+			foreach ($result_bet_yes_no_game as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'YN';
+				$value = (array)$value;
+			}
+		}else{
+			$result_bet_yes_no_game = array();
+		}
+
+		//giai thu thach
+		//multiple choice
+		$result_bet_multi_game = $this->db->select('MULTI_CHOICE_GAME_LOGS.USER_ID, MULTI_CHOICE_GAME_LOGS.GAME_ID, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAME_LOGS.IS_WINNER')->from('MULTI_CHOICE_GAME_LOGS')->join('MULTI_CHOICE_GAMES', 'MULTI_CHOICE_GAME_LOGS.GAME_ID = MULTI_CHOICE_GAMES.GAME_ID')->where('MULTI_CHOICE_GAME_LOGS.USER_ID', $id_user_view);
+
+		$result_bet_multi_game = $this->db->get();
+		
+		if($result_bet_multi_game !== false && $result_bet_multi_game->num_rows()>0){
+			$result_bet_multi_game = $result_bet_multi_game->result_array();
+			foreach ($result_bet_multi_game as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'MUL';
+				$value = (array)$value;
+			}
+		}else{
+			$result_bet_multi_game = array();
+		}
+
+		$user_profile['result_bet_mini_game'] = array_merge($result_bet_yes_no_game, $result_bet_multi_game);
+
+		return $user_profile;
+		
 	}
 }
 
