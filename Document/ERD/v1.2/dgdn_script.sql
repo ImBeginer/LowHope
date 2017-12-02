@@ -37,12 +37,6 @@ CREATE TABLE USERS (
 ) ENGINE=InnoDB;
 
 
-INSERT INTO `USERS` (`ROLE_ID`, `USER_CIF`, `USER_NAME`, `USER_POINT`, `EMAIL`, `PHONE_NUMBER`, `ADDRESS`, `CREATE_DATE` ,`ATTENDANCE`, `ACTIVE`) VALUES
-(1, '114359317688861576124', 'CongLDSE03929', 500, 'congldse03929@fpt.edu.vn', '0986966861', 'Hải Dương', now(), 1, 0),
-(2, '1591830150906934', 'Quách Tương', 100, 'congld2509@gmail.com', '0986966861', 'Cầu Giấy, Hà Nội', now(), 1, 1),
-(3,'1098039550331795', 'hotaru', 500, 'tranhongquan.94@gmail.com', '1234', 'Hai Duong', now(), 1, 0),
-(3,'108396582926044150378', 'Công Công', 500, 'duycong2509@gmail.com', '123123123', 'Hà Nội', now(), 1, 0);
-
 
 CREATE TABLE  NOTIFICATION(
   NOTICE_ID int(11) NOT NULL auto_increment,
@@ -54,7 +48,7 @@ CREATE TABLE  NOTIFICATION(
 
 CREATE TABLE  NOTIFICATION_TYPE(
   TYPE_ID int(2) NOT NULL auto_increment,
-  TYPE_NAME nvarchar(20) NOT NULL,
+  TYPE_NAME varchar(20) NOT NULL,
   primary key(TYPE_ID)
 ) ENGINE=InnoDB;
 
@@ -62,30 +56,13 @@ CREATE TABLE  NOTIFICATION_DETAILS(
   NOTICE_ID int(11),
   USER_ID int(11),
   TYPE_ID int(2),
+  PRIMARY KEY(NOTICE_ID, USER_ID),
   foreign key(NOTICE_ID) references NOTIFICATION(NOTICE_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(TYPE_ID) references NOTIFICATION_TYPE(TYPE_ID),
   GAME_ID int(11),
   SEND_DATE datetime NOT NULL,
   SEEN tinyint(1) NOT NULL default 0
-) ENGINE=InnoDB;
-
-CREATE TABLE  CHAT_ROOMS(
-  ROOM_ID int(11) NOT NULL auto_increment,
-  ROOM_NAME varchar(100), 
-  CREATE_DATE datetime NOT NULL,
-  primary key(ROOM_ID)
-) ENGINE=InnoDB;
-
-CREATE TABLE  CHAT_MESSAGES(
-  MESSAGE_ID INT(11) NOT NULL auto_increment,
-  USER_ID int(11),
-  ROOM_ID int(11),
-  CONTENT nvarchar(255) NOT NULL,
-  SEND_DATE datetime NOT NULL,
-  primary key(MESSAGE_ID),
-  foreign key(USER_ID) references USERS(USER_ID),
-  foreign key(ROOM_ID) references CHAT_ROOMS(ROOM_ID)
 ) ENGINE=InnoDB;
 
 CREATE TABLE CATEGORIES (
@@ -131,26 +108,53 @@ CREATE TABLE SYSTEM_GAME_LOGS (
   GAME_ID int(11),
   PRICE_GUESS double NOT NULL,
   DATE_GUESS datetime NOT NULL,
+  PRIMARY KEY(USER_ID, GAME_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references SYSTEM_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
 
+CREATE TABLE  CHAT_ROOMS(
+  ROOM_ID int(11) NOT NULL auto_increment,
+  GAME_ID int(11),
+  ROOM_NAME varchar(100), 
+  CREATE_DATE datetime NOT NULL,
+  primary key(ROOM_ID),
+  foreign key(GAME_ID) references SYSTEM_GAMES(GAME_ID)
+) ENGINE=InnoDB;
+
+CREATE TABLE  CHAT_MESSAGES(
+  USER_ID int(11),
+  ROOM_ID int(11),
+  CONTENT TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  SEND_DATE datetime NOT NULL,
+  primary key(USER_ID, ROOM_ID),
+  foreign key(USER_ID) references USERS(USER_ID),
+  foreign key(ROOM_ID) references CHAT_ROOMS(ROOM_ID)
+) ENGINE=InnoDB;
+
+
 
 CREATE TABLE AWARD (
   AWARD_ID int(11) NOT NULL auto_increment,
+  PRIZE int(1) NOT NULL,
   AWARD_NAME nvarchar(100) NOT NULL, 
   PRICE double NOT NULL,
   IMAGE_URL varchar(255),
-  ACTICE tinyint(1) NOT NULL,
+  ACTIVE tinyint(1) NOT NULL,
   primary key(AWARD_ID)
 ) ENGINE=InnoDB;
+
+INSERT INTO `AWARD` (`PRIZE`, `AWARD_NAME`, `PRICE`, `ACTIVE`) VALUES
+(1, 'IPhone XXX', 35000000, 1),
+(2, 'IPhone Taiwan', 2000000, 1),
+(3, 'IPhone China', 1500000, 1);
 
 
 CREATE TABLE ACHIEVEMENT (
   A_ID int(11) NOT NULL auto_increment,
-  USER_ID int(11),
-  AWARD_ID int(11),
-  GAME_ID int(11),
+  USER_ID int(11) NOT NULL,
+  AWARD_ID int(11) NOT NULL,
+  GAME_ID int(11) NOT NULL,
   GET_AT datetime NOT NULL,
   primary key(A_ID),
   foreign key(USER_ID) references USERS(USER_ID),
@@ -167,12 +171,12 @@ CREATE TABLE YN_GAMES (
   CONTENT nvarchar(255),
   START_DATE datetime NOT NULL,
   END_DATE datetime NOT NULL,
-  POINT_TO_BET double NOT NULL,
+  POINT_TO_BET int(5) NOT NULL,
   PRICE_BET double NOT NULL, 
   RESULT double,
   PLAYER_COUNT int(2) NOT NULL,
   ACTIVE tinyint(1) NOT NULL,
-  TOTAL_AMOUNT double NOT NULL,
+  TOTAL_AMOUNT int(11) NOT NULL,
   primary key(GAME_ID), 
   foreign key(OWNER_ID) references USERS(USER_ID),
   foreign key(CUR_TYPE_ID) references CURRENCY_TYPE(TYPE_ID)
@@ -184,6 +188,7 @@ CREATE TABLE YN_GAME_LOGS (
   ANSWER tinyint(1) NOT NULL,
   ANS_TIME datetime NOT NULL,
   IS_WINNER tinyint(1) NOT NULL,
+  primary key(USER_ID, GAME_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references YN_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
@@ -196,13 +201,13 @@ CREATE TABLE MULTI_CHOICE_GAMES (
   CONTENT nvarchar(255),
   START_DATE datetime NOT NULL, 
   END_DATE datetime NOT NULL,
-  POINT_TO_BET double NOT NULL,
+  POINT_TO_BET int(5) NOT NULL,
   PRICE_BELOW double, 
   PRICE_ABOVE double,
   RESULT double, 
   PLAYER_COUNT int(2) NOT NULL, 
   ACTIVE tinyint(1) NOT NULL, 
-  TOTAL_AMOUNT double NOT NULL,
+  TOTAL_AMOUNT int(11) NOT NULL,
   primary key(GAME_ID),
   foreign key(OWNER_ID) references USERS(USER_ID),
   foreign key(CUR_TYPE_ID) references CURRENCY_TYPE(TYPE_ID)
@@ -216,6 +221,7 @@ CREATE TABLE MULTI_CHOICE_GAME_LOGS (
   PRICE_ABOVE boolean NOT NULL,
   ANS_TIME datetime NOT NULL,
   IS_WINNER tinyint(1) NOT NULL,
+  primary key(USER_ID, GAME_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(GAME_ID) references MULTI_CHOICE_GAMES(GAME_ID)
 ) ENGINE=InnoDB;
