@@ -10,6 +10,11 @@ class Home extends CI_Controller {
        
     }
 
+    function test()
+    {
+        $array = $this->IndexModel->getNumberEachMonth();
+    }
+
     /**
      * 
      * @return [type] [description]

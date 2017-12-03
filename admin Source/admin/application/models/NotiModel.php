@@ -15,13 +15,13 @@ class NotiModel extends CI_Model {
             'cluster' => 'ap1',
             'encrypted' => true
              );
-        $this->pusher = new Pusher\Pusher(
-            '35555731a8560ac49e3b',
-            'e6cb4dae14bbeda5149c',
-            '429809',
+        $this->  $pusher = new Pusher\Pusher(
+            'efd4e401d751e081f0f0',
+            '3e978574da9ec9e3dbfb',
+            '415653',
             $options
-        );
-
+          );
+        
         $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
         if ($query == true) {
             return true;
@@ -42,7 +42,7 @@ class NotiModel extends CI_Model {
         $this->db->select('*');
         $this->db->from('USERS');
         $this->db->where('ROLE_ID', 3); 
-        $this->db->order_by("CREATED_DATE", "desc"); 
+        $this->db->order_by("CREATE_DATE", "desc"); 
         $result = $this->db->get()->result_array();
         return ($result);
     } 
@@ -56,9 +56,9 @@ class NotiModel extends CI_Model {
         $month = date('m', strtotime('first day of last month'));
         $this->db->select('*');
         $this->db->from('USERS');
-        $this->db->where('MONTH(CREATED_DATE)', $month); 
+        $this->db->where('MONTH(CREATE_DATE)', $month); 
         $this->db->where('ROLE_ID', 3);         
-        $this->db->order_by("CREATED_DATE", "desc"); 
+        $this->db->order_by("CREATE_DATE", "desc"); 
         return ($this->db->get()->result_array());
     } 
 
@@ -72,7 +72,7 @@ class NotiModel extends CI_Model {
         // $this->db->select('*');
         // $this->db->from('ACHIEVEMENT');  
         // $this->db->order_by("GET_AT", "desc"); 
-        $result = $this->db->select('ACHIEVEMENT.USER_ID, USERS.USER_NAME, USERS.CREATED_DATE')->from('ACHIEVEMENT')->join('USERS','ACHIEVEMENT.USER_ID = USERS.USER_ID')->order_by("GET_AT", "desc");    
+        $result = $this->db->select('ACHIEVEMENT.USER_ID, USERS.USER_NAME, USERS.CREATE_DATE')->from('ACHIEVEMENT')->join('USERS','ACHIEVEMENT.USER_ID = USERS.USER_ID')->order_by("GET_AT", "desc");    
 
         $result = $this->db->get()->result_array();
         // print_r($result);
