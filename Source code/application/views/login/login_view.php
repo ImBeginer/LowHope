@@ -51,31 +51,31 @@
 		<div class="row">
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
-				<div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
-					<?php if(empty($YN_ALL) && empty($MUL_ALL)){
-						echo 'Các game đang được hệ thống cập nhật';
-					} ?>
-
+				<?php if(!$ACTIVE){ ?>
+					<marquee behavior="scroll" direction="left">Các thử thách đang được hệ thống cập nhật. Hãy tạo nhiều thử thách cho người khác để kiếm nhiều point nào <span><i class="fa fa-smile-o" aria-hidden="true" style="color:pink"></i></span></marquee>
+				<?php }else{ ?>
 					<?php shuffle($all_game); ?>
-					<?php foreach ($all_game as $value): ?>
-						<?php if($value['ACTIVE'] == 1){ ?>
-						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
-							<?php if($value['TYPE'] == 'YN'){ ?>
-							<a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
-							<?php }else if($value['TYPE'] == 'MUL'){ ?>
-							<a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
-							<?php } ?>
-								<div class="title"><?php echo $value['TITLE']; ?></div>
-								<div class="runner"><?php echo $value['USER_NAME']; ?></div>
-								<div class="prob">
-									<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
-									<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
-								</div>
-							</a>
-						</div>
-						<?php } ?>            
-					<?php endforeach ?>
-				</div>
+					<div id="hot-mini-game-content" class="hot-minigame slider autoplay"> 
+						<?php foreach ($all_game as $value): ?>
+							<?php if($value['ACTIVE'] == 1){ ?>
+							<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
+								<?php if($value['TYPE'] == 'YN'){ ?>
+								<a href="<?php echo base_url().'gamect/yn/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+								<?php }else if($value['TYPE'] == 'MUL'){ ?>
+								<a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>" title="<?php echo $value['TITLE']; ?>">
+								<?php } ?>
+									<div class="title"><?php echo $value['TITLE']; ?></div>
+									<div class="runner"><?php echo $value['USER_NAME']; ?></div>
+									<div class="prob">
+										<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+										<span><?php echo $value['TOTAL_AMOUNT'] ?></span>
+									</div>
+								</a>
+							</div>
+							<?php } ?>            
+						<?php endforeach ?>
+					</div>
+				<?php } ?>
 			</section>    
 			<!-- /.infinite slideshow -->
 			<!-- navbar -->

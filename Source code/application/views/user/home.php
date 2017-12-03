@@ -57,11 +57,11 @@
 		<div class="row">
 			<!-- infinite slideshow -->
 			<section id="hot-mini-game-area">
+				<?php if (empty($ALL_GAME_ACTIVE)) { ?>
+				<marquee behavior="scroll" direction="left">Các thử thách đang được hệ thống cập nhật. Hãy tạo nhiều thử thách cho người khác để kiếm nhiều point nào <span><i class="fa fa-smile-o" aria-hidden="true" style="color:pink"></i></span></marquee>
+				<?php }else{?>
+				<?php shuffle($ALL_GAME_ACTIVE) ?>
 				<div id="hot-mini-game-content" class="hot-minigame slider autoplay">
-					<?php if (empty($ALL_GAME_ACTIVE)) {
-						echo 'Các game đang được hệ thống cập nhật';
-					}else{?>
-					<?php shuffle($ALL_GAME_ACTIVE) ?>
 					<?php foreach ($ALL_GAME_ACTIVE as $value): ?>
 						<div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
 							<?php if($value['TYPE'] == 'YN'){ ?>
@@ -78,8 +78,8 @@
 							</a>
 						</div>
 					<?php endforeach?>
-					<?php } ?>
 				</div>
+				<?php } ?>
 			</section>
 			<!-- /.infinite slideshow -->
 			<!-- navbar -->
@@ -103,7 +103,7 @@
 
 						<!-- TODO tao mini game -->
 						<li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
-							<a href="javascript:void(0);" class="nav-link">Tạo thử thách</a>
+							<a href="javascript:void(0);" class="nav-link"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thử thách</a>
 						</li>
 
 						<!-- top rank point -->
@@ -174,8 +174,8 @@
 									</div>
 								</button>
 								<!-- notification list -->
-								<?php if($noti->all_noti){ ?>
 								<ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+								<?php if($noti->all_noti){ ?>
 									<?php foreach ($noti->all_noti as $value): ?>
 										<li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" data-gameType="<?php echo $value['TYPE_ID']; ?>" data-gameID="<?php echo $value['GAME_ID']; ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
 											<div class="noti-content ellipsis">
@@ -199,25 +199,23 @@
 											</div>
 										</li>
 									<?php endforeach ?>
-								</ul><!-- /.notification list -->
 								<?php }else{ ?>
-								<ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
-									<li class="noti-items">Không có Thông báo</li>
-								</ul>
+									<li class="noti-nothing">Không có Thông báo</li>
 								<?php } ?>
+								</ul><!-- /.notification list -->
 
 								<!-- popup notifi -->
 								<div class="modal" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
-												<button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
+											<div class="modal-header" id="notifi-title">
+
+												<button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close" title="Đóng">
+													<i class="fa fa-times-circle fa-lg" style="color: black" aria-hidden="true"></i>
 												</button>
 											</div>
-											<div class="modal-body">
-												<p class="notifi-message">...</p>
+											<div class="modal-body" id="notifi-content">
+
 											</div>
 										</div>
 									</div>
@@ -432,7 +430,16 @@
 			<!-- /.navbar -->
 		</div>
 	</div> <!-- /.big div on top -->
-
+	
+	<?php if(!empty($top_users_achievement)){ ?>
+	<!-- top users achievement -->
+	<div class="container-fluid">
+		<marquee behavior="scroll" direction="left">
+			Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+		</marquee>
+	</div>
+	<!-- end top users achievement -->
+	<?php } ?>
 	<!-- content -->
 	<div class="container-fluid">
 		<div class="row">
