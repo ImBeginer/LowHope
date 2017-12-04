@@ -2,6 +2,7 @@ $font-default-B: 'RobotoMono-SB-I';
 $font-default-R: 'RobotoMono-R';
 $font-default-I: 'RobotoMono-I';
 $font-default-L: 'RobotoMono-L';
+$font-extra-bold: 'Oswald-Bold';
 
 @font-face {
 	font-family: $font-default-B;
@@ -21,4 +22,9 @@ $font-default-L: 'RobotoMono-L';
 @font-face {
 	font-family: $font-default-L;
 	src: url('../assets/fonts/RobotoMono-Light.ttf');
+}
+
+@font-face {
+	font-family: $font-extra-bold;
+	src: url('../assets/fonts/Oswald-Bold.ttf');
 }
