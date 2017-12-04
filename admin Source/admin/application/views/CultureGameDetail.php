@@ -162,7 +162,7 @@
                     if ($value['USER_ID'] == $user_champion_id[2]) {
                   ?>
                     <tr>
-                      <td class="text-center wd-4">2</td>
+                      <td class="text-center wd-4">3</td>
                       <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
                       <td><?= $value['DATE_GUESS']; ?></td>
                       <td class="text-center">100</td>
@@ -175,11 +175,11 @@
                     }
                   endforeach ?>
                   <!-- show anyone is not champion -->
-                  <?php foreach ($player as $value): 
+                  <?php $count = 4; foreach ($player as $value): 
                     if ($value['USER_ID'] != $user_champion_id[0] && $value['USER_ID'] != $user_champion_id[1] && $value['USER_ID'] != $user_champion_id[2]) {
                   ?>
                     <tr>
-                      <td class="text-center wd-4">2</td>
+                      <td class="text-center wd-4"><?= $count++; ?></td>
                       <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
                       <td><?= $value['DATE_GUESS']; ?></td>
                       <td class="text-center">100</td>

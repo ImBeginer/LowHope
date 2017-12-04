@@ -21,8 +21,15 @@ var pusher_3 = new Pusher('df4ed713f2f76fde17d4', {
 });
 
 /**************************************** NOTIFICATION **********************************************/
-$('.noti-items').on('click', function(event) {
+$(document).on('click', '.noti-items', function(event) {
   event.preventDefault();
+
+  $('#notifi-popup-title').remove();
+  $('#nd-noti').remove();
+
+  $('#notifi-title').prepend('<i class="fa fa-spinner fa-pulse fa-fw waiting" style="color:black"></i>');
+  $('#notifi-content').append('<i class="fa fa-spinner fa-pulse fa-fw waiting" style="color:black"></i>');
+
   var current = $(this);
   //1.Add class
   current[0].firstElementChild.firstElementChild.children[1].className += " already-read";
@@ -41,7 +48,7 @@ $('.noti-items').on('click', function(event) {
 });
 
 /**
- * [set_and_get_noti description]
+ * [set_and_get_noti description] lấy thông báo hoặc update thông báo chưa xem-> đã xem
  * @param {[type]} noti_id       [description]
  * @param {[type]} send_date     [description]
  * @param {[type]} function_name [description]
@@ -54,8 +61,17 @@ function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
       data: {noti_id: noti_id, game_id: game_id, type_id:type_id, send_date: send_date},
     }).done(function(response) {
       if(response){
-        $('#notifi-popup-title')[0].innerText = response.noti_content.TITLE;
-        $('.notifi-message')[0].innerText = response.noti_content.CONTENT;
+        $('.waiting').remove();
+
+        if(response.noti_content.CONTENT.indexOf('REPLACE') >=0 ){
+          response.noti_content.CONTENT = response.noti_content.CONTENT.replace('REPLACE', 'game-id: ' + game_id + '. Xem chi tiết tại <a href="'+ base_url +'userct/history">đây</a>');
+        }else if(response.noti_content.CONTENT.indexOf('ENDGAME') >= 0){
+          response.noti_content.CONTENT = response.noti_content.CONTENT.replace('ENDGAME', 'Game-id: ' + game_id);
+          response.noti_content.CONTENT += ' Xem chi tiết tại <a href="'+ base_url +'userct/history">đây</a>';
+        }
+
+        $('#notifi-title').prepend('<h5 class="modal-title" id="notifi-popup-title"><i class="fa fa-info-circle" style="color:black" aria-hidden="true"></i> '+response.noti_content.TITLE+'</h5>');
+        $('#notifi-content').append('<p class="notifi-message" id="nd-noti">'+response.noti_content.CONTENT+'</p>');
 
         if(response.noti_not_seen != null){
           $('.notifi-num p')[0].innerText = response.noti_not_seen;
@@ -66,27 +82,75 @@ function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
     });
 }
 
+//add thông báo vào danh sách thông báo
 function add_noti(noti_id, noti_seen, game_type, game_id, noti_title, send_date, user_point) {
+  //Xóa không có thông báo
+  if($('ul#user-notifi li.noti-nothing')[0]){
+    $('ul#user-notifi li.noti-nothing')[0].remove();
+  }
+
   var html = '';
   html += '<li class="noti-items" data-noID="'+ noti_id +'" data-seen="'+ noti_seen +'" data-gameType="'+ game_type +'" data-gameID="'+ game_id +'" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">';
   html += '<div class="noti-content ellipsis">';
   html += '<a href="#!">';
   html += '<p class="notifi-title" class="ellipsis">';
-  html += '<div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div>';
+  html += '<div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div> ';
   html +=  noti_title;
   html += '<div class="time-area">';
   html += '<span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>';
-  html += '<span class="send-date">' + send_date + '</span>';
+  html += '<span class="send-date"> ' + send_date + '</span>';
   html += '</div>';
   html += '</p>';
   html += '</a>';
   html += '</div>';
   html += '</li>';
 
+  var num_noti = parseInt($('.notifi-num p')[0].textContent);
+  num_noti++;  
+  $('.notifi-num p')[0].innerText = num_noti;
   $('#user-notifi').prepend(html);
   $('#user-point').text(user_point);
 }
 
+//Kênh lắng nghe về game yes no
+function listen_yes_no_game() {
+  var channel_yn_game = pusher_3.subscribe('yn-game');
+  channel_yn_game.bind('pop-players', function(data) {
+    console.log('from yes no game: '+ data);
+    $.each(data, function(key, value) {
+      if(user_id == value.USER_ID){
+        add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+      }
+    });
+    //Xóa item trên slide
+    $('.hot-item[data-gameid='+ data[0].GAME_ID +'][data-gametype='+ data[0].TYPE_ID +']').remove();
+    //Kiểm tra slide còn item nào không thì chạy chữ
+    if($('.hot-item').length == 0){
+      $('#hot-mini-game-area').prepend('<marquee behavior="scroll" direction="left">Các thử thách đang được hệ thống cập nhật. Hãy tạo nhiều thử thách cho người khác để kiếm nhiều point nào <span><i class="fa fa-smile-o" aria-hidden="true" style="color:pink"></i></span></marquee>');
+    }
+  });
+}
+
+//Kênh lắng nghe multi game
+function listen_multi_game() {
+  var channel_multi_game = pusher_3.subscribe('multi-game');
+  channel_multi_game.bind('pop-players', function(data) {
+    console.log('from multi game: '+ data);
+    $.each(data, function(key, value) {
+      if(user_id == value.USER_ID){
+        add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+      }
+    });
+    //Xóa item trên slide
+    $('.hot-item[data-gameid='+ data[0].GAME_ID +'][data-gametype='+ data[0].TYPE_ID +']').remove();
+    //Kiểm tra slide còn item nào không thì chạy chữ
+    if($('.hot-item').length == 0){
+      $('#hot-mini-game-area').prepend('<marquee behavior="scroll" direction="left">Các thử thách đang được hệ thống cập nhật. Hãy tạo nhiều thử thách cho người khác để kiếm nhiều point nào <span><i class="fa fa-smile-o" aria-hidden="true" style="color:pink"></i></span></marquee>');
+    }
+  });
+}
+
+//Các kênh lắng nghe thông báo từ server
 if(typeof user_id !== 'undefined'){
   //Kênh hệ thống
   var channel_system_game = pusher_3.subscribe('system-game');
@@ -96,6 +160,7 @@ if(typeof user_id !== 'undefined'){
       //TODO
   });
 
+  //Kiểm tra người chơi có tham gia game hệ thống không thi cho subscrice kênh này
   channel_system_game.bind('pop-winner', function(data) {
       console.log('from system game for winners: '+ data);
       //TODO
@@ -104,29 +169,14 @@ if(typeof user_id !== 'undefined'){
   //Kiểm tra user có là chủ game yes/no nào không, hay chơi game yes/no nào không?
   //Nhận thông báo sau khi kết thúc game YES NO
   if(is_related_YN){
-    var channel_yn_game = pusher_3.subscribe('yn-game');
-    channel_yn_game.bind('pop-players', function(data) {
-      console.log('from yes no game: '+ data);
-      $.each(data, function(key, value) {
-        if(user_id == value.USER_ID){
-          add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
-        }
-      });
-    });
+    listen_yes_no_game();
   }
 
+  //Nhận thông báo sau khi kết thúc game multi
   if(is_related_MUL){
-    //Nhận thông báo sau khi kết thúc game multi
-    var channel_multi_game = pusher_3.subscribe('multi-game');
-    channel_multi_game.bind('pop-players', function(data) {
-      console.log('from multi game: '+ data);
-      $.each(data, function(key, value) {
-        if(user_id == value.USER_ID){
-          add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
-        }
-      });
-    });
+    listen_multi_game();
   }
+
 }else{
   console.log('Not user');
 }
@@ -202,8 +252,8 @@ function load_table_log_game(list_bet_log) {
   if(el.hasClass('table')){
     el.DataTable({
       language: {
-        "emptyTable": "Không có dữ liệu tồn tại !",
-        "zeroRecords": "Không có dữ liệu tồn tại !" ,
+        "emptyTable": "Hãy là người đầu tiên cược game này.",
+        "zeroRecords": "Rất tiếc, không có dữ liệu phù hợp." ,
         "paginate": {
           "previous": "Trước",
           "next": "Sau"
@@ -248,19 +298,43 @@ function updateItemSlide(game_id, game_type, total_amount) {
  * @param {[type]} total_amount [description]
  */
 function addItemSlide(gameID, gameType, game_title, user_create, total_amount) {
-  var type = '';
-  if(gameType == 1) {type = 'yn'}
-  else if(gameType == 2) {type = 'mul'}
-  var html = '';
-  html += '<div class="hot-item" data-gameID="'+ gameID +'" data-gameType="'+ gameType +'">';
-  html += '<a href="'+ base_url + 'gamect/' + type + '/' + gameID +'" title="'+ game_title +'">';
-  html += '<div class="title">'+ game_title +'</div>';
-  html += '<div class="runner">'+ user_create +'</div>';
-  html += '<div class="prob">';
-  html += '<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>';
-  html += '<span>'+ ' ' + total_amount +'</span>';
-  html += '</div></a></div>';
-  $('#hot-mini-game-content').append(html);
+  if($('#hot-mini-game-area marquee')[0]){
+    $('#hot-mini-game-area marquee')[0].remove();
+  }
+
+  if($('#hot-mini-game-content')[0]){
+    var type = '';
+    if(gameType == 1) {type = 'yn'}
+    else if(gameType == 2) {type = 'mul'}
+    var html = '';
+    html += '<div class="hot-item" data-gameID="'+ gameID +'" data-gameType="'+ gameType +'">';
+    html += '<a href="'+ base_url + 'gamect/' + type + '/' + gameID +'" title="'+ game_title +'">';
+    html += '<div class="title">'+ game_title +'</div>';
+    html += '<div class="runner">'+ user_create +'</div>';
+    html += '<div class="prob">';
+    html += '<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>';
+    html += '<span>'+ ' ' + total_amount +'</span>';
+    html += '</div></a></div>';
+    $('#hot-mini-game-content').append(html);
+  }else{
+    
+    //lan add dau tien
+    $('#hot-mini-game-area').append('<div id="hot-mini-game-content" class="hot-minigame slider autoplay"></div>');
+    var type = '';
+    if(gameType == 1) {type = 'yn'}
+    else if(gameType == 2) {type = 'mul'}
+    var html = '';
+    html += '<div class="hot-item" data-gameID="'+ gameID +'" data-gameType="'+ gameType +'">';
+    html += '<a href="'+ base_url + 'gamect/' + type + '/' + gameID +'" title="'+ game_title +'">';
+    html += '<div class="title">'+ game_title +'</div>';
+    html += '<div class="runner">'+ user_create +'</div>';
+    html += '<div class="prob">';
+    html += '<span class="icon-arrow-up"><i class="fa fa-angle-up" aria-hidden="true"></i></span>';
+    html += '<span>'+ ' ' + total_amount +'</span>';
+    html += '</div></a></div>';
+    $('#hot-mini-game-content').append(html);
+  }
+
 }
 
 /**
@@ -317,6 +391,9 @@ function countDown_End_Date(string_end_date,type) {
 
       // Output the result in an element
       if(type == 0){
+        if(days == 0 && hours == 0 && minutes == 0 && seconds == 30){
+          document.getElementById("countDown").style.color = 'red';
+        }
         document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
         + minutes + "m " + seconds + "s ";
         
@@ -324,8 +401,27 @@ function countDown_End_Date(string_end_date,type) {
         if (distance < 0) {
           clearInterval(x);
           document.getElementById("countDown").innerHTML = "EXPIRED";
+          document.getElementById("countDown").style.color  = 'red';
+          document.getElementById("countDown").style.fontWeight  = 'bold';
+          $('.mini-game-des')[0].firstElementChild.textContent = 'ĐÃ ĐÓNG';
         }         
       }else if(type == 1){
+        if(days == 0 && hours == 0 && minutes == 0 && seconds == 30){
+          document.getElementById("game_mini_countdown").style.color = 'red';
+        }
+
+        //Khi con 10s thi disable buton dat cuoc
+        if(days == 0 && hours == 0 && minutes == 0 && seconds <= 10){
+          if($('button#bet-game-yes-no')[0]){
+            $('button#bet-game-yes-no')[0].disabled = true;
+          }
+
+          if($('button#bet-game-mul')[0]){
+            $('button#bet-game-mul')[0].disabled = true;
+          }
+          
+        }
+
         document.getElementById("game_mini_countdown").innerHTML = days + "Day " + hours + "h "
         + minutes + "m " + seconds + "s ";
         
@@ -333,6 +429,18 @@ function countDown_End_Date(string_end_date,type) {
         if (distance < 0) {
           clearInterval(x);
           document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
+          document.getElementById("game_mini_countdown").style.color  = 'red';
+          document.getElementById("game_mini_countdown").style.fontWeight  = 'bold';
+          $('.mini-game-des')[0].firstElementChild.textContent = 'ĐÃ ĐÓNG';
+
+          if($('button#bet-game-yes-no')[0]){
+            $('button#bet-game-yes-no')[0].disabled = true;
+          }
+
+          if($('button#bet-game-mul')[0]){
+            $('button#bet-game-mul')[0].disabled = true;
+          }
+
         }
       }
   }, 1000);

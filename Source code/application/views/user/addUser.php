@@ -33,21 +33,12 @@
 
 		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="nav-item active top-bar-items">
-					<a class="nav-link" href="#"><i class="fa fa-trophy" aria-hidden="true"></i></a>
-				</li>
-				<li class="nav-item top-bar-items">
-					<a class="nav-link" href="#"><i class="fa fa-bell" aria-hidden="true"></i></a>
-					<div class="notifi-num">
-						<p>8</p>
-					</div>
-				</li>
 				<li class="nav-item">
 					<!-- dropdown button -->
 					<div class="dropdown">
 						<button class="user-name btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 							<span class="caret"></span>
-							<?php echo $this->session->userdata('userData')['USER_NAME']; ?>
+							<?php echo 'Xin chào, '.$this->session->userdata('userData')['USER_NAME']; ?>
 						</button>
 						<ul id="user-func-dropdown" class="dropdown-menu dropdown-menu-right">
 							<?php if($this->session->userdata('loggedInGooge')){ ?>							
@@ -63,54 +54,35 @@
 		</div>
 	</nav>  
 
-<!-- content -->
-<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-lg-6 col-xl-6 col-centered my-panel">
-			<div class="content">
-				<h2 class="text-center">Cập nhật thông tin</h2>
-				<span class="sub-cap panel-des" style="color:red; font-weight:bold">Lưu ý: Hãy điền thông tin chính xác để chúng tôi liên hệ với bạn khi trúng thưởng</span>
-				<form name="addUser">
-					<div class="form-group">
-						<input type="text" class="form-control" name="USER_NAME" id="fullName" placeholder="Họ và tên*" required>						
-					</div>
-					<div class="form-group">
-						<input type="number" class="form-control" name="USER_PHONE" id="phoneNumber" placeholder="Số điện thoại*" required>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="USER_ADDRESS" id="address" placeholder="Địa chỉ*" required>
-					</div>									
-					<button id="btn-add-user" name="update" type="button" class="btn btn-default my-btn col-12 cursor-pointer">Cập nhật thông tin</button>
-				</form>  
-			</div>
-		</div>      
-	</div>
-</div><!-- .content -->
-
-<!-- footer -->
-<footer>
+	<!-- content -->
 	<div class="container">
 		<div class="row">
-			<div id="contact-us" class="center">
-				<ul id="contact-item">
-					<li class="d-inline-block"><a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-					<li class="d-inline-block"><a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-					<li class="d-inline-block"><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
-					<li class="d-inline-block"><a href="#"><i class="fa fa-google-plus fa-lg" aria-hidden="true"></i></a></li>
-				</ul>
-			</div>
+			<div class="col-md-6 col-lg-6 col-xl-6 col-centered my-panel">
+				<div class="content">
+					<h2 class="text-center">Cập nhật thông tin</h2>
+					<span class="sub-cap panel-des" style="color:red; font-weight:bold">Lưu ý: Hãy điền thông tin chính xác để chúng tôi liên hệ với bạn khi trúng thưởng</span>
+					<form name="addUser">
+						<div class="form-group">
+							<input type="text" class="form-control" name="USER_NAME" id="fullName" placeholder="Họ và tên*" required>						
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" name="USER_PHONE" id="phoneNumber" placeholder="Số điện thoại*" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="USER_ADDRESS" id="address" placeholder="Địa chỉ*" required>
+						</div>									
+						<button id="btn-add-user" name="update" type="button" class="btn btn-default my-btn col-12 cursor-pointer">Cập nhật thông tin</button>
+					</form>  
+				</div>
+			</div>      
 		</div>
-		<div class="row">
-			<div id="about-us" class="center">
-				<p class="d-inline-block"><a href="#">Về chúng tôi</a></p>
-				<p class="d-inline-block"><a href="#">Liên hệ</a></p>
-				<p class="d-inline-block"><a href="#">Hướng dẫn</a></p>
-			</div>
-		</div>
-		<div class="break-line center"></div> 
-		<p class="copy-right">&copy; 9/2017</p>     
-	</div>
-</footer> <!-- end footer -->
+	</div><!-- .content -->
+
+	<!-- footer -->
+	<footer>
+		<div>LowHope &copy; 2017. All Right Reserved.</div>
+	</footer>
+	<!-- /.footer -->
 
 <!-- jquery -->
 <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>

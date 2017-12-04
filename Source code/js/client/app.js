@@ -460,15 +460,7 @@ $(document).ready(function() {
 		 				if(response.create == 1){
 		 					$('#user-point').text(response.user_point);
 		 					if(!is_related_YN){
-		 						var channel_yn_game = pusher_3.subscribe('yn-game');
-							    channel_yn_game.bind('pop-players', function(data) {
-						      		console.log('from create-game-btn-yes-no: '+ data);
-						      		$.each(data, function(key, value) {
-							        	if(user_id == value.USER_ID){
-							          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
-							        	}
-							      	});
-						    	});
+		 						listen_yes_no_game();
 		 					}
 		 					//send data to server
 							$.ajax({
@@ -552,15 +544,7 @@ $(document).ready(function() {
 		 				$('#user-point').text(response.user_point); 
 		 				if(!is_related_MUL){
 						    //Nhận thông báo sau khi kết thúc game multi
-						    var channel_multi_game = pusher_3.subscribe('multi-game');
-						    channel_multi_game.bind('pop-players', function(data) {
-						        console.log('from create-game-btn-mul: '+ data);
-						        $.each(data, function(key, value) {
-						        	if(user_id == value.USER_ID){
-						          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
-						        	}
-						      	});
-						    });
+						    listen_multi_game();
 						}
 		 				//send data to server
 						$.ajax({
@@ -628,15 +612,7 @@ $(document).ready(function() {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
 					if(!is_related_YN){
- 						var channel_yn_game = pusher_3.subscribe('yn-game');
-					    channel_yn_game.bind('pop-players', function(data) {
-					      	console.log('from bet-game-yes-no: '+ data);
-					      	$.each(data, function(key, value) {
-					        	if(user_id == value.USER_ID){
-					          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
-					        	}
-					      	});
-					    });
+ 						listen_yes_no_game();
  					}
 					set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
@@ -648,6 +624,8 @@ $(document).ready(function() {
 					toatMessage('Warning', 'Bạn không được chơi game do mình tạo ra', 'warning');
 				}else if(response.result == 5){
 					toatMessage('Warning', 'Rất tiếc, game này đã đủ người chơi.<br>Vui lòng chọn game khác để chơi.', 'warning');
+				}else if(response.result == 6){
+					toatMessage('Warning', 'Rất tiếc, game này đã đóng.<br>Vui lòng chọn game khác để chơi.', 'warning');
 				}
 			}).fail(function(response) {
 				console.log("log_game_yes_no: error");
@@ -676,16 +654,7 @@ $(document).ready(function() {
 				if(response.result == 1){
 					$('#user-point').text(response.user_point);
 					if(!is_related_MUL){
-					    //Nhận thông báo sau khi kết thúc game multi
-					    var channel_multi_game = pusher_3.subscribe('multi-game');
-					    channel_multi_game.bind('pop-players', function(data) {
-					        console.log('from bet-game-mul: '+ data);
-					        $.each(data, function(key, value) {
-					        	if(user_id == value.USER_ID){
-					          		add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
-					        	}
-					      	});
-					    });
+					    listen_multi_game();
 					}
 					set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
@@ -697,6 +666,8 @@ $(document).ready(function() {
 					toatMessage('Warning', 'Bạn không được chơi game do mình tạo ra', 'warning');
 				}else if(response.result == 5){
 					toatMessage('Warning', 'Rất tiếc, game này đã đủ người chơi.<br>Vui lòng chọn game khác để chơi.', 'warning');
+				}else if(response.result == 5){
+					toatMessage('Warning', 'Rất tiếc, game này đã đóng.<br>Vui lòng chọn game khác để chơi.', 'warning');
 				}
 			})
 			.fail(function(response) {

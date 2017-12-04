@@ -89,11 +89,11 @@
     <div class="row">
       <!-- infinite slideshow -->
       <section id="hot-mini-game-area">
+        <?php if (empty($ALL_GAME_ACTIVE)) { ?>
+        <marquee behavior="scroll" direction="left">Các thử thách đang được hệ thống cập nhật. Hãy tạo nhiều thử thách cho người khác để kiếm nhiều point nào <span><i class="fa fa-smile-o" aria-hidden="true" style="color:pink"></i></span></marquee>
+        <?php }else{?>
+        <?php shuffle($ALL_GAME_ACTIVE) ?>
         <div id="hot-mini-game-content" class="hot-minigame slider autoplay">
-          <?php if (empty($ALL_GAME_ACTIVE)) {
-            echo 'Các game đang được hệ thống cập nhật';
-          }else{?> 
-          <?php shuffle($ALL_GAME_ACTIVE) ?>
           <?php foreach ($ALL_GAME_ACTIVE as $value): ?>
             <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
               <?php if($value['TYPE'] == 'YN'){ ?>
@@ -109,10 +109,10 @@
                 </div>
               </a>
             </div>
-          <?php endforeach?> 
-          <?php } ?>
+          <?php endforeach?>
         </div>
-      </section>    
+        <?php } ?>
+      </section>
       <!-- /.infinite slideshow -->
       <!-- navbar -->
       <nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
@@ -209,8 +209,8 @@
                   </div>
                 </button>
                 <!-- notification list -->
-                <?php if($noti->all_noti){ ?>
                 <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+                <?php if($noti->all_noti){ ?>
                   <?php foreach ($noti->all_noti as $value): ?>
                     <li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" data-gameType="<?php echo $value['TYPE_ID']; ?>" data-gameID="<?php echo $value['GAME_ID']; ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
                       <div class="noti-content ellipsis">
@@ -234,30 +234,28 @@
                       </div>
                     </li>
                   <?php endforeach ?>
-                </ul><!-- /.notification list -->
                 <?php }else{ ?>
-                <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
-                  <li class="noti-items">Không có Thông báo</li>
-                </ul>
+                  <li class="noti-nothing">Không có Thông báo</li>
                 <?php } ?>
+                </ul><!-- /.notification list -->
 
                 <!-- popup notifi -->
                 <div class="modal" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
+                      <div class="modal-header" id="notifi-title">
+                        
                         <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
-                        <p class="notifi-message">...</p>
+                      <div class="modal-body" id="notifi-content">
+                        
                       </div>
                     </div>
                   </div>
                 </div><!-- /.popup notifi -->
-              </div>              
+              </div>
             </li>
             <!-- end notifications of user -->
 
@@ -335,7 +333,7 @@
                           <div class="message"></div>
                           <div class="form-group">
                             <label for="game-title">Tên game</label>
-                            <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="Tên game ít nhất phải chứa từ 6 ký tự.">                 
+                            <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="Tên game ít nhất phải chứa từ 6 ký tự.">
                           </div>
                           <div class="form-group d-inline-block">
                             <label for="game-date">Vào ngày</label>
@@ -347,12 +345,12 @@
                           </div>
                           <div class="form-group">
                             <label for="game-bitcoin-price">Giá Bitcoin trên (Đơn vị: USD)</label>
-                            <input type="number" class="form-control" id="game-bitcoin-price" placeholder="0.01" min="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
+                            <input type="number" class="form-control" id="game-bitcoin-price" placeholder="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
                           </div>
                           <div class="form-group submit-area">
                             <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-yes-no" name="game-btn-yes-no">Tạo</button>
                             <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                          </div>                                         
+                          </div>
                         </div>
                       </div>
                       <!-- end yes/no game -->
@@ -363,8 +361,8 @@
                           <div class="message"></div>
                           <div class="form-group">
                             <label for="game-title">Tên game</label>
-                            <input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="Tên game ít nhất phải chứa từ 6 ký tự.">                
-                          </div>              
+                            <input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="Tên game ít nhất phải chứa từ 6 ký tự.">
+                          </div>
                           <div class="form-group d-inline-block">
                             <label for="game-date">Vào ngày</label>
                             <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required data-toggle="tooltip" data-placement="left" title="Ngày kết thúc bắt đầu từ hôm nay.">
@@ -375,26 +373,26 @@
                           </div>
                           <div class="form-group">
                             <label for="">Giá Bitcoin ? (Đơn vị: USD)</label>
-                          </div>              
-                          <div class="form-group d-inline-block mr-3">
-                            <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
-                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" placeholder="0.01" min="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">     
-                          </div>            
-                          <div class="form-group d-inline-block mr-3">
-                            <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
-                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" placeholder="0.01" min="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
-                          </div> 
-                          <div class="form-group d-inline-block mr-3">  
-                            <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
-                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" placeholder="0.01" min="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" disabled>
                           </div>
                           <div class="form-group d-inline-block mr-3">
-                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" placeholder="0.01" min="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" disabled>    
-                          </div>                              
+                            <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
+                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
+                          </div>
+                          <div class="form-group d-inline-block mr-3">
+                            <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
+                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="1"  step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
+                          </div>
+                          <div class="form-group d-inline-block mr-3">
+                            <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
+                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" disabled>
+                          </div>
+                          <div class="form-group d-inline-block mr-3">
+                            <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" disabled>
+                          </div>
                           <div class="form-group submit-area">
                             <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="create-game-btn-mul" name="game-btn-mul">Tạo</button>
                             <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                          </div>                                         
+                          </div>
                         </div>
                       </div>
                       <!-- end create game multi -->
@@ -466,7 +464,17 @@
         <?php } ?>
       </nav><!-- /.navbar -->  
 
-      <div id="mgyn-content-area" class="content-area">
+      <?php if(!empty($top_users_achievement)){ ?>
+      <!-- top users achievement -->
+      <div class="container-fluid">
+        <marquee behavior="scroll" direction="left">
+          Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+        </marquee>
+      </div>
+      <!-- end top users achievement -->
+      <?php } ?>
+
+      <div id="mgyn-content-area" class="content-area" style="margin-top: -70px!important">
         <!-- content -->
         <div class="content">
           <div class="row">
@@ -539,7 +547,8 @@
                       </label>
                     </div>
                     <div class="form-group">
-                      <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 10 point. Hãy cân nhắc</p> 
+                      <p class="caution">Lưu ý: Bạn chỉ được đặt cược duy nhất 1 lần, chi phí là 10 point. Hãy cân nhắc</p>
+                      <p class="caution">(Hệ thống sẽ đóng đặt cược trước 10s để kết quả được chính xác nhất.)</p> 
                     </div> 
                     <div class="form-group submit-area">
                       <button type="button" class="game-btn-yes-no btn-height cursor-pointer" id="bet-game-yes-no" name="">Đặt cược</button>

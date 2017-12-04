@@ -28,4 +28,21 @@ class EditNotification extends CI_Controller {
         }
     }     
 
+    /**
+     * [updateNoti description]
+     * @return [type] [1 - update successfull or 2 - update failed]
+     */
+    function updateNoti()
+    {
+        $id = $this->input->post('id');
+        $title = $this->input->post('title');
+        $content = $this->input->post('content');
+
+        $result = $this->EditNotificationModel->updateNoti($id, $title, $content);    
+        if ($result) {
+            echo json_encode(1);
+        } else {
+            echo json_encode(0);
+        }
+    }
 }

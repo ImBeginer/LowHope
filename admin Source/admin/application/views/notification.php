@@ -41,7 +41,7 @@
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
         <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
@@ -118,7 +118,7 @@
                             <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
-                            <p class="user-date text-right"><?php echo $key['CREATED_DATE'] ?></p>
+                            <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
                             <input type="checkbox" name="users-id" value="<?php echo $key['USER_ID']; ?>" class="user-check-box d-inline-block custome-checkbox">
                           </div>
                         </li>
@@ -149,7 +149,7 @@
                             <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
-                            <p class="user-date text-right"><?php echo $key['CREATED_DATE'] ?></p>
+                            <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
                             <input type="checkbox" name="users-id" value="<?php echo $key['USER_ID']; ?>" class="user-check-box d-inline-block custome-checkbox">
                           </div>
                         </li>
@@ -181,7 +181,7 @@
                             <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
-                            <p class="user-date text-right"><?php echo $key['CREATED_DATE'] ?></p>
+                            <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
                             <input type="checkbox" name="users-id" value="1" class="user-check-box d-inline-block custome-checkbox">
                           </div>
                         </li>

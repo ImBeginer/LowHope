@@ -54,6 +54,7 @@ class UserCT extends CI_Controller {
                 $data['user_id'] = $user->USER_ID;
                 $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
                 $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
+                $data['top_users_achievement'] = $this->user->get_user_achievement_before();
 
 				$this->load->view('user/home', $data);		
     		}else{
@@ -86,17 +87,6 @@ class UserCT extends CI_Controller {
 		}
 	}
 
-	/**
-	 * [history description]
-	 * @return [type] [description]
-	 */
-	public function history()
-	{
-		$user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
-		$data['USER_NAME'] = $user->USER_NAME;
-        $data['USER_POINT'] = $user->USER_POINT;
-		$this->load->view('user/history', $data);
-	}
 
 	/**
 	 * [checkUserExist description] Kiểm tra email có tồn tại không (có trung với email google or facebook không) 
@@ -119,7 +109,7 @@ class UserCT extends CI_Controller {
 				if(!$is_Mail_FB_GG){
 					$user = $this->user->getUserByMail($email);
 					$pass = md5($pass);
-					if($pass === $user->PASSWORD){
+					if(hash_equals($pass,$user->PASSWORD)){
 						$userData['USER_EMAIL'] = $email;
 						$userData['USER_AVATAR'] = null;
 						//set session
@@ -279,37 +269,78 @@ class UserCT extends CI_Controller {
 	}
 
 	/**
+	 * [history description]
+	 * @return [type] [description]
+	 */
+	public function history()
+	{
+		$userID = $this->session->userdata('sessionUserId');
+		$user = $this->user->getUserById($userID);
+		if($user){
+			$data['USER_NAME'] = $user->USER_NAME;
+			$data['USER_POINT'] = $user->USER_POINT;
+
+			//load game active
+	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+	        $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
+	        $data['top_point'] = $this->user->get_top_point();
+	        $data['user_id'] = $user->USER_ID;
+	        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+	        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
+	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
+			$data['is_history'] = true;
+
+			//data viewer
+	        $user_view = $this->user->getUserById($user->USER_ID);
+	        $data['user_view'] = $this->user->get_profile_user($user->USER_ID);
+			$data['user_view_name'] = $user->USER_NAME;
+
+	        //echo 'Dang chuan bi lam';
+			$this->load->view('user/history', $data);
+			
+		}else{
+			redirect(base_url());
+		}
+	}
+
+	/**
 	 * [profile description] view profile: history 
 	 * @return [type] [description]
 	 */
 	public function profile()
 	{
-		$profile_userID = $this->uri->segment(3);
+		$id_user_view = $this->uri->segment(3);
 		if(isset($_SESSION['sessionUserId'])){
 
 			$userID = $this->session->userdata('sessionUserId');
 			$user = $this->user->getUserById($userID);
 
 	        $data['USER_NAME'] = $user->USER_NAME;
-	        $data['USER_POINT'] = $user->USER_POINT;
+			$data['USER_POINT'] = $user->USER_POINT;
 
+			//load game active
 	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
-	        
-	        // list notification
 	        $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
-	        $data['user_id'] = $user->USER_ID;
 	        $data['top_point'] = $this->user->get_top_point();
-
+	        $data['user_id'] = $user->USER_ID;
+	        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
+	        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
+	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
+	        $data['is_history'] = false;
 
 	        //data viewer
-	        $data['viewer'] = $this->user->get_profile_viewer($profile_userID);
-
-
+	        $user_view = $this->user->getUserById($id_user_view);
+	        $data['user_view'] = $this->user->get_profile_user($id_user_view);
+	        $data['user_view_name'] = $user_view->USER_NAME;
 
 			$this->load->view('user/history', $data);
 			
 		}else{
-			$this->load->view('user/history');
+			//guest view profile
+			//load game active
+	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+
+	        $this->load->view('user/history', $data);
 		}
 	}
 

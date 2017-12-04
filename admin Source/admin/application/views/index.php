@@ -35,7 +35,7 @@
         </li>
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
         <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
@@ -97,7 +97,7 @@
         <div class="total-user-area animated pulse col-sm-12 col-md-4 col-xl-3">
           <div class="function-content">
             <div class="function-title">
-              <p class="title"><a href="#!">Lịch sử game</a></p>
+              <p class="title"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử game</a></p>
             </div>
             <div class="history">
               <div class="history-item">

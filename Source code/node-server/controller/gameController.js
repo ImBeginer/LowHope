@@ -49,7 +49,10 @@ function create_new_game() {
 
 	game_model.create_new_system_game(data)
 	.then((game_id)=>{
-		console.log('*(SYSTEM_GAME) New game is opened!\n');
+		console.log('*(SYSTEM_GAME) New game opened!\n');
+		//create new chat room
+		game_model.create_chat_channel(game_id, data.TITLE + ' ' + data.START_DATE)
+		.then(()=> console.log('*(SYSTEM_GAME) New chat channel opened!\n'));
 		d.resolve(game_id);
 	});
 	return d.promise;
@@ -293,5 +296,6 @@ module.exports = {
 	yn_game_controller_running: yn_game_schedule,
 	multi_game_controller_running: multi_game_schedule,
 	yn_award_users:yn_award_users,
-	multi_award_users:multi_award_users
+	multi_award_users:multi_award_users,
+	sys_game_schedule: sys_game_schedule
 }

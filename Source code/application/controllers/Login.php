@@ -23,10 +23,10 @@ class Login extends CI_Controller {
      */
     public function index()
     {
-        //redirect to profile page if user already logged in
-        if($this->session->userdata('loggedInGooge') == true){
-            redirect('login/user/');
-        }
+        // //redirect to profile page if user already logged in
+        // if($this->session->userdata('loggedInGooge') == true){
+        //     redirect('login/user/');
+        // }
         
         if(isset($_GET['code'])){
             //authenticate user
@@ -99,6 +99,12 @@ class Login extends CI_Controller {
             $data['MUL_ALL'] = array();
         }
 
+        if($game['YN_ACTIVE'] == 0 && $game['MUL_ACTIVE'] == 0){
+            $data['ACTIVE'] = false;
+        }else{
+            $data['ACTIVE'] = true;
+        }
+
         $data['all_game'] = array_merge($data['YN_ALL'], $data['MUL_ALL']);
 
         //load google login view
@@ -110,7 +116,7 @@ class Login extends CI_Controller {
      * @return [type] [description]
      */
     public function user(){
-        //redirect to login page if user not logged in
+        // redirect to login page if user not logged in
         if(!$this->session->userdata('loggedInGooge')){
             redirect('login/');
         }else {
@@ -141,7 +147,9 @@ class Login extends CI_Controller {
     public function logoutGoogle(){
         //delete login status & user info from session
         $this->session->set_userdata('loggedInGooge', false);
+        $this->session->set_userdata('userGGExist', false);
         $this->session->unset_userdata('loggedInGooge');
+        $this->session->unset_userdata('userGGExist');
         $this->session->unset_userdata('userData');
         $this->session->unset_userdata('sessionUserId');
         $this->session->sess_destroy();        
@@ -262,6 +270,7 @@ class Login extends CI_Controller {
                         //set sessionUserID
                         $this->session->set_userdata('sessionUserId', $id);
                         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+                        $this->session->set_userdata('userGGExist', true);
 
                         echo json_encode(1);
                     }
@@ -312,6 +321,7 @@ class Login extends CI_Controller {
         $data['top_point'] = $this->user->get_top_point();
         $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
         $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
+        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
         
         $this->load->view('user/home', $data);
     }
