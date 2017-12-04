@@ -21,11 +21,13 @@ class Login extends CI_Controller {
         
         $data = [];
         if ($this->session->userdata('loggedIn') && $this->session->userdata('loggedIn') == true) {
-            $data['checkLogin'] = 1;
+            // $data['checkLogin'] = 1;
+            redirect(base_url().'Home','refresh');
         } else {
-            $data['checkLogin'] = 0;
+            // $data['checkLogin'] = 0;
+            $this->load->view('Login', $data);
         }
-        $this->load->view('Login', $data);
+        
     }     
 
     /**
@@ -50,6 +52,7 @@ class Login extends CI_Controller {
             $user['USER_ID'] = $result->USER_ID;
             $user['USER_NAME'] = $result->USER_NAME;
             $user['ROLE_ID'] = $result->ROLE_ID;
+            $user['EMAIL'] = $result->EMAIL;
 
             $this->session->set_userdata('loggedIn', true);
             $this->session->set_userdata('user', $user);

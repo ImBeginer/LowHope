@@ -41,7 +41,7 @@ class ManagerInfo extends CI_Controller {
 
             $this->load->view('ManagerInfo', $data);
         } else {
-            redirect(base_url().'/Login','refresh');
+            redirect(base_url().'Login','refresh');
         }
     }     
 }

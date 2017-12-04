@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CRUD Thông báo</title>
+  <title>Khoá, mở khóa quản lý</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- jQuery UI -->
@@ -15,17 +15,12 @@
   <!-- custom css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css">
-  <!-- dataTable Jquery -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 </head>
 
 <body>
-<script>
-  var list = <?php echo json_encode($noti_list) ?>;
-  var noti_id = -1;
-  var base_url = '<?= base_url(); ?>';
-</script>
-
+  <script>
+    var base_url = '<?php echo base_url(); ?>';
+  </script>
 <!-- manager content -->
 <div id="manager-index" class="container-fluid">
    <!-- side bar -->
@@ -34,7 +29,7 @@
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
           <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
-          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName;?></div>
+          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
             <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
@@ -46,13 +41,12 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
-          <a href="#!">Quản lý</a>
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+          <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
-          <li class="c-active"><a href="#!">Block Manager</a></li>
-          <li><a href="#!">Unblock Manager</a></li>
-          <li><a href="#!">Giải thưởng</a></li>
+          <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
+          <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -65,7 +59,7 @@
   <!-- right side hand -->
   <div class="row">
     <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
-      <div id="crud-notifi" class="main-function">
+      <div class="main-function">
         <!-- icon sidebar -->
         <div class="sidebar-icon-area" title="Sidebar">
           <div id="nav-icon1">
@@ -75,53 +69,69 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">CRUD Thông báo</p>
+          <p class="title">Block Manager</p>
         </div>
-        <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
-          <span class="notifi-title medium-font-size mt-1 mb-1">Tiêu đề: </span>
-          <input type="text" name="notifi-title" id="notifi-title" class="black medium-font-size form-control full-width">
-          <span class="notifi-title medium-font-size mt-1 mb-1">Nội dung: </span>
-          <textarea name="notifi-content" id="notifi-content" class="black medium-font-size custome-textarea form-control"></textarea>
-          <div class="form-group submit-area mt-1 mb-1">
-            <button type="reset" class="btn btn-height close-update cursor-pointer color-white" id="notifi-delete-btn" name="notifi-delete-btn">Xóa thông báo</button>
-            <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="notifi-save-btn" name="notifi-create-btn">Lưu thông báo</button>
-            <button type="button" class="btn btn-add-notifi btn-height cursor-pointer color-white" id="notifi-remove-btn" name="notifi-remove-btn">Xóa nội dung</button>
-          </div>          
-        </div>        
+        <div class="manager-block-list form-in-list row">
+          <div class="search-panel">
+            <input class="manger-block-search" type="text" placeholder="Tìm kiếm" name="manager-block-search" id="manager-search">
+            <button class="btn search-btn" name="search-btn"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
+          </div>
+        </div>
         <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
           <div class="function-title no-border">
-            <p class="title">Thông báo</p>
+            <p class="title">White List</p>
           </div>
           <div class="pre-scrollable pre-padding">
-            <table id="notifi-list" class="full-width c-table">
-              <thead>
-                <tr>
-                  <th class="text-center wd-4">#</th>
-                  <th class="text-center">Tiêu đề</th>
-                  <th class="text-center">Ngày tạo</th>
-                </tr>
-              </thead>
-              <tbody>
+            <div class="tab-content">
+              <!-- all user list -->
+              <ul id="all-manager-list" class="user-list" id="users">
 
-                <?php 
-                  $count = 1;
-                  foreach ($noti_list as $value) {
-                ?>
-                    <tr id="manager-noti">
-                      <td class="text-center"><?= $count ?></td>
-                      <td onclick="showDetail(<?= $value['NOTICE_ID']; ?>);"><p class="notifi-title cursor-pointer" id="title"><?= $value['TITLE'] ?></p></td>
-                      <td><?php $dt = new DateTime($value['CREATE_DATE']); echo $dt->format('d/m/Y'); ?></td>
-                    </tr>
-                <?php
-                    $count++;
-                  }
-                ?>
-              </tbody>
-            </table>
-            <table class="full-width c-table" id="table"></table>>
+                <?php foreach ($active_manager as $value): ?>
+                  <li id="users-1" class="users">
+                  <div class="user-ava">
+                    <img class="img-in-list" src="<?php echo base_url(); ?>img/ava-default.png" alt="Ảnh đại diện">
+                    <p class="user-name ellipsis cursor-pointer" id="user-name"><?= $value['USER_NAME']; ?></p>
+                    <p class="text-right tag manager-tag">MANAGER</p>
+                    <p class="status">Trạng thái: Hoạt động</p>
+                    <button class="btn btn-ban" name="btn-ban" value="<?= $value['USER_ID'] ?>" data-toggle="confirmation">
+                      <i class="fa fa-ban" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </li>
+                <?php endforeach ?>
+
+              </ul><!-- /.all user list -->
+            </div>
           </div>          
         </div>
-        <div id="dialog-confirm" class="black"></div>
+        <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="function-title no-border">
+            <p class="title">Block List</p>
+          </div>
+          <div class="pre-scrollable pre-padding">
+            <div class="tab-content">
+              <!-- all user list -->
+              <ul id="all-manager-blocked-list" class="user-list" id="users"> 
+
+                <?php foreach ($deactive_manager as $value): ?>
+                  <li id="users-1" class="users">
+                    <div class="user-ava">
+                      <img class="img-in-list" src="<?php echo base_url(); ?>img/ava-default.png" alt="Ảnh đại diện">
+                      <p class="user-name ellipsis cursor-pointer" id="user-name"><?= $value['USER_NAME']; ?></p>
+                      <p class="text-right tag block-tag">MANAGER</p>
+                      <p class="status">Trạng thái: Block</p>
+                      <button class="btn btn-unban" name="btn-unban" value="<?= $value['USER_ID'] ?>" data-toggle="confirmation">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>  
+                    </div>
+                  </li>
+                <?php endforeach ?>
+
+              </ul><!-- /.all user list -->
+            </div>
+          </div>               
+        </div>
+        <div id="dialog-confirm" class="black"></div>        
       </div>
     </div>
   </div><!-- /.right side hand -->
@@ -141,7 +151,6 @@
 <!-- jQuery -->
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-1.12.0.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <!-- Bootstrap -->
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
@@ -149,6 +158,6 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 <!-- Custom JS -->
 <script src="<?php echo base_url(); ?>js/ui.js"></script>
-<script src="<?php echo base_url(); ?>js/EditNotification.js"></script>
+<script src="<?php echo base_url(); ?>js/checkManager.js"></script>
 </body>
 </html>

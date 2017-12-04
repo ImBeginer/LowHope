@@ -25,7 +25,7 @@
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
           <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
-          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option">Vinh Nguyễn</div>
+          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
             <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
@@ -34,16 +34,15 @@
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
-        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
-          <a href="#!">Quản lý</a>
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+          <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
-          <li class="c-active"><a href="#!">Block Manager</a></li>
-          <li><a href="#!">Unblock Manager</a></li>
-          <li><a href="#!">Giải thưởng</a></li>
+          <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
+          <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -96,7 +95,7 @@
             <table class="user-join">
               <thead>
                 <tr>
-                  <th class="text-center wd-4">#</th>
+                  <th class="text-center wd-4">#</th>     
                   <th>Tên</th>
                   <th>Thời gian giao dịch</th>
                   <th class="text-center">Giao dịch</th>
@@ -191,102 +190,8 @@
                   <?php 
                     }
                   endforeach ?>
-
                 <?php endif ?>
 
-
-                
-
-                <!-- <tr>
-                  <td class="text-center wd-4">1</td>
-                  <td><a href="#!">Karmen Setliff</a></td>
-                  <td>31/10/2017</td>
-                  <td class="text-center">326</td>
-                  <td class="text-center">5900 USD</td>
-                  <td class="text-center">100 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/1st.png" alt="1st"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">2</a></td>
-                  <td><a href="#!">Rosalia Sperling</a></td>
-                  <td>31/10/2017</td>
-                  <td class="text-center">599</td>
-                  <td class="text-center">5750 USD</td>
-                  <td class="text-center">250 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/2nd.png" alt="2nd"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">3</a></td>
-                  <td><a href="#!">Donetta Rozar</a></td>
-                  <td>31/10/2017</td>
-                  <td class="text-center">7544</td>
-                  <td class="text-center">4000 USD</td>
-                  <td class="text-center">2000 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/3rd.png" alt="3rd"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">4</a></td>
-                  <td><a href="#!">Donetta Rozar</a></td>
-                  <td>30/10/2017</td>
-                  <td class="text-center">3354</td>
-                  <td class="text-center">3950 USD</td>
-                  <td class="text-center">2050 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">5</a></td>
-                  <td><a href="#!">Tona Marmon</a></td>
-                  <td>30/10/2017</td>
-                  <td class="text-center">4455</td>
-                  <td class="text-center">3000 USD</td>
-                  <td class="text-center">3000 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">6</a></td>
-                  <td><a href="#!">Audra Hoelscher</a></td>
-                  <td>29/10/2017</td>
-                  <td class="text-center">666</td>
-                  <td class="text-center">2900 USD</td>
-                  <td class="text-center">3100 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">7</a></td>
-                  <td><a href="#!">Pinkie Wellner</a></td>
-                  <td>29/10/2017</td>
-                  <td class="text-center">444</td>
-                  <td class="text-center">2800 USD</td>
-                  <td class="text-center">3200 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">8</a></td>
-                  <td><a href="#!">Afton Dunning</a></td>
-                  <td>28/10/2017</td>
-                  <td class="text-center">222</td>
-                  <td class="text-center">2700 USD</td>
-                  <td class="text-center">3300 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr>
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">9</a></td>
-                  <td><a href="#!">Augusta Sliva</a></td>
-                  <td>27/10/2017</td>
-                  <td class="text-center">999</td>
-                  <td class="text-center">2600 USD</td>
-                  <td class="text-center">3400 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr> 
-                <tr>
-                  <td class="text-center wd-4"><a href="#!">10</a></td>
-                  <td><a href="#!">Kory Tibbals</a></td>
-                  <td>26/10/2017</td>
-                  <td class="text-center">444</td>
-                  <td class="text-center">2500 USD</td>
-                  <td class="text-center">3500 USD</td>
-                  <td class="text-center"><img class="img-in-list rank" src="../img/dash.png" alt="no-rank"></td>
-                </tr>                                -->
               </tbody>
             </table><!-- /.user join -->
           </div><!-- /.game info -->

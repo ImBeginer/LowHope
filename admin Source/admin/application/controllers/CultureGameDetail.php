@@ -40,23 +40,6 @@ class CultureGameDetail extends CI_Controller {
             if ($active == 0) {
                 $result = $game_info->RESULT;
                 $champion = $this->CultureGameDetailModel->getChampion($game_id);
-                // while (1) {
-                //     foreach ($champion as $value) {
-                //         if ($value['AWARD_ID'] == 1) {
-                //             array_push($user_champion_id, $value['USER_ID']);
-                //         }
-                //     }
-                //     foreach ($champion as $value) {
-                //         if ($value['AWARD_ID'] == 2) {
-                //             array_push($user_champion_id, $value['USER_ID']);
-                //         }
-                //     }
-                //     foreach ($champion as $value) {
-                //         if ($value['AWARD_ID'] == 3) {
-                //             array_push($user_champion_id, $value['USER_ID']);
-                //         }
-                //     }
-                // }
                 for ($i = 0; $i < count($champion); $i++) {
                     array_push($user_champion_id, $champion[$i]['USER_ID']);
                 }
@@ -68,8 +51,12 @@ class CultureGameDetail extends CI_Controller {
             if ($player == false) {
                 $player = [];
             }
+            $user = $this->session->userdata('user');   
+            $user_name = $user['USER_NAME'];
+            
 
             //create data object to sent to view
+            $data['userName'] = $user_name;
             $data['game_name'] = $game_name;
             $data['start_date'] = $start_date;
             $data['end_date'] = $end_date;

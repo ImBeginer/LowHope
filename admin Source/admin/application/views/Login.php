@@ -19,10 +19,6 @@
 <body>
   <script>
     var base_url = "<?php echo base_url(); ?>";
-    var checkLogin = '<?php echo $checkLogin; ?>';
-    if (checkLogin == 1) {
-      window.location.replace(base_url + 'index.php/Home');
-    }
   </script>
 
   <!-- login content -->

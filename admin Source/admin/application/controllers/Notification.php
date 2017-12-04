@@ -46,16 +46,49 @@ class Notification extends CI_Controller {
             $data['lNewMember'] = $this->NotiModel->getNewMember();
             $data['lChampions'] = $this->NotiModel->getChampions();
             $data['lNoti'] = $this->NotiModel->getDefaultNoti();
+
+            $user = $this->session->userdata('user');   
+            $user_name = $user['USER_NAME'];
+            $data['userName'] = $user_name;
             
             /**
              * SEND DATA TO VIEW
              */
             $this->load->view('notification', $data);
         } else {
-            redirect(base_url().'index.php/Login','refresh');
+            redirect(base_url().'Login','refresh');
         }
 
     }     
+
+     /**
+     * [sentPusherNoti sent info to pusher]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    function sentPusherNoti($data) {
+        try {
+            $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+             );
+        $this->  $pusher = new Pusher\Pusher(
+            'efd4e401d751e081f0f0',
+            '3e978574da9ec9e3dbfb',
+            '415653',
+            $options
+          );
+        
+        $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
+        if ($query == true) {
+            return true;
+        } else {
+            return fail;
+        }
+        } catch (Exception $e) {
+            return false;
+        }
+    }   
 
     function test() {
         $query = $this->NotiModel->getInformationById(5);
@@ -98,6 +131,11 @@ class Notification extends CI_Controller {
         $lUserId = $this->input->post('userId');
         $contentId = $this->input->post('noticeId');
         $result = $this->NotiModel->sentNotification($lUserId, $contentId);
+
+        if ($result == 1) {
+            $content = $this->NotiModel->getNotiById($contentId);
+            $this->sentPusherNoti($content);
+        }
 
         // sent noti to pusher
         // userid, content, title, datetime

@@ -41,8 +41,12 @@ class GameDetail extends CI_Controller {
             //get owner
             $created_date = $game_info->START_DATE;
             $end_date = $game_info->END_DATE;
+            $user = $this->session->userdata('user');   
+            $user_name = $user['USER_NAME'];
+            
 
             //create data object to sent to view
+            $data['userName'] = $user_name;
             $data['game_name'] = $game_name;
             $data['player_count'] = $player_count;
             $data['total_amount'] = $total_amount;

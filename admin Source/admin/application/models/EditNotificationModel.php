@@ -23,21 +23,35 @@ class EditNotificationModel extends CI_Model {
     function updateNoti($id, $title, $content)
     {
         $data = array();
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d H:i:s', time());
         if ($id == -1) {
             $data = array(
                'TITLE' => $title,
-               'CONTENT' => $content
+               'CONTENT' => $content,
+               'CREATE_DATE' => $date
             );
+            $this->db->insert('NOTIFICATION', $data); 
         } else {
             $data = array(
-                'NOTICE_ID' => $id,
                 'TITLE' => $title,
-                'CONTENT' => $content
+                'CONTENT' => $content,
+                'CREATE_DATE' => $date
             );
+            $this->db->where('NOTICE_ID', $id);
+            $result = $this->db->update('NOTIFICATION', $data); 
         }
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function deleteNoti($id)
+    {
         $this->db->where('NOTICE_ID', $id);
-        $result = $this->db->update('NOTIFICATION', $data); 
-        if ($result > 0) {
+        $result = $this->db->delete('NOTIFICATION'); 
+        if (count($result) > 0) {
             return true;
         }
         return false;

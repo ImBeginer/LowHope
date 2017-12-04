@@ -133,11 +133,11 @@ class NotiModel extends CI_Model {
                 'SEND_DATE' => $date,
                 'SEEN' => '0'    
                 ); 
-                $this->db->insert('NOTIFICATION_DETAILS', $data);
-                $content = $this->getNotiById($contentId)->CONTENT;
-                $data['CONTENT'] = $content;
-                $result = $this->sentPusherNoti($data);
-                if (!$result) {
+                $result = $this->db->insert('NOTIFICATION_DETAILS', $data);
+                // $content = $this->getNotiById($contentId)->CONTENT;
+                // $data['CONTENT'] = $content;
+                // $result = $this->sentPusherNoti($data);
+                if (count($result) == 0) {
                     return 0;
                 }
             }
