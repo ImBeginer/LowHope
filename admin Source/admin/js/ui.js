@@ -139,7 +139,7 @@ $(function () {
   });
 
   $('#change-gift-panel button[name=gift-tradi-btn]').on ('click', function (event) {
-    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
     $("#dialog-confirm").dialog({
       resizable: false,
       height: "auto",
@@ -169,7 +169,7 @@ $(function () {
 
   $('.game-func p.tag.active-func a.deactive-game').on ('click', function (event) {
     $gameId = $(this).attr('id');
-    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
+    $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
     $("#dialog-confirm").dialog({
       resizable: false,
       height: "auto",
@@ -255,69 +255,77 @@ $(function () {
     }); 
   });
 
-  $('#crud-notifi button[name=notifi-create-btn]').on ('click', function (event) {
-    $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Nếu thông báo này đã tồn tại nội dung của thông báo sẽ được cập nhật lại. Bạn có chắc chắn muốn lưu ?</p>');
-    $("#dialog-confirm").dialog({
-      resizable: false,
-      height: "auto",
-      width: 400,
-      modal: true,
-      draggable: false,
-      buttons: [
-        {
-          text: "Lưu",
-          "class": 'confirm-yes-btn btn medium-font-size',
-          click: function() {
-            $( this ).dialog( "close" );
-            console.log('TIÊU ĐỀ: ' + $('input#notifi-title').val());
-            console.log('NỘI DUNG:  ' + $('input#notifi-content').val());
-          }
-        },
-        {
-          text: "Hủy bỏ",
-          "class": 'confirm-cancel-btn btn medium-font-size',
-          click: function() {
-            $( this ).dialog( "close" );
-          }
-        }
-      ],
-    }); 
-  });
+  // $('#crud-notifi button[name=notifi-create-btn]').on ('click', function (event) {
+  //   $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Nếu thông báo này đã tồn tại nội dung của thông báo sẽ được cập nhật lại. Bạn có chắc chắn muốn lưu ?</p>');
+  //   $("#dialog-confirm").dialog({
+  //     resizable: false,
+  //     height: "auto",
+  //     width: 400,
+  //     modal: true,
+  //     draggable: false,
+  //     buttons: [
+  //       {
+  //         text: "Lưu",
+  //         "class": 'confirm-yes-btn btn medium-font-size',
+  //         click: function() {
+  //           $( this ).dialog( "close" );
+  //           console.log('TIÊU ĐỀ: ' + $('input#notifi-title').val());
+  //           console.log('NỘI DUNG:  ' + $('input#notifi-content').val());
+  //         }
+  //       },
+  //       {
+  //         text: "Hủy bỏ",
+  //         "class": 'confirm-cancel-btn btn medium-font-size',
+  //         click: function() {
+  //           $( this ).dialog( "close" );
+  //         }
+  //       }
+  //     ],
+  //   }); 
+  // });
 
-  $('#crud-notifi button[name=notifi-delete-btn]').on ('click', function (event) {
-    $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn có chắc chắn muốn xóa nội dung thông báo này ?</p>');
-    $("#dialog-confirm").dialog({
-      resizable: false,
-      height: "auto",
-      width: 400,
-      modal: true,
-      draggable: false,
-      buttons: [
-        {
-          text: "Chắc chắn",
-          "class": 'confirm-yes-btn btn medium-font-size',
-          click: function() {
-            $( this ).dialog( "close" );
-            console.log('TIÊU ĐỀ: ' + $('input#notifi-title').val());
-          }
-        },
-        {
-          text: "Hủy bỏ",
-          "class": 'confirm-cancel-btn btn medium-font-size',
-          click: function() {
-            $( this ).dialog( "close" );
-          }
-        }
-      ],
-    }); 
-  });    
+  // $('#crud-notifi button[name=notifi-delete-btn]').on ('click', function (event) {
+  //   $("#dialog-confirm").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn có chắc chắn muốn xóa nội dung thông báo này ?</p>');
+  //   $("#dialog-confirm").dialog({
+  //     resizable: false,
+  //     height: "auto",
+  //     width: 400,
+  //     modal: true,
+  //     draggable: false,
+  //     buttons: [
+  //       {
+  //         text: "Chắc chắn",
+  //         "class": 'confirm-yes-btn btn medium-font-size',
+  //         click: function() {
+  //           $( this ).dialog( "close" );
+  //           console.log('TIÊU ĐỀ: ' + $('input#notifi-title').val());
+  //         }
+  //       },
+  //       {
+  //         text: "Hủy bỏ",
+  //         "class": 'confirm-cancel-btn btn medium-font-size',
+  //         click: function() {
+  //           $( this ).dialog( "close" );
+  //         }
+  //       }
+  //     ],
+  //   }); 
+  // });    
 
   function getManagerBlockID ($blockID) {
     console.log ('MANAGER ID BỊ BLOCK: ' + $blockID);
+      //quanth add function send noti
+      $.getScript(base_url + 'js/checkManager.js', function () { 
+        blockManager($blockID);
+      }); 
   }
 
   function getManagerUnblockID ($unblockID) {
     console.log ('MANAGER ID BỎ BLOCK: ' + $unblockID);
+    //quanth add function send noti
+      $.getScript(base_url + 'js/checkManager.js', function () { 
+        unblockManager($unblockID);
+      }); 
   }  
 /********** MỚI 6/11/2017 ************/
 

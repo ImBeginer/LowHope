@@ -39,7 +39,7 @@ class EditManagerInfo extends CI_Controller {
 
             $this->load->view('EditManagerInfo', $data);
         } else {
-            redirect(base_url().'/Login','refresh');
+            redirect(base_url().'Login','refresh');
         }
     }     
 

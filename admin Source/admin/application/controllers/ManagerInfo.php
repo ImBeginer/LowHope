@@ -30,7 +30,7 @@ class ManagerInfo extends CI_Controller {
             $user_phone = $user_detail->PHONE_NUMBER;
             $user_address = $user_detail->ADDRESS;
             $user_email = $user_detail->EMAIL;
-            $user_created_date = $user_detail->CREATED_DATE;
+            $user_created_date = $user_detail->CREATE_DATE;
             
             $data['user_name'] = $user_name;
             $data['user_id'] = $user_id;
@@ -41,7 +41,7 @@ class ManagerInfo extends CI_Controller {
 
             $this->load->view('ManagerInfo', $data);
         } else {
-            redirect(base_url().'/Login','refresh');
+            redirect(base_url().'Login','refresh');
         }
     }     
 }

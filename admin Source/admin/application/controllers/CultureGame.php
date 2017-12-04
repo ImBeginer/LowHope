@@ -27,6 +27,9 @@ class CultureGame extends CI_Controller {
                 echo "<h1 style='text-align: center;'>KHÔNG CÓ DỮ LIỆU HIỂN THỊ</h1>";
                 die();
             }
+            $user = $this->session->userdata('user');   
+            $user_name = $user['USER_NAME'];
+            $data['userName'] = $user_name;
             $data['game_info'] = $game_info;
             //send data to view
             $this->load->view('CultureGame', $data);

@@ -22,10 +22,43 @@ class EditNotification extends CI_Controller {
          */
         if ($this->session->userdata('loggedIn') && $this->session->userdata('loggedIn') == true) {
             $data['noti_list'] = $this->EditNotificationModel->getDefaultNoti();
+
+            $user = $this->session->userdata('user');   
+            
+            $data['userName'] = $user['USER_NAME'];
             $this->load->view('EditNotification', $data);
         } else {
             redirect(base_url().'Login','refresh');
         }
     }     
 
+    /**
+     * [updateNoti description]
+     * @return [type] [1 - update successfull or 2 - update failed]
+     */
+    function updateNoti()
+    {
+        $id = $this->input->post('id');
+        $title = $this->input->post('title');
+        $content = $this->input->post('content');
+
+        $result = $this->EditNotificationModel->updateNoti($id, $title, $content);    
+        if ($result) {
+            echo json_encode(1);
+        } else {
+            echo json_encode(0);
+        }
+    }
+
+    function deleteNoti()
+    {
+        $id = $this->input->post('id');
+        $result = $this->EditNotificationModel->deleteNoti($id);
+        if ($result) {
+            echo json_encode(1);
+        } else {
+            echo json_encode(0);
+        }
+    }
 }
+ 

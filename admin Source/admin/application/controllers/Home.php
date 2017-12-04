@@ -10,6 +10,11 @@ class Home extends CI_Controller {
        
     }
 
+    function test()
+    {
+        $array = $this->IndexModel->getNumberEachMonth();
+    }
+
     /**
      * 
      * @return [type] [description]
@@ -31,6 +36,11 @@ class Home extends CI_Controller {
             foreach ($array as $value) {
                 $string .= $value.',';
             }
+            $user = $this->session->userdata('user');   
+            $user_name = $user['USER_NAME'];
+
+            $data['userName'] = $user_name;
+            
             // get quantity of member
             $data['allMember'] = $this->IndexModel->getNumberMember();
 
@@ -55,7 +65,7 @@ class Home extends CI_Controller {
              */
             $this->load->view('index', $data);
         } else {
-            redirect(base_url().'index.php/Login','refresh');
+            redirect(base_url().'Login','refresh');
         }
     }     
    

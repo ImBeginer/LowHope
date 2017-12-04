@@ -21,13 +21,13 @@ var notifi = (function () {
 
 	var validFormat = {
 
-		'notifi-panel': '^.{50,150}$',
+		'notifi-panel': '^.{50,1500}$',
 
 	};	
 
 	var invalidFormatMessage = {
 
-		'notifi-panel': 'Tin nhắn phải nhiều hơn 50 và ít hơn 150 ký tự',
+		'notifi-panel': 'Tin nhắn phải nhiều hơn 50 và ít hơn 1500 ký tự',
 
 	};
 

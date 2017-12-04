@@ -31,8 +31,8 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <a class="manager-link" href="#!"><img src="../img/ava-default.png" alt="avatar"></a>
-          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option">Vinh Nguyễn</div>
+          <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
+          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
             <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
@@ -40,17 +40,16 @@
           </ul>             
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
-        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
-          <a href="#!">Quản lý</a>
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+          <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
-          <li class="c-active"><a href="#!">Block Manager</a></li>
-          <li><a href="#!">Unblock Manager</a></li>
-          <li><a href="#!">Giải thưởng</a></li>
+          <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
+          <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -118,7 +117,7 @@
                             <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
-                            <p class="user-date text-right"><?php echo $key['CREATED_DATE'] ?></p>
+                            <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
                             <input type="checkbox" name="users-id" value="<?php echo $key['USER_ID']; ?>" class="user-check-box d-inline-block custome-checkbox">
                           </div>
                         </li>
@@ -149,7 +148,7 @@
                             <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
-                            <p class="user-date text-right"><?php echo $key['CREATED_DATE'] ?></p>
+                            <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
                             <input type="checkbox" name="users-id" value="<?php echo $key['USER_ID']; ?>" class="user-check-box d-inline-block custome-checkbox">
                           </div>
                         </li>
@@ -181,7 +180,7 @@
                             <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
-                            <p class="user-date text-right"><?php echo $key['CREATED_DATE'] ?></p>
+                            <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
                             <input type="checkbox" name="users-id" value="1" class="user-check-box d-inline-block custome-checkbox">
                           </div>
                         </li>
