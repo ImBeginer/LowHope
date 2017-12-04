@@ -306,8 +306,7 @@ class Login extends CI_Controller {
         
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
-        //TODO check attendance
-
+        
         $data['USER_NAME'] = $user->USER_NAME;
         $data['USER_POINT'] = $user->USER_POINT;
         $data['GAME_TT_CONTENT'] = $tt_game->CONTENT;

@@ -292,8 +292,11 @@ class UserCT extends CI_Controller {
 
 			//data viewer
 	        $user_view = $this->user->getUserById($user->USER_ID);
-	        $data['user_view'] = $this->user->get_profile_user($user->USER_ID);
+	        $data['user_view'] = $this->user->get_user_profile($user->USER_ID);
 			$data['user_view_name'] = $user->USER_NAME;
+
+			//data history
+			$data['user_history'] = $this->user->get_user_history($user->USER_ID);
 
 	        //echo 'Dang chuan bi lam';
 			$this->load->view('user/history', $data);
@@ -339,6 +342,13 @@ class UserCT extends CI_Controller {
 			//guest view profile
 			//load game active
 	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
+	        $data['is_history'] = false;
+
+	        //data viewer
+	        $user_view = $this->user->getUserById($id_user_view);
+	        $data['user_view'] = $this->user->get_profile_user($id_user_view);
+	        $data['user_view_name'] = $user_view->USER_NAME;
 
 	        $this->load->view('user/history', $data);
 		}

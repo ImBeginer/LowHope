@@ -463,15 +463,15 @@
         <?php } ?>
       </nav><!-- /.navbar -->  
 
-      <?php if(!empty($top_users_achievement)){ ?>
       <!-- top users achievement -->
-      <div class="container-fluid">
+      <div class="container-fluid" id="top_users_achievement">
+        <?php if(!empty($top_users_achievement)){ ?>
         <marquee behavior="scroll" direction="left">
           Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
         </marquee>
+        <?php } ?>
       </div>
       <!-- end top users achievement -->
-      <?php } ?>
 
       <div id="mgyn-content-area" class="content-area" style="margin-top: -70px!important">
         <!-- content -->

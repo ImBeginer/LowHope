@@ -49,6 +49,35 @@ class Game extends CI_Model {
 		}
 	}
 
+	function get_game_tt_by_id($gameID)
+	{
+		$this->db->select('CONTENT,END_DATE');
+		$this->db->where('GAME_ID', $gameID);
+		$game = $this->db->get('SYSTEM_GAMES');
+		if($game !== false && $game->num_rows()>0){
+			$game = $game->row();
+		}else{
+			$game = null;
+		}
+		return $game;
+	}
+
+	/**
+	 * [game_tt_alive description]
+	 * @param  [type] $gameID [description]
+	 * @return [type]         [description]
+	 */
+	function game_tt_alive($gameID)
+	{
+		$condi = array('GAME_ID'=>$gameID, 'ACTIVE'=>1);
+		$this->db->select('*');
+		$this->db->where($condi);
+		$game = $this->db->get('SYSTEM_GAMES');
+		if($game !== false && $game->num_rows()>0){
+			return true;
+		}else return false;
+	}
+
 	/**
 	 * [addBetUser description]
 	 * @param [type] $GAME_TT_ID [description]

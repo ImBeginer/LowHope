@@ -28,6 +28,8 @@
           margin-top: -18px;
         }
       }
+
+      .border {border: 1px solid #777}
     </style>
   <!-- jQuery UI css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.css">
@@ -432,23 +434,22 @@
         <?php } ?>
       </nav><!-- /.navbar -->  
 
-      <?php if(!empty($top_users_achievement)){ ?>
       <!-- top users achievement -->
-      <div class="container-fluid">
+      <div class="container-fluid" id="top_users_achievement">
+        <?php if(!empty($top_users_achievement)){ ?>
         <marquee behavior="scroll" direction="left">
           Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
         </marquee>
+        <?php } ?>
       </div>
       <!-- end top users achievement -->
-      <?php } ?>
 
       <div id="history-content-area" class="content-area">
-        <div class="col-12 col-centered text-center">
-          <h5 id="game-history-title">Lịch sử chơi game của: <?php echo $user_view_name; ?> </h5>
+        <div class="col-12 col-centered">
+          <h6 id="game-history-title">Lịch sử chơi game của: <?php echo $user_view_name; ?> </h6>
         </div>
         <!-- content -->
-        <div class="content">
-          <div class="row">
+        <div class="content" style="display: flex;">
             <div class="col-9 col-sm-9 col-md-9 col-lg-9">
               <!-- game history popup -->
               <div id="game-history-popup">
@@ -489,7 +490,7 @@
                             </td>
                             <td>
                               <?php 
-                                $end_date_system = $value['START_DATE'];
+                                $end_date_system = $value['END_DATE'];
                                 $end_date_system = new DateTime($end_date_system);
                                 $end_date_system = $end_date_system->format('d-m-Y');
                                 echo $end_date_system;
@@ -552,9 +553,61 @@
                   </div>
                 </div><!-- /.tab game --> 
               </div><!-- /.game history popup -->
+
+              <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
+                <?php if($is_history) {?>
+                    <div class="row mt-3">
+                      <div class="col-12">Game của tôi</div>
+                      <div class="col-12 mt-3">
+                        <table id="mini-game-table" class="table table-bordered">
+                          <thead class="thead-default">
+                            <tr>
+                              <th>STT</th>
+                              <th>Tên game</th>
+                              <th>Loại game</th>
+                              <th>Trạng thái</th>
+                              <th>Kết quả</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <?php if(!empty($user_history)){ ?>
+                            <?php foreach ($user_history as $key => $value): ?>
+                              <tr>
+                                <td><?php echo $key+1; ?></td>
+                                <td data-toggle="tooltip" data-placement="top" title="<?php echo $value['TITLE']; ?>"><?php echo $value['TITLE']; ?></td>
+                                <td><?php if($value['TYPE'] == 'YN'){echo 'Đúng/Sai';}else if($value['TYPE'] = 'MUL'){echo 'Lựa Chọn';} ?></td>
+                                <td><?php if($value['ACTIVE'] == 0){echo 'Đã đóng';}else{echo 'Đang mở';} ?></td>
+                                <td><?php echo $value['TOTAL_AMOUNT']-$value['WINNERS']*20 ?>p</td>
+                                <td><a href="<?php if($value['TYPE'] == 'YN'){echo '#'.$value['GAME_ID'].'-YN';}else{echo '#'.$value['GAME_ID'].'-MUL';} ?>" data-toggle="collapse">Chi tiết</a></td>
+                              </tr>
+                              <tr id="<?php if($value['TYPE'] == 'YN'){echo $value['GAME_ID'].'-YN';}else{echo $value['GAME_ID'].'-MUL';} ?>" class="collapse" >
+                                <td colspan="6">
+                                  <div>Tên game: <?php echo $value['TITLE']; ?></div>
+                                  <div>Ngày tạo: <?php echo $value['START_DATE']; ?></div>
+                                  <div>Ngày kết thúc: <?php echo $value['END_DATE']; ?></div>
+                                  <div>Tổng số người chơi: <?php echo $value['TOTAL_AMOUNT']/10; ?></div>
+                                  <div>Người thắng: <?php echo $value['WINNERS']; ?></div>
+                                  <div>Người thua: <?php echo $value['LOSERS']; ?></div>
+                                </td>
+                              </tr>
+                            <?php endforeach ?>
+                          <?php }else{ ?>
+                            <tr>
+                              <td colspan="6">Bạn chưa tạo game nào.</td>
+                            </tr>
+                          <?php } ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                <?php } ?>
+              <?php } ?>
+
+
             </div>
 
-            <div id="history-user-info" class="col-3 col-sm-3 col-md-3 col-lg-3">
+            <div id="history-user-info" class="col-3 col-sm-3 col-md-3 col-lg-3" style="height: 400px">
               <div class="user-info-area">
                 <!-- user avatar -->
                 <div id="history-username-area" class="user-ava-area">
@@ -581,15 +634,8 @@
                 </div>
               </div>
             </div>
-          </div>
         </div><!-- /.content -->
       </div>
-  
-      <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
-        <?php if($is_history) {?>
-          <?php echo 'Them lich su chi tiet'; ?>
-        <?php } ?>
-      <?php } ?>
     </div>
   </div><!-- /.body -->
 
