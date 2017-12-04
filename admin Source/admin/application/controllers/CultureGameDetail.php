@@ -40,22 +40,25 @@ class CultureGameDetail extends CI_Controller {
             if ($active == 0) {
                 $result = $game_info->RESULT;
                 $champion = $this->CultureGameDetailModel->getChampion($game_id);
-                while (1) {
-                    foreach ($champion as $value) {
-                        if ($value['AWARD_ID'] == 1) {
-                            array_push($user_champion_id, $value['USER_ID']);
-                        }
-                    }
-                    foreach ($champion as $value) {
-                        if ($value['AWARD_ID'] == 2) {
-                            array_push($user_champion_id, $value['USER_ID']);
-                        }
-                    }
-                    foreach ($champion as $value) {
-                        if ($value['AWARD_ID'] == 3) {
-                            array_push($user_champion_id, $value['USER_ID']);
-                        }
-                    }
+                // while (1) {
+                //     foreach ($champion as $value) {
+                //         if ($value['AWARD_ID'] == 1) {
+                //             array_push($user_champion_id, $value['USER_ID']);
+                //         }
+                //     }
+                //     foreach ($champion as $value) {
+                //         if ($value['AWARD_ID'] == 2) {
+                //             array_push($user_champion_id, $value['USER_ID']);
+                //         }
+                //     }
+                //     foreach ($champion as $value) {
+                //         if ($value['AWARD_ID'] == 3) {
+                //             array_push($user_champion_id, $value['USER_ID']);
+                //         }
+                //     }
+                // }
+                for ($i = 0; $i < count($champion); $i++) {
+                    array_push($user_champion_id, $champion[$i]['USER_ID']);
                 }
             }
 

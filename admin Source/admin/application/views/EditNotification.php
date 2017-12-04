@@ -19,6 +19,12 @@
 </head>
 
 <body>
+<script>
+  var list = <?php echo json_encode($noti_list) ?>;
+  var noti_id = -1;
+  var base_url = '<?= base_url(); ?>';
+</script>
+
 <!-- manager content -->
 <div id="manager-index" class="container-fluid">
    <!-- side bar -->
@@ -76,8 +82,9 @@
           <span class="notifi-title medium-font-size mt-1 mb-1">Nội dung: </span>
           <textarea name="notifi-content" id="notifi-content" class="black medium-font-size custome-textarea form-control"></textarea>
           <div class="form-group submit-area mt-1 mb-1">
-            <button type="reset" class="btn btn-height close-update cursor-pointer color-white" id="" name="notifi-delete-btn">Xóa</button>
-            <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="" name="notifi-create-btn">Lưu</button>
+            <button type="reset" class="btn btn-height close-update cursor-pointer color-white" id="" name="notifi-delete-btn">Xóa thông báo</button>
+            <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="notifi-save-btn" name="notifi-create-btn">Lưu thông báo</button>
+            <button type="button" class="btn btn-add-notifi btn-height cursor-pointer color-white" id="notifi-remove-btn" name="notifi-remove-btn">Xóa nội dung</button>
           </div>          
         </div>        
         <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
@@ -101,7 +108,7 @@
                 ?>
                     <tr id="manager-noti">
                       <td class="text-center"><?= $count ?></td>
-                      <td><p class="notifi-title" id="title"><?= $value['TITLE'] ?></p></td>
+                      <td onclick="showDetail(<?= $value['NOTICE_ID']; ?>);"><p class="notifi-title cursor-pointer" id="title"><?= $value['TITLE'] ?></p></td>
                       <td><?php $dt = new DateTime($value['CREATE_DATE']); echo $dt->format('m/d/Y'); ?></td>
                     </tr>
                 <?php

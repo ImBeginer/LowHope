@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mysql8.db4free.net:3307',
-	'username' => 'hotaru',
-	'password' => 'lowhope12345',
-	'database' => 'lowhope_capstone',
+	'hostname' => '35.185.45.47:3306',
+	'username' => 'lowhope',
+	'password' => 'p123',
+	'database' => 'lowhope_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -94,3 +94,25 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+// $db['default'] = array(
+// 	'dsn'	=> '',
+// 	'hostname' => 'mysql8.db4free.net:3307',
+// 	'username' => 'hotaru',
+// 	'password' => 'lowhope12345',
+// 	'database' => 'lowhope_capstone',
+// 	'dbdriver' => 'mysqli',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => FALSE,
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => FALSE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );

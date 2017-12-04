@@ -136,7 +136,7 @@ class GameCT extends CI_Controller {
 					$price_bet = $this->input->post('price_bet');
 					$start_date = date('Y-m-d H:i:s');
 
-					if($price_bet && (double)$price_bet > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $price_bet)){
+					if($price_bet && (double)$price_bet > 0 && preg_match('/^\d+(\.(\d{1,2}))?$/', $price_bet)){
 						//ngày hiện tại nhỏ hơn ngày kết thúc
 						if(strtotime($end_date) > strtotime($start_date)){
 							if(!$this->game->checkGameYN($userID, $start_date, $end_date)){
@@ -172,7 +172,6 @@ class GameCT extends CI_Controller {
 				file_put_contents(APPPATH.'logs/lowhope.log',"\n".$e->getMessage()." IN FILE ".$e->getfile()." AT LINE :".$e->getline(), FILE_APPEND);
 				echo json_encode("0");
 			}
-
 		}
 	}
 
@@ -199,6 +198,7 @@ class GameCT extends CI_Controller {
 				$data['user_id'] = $user->USER_ID;
 				$data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
         		$data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
+        		$data['top_users_achievement'] = $this->user->get_user_achievement_before();
 
 				// Lấy danh sách lịch sử log của game này
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
@@ -225,6 +225,7 @@ class GameCT extends CI_Controller {
 				//GEST view
 				//load game active
                 $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+                $data['top_users_achievement'] = $this->user->get_user_achievement_before();
 
 				// Lấy danh sách lịch sử log của game này
 				$log_game = $this->game->get_Log_Game_By_Id($game_id,GAME_YN);
@@ -264,66 +265,71 @@ class GameCT extends CI_Controller {
 			$userID = $this->session->userdata('sessionUserId');
 			$gameID =$this->input->post('game_id');
 
-			//kiểm tra xem game đã full người chơi chưa
-			if(!$this->game->isFull($gameID,GAME_YN)){
-				// Kiểm tra xem người chơi có phải là người tạo ra game này hay không
-				if(!$this->user->isOwnerGame($userID,$gameID,GAME_YN)){
-					// Kiểm tra xem có đủ tiền chơi hay không?
-					if($this->user->canPlayGame($userID)){
-						//kiểm tra xem user đã đặt cược game này chưa
-						if(!$this->game->is_log_game($userID,$gameID,GAME_YN)){
-							$answer = $this->input->post('answer');
-							$ans_time = date('Y-m-d H:i:s');
-							
-							$result = $this->game->log_game_yes_no($userID,$gameID,$answer,$ans_time);
-							if($result > 0){
+			//Kiểm tra game kết thúc rồi thì không đặt được nữa
+			if(!$this->game->isClosed($gameID,GAME_YN)){
+				//kiểm tra xem game đã full người chơi chưa
+				if(!$this->game->isFull($gameID,GAME_YN)){
+					// Kiểm tra xem người chơi có phải là người tạo ra game này hay không
+					if(!$this->user->isOwnerGame($userID,$gameID,GAME_YN)){
+						// Kiểm tra xem có đủ tiền chơi hay không?
+						if($this->user->canPlayGame($userID)){
+							//kiểm tra xem user đã đặt cược game này chưa
+							if(!$this->game->is_log_game($userID,$gameID,GAME_YN)){
+								$answer = $this->input->post('answer');
+								$ans_time = date('Y-m-d H:i:s');
+								
+								$result = $this->game->log_game_yes_no($userID,$gameID,$answer,$ans_time);
+								if($result > 0){
 
-								//cập nhật bảng USERS, trừ point
-								$user = $this->user->getUserById($userID);
-								$user_point = $user->USER_POINT - FEE_BET_MINI;
-								$this->user->updatePoint($userID,$user_point);
-								//lấy point sau khi update
-								$newUser = $this->user->getUserById($userID);
+									//cập nhật bảng USERS, trừ point
+									$user = $this->user->getUserById($userID);
+									$user_point = $user->USER_POINT - FEE_BET_MINI;
+									$this->user->updatePoint($userID,$user_point);
+									//lấy point sau khi update
+									$newUser = $this->user->getUserById($userID);
 
-								//update lại bảng YN_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
-								$game = $this->game->getGameYN_ById($gameID);
-								$new_player_count = $game->PLAYER_COUNT + 1;
-								$total_amount = $game->TOTAL_AMOUNT + FEE_BET_MINI;
+									//update lại bảng YN_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
+									$game = $this->game->getGameYN_ById($gameID);
+									$new_player_count = $game->PLAYER_COUNT + 1;
+									$total_amount = $game->TOTAL_AMOUNT + FEE_BET_MINI;
 
-								$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_YN);
+									$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_YN);
 
-								//lấy số lượng câu trả lời yes / no
-								$ans = $this->game->getRatioYN($gameID);
+									//lấy số lượng câu trả lời yes / no
+									$ans = $this->game->getRatioYN($gameID);
 
-								//danh sach bet game yn
-								$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_YN);
+									//danh sach bet game yn
+									$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_YN);
 
-								//update tất cả các bảng log game yes no qua pusher
-								$data['list_bet_log'] = $list_bet_log;
-								$data['ans_yes'] = $ans['YES'];
-								$data['ans_no'] = $ans['NO'];
-								$data['total_amount'] = $total_amount;
-								$data['gameID'] = $gameID;
-																
-								$this->pusher->trigger('log_game_yes_no_channel', 'log_game_yes_no_event', $data);
-							
-								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT);
+									//update tất cả các bảng log game yes no qua pusher
+									$data['list_bet_log'] = $list_bet_log;
+									$data['ans_yes'] = $ans['YES'];
+									$data['ans_no'] = $ans['NO'];
+									$data['total_amount'] = $total_amount;
+									$data['gameID'] = $gameID;
+																	
+									$this->pusher->trigger('log_game_yes_no_channel', 'log_game_yes_no_event', $data);
+								
+									$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT);
 
-								echo json_encode($arr);
+									echo json_encode($arr);
+								}else{
+									echo json_encode(0);
+								}
 							}else{
-								echo json_encode(0);
-							}
+								echo json_encode(array('result'=>2));
+							}					
 						}else{
-							echo json_encode(array('result'=>2));
-						}					
+							echo json_encode(array('result'=>3));
+						}
 					}else{
-						echo json_encode(array('result'=>3));
+						echo json_encode(array('result'=>4));
 					}
 				}else{
-					echo json_encode(array('result'=>4));
+					echo json_encode(array('result'=>5));
 				}
 			}else{
-				echo json_encode(array('result'=>5));
+				echo json_encode(array('result'=>6));
 			}
 
 		}
@@ -354,7 +360,7 @@ class GameCT extends CI_Controller {
 					$price_below = $this->input->post('price_below');
 					$price_above = $this->input->post('price_above');
 
-					if($price_below && (double)$price_below > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $price_below) && $price_above && (double)$price_above > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $price_above)){
+					if($price_below && (double)$price_below > 0 && preg_match('/^\d+(\.(\d{1,2}))?$/', $price_below) && $price_above && (double)$price_above > 0 && preg_match('/^\d+(\.(\d{1,2}))?$/', $price_above)){
 						if(strtotime($end_date) > strtotime($start_date)){
 							if(!$this->game->checkGameMulti($userID,$start_date,$end_date)){
 								$gameID = $this->game->createGameMulti($userID,$game_title,$start_date,$end_date,$price_below,$price_above);
@@ -422,6 +428,7 @@ class GameCT extends CI_Controller {
 				$data['user_id'] = $user->USER_ID;
 				$data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
         		$data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
+        		$data['top_users_achievement'] = $this->user->get_user_achievement_before();
 
 				if($data['game_data']){
 					//lay ti le phan tram nguoi choi da tra loi
@@ -441,6 +448,7 @@ class GameCT extends CI_Controller {
 				//GEST view
 				//load game active
                 $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+                $data['top_users_achievement'] = $this->user->get_user_achievement_before();
 
 				$data['game_data'] = $this->game->getGameMUL_ById($game_id);
 				// Lấy danh sách lịch sử log của game này
@@ -476,81 +484,86 @@ class GameCT extends CI_Controller {
 		if(isset($_POST['game_id']) && isset($_POST['answer'])){
 			$userID = $this->session->userdata('sessionUserId');
 			$gameID = $this->input->post('game_id');
-			//kiểm tra xem game đã full người chơi chưa
-			if(!$this->game->isFull($gameID,GAME_MUL)){
-				// Kiểm tra xem người chơi có phải là người tạo ra game này hay không
-				if(!$this->user->isOwnerGame($userID,$gameID,GAME_MUL)){
-					// Kiểm tra xem có đủ tiền chơi hay không?
-					if($this->user->canPlayGame($userID)){
-						//kiểm tra xem user đã đặt cược game này chưa
-						if(!$this->game->is_log_game($userID,$gameID,GAME_MUL)){
-							$answer = $this->input->post('answer');
-							$ans_time = date('Y-m-d H:i:s');
+			//Kiểm tra game kết thúc rồi thì không đặt được nữa
+			if(!$this->game->isClosed($gameID,GAME_MUL)){
+				//kiểm tra xem game đã full người chơi chưa
+				if(!$this->game->isFull($gameID,GAME_MUL)){
+					// Kiểm tra xem người chơi có phải là người tạo ra game này hay không
+					if(!$this->user->isOwnerGame($userID,$gameID,GAME_MUL)){
+						// Kiểm tra xem có đủ tiền chơi hay không?
+						if($this->user->canPlayGame($userID)){
+							//kiểm tra xem user đã đặt cược game này chưa
+							if(!$this->game->is_log_game($userID,$gameID,GAME_MUL)){
+								$answer = $this->input->post('answer');
+								$ans_time = date('Y-m-d H:i:s');
 
-							$price_below = false;
-							$price_between= false;
-							$price_above = false;
+								$price_below = false;
+								$price_between= false;
+								$price_above = false;
 
-							if($answer == 0){
-								$price_below = true;
-							}else if($answer == 1){
-								$price_between= true;
-							}else if($answer == 2){
-								$price_above = true;
-							}
-							
-							$result = $this->game->log_game_mul($userID,$gameID,$price_below,$price_between,$price_above,$ans_time);
-
-							if($result > 0){
-
-								//cập nhật bảng USERS, trừ point
-								$user = $this->user->getUserById($userID);
-								$user_point = $user->USER_POINT - FEE_BET_MINI;
-								$this->user->updatePoint($userID,$user_point);
-
-								//lấy point sau khi update
-								$newUser = $this->user->getUserById($userID);
-
-								//update lại bảng MULTI_CHOICE_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
-								$game = $this->game->getGameMUL_ById($gameID);
-								$new_player_count = $game->PLAYER_COUNT + 1;
-								$total_amount = $game->TOTAL_AMOUNT + FEE_BET_MINI;
-
-								//TODO Update game multi
-								$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_MUL);
-
-								//lấy số lượng câu trả lời yes / no
-								$ans = $this->game->getRatioMUL($gameID);
-
-								$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_MUL);					
-
-								//update tất cả các bảng log game yes no qua pusher
-								$data['list_bet_log'] = $list_bet_log;
-								$data['gameID'] = $gameID;
-								$data['total_amount'] = $total_amount;
-								$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
-								$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
-								$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
+								if($answer == 0){
+									$price_below = true;
+								}else if($answer == 1){
+									$price_between= true;
+								}else if($answer == 2){
+									$price_above = true;
+								}
 								
-								$this->pusher->trigger('log_game_mul_channel', 'log_game_mul_event', $data);
+								$result = $this->game->log_game_mul($userID,$gameID,$price_below,$price_between,$price_above,$ans_time);
 
-								$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT);
+								if($result > 0){
 
-								echo json_encode($arr);
+									//cập nhật bảng USERS, trừ point
+									$user = $this->user->getUserById($userID);
+									$user_point = $user->USER_POINT - FEE_BET_MINI;
+									$this->user->updatePoint($userID,$user_point);
+
+									//lấy point sau khi update
+									$newUser = $this->user->getUserById($userID);
+
+									//update lại bảng MULTI_CHOICE_GAMES (PLAYER_COUNT,TOTAL_AMOUNT)
+									$game = $this->game->getGameMUL_ById($gameID);
+									$new_player_count = $game->PLAYER_COUNT + 1;
+									$total_amount = $game->TOTAL_AMOUNT + FEE_BET_MINI;
+
+									//TODO Update game multi
+									$this->game->update_Player_Total_Game($gameID,$new_player_count,$total_amount,GAME_MUL);
+
+									//lấy số lượng câu trả lời yes / no
+									$ans = $this->game->getRatioMUL($gameID);
+
+									$list_bet_log = $this->game->get_Log_Game_By_Id($gameID,GAME_MUL);					
+
+									//update tất cả các bảng log game yes no qua pusher
+									$data['list_bet_log'] = $list_bet_log;
+									$data['gameID'] = $gameID;
+									$data['total_amount'] = $total_amount;
+									$data['PRICE_BELOW'] = $ans['PRICE_BELOW'];
+									$data['PRICE_BETWEEN'] = $ans['PRICE_BETWEEN'];
+									$data['PRICE_ABOVE'] = $ans['PRICE_ABOVE'];
+									
+									$this->pusher->trigger('log_game_mul_channel', 'log_game_mul_event', $data);
+
+									$arr = array('result'=>1, 'user_point'=>$newUser->USER_POINT);
+
+									echo json_encode($arr);
+								}else{
+									echo json_encode(0);
+								}
 							}else{
-								echo json_encode(0);
-							}
+								echo json_encode(array('result'=>2));
+							}					
 						}else{
-							echo json_encode(array('result'=>2));
-						}					
+							echo json_encode(array('result'=>3));
+						}
 					}else{
-						echo json_encode(array('result'=>3));
+						echo json_encode(array('result'=>4));
 					}
 				}else{
-					echo json_encode(array('result'=>4));
+					echo json_encode(array('result'=>5));
 				}
 			}else{
-				echo json_encode(array('result'=>5));
+				echo json_encode(array('result'=>6));
 			}
 		}
 	}

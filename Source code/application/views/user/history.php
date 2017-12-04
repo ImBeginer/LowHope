@@ -44,16 +44,24 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 </head>
 <body onload="infinitySlideShow();">
+  <script>
+    var base_url = "<?php echo base_url(); ?>";
+    <?php if(isset($user_id)){ ?>
+      var user_id = <?php echo json_encode($user_id); ?>;
+      var is_related_YN = <?php echo json_encode($is_related_YN); ?>;
+      var is_related_MUL = <?php echo json_encode($is_related_MUL); ?>;
+    <?php } ?>
+  </script>
   <!-- body -->
   <div class="container-fluid">
     <div class="row">
       <!-- infinite slideshow -->
       <section id="hot-mini-game-area">
+        <?php if (empty($ALL_GAME_ACTIVE)) { ?>
+        <marquee behavior="scroll" direction="left">Các thử thách đang được hệ thống cập nhật. Hãy tạo nhiều thử thách cho người khác để kiếm nhiều point nào <span><i class="fa fa-smile-o" aria-hidden="true" style="color:pink"></i></span></marquee>
+        <?php }else{?>
+        <?php shuffle($ALL_GAME_ACTIVE) ?>
         <div id="hot-mini-game-content" class="hot-minigame slider autoplay">
-          <?php if (empty($ALL_GAME_ACTIVE)) {
-            echo 'Các game đang được hệ thống cập nhật';
-          }else{?>
-          <?php shuffle($ALL_GAME_ACTIVE) ?>
           <?php foreach ($ALL_GAME_ACTIVE as $value): ?>
             <div class="hot-item" data-gameID="<?php echo $value['GAME_ID']; ?>" data-gameType="<?php if($value['TYPE'] == 'YN'){echo 1;}else if($value['TYPE'] == 'MUL'){echo 2;} ?>">
               <?php if($value['TYPE'] == 'YN'){ ?>
@@ -70,33 +78,32 @@
               </a>
             </div>
           <?php endforeach?>
-          <?php } ?>
         </div>
-      </section>    
+        <?php } ?>
+      </section>
       <!-- /.infinite slideshow -->
 
       <!-- navbar -->
       <nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="<?php
-          if ($this->session->userdata('loggedInGooge')) {
-            echo base_url() . 'login/user';
-          } else if ($this->session->userdata('loggedInFB')) {
-            echo base_url() . 'login/fb_goHome';
+        <a class="navbar-brand" href="<?php 
+          if($this->session->userdata('loggedInGooge')){
+            echo base_url().'login/user';
+          }else if($this->session->userdata('loggedInFB')) {
+            echo base_url().'login/fb_goHome';
           }else if($this->session->userdata('loggedOther')){
             echo base_url() . 'userct/home';
           }else{
             echo base_url();
           }
+         ?>">Logo</a>
 
-          ?>">Logo</a>
+        <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="nav navbar-nav navbar-right">
-
-            <!-- TODO tao mini game -->
             <li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
               <a href="javascript:void(0);" class="nav-link">Tạo thử thách</a>
             </li>
@@ -104,9 +111,10 @@
             <!-- top rank point -->
             <li class="nav-item active top-bar-items" data-toggle="tooltip"
             data-placement="top" title="TOP point">
-              <a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
-            </li>
-            <!-- top rank point -->
+            <a class="nav-link" data-toggle="modal" data-target=".world-rank" href="#!"><i class="fa fa-trophy" aria-hidden="true"></i></a>
+            </li>            
+            <!-- end top rank point -->
+
             <!-- rank popup -->
             <div class="modal fade world-rank" tabindex="-1" role="dialog"
             aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -114,8 +122,8 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title col-centered" id="world-rank-title">TOP thành viên có nhiều point nhất</h5>
-                    <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close" title="Đóng">
-                      <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" title="Đóng">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
@@ -126,7 +134,6 @@
                           <figcaption class="top-user-name">
                             <a href="<?php echo base_url().'userct/profile/'.$top_point[1]['USER_ID']; ?>">
                             <?php echo $top_point[1]['USER_NAME']; ?></a>
-                              
                           </figcaption>
                           <figcaption class="top-user-point"><span class="second-point"><?php echo $top_point[1]['USER_POINT']; ?></span></figcaption>
                         </figure>
@@ -169,10 +176,10 @@
                   </div>
                 </button>
                 <!-- notification list -->
-                <?php if($noti->all_noti){ ?>
                 <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
+                <?php if($noti->all_noti){ ?>
                   <?php foreach ($noti->all_noti as $value): ?>
-                    <li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
+                    <li class="noti-items" data-noID="<?php echo $value['NOTICE_ID']; ?>" data-seen="<?php if($value['SEEN'] == 0){echo 0;}else{ echo 1;} ?>" data-gameType="<?php echo $value['TYPE_ID']; ?>" data-gameID="<?php echo $value['GAME_ID']; ?>" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">
                       <div class="noti-content ellipsis">
                         <a href="#!">
                           <p class="notifi-title notifi-1" class="ellipsis">
@@ -184,8 +191,8 @@
                                 <?php 
                                     $date = $value['SEND_DATE'];
                                     $date = new DateTime($date);
-                                    $time = $date->format('H:i:s d-m-Y');
-                                    echo $time;
+                                    $send_time = $date->format('H:i:s d-m-Y');
+                                    echo $send_time;
                                   ?>
                                 </span>
                             </div>
@@ -194,25 +201,23 @@
                       </div>
                     </li>
                   <?php endforeach ?>
-                </ul><!-- /.notification list -->
                 <?php }else{ ?>
-                <ul id="user-notifi" class="dropdown-menu dropdown-menu-right pre-scrollable">
-                  <li class="noti-items">Không có Thông báo</li>
-                </ul>
+                  <li class="noti-nothing">Không có Thông báo</li>
                 <?php } ?>
+                </ul><!-- /.notification list -->
 
                 <!-- popup notifi -->
                 <div class="modal" id="notifi-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="notifi-popup-title">Notifi title</h5>
+                      <div class="modal-header" id="notifi-title">
+                        
                         <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
-                        <p class="notifi-message">...</p>
+                      <div class="modal-body" id="notifi-content">
+                        
                       </div>
                     </div>
                   </div>
@@ -229,20 +234,16 @@
               </div>
             </li>
             <!-- end total point of user -->
-
+            
             <!-- avatar -->
             <li class="nav-item">
               <div class="user-avatar">
-                <img src="<?php if($this->session->userdata('userData')['USER_AVATAR']){
-                  echo $this->session->userdata('userData')['USER_AVATAR'];
-                }else{
-                  echo base_url().'images/client/ava-default.png';
-                } ?>" alt="user default">
+                <img src="<?php if($this->session->userdata('userData')['USER_AVATAR']){echo $this->session->userdata('userData')['USER_AVATAR'];}else{echo base_url().'images/client/ava-default.png';} ?>" alt="user default">
               </div>
             </li>
             <!-- end avatar -->
 
-                  <!-- information of user -->
+            <!-- information of user -->
             <li class="nav-item" id="tooltip-username" data-toggle="tooltip" data-placement="top" title="<?php echo $USER_NAME; ?>">
               <!-- user dropdown button -->
               <div class="dropdown">
@@ -254,21 +255,21 @@
                   <li class="func-items user-name-btn">
                     <button class="btn btn-primary user-name cursor-pointer" data-toggle="modal" data-target="#user-update-info">
                       Sửa thông tin
-                    </button>
+                    </button>     
                   </li>
 
-                  <li class="func-items"><a href="<?php echo base_url() . 'userct/history'; ?>" target="_self">Lịch sử</a></li>
+                  <li class="func-items"><a href="<?php echo base_url().'userct/history'; ?>" target="_self">Lịch sử</a></li>
 
-                  <?php if ($this->session->userdata('loggedInGooge')) {?>
-                    <li class="func-items"><a href="<?php echo base_url() . 'login/logoutGoogle'; ?>">Đăng xuất</a></li>
-                  <?php } else if ($this->session->userdata('loggedInFB')) {?>
+                  <?php if($this->session->userdata('loggedInGooge')){ ?>
+                    <li class="func-items"><a href="<?php echo base_url().'login/logoutGoogle'; ?>">Đăng xuất</a></li>
+                  <?php }else if($this->session->userdata('loggedInFB')) { ?> 
                     <li class="func-items"><a href="javascript:void(0);" onclick="logoutFB()">Đăng xuất</a></li>
-                  <?php }else if($this->session->userdata('loggedOther')){?>
+                  <?php }else if($this->session->userdata('loggedOther')){ ?>
                     <li class="func-items"><a href="<?php echo base_url() . 'userct/logout'; ?>">Đăng xuất</a></li>
                   <?php } ?>
                 </ul>
               </div> <!-- /.user dropdown button -->
-
+              
               <!-- create game popup -->
               <div id="create-game" class="modal fade" tabindex="-1" role="dialog"
               aria-labelledby="createGame" aria-hidden="true">
@@ -280,16 +281,16 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body">      
                       <!-- nav creat game -->
                       <ul id="nav-game" class="nav nav-tabs">
                         <li class="nav-item">
-                          <a class="nav-link active" href="#yes-no-game">Đúng/Sai</a>
+                          <a class="nav-link active" href="#yes-no-game">Đúng sai</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#multi-choice-game">Lựa chọn</a>
-                        </li>
-                      </ul><!-- /.nav create game -->
+                        </li>        
+                      </ul><!-- /.nav create game --> 
                     </div>
                     <!-- tab game -->
                     <div class="tab-content game-tab-content">
@@ -362,14 +363,14 @@
                         </div>
                       </div>
                       <!-- end create game multi -->
-                    </div><!-- /.tab game -->
+                    </div><!-- /.tab game -->            
                   </div>
                 </div>
-              </div><!-- /.create game popup -->
+              </div><!-- /.create game popup -->          
 
               <!-- user update form -->
               <div id="user-update-info" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog">                  
                   <!-- modal content -->
                   <div id="user-update-info" class="modal-content">
                     <div class="modal-header user-header">
@@ -385,11 +386,9 @@
                         <div class="user-info-left col-3 form-group">
                           <!-- user avatar -->
                           <div class="user-ava-area">
-                            <img class="user-avatar" src="<?php if($this->session->userdata('userData')['USER_AVATAR']){echo $this->session->userdata('userData')['USER_AVATAR'];}
-                            else{echo base_url().'images/client/ava-default.png';} ?>" alt="User's avatar">
+                            <img class="user-avatar" src="<?php if($this->session->userdata('userData')['USER_AVATAR']){echo $this->session->userdata('userData')['USER_AVATAR'];}else{echo base_url().'images/client/ava-default.png';} ?>" alt="User's avatar">
                             <p class="username ellipsis"><?php echo $USER_NAME; ?></p>
                           </div><!-- /.user avatar -->
-
                         </div>
                         <!-- user info -->
                         <div class="user-info-right col-8 col-centered">
@@ -410,7 +409,7 @@
                       <div class="submit-area form-group">
                         <button type="submit" class="btn-height update-btn cursor-pointer" id="update-btn">Cập nhật</button>
                         <button type="button" class="btn-height close-update cursor-pointer" data-dismiss="modal">Đóng</button>
-                      </div>
+                      </div>                     
                     </div><!-- /.user update info -->
 
                   </div><!-- /.modal content -->
@@ -419,16 +418,33 @@
               </div>
               <!-- /.user update form -->
             </li>
-            <!-- end information of user -->
-
+            <!-- end information of user --> 
           </ul>
         </div>
-      </nav>
-      <!-- /.navbar -->
+        <?php }else{ ?>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
+              <a href="<?php echo base_url(); ?>" class="nav-link">Đăng Nhập</a>
+            </li>
+          </ul>
+        </div>
+        <?php } ?>
+      </nav><!-- /.navbar -->  
+
+      <?php if(!empty($top_users_achievement)){ ?>
+      <!-- top users achievement -->
+      <div class="container-fluid">
+        <marquee behavior="scroll" direction="left">
+          Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+        </marquee>
+      </div>
+      <!-- end top users achievement -->
+      <?php } ?>
 
       <div id="history-content-area" class="content-area">
         <div class="col-12 col-centered text-center">
-          <h5 id="game-history-title">Lịch sử chơi game của: </h5>
+          <h5 id="game-history-title">Lịch sử chơi game của: <?php echo $user_view_name; ?> </h5>
         </div>
         <!-- content -->
         <div class="content">
@@ -439,10 +455,10 @@
                 <!-- nav game -->
                 <ul id="nav-game" class="nav nav-tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="#tranditional-game">Game truyền thống</a>
+                    <a class="nav-link active" href="#tranditional-game">Game Hệ Thống</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#mini-game">Mini game</a>
+                    <a class="nav-link" href="#mini-game">Thử Thách</a>
                   </li>
                 </ul><!-- /.nav game --> 
 
@@ -452,43 +468,52 @@
                     <table id="traditional-game-table" class="table table-sm">
                       <thead class="thead-default">
                         <tr>
-                          <th>#</th>
+                          <th>STT</th>
                           <th>Bắt đầu</th>
                           <th>Kết thúc</th>
                           <th>Kết quả</th>
                         </tr>
                       </thead>
                       <tbody>
+                      <?php if(!empty($user_view['achievements_system'])){ ?>  
+                        <?php foreach ($user_view['achievements_system'] as $key => $value): ?>
+                          <tr>
+                            <th scope="row"><?php echo $key+1; ?></th>
+                            <td>
+                              <?php 
+                                $start_date_system = $value['START_DATE'];
+                                $start_date_system = new DateTime($start_date_system);
+                                $start_date_system = $start_date_system->format('d-m-Y');
+                                echo $start_date_system;
+                              ?>
+                            </td>
+                            <td>
+                              <?php 
+                                $end_date_system = $value['START_DATE'];
+                                $end_date_system = new DateTime($end_date_system);
+                                $end_date_system = $end_date_system->format('d-m-Y');
+                                echo $end_date_system;
+                              ?>
+                            </td>
+                            <td>
+                              <?php if($value['PRIZE'] == 1){ ?>
+                                <img src="../images/client/1st.png" alt="Giải nhất" title="Giải nhất">
+                              <?php }else if($value['PRIZE'] == 2){ ?>
+                                <img src="../images/client/2nd.png" alt="Giải nhì" title="Giải nhì">
+                              <?php }else if($value['PRIZE'] == 3){ ?>
+                                <img src="../images/client/3rd.png" alt="Giải ba" title="Giải ba">
+                              <?php } ?>
+                            </td>
+                          </tr>
+                        <?php endforeach ?>
+                      <?php }else{ ?>
                         <tr>
-                          <th scope="row">1</th>
-                          <td>9/10/2017</td>
-                          <td>12/10/2017</td>
-                          <td>
-                            <!-- <img src="../images/client/1st.png" alt="Giải nhất" title="Giải nhất"> -->
-                          </td>
+                          <td>Chưa giành được giải thưởng nào.</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>5/10/2017</td>
-                          <td>8/10/2017</td>
-                          <td>
-                            <!-- <img src="../images/client/2nd.png" alt="Giải nhì" title="Giải nhì"> -->
-                          </td>                  
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>1/10/2017</td>
-                          <td>4/10/2017</td>
-                          <td>
-                            <!-- <img src="../images/client/3rd.png" alt="Giải ba" title="Giải ba"> -->
-                          </td>                  
-                        </tr>   
-                        <tr>
-                          <th scope="row">4</th>
-                          <td>22/9/2017</td>
-                          <td>25/9/2017</td>
-                          <td>-</td>                  
-                        </tr>                               
+                      <?php } ?>                            
                       </tbody>
                     </table>            
                   </div>
@@ -496,47 +521,32 @@
                     <table id="mini-game-table" class="table table-sm">
                       <thead class="thead-default">
                         <tr>
-                          <th>#</th>
-                          <th>Tên</th>
-                          <th>Loại game</th>
-                          <th>Bắt đầu</th>
-                          <th>Kết thúc</th>
+                          <th>STT</th>
+                          <th>Tên Thử Thách</th>
+                          <th>Loại Thử Thách</th>
                           <th>Kết quả</th>
                         </tr>
                       </thead>
                       <tbody>
+                      <?php if(!empty($user_view['result_bet_mini_game'])){ ?>
+                        <?php foreach ($user_view['result_bet_mini_game'] as $key => $value): ?>
+                          <tr>
+                            <th scope="row"><?php echo $key+1; ?></th>
+                            <td data-toggle="tooltip" data-placement="top" title="<?php echo $value['TITLE']; ?>"><div class="table-game-title ellipsis"><?php echo $value['TITLE']; ?></div></td>
+                            <td>
+                              <?php if($value['TYPE'] == 'YN'){echo 'Đúng/Sai';}else if($value['TYPE'] == 'MUL'){echo 'Lựa Chọn';} ?>
+                            </td>
+                            <td><?php if($value['IS_WINNER'] == 1){echo 'Thắng';}else if($value['IS_WINNER'] == 0){echo 'Thua';}else{echo 'Đang chơi';} ?></td>
+                          </tr>
+                        <?php endforeach ?>
+                      <?php }else{ ?>
                         <tr>
-                          <th scope="row">1</th>
-                          <td data-toggle="tooltip" data-placement="top" title="Dự đoán 1"><div class="table-game-title ellipsis">Dự đoán 1</div></td>
-                          <td>Yes/No</td>
-                          <td>9/10/2017</td>
-                          <td>12/10/2017</td>
-                          <td>Thắng</td>
+                          <td>Chưa tham gia thử thách nào.</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td><div class="table-game-title ellipsis">Dự đoán 2</div></td>
-                          <td>Yes/No</td>
-                          <td>5/10/2017</td>
-                          <td>8/10/2017</td>
-                          <td>Thắng</td>                  
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td><div class="table-game-title ellipsis">Dự đoán 3</div></td>
-                          <td>Chọn đáp án</td>
-                          <td>1/10/2017</td>
-                          <td>4/10/2017</td>
-                          <td>Thua</td>                 
-                        </tr>   
-                        <tr>
-                          <th scope="row">4</th>
-                          <td><div class="table-game-title ellipsis">Dự đoán 4</div></td>
-                          <td>Chọn đáp án</td>
-                          <td>22/9/2017</td>
-                          <td>25/9/2017</td>
-                          <td>Thua</td>                  
-                        </tr>                               
+                      <?php } ?>
                       </tbody>
                     </table>  
                   </div>
@@ -572,9 +582,14 @@
               </div>
             </div>
           </div>
-
         </div><!-- /.content -->
       </div>
+  
+      <?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
+        <?php if($is_history) {?>
+          <?php echo 'Them lich su chi tiet'; ?>
+        <?php } ?>
+      <?php } ?>
     </div>
   </div><!-- /.body -->
 

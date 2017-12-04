@@ -21,7 +21,7 @@ class IndexModel extends CI_Model {
         $month = date('m', strtotime('first day of last month'));
         $this->db->select('COUNT(*) AS MMM');
         $this->db->from('USERS');
-        $this->db->where('MONTH(CREATED_DATE)', $month); 
+        $this->db->where('MONTH(CREATE_DATE)', $month); 
         $result = $this->db->get();
         $count = $result->row();
         return ($count->MMM);
@@ -63,8 +63,8 @@ class IndexModel extends CI_Model {
         for ($i=0; $i < count($month); $i++) { 
             $this->db->select('COUNT(*)');
             $this->db->from('USERS');
-            $this->db->where('MONTH(CREATED_DATE)', $month[$i]); 
-            $this->db->where('YEAR(CREATED_DATE)', $year); 
+            $this->db->where('MONTH(CREATE_DATE)', $month[$i]); 
+            $this->db->where('YEAR(CREATE_DATE)', $year); 
             $result = $this->db->get()->row_array();
             $count = $result['COUNT(*)'];
             array_push($lMonth, $count);
@@ -72,7 +72,6 @@ class IndexModel extends CI_Model {
         // $data['lMonth'] = $lMonth;
         // print_r($lMonth);
         return $lMonth;
-        // $this->load->view('index', $data);
     } 
 
     /**

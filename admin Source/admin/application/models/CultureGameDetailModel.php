@@ -56,6 +56,7 @@ class CultureGameDetailModel extends CI_Model {
         }
     }
 
+    // TODO
     /**
      * [getChampion description]
      * @param  [type] $game_id [description]
@@ -65,7 +66,8 @@ class CultureGameDetailModel extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('ACHIEVEMENT');
-        $this->db->where('GAME_ID', $id);
+        $this->db->where('GAME_ID', $game_id);
+        $this->db->order_by("A_ID", "asc"); 
         $result = $this->db->get()->result_array();
         if (count($result) > 0) {
             return $result;
