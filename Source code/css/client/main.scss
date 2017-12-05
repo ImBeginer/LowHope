@@ -9,6 +9,7 @@
 @import 'scrollBar';
 @import 'userUpdateInfo';
 @import 'queries';
+@import 'animationKey';
 /*author: Phong Huy*/
 div#highcharts-8znetyt-0 tspan {
   font-size: initial !important;
@@ -725,16 +726,7 @@ a#previous, a#next {
 /*********************CHAT************************/
 .icon-and-chat {
   position: relative;
-}
-
-button#chat-btn {
-  border-radius: 53px;
-  background-color: $chat-color !important;
-  width: 50px !important;
-  height: 50px !important;
-  position: fixed;
-  right: 50px;
-  top: 570px;  
+  // left: -350px;
 }
 
 .chat-content {
@@ -772,9 +764,8 @@ button#chat-btn {
 
 .chat-header {
   border-bottom: 1px solid $footer-word-op !important;
-  background-color: $chat-title;
+  background-color: $chat-color;
   border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
 }
 
 .chat-body, .chat-footer {
@@ -810,23 +801,8 @@ h5.chat-title span {
   overflow: hidden;
 }
 
-button#chat-btn i.fa.fa-paper-plane {
-  position: relative;
-  left: -1px;
-  top: -1px;
-}
-
-div#chat-panel {
-  width: 400px;
-  position: absolute;
-  right: 87px;
-  top: -144px;
-  display: none;
-  z-index: 999;
-}
-
 div.chat-active {
-  display: block !important;
+  display: inline-block !important;
 }
 
 /*********************RANK POPUP************************/
@@ -1079,4 +1055,97 @@ div#mgyn-content-area select.mul-mini-game,
 div#mgyn-content-area select.mul-mini-game option {
   color: $black;    
   outline: none;
+}
+
+button#chat-btn {
+  background-color: $chat-color !important;
+  vertical-align: top;
+  position: relative;
+  height: 42px;
+  left: -12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.chat-icon-area {
+  position: fixed;
+  top: 20%;
+}
+
+div#chat-panel {
+  display: none;
+  width: 350px;
+}
+
+.chat-body {
+  max-height: 367px;
+  height: 367px;
+  max-width: 350px;
+}
+
+ul.chat-gift {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+div#gift-btn {
+  position: relative;
+  left: -12px;
+  padding: 10px 15px;
+  background-color: $chat-color !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  img {
+    width: 20px;
+    max-width: 20px;
+  }
+}
+
+ul.gift-menu {
+  vertical-align: top;
+  display: inline-block;
+  position: absolute;
+  left: -12px;
+  img {
+    width: 120px;
+    max-width: 120px;
+  }
+}
+
+.gift-content {
+  width: 260px;
+  text-align: center;
+  background-color: $white;
+  padding: 10px 10px;
+}
+
+.font-medium {
+  font-size: 68%;
+}
+
+ul.gift-menu li.gift-item {
+  display: none;
+}
+
+li#sub-gift-menu:hover ul.gift-menu {
+  perspective: 1000px;
+  li {
+    display: block;
+    opacity: 0;
+    transform-origin: top center;
+    animation-name: giftMenuStyle2;
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    &:nth-child(1) {
+      animation-delay: 0;
+    }
+    &:nth-child(2) {
+      animation-delay: 150ms;
+    }
+    &:nth-child(3) {
+      animation-delay: 300ms;
+    }    
+  }
 }
