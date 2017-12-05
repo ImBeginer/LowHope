@@ -67,7 +67,7 @@
         </div><!-- /.icon sidebar -->        
         <div class="row">
           <div class="function-title">
-            <p class="title">Game truyền thống: <?php echo $game_name; ?></p>
+            <p class="title font-extra-bold font-extra-big">Game truyền thống: <?php echo $game_name; ?></p>
           </div>
           <!-- game info -->
           <div class="game-info">
@@ -198,17 +198,6 @@
         </div>
       </div>
     </div><!-- /.game-content-detail -->
-    <!-- footer -->
-    <footer>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-        &copy; 2017
-        <div class="about-us">
-          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-        </div>
-      </div>
-    </footer><!-- /.footer -->    
   </div><!-- /.right side hand -->
 </div><!-- /.notification content -->
 

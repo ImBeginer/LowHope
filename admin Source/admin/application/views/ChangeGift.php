@@ -71,7 +71,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Thay đổi giá trị giải thưởng</p>
+          <p class="title font-extra-bold font-extra-big">Thay đổi giá trị giải thưởng</p>
         </div>
         <div class="manager-info">
           <!-- nav game list -->

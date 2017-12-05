@@ -67,7 +67,7 @@
         </div><!-- /.icon sidebar -->        
         <div class="row">
           <div class="function-title">
-            <p class="title">Danh sách game truyền thống</p>
+            <p class="title font-extra-bold font-extra-big">Danh sách game truyền thống</p>
           </div>
           <!-- game info -->
           <div class="game-info">
@@ -77,15 +77,6 @@
                 <td data-toggle="tooltip" data-placement="top" title="Tổng số game truyền thống đã được tạo">
                   <strong><p class="user-tran cursor-pointer">Tổng số game: <?php echo count($game_info); ?></p></strong>
                 </td>
-                <!-- <td data-toggle="tooltip" data-placement="top" title="Giá bitcoin">
-                  <p class="user-join cursor-pointer">Hôm qua: 6000 USD</p>
-                </td>
-                <td data-toggle="tooltip" data-placement="top" title="Giá bitcoin">
-                  <p class="game-close-in">Hôm nay: 6100 USD</p>
-                </td>                  
-                <td data-toggle="tooltip" data-placement="top" title="Tỷ lệ: +1.67%">
-                  <p class="game-created-date">Mức chênh lệch: <i class="fa fa-arrow-up increase" aria-hidden="true"></i><span class="increase">100 USD</span></p>
-                </td> -->
               </tr>
             </table><!-- /.game table info -->
             <!-- user join -->
@@ -107,7 +98,7 @@
                 ?>
                     <tr>
                       <td class="text-center wd-4"><?php echo $count?></td>
-                      <td class="text-center"><a href="<?php echo base_url().'CultureGameDetail/index/'.$game['GAME_ID'] ?>"><?php echo $game['CONTENT']?></a></td><i class="fa fa-user mg-1" aria-hidden="true"></i></td>
+                      <td class="text-center"><a href="<?php echo base_url().'CultureGameDetail/index/'.$game['GAME_ID'] ?>"><?php echo $game['CONTENT']?></a></td>
                       <td><?php echo $game['START_DATE'];?></td>
                       <td><?php echo $game['END_DATE'];?></td>
                       
@@ -122,18 +113,7 @@
           </div><!-- /.game info -->
         </div>
       </div>
-    </div><!-- /.game-content-detail -->
-    <!-- footer -->
-    <footer>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-        &copy; 2017
-        <div class="about-us">
-          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-        </div>
-      </div>
-    </footer><!-- /.footer -->    
+    </div><!-- /.game-content-detail --> 
   </div><!-- /.right side hand -->
 </div><!-- /.notification content -->
 

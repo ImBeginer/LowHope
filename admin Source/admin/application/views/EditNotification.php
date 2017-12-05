@@ -75,7 +75,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">CRUD Thông báo</p>
+          <p class="title font-extra-bold font-extra-big">CRUD Thông báo</p>
         </div>
         <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
           <span class="notifi-title medium-font-size mt-1 mb-1">Tiêu đề: </span>
@@ -125,17 +125,6 @@
       </div>
     </div>
   </div><!-- /.right side hand -->
-  <!-- footer -->
-  <footer>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-      &copy; 2017
-      <div class="about-us">
-        <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-        <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-        <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-      </div>
-    </div>
-  </footer><!-- /.footer -->  
 </div><!-- /.manager content -->
 
 <!-- jQuery -->
