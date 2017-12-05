@@ -554,7 +554,7 @@ class User extends CI_Model {
 	 * @param  [type] $profile_userID [description]
 	 * @return [type]                 [description]
 	 */
-	public function get_profile_user($id_user_view)
+	public function get_user_profile($id_user_view)
 	{
 		$user_profile = array();
 		//giai he thong
@@ -606,6 +606,49 @@ class User extends CI_Model {
 
 		return $user_profile;
 		
+	}
+
+	/**
+	 * Lấy lịch sử người chơi
+	 */
+	function get_user_history($userID)
+	{
+		//his yes no
+		$sql_yes_no = 	"select *, SUM(if(tb.IS_WINNER = 1,1,0)) as WINNERS, SUM(if(tb.IS_WINNER = 0,1,0)) as LOSERS 
+						 from(select YN_GAMES.GAME_ID, YN_GAMES.TITLE, YN_GAMES.START_DATE, YN_GAMES.END_DATE, YN_GAMES.TOTAL_AMOUNT, YN_GAMES.ACTIVE , YN_GAME_LOGS.IS_WINNER 
+						 	from YN_GAMES 
+						 	join YN_GAME_LOGS on YN_GAMES.GAME_ID = YN_GAME_LOGS.GAME_ID 
+						 	where YN_GAMES.OWNER_ID = ". $this->db->escape($userID) .") as tb group by GAME_ID";
+
+		//his yes no				 	
+		$his_yes_no = $this->db->query($sql_yes_no);
+		if($his_yes_no !== false && $his_yes_no->num_rows()>0){
+			$his_yes_no = $his_yes_no->result_array();
+			foreach ($his_yes_no as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'YN';
+				$value = (array)$value;
+			}
+		}else{
+			$his_yes_no = array();
+		}
+
+		//his multi
+		$sql_multi = 	"select *, SUM(if(tb.IS_WINNER = 1,1,0)) as WINNERS, SUM(if(tb.IS_WINNER = 0,1,0)) as LOSERS from( select MULTI_CHOICE_GAMES.GAME_ID, MULTI_CHOICE_GAMES.TITLE, MULTI_CHOICE_GAMES.START_DATE, MULTI_CHOICE_GAMES.END_DATE, MULTI_CHOICE_GAMES.TOTAL_AMOUNT, MULTI_CHOICE_GAMES.ACTIVE ,  MULTI_CHOICE_GAME_LOGS.IS_WINNER from MULTI_CHOICE_GAMES join MULTI_CHOICE_GAME_LOGS on MULTI_CHOICE_GAMES.GAME_ID = MULTI_CHOICE_GAME_LOGS.GAME_ID where MULTI_CHOICE_GAMES.OWNER_ID = ". $this->db->escape($userID) .") as tb group by GAME_ID";
+
+		$his_multi = $this->db->query($sql_multi);
+		if($his_multi !== false && $his_multi->num_rows()>0){
+			$his_multi = $his_multi->result_array();
+			foreach ($his_multi as &$value1) {
+				$value1 = (object)$value1;
+				$value1->TYPE = 'MUL';
+				$value1 = (array)$value1;
+			}
+		}else{ 
+			$his_multi = array();
+		}
+
+		return array_merge($his_yes_no, $his_multi);
 	}
 }
 

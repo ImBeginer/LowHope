@@ -6,8 +6,9 @@ var pusher = new Pusher('711b956416d9d15de4b8', {
   disableStats:true
 });
 
+//key moi: efd4e401d751e081f0f0
 //Pusher Quan
-var pusher_2 = new Pusher('35555731a8560ac49e3b', {
+var pusher_admin = new Pusher('35555731a8560ac49e3b', {
   cluster: 'ap1',
   encrypted: true,
   disableStats:true
@@ -19,6 +20,16 @@ var pusher_3 = new Pusher('df4ed713f2f76fde17d4', {
   encrypted: true,
   disableStats:true
 });
+
+/*********************************************** ADMIN **********************************************/
+
+var listen_admin = pusher_admin.subscribe('create_noti_channel');
+listen_admin.bind('create_noti_event', function(data) {
+  // body...
+  console.log('listen_admin: ' + data);
+});
+
+
 
 /**************************************** NOTIFICATION **********************************************/
 $(document).on('click', '.noti-items', function(event) {
@@ -84,6 +95,7 @@ function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
 
 //add thông báo vào danh sách thông báo
 function add_noti(noti_id, noti_seen, game_type, game_id, noti_title, send_date, user_point) {
+  send_date = moment(send_date).format('H:mm:ss DD-MM-YYYY');
   //Xóa không có thông báo
   if($('ul#user-notifi li.noti-nothing')[0]){
     $('ul#user-notifi li.noti-nothing')[0].remove();
@@ -155,15 +167,56 @@ if(typeof user_id !== 'undefined'){
   //Kênh hệ thống
   var channel_system_game = pusher_3.subscribe('system-game');
   //Tất cả người chơi
-  channel_system_game.bind('pop-user', function(data) {
-      console.log('from system game for all: '+ data);
-      //TODO
+  channel_system_game.bind('pop-users', function(data) {
+    //console.log('from system game for all: '+ data);
+    $.each(data, function(key, value) {
+    if(user_id == value.USER_ID){
+        add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+      }
+    });
+    //Update lại giao diện
+    $.ajax({
+      url: base_url + 'gamect/update_session_game_tt',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {gameID: data[0].GAME_ID},
+    })
+    .done(function(response) {
+      //Nội dung game truyền thống
+      if($('.game_tt_content.text-center')[0]){
+        $('.game_tt_content.text-center')[0].textContent = response.new_game.CONTENT;
+      }
+
+      //Đếm ngược thời gian
+      if($('#countDown')[0]){
+        document.getElementById("countDown").style.color = 'white';
+        document.getElementById("countDown").style.fontWeight  = 'normal';
+        $("#bet-game_tt").prop('disabled', false);
+        countDown_End_Date(response.new_game.END_DATE, 0);
+      }
+
+      //Update lại giải thưởng chạy
+      if($('#top_users_achievement')[0]){
+        if($('#top_users_achievement marquee')[0]){
+          //$('#top_users_achievement marquee span')[0].textContent = ;
+        }
+      }
+
+    })
+    .fail(function(response) {
+      console.log("update_session_game_tt: error");
+    });
+    
   });
 
   //Kiểm tra người chơi có tham gia game hệ thống không thi cho subscrice kênh này
-  channel_system_game.bind('pop-winner', function(data) {
-      console.log('from system game for winners: '+ data);
-      //TODO
+  channel_system_game.bind('pop-winners', function(data) {
+    //console.log('from system game for winners: '+ data);
+    $.each(data, function(key, value) {
+    if(user_id == value.USER_ID){
+        add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.NOTICE_TITLE, value.SEND_DATE, value.USER_POINT);
+      }
+    });
   });
 
   //Kiểm tra user có là chủ game yes/no nào không, hay chơi game yes/no nào không?
@@ -378,6 +431,7 @@ function set_style_table_log_game() {
  */
 function countDown_End_Date(string_end_date,type) {
   var end_date = (new Date(string_end_date)).getTime();
+  
   var x = setInterval(function(){
     // Get todays date and time
     var now = new Date().getTime();
@@ -391,8 +445,13 @@ function countDown_End_Date(string_end_date,type) {
 
       // Output the result in an element
       if(type == 0){
+
         if(days == 0 && hours == 0 && minutes == 0 && seconds == 30){
           document.getElementById("countDown").style.color = 'red';
+        }
+
+        if(days == 0 && hours == 0 && minutes == 0 && seconds == 10){
+          document.getElementById("bet-game_tt").disabled = 'true';
         }
         document.getElementById("countDown").innerHTML = days + "Day " + hours + "h "
         + minutes + "m " + seconds + "s ";
@@ -403,7 +462,7 @@ function countDown_End_Date(string_end_date,type) {
           document.getElementById("countDown").innerHTML = "EXPIRED";
           document.getElementById("countDown").style.color  = 'red';
           document.getElementById("countDown").style.fontWeight  = 'bold';
-          $('.mini-game-des')[0].firstElementChild.textContent = 'ĐÃ ĐÓNG';
+          document.getElementById("bet-game_tt").disabled = 'true';
         }         
       }else if(type == 1){
         if(days == 0 && hours == 0 && minutes == 0 && seconds == 30){

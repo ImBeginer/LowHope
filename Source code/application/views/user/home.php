@@ -431,15 +431,15 @@
 		</div>
 	</div> <!-- /.big div on top -->
 	
-	<?php if(!empty($top_users_achievement)){ ?>
 	<!-- top users achievement -->
-	<div class="container-fluid">
+	<div class="container-fluid" id="top_users_achievement">
+		<?php if(!empty($top_users_achievement)){ ?>
 		<marquee behavior="scroll" direction="left">
 			Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
 		</marquee>
+		<?php } ?>
 	</div>
 	<!-- end top users achievement -->
-	<?php } ?>
 	<!-- content -->
 	<div class="container-fluid">
 		<div class="row">
@@ -464,13 +464,16 @@
 							</div>
 
 							<!-- bet form -->
-							<div class="bet-form-area mt-3">
+							<div class="bet-form-area mt-2">
 								<form class="bet-form">
 									<div class="form-group">
 										<label class="input-title" for="point-input">Giá Bitcoin Dự Đoán</label>
 										<label class="input-des" for="point-input">(Đơn vị: USD)</label>
 										<input type="number" class="form-control" id="point-input" name="point-num" min="0" placeholder="0.01" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" step="0.01" data-toggle="tooltip" data-placement="left" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
-										<label class="input-des mt-1" for="point-input">Lưu ý: Chúng tôi sẽ lấy giá đặt cược cuối cùng của bạn trước khi kết thúc game dự đoán !</label>
+										<label class="input-des" for="point-input">Lưu ý:</label>
+										<label class="input-des" for="point-input">Chúng tôi sẽ lấy giá đặt cược cuối cùng của bạn trước khi kết thúc game dự đoán !</label>
+										<label class="input-des" for="point-input">Phí đặt cược là: 100 point.</label>
+										<label class="input-des" for="point-input">Hệ thống sẽ đóng trước 10s để kết quả được chính xác nhất.</label>
 									</div>
 									<div class="form-group">
 										<button type="button" class="form-control c-button cursor-pointer" id="bet-game_tt" name="bet-btn">
@@ -537,6 +540,7 @@
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap-confirmation.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/jquery/moment.js"></script>
 
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/fb.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/client/user.js"></script>

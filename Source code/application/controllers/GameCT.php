@@ -60,43 +60,51 @@ class GameCT extends CI_Controller {
 			$PRICE = $this->input->post('price_bet');	
 
 			if($PRICE && (double)$PRICE > 0 && preg_match('/^\d+(\.(\d{2}))?$/', $PRICE)){
+
 				$GAME_TT_ID = $this->session->userdata('session_Game_TT_ID');
-				$USER_ID = $this->session->userdata('sessionUserId');
-				$DATE = date("Y-m-d H:i:s");
 
-				$check_Log_Game_TT = $this->game->check_Log_Game_TT($USER_ID, $GAME_TT_ID);
-				//Kiểm tra có đủ tiền để đặt cược game truyền thống hay không?
-				$canBetGameTT = $this->user->canBetGameTT($USER_ID);
+				if($this->game->game_tt_alive($GAME_TT_ID)){
 
-				if($canBetGameTT){
-					if($check_Log_Game_TT){
-						$check = $this->game->update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
-						if($check){
-							$user = $this->user->getUserById($USER_ID);
-							$res = array('result'=>1, 'user_point'=>$user->USER_POINT);
-							echo json_encode($res);
+					$USER_ID = $this->session->userdata('sessionUserId');
+					$DATE = date("Y-m-d H:i:s");
+
+					$check_Log_Game_TT = $this->game->check_Log_Game_TT($USER_ID, $GAME_TT_ID);
+					//Kiểm tra có đủ tiền để đặt cược game truyền thống hay không?
+					$canBetGameTT = $this->user->canBetGameTT($USER_ID);
+
+					if($canBetGameTT){
+						if($check_Log_Game_TT){
+							$check = $this->game->update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
+							if($check){
+								$user = $this->user->getUserById($USER_ID);
+								$res = array('result'=>1, 'user_point'=>$user->USER_POINT);
+								echo json_encode($res);
+							}else{
+								$res = array('result'=>0);
+								echo json_encode($res);
+							}
 						}else{
-							$res = array('result'=>0);
-							echo json_encode($res);
-						}
+							$check = $this->game->add_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
+							if($check){
+								$user = $this->user->getUserById($USER_ID);
+								$user_point = $user->USER_POINT;
+								$user_point = $user_point - FEE_BET_TT;
+								$this->user->updatePoint($USER_ID,$user_point);
+								$userNew = $this->user->getUserById($USER_ID);
+
+								$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT);
+								echo json_encode($res);
+							}else{
+								$res = array('result'=>0);
+								echo json_encode($res);
+							}
+						} 
 					}else{
-						$check = $this->game->add_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
-						if($check){
-							$user = $this->user->getUserById($USER_ID);
-							$user_point = $user->USER_POINT;
-							$user_point = $user_point - FEE_BET_TT;
-							$this->user->updatePoint($USER_ID,$user_point);
-							$userNew = $this->user->getUserById($USER_ID);
-
-							$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT);
-							echo json_encode($res);
-						}else{
-							$res = array('result'=>0);
-							echo json_encode($res);
-						}
-					} 
+						$res = array('result'=>3);
+						echo json_encode($res);
+					}
 				}else{
-					$res = array('result'=>3);
+					$res = array('result'=>4);
 					echo json_encode($res);
 				}
 			}else {
@@ -107,6 +115,18 @@ class GameCT extends CI_Controller {
 			$res = array('result'=>0);
 			echo json_encode($res);
 		}
+	}
+
+	function update_session_game_tt()
+	{
+		$gameID = $this->input->post('gameID');
+		$this->session->set_userdata('session_Game_TT_ID', $gameID);
+		//game mới
+		$new_game = $this->game->get_game_tt_by_id($gameID);
+		//giải thưởng
+		$top_users_achievement = $this->user->get_user_achievement_before();
+		
+		echo json_encode(array('new_game'=>$new_game, 'top_users_achievement'=>$top_users_achievement));
 	}
 
 	/********************************* GAME YES NO ***********************************************/

@@ -395,6 +395,8 @@ $(document).ready(function() {
 	 				$('#point-input').focus();
 	 			}else if(response.result == 3){
 	 				toatMessage('Info', 'Bạn không có đủ Point để đặt cược game này !<br>(Các game bạn tạo vẫn chưa kết thúc)','info');
+	 			}else if(response.result == 4){
+	 				toatMessage('Warning', 'Game hệ thống này đã đóng','warning');
 	 			}
 	 		}).fail(function(response) {
 	 			console.log("log_game_tt: error");

@@ -653,16 +653,12 @@
 
   <div class="chat-icon-area">
     <div class="icon-and-chat">
-      <!-- Button trigger modal -->
-      <button id="chat-btn" type="button" class="btn btn-primary cursor-pointer">
-        <i class="fa fa-paper-plane" aria-hidden="true"></i>
-      </button>
       <!-- Chat panel -->
       <div id="chat-panel">
         <div class="chat-header">
-          <h5 class="chat-title">Vinh Nguyễn <span class="close" aria-hidden="true">x</span></h5>         
+          <h5 class="chat-title">Vinh Nguyễn</h5>         
         </div>
-        <div class="chat-body">
+        <div class="chat-body pre-scrollable">
           ...
         </div>
         <div class="chat-footer">
@@ -673,6 +669,45 @@
           </div>            
         </div>
       </div><!-- /.Chat panel -->
+      <ul class="chat-gift">
+        <li>
+          <!-- Button trigger modal -->
+          <button id="chat-btn" type="button" class="btn btn-primary cursor-pointer">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </li>
+        <li id="sub-gift-menu">
+          <div id="gift-btn" class="btn btn-primary">
+            <img src="../images/client/giftbox.png"/>
+          </div>
+          <ul class="gift-menu">
+            <li class="gift-item">
+              <div class="gift-content">
+                <figure>
+                  <img src="../images/client/SH.png" alt="Honda SH">
+                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhất: 1 xe Honda SH</a></figcaption>
+                </figure>
+              </div>
+            </li>
+            <li class="gift-item">
+              <div class="gift-content">
+                <figure>
+                  <img src="../images/client/macbook.png" alt="Macbook Pro">
+                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhì: 1 Macbook Pro</a></figcaption>
+                </figure>
+              </div>
+            </li>
+            <li class="gift-item">
+              <div class="gift-content">
+                <figure>
+                  <img src="../images/client/iphoneX.png" alt="iPhone X">
+                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải ba: 1 iPhone X</a></figcaption>
+                </figure>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 
