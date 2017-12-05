@@ -47,22 +47,36 @@ class gameModel {
 		});
 		return d.promise;
 	}
+	sys_get_prizes(){
+		let d = q.defer(),
+			query = 'SELECT AWARD_ID, PRIZE FROM AWARD where ACTIVE=1 order by PRIZE';
+		mysql.query(query, function(err, res){
+			if(err) throw err;
+			d.resolve(JSON.parse(JSON.stringify(res)));
+		});
+		return d.promise;
+	}
 	sys_award_users(winners, game_id) {
 		let d = q.defer(),
 			query = 'INSERT INTO ACHIEVEMENT (USER_ID,AWARD_ID,GAME_ID,GET_AT) VALUES ?',
-			award_data = [];
-		winners.forEach((winner, index)=>{
-			award_data.push([
-				winner.USER_ID,
-				index + 1,
-				game_id,
-				moment().format('YYYY-MM-DD HH:mm:ss')	
-			])
+			award_data = [],
+			prize_data = {};
+		this.sys_get_prizes()
+		.then(prizes => {
+			winners.forEach((winner, index) => {
+				award_data.push([
+					winner.USER_ID,
+					prizes[index].AWARD_ID,
+					game_id,
+					moment().format('YYYY-MM-DD HH:mm:ss')
+				])
+			});
+			mysql.query(query, [award_data], function (err, result) {
+				if (err) throw err;
+				d.resolve(result);
+			});
 		});
-		mysql.query(query, [award_data], function (err, result) {
-			if (err) throw err;
-			d.resolve(result);
-		});
+
 		return d.promise;
 	}
 	get_yn_game_players(dataInput) {
@@ -211,6 +225,19 @@ class gameModel {
 			if (err) throw err;
 			let data = JSON.parse(JSON.stringify(res));
 			d.resolve(data[0]);
+		});
+		return d.promise;
+	}
+	create_chat_channel(game_id, title){
+		let d = q.defer();
+		let query = 'INSERT INTO CHAT_ROOMS SET ?';
+		mysql.query(query, {
+			GAME_ID: game_id,
+			ROOM_NAME: title,
+			CREATE_DATE: moment().format('YYYY-MM-DD HH:mm:ss')
+		}, function(err, res) {
+			if (err) throw err;
+			d.resolve('ok');
 		});
 		return d.promise;
 	}

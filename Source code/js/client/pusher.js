@@ -95,6 +95,7 @@ function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
 
 //add thông báo vào danh sách thông báo
 function add_noti(noti_id, noti_seen, game_type, game_id, noti_title, send_date, user_point) {
+  send_date = moment(send_date).format('H:mm:ss DD-MM-YYYY');
   //Xóa không có thông báo
   if($('ul#user-notifi li.noti-nothing')[0]){
     $('ul#user-notifi li.noti-nothing')[0].remove();
