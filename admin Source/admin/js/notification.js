@@ -31,6 +31,7 @@ function getInformationById(id) {
 		$('#win').text(win_no);
 		$('#lose').text(lose_no);
 		$('#sum').text(total);
+      	user_percent_in_de(win_no, lose_no);
 	})
 	.fail(function(response) {
 		console.log("error");
@@ -173,3 +174,37 @@ $('input#user-search').on('keydown', function(e) {
         search();
     }
 });
+
+$('#btn-add-notifi').on('click', function(e) {
+   window.location.href = base_url + 'EditNotification';
+});
+
+/**
+ * [user_percent_in_de hiển thị phần trăm số người dự đoán giá bitcoin tăng hoặc giảm]
+ */
+  function user_percent_in_de ($in_num = 0, $de_num = 0) {
+    $percent_width = parseInt($('.percent-panel').css('width'), 10);
+
+    $in_div = $('#increase');
+    $de_div = $('#decrease');
+    $in_user = $in_num;
+    $de_user = $de_num;
+    $total_user = parseInt($in_user) + parseInt($de_user);
+
+    if ($total_user !== 0 && $total_user > 0) {
+      $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
+      $de_div_width = $percent_width - $in_div_width;
+    } else {
+      $de_div_width = $in_div_width = Math.round($percent_width / 2);
+    }
+
+
+    $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
+    $de_per_string = 100 - $in_per_string;
+
+    $in_div.css({'width': $in_div_width + 'px'});
+    $de_div.css({'width': $de_div_width + 'px'});
+
+    $('span.in-num-percent').text($in_per_string + '%');
+    $('span.de-num-percent').text($de_per_string + '%');
+  
