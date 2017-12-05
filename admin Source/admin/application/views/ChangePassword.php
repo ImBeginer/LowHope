@@ -71,7 +71,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Thay đổi mật khẩu</p>
+          <p class="title font-extra-bold font-extra-big">Thay đổi mật khẩu</p>
         </div>
         <div class="manager-info">
           <div class="message"></div>

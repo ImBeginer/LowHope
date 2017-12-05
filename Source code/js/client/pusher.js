@@ -184,7 +184,10 @@ if(typeof user_id !== 'undefined'){
     .done(function(response) {
       //Nội dung game truyền thống
       if($('.game_tt_content.text-center')[0]){
-        $('.game_tt_content.text-center')[0].textContent = response.new_game.CONTENT;
+        var content = 'Câu hỏi tuần này: ';
+        content += response.new_game.CONTENT;
+        content += ' là bao nhiêu? <span><i class="fa fa-forward" aria-hidden="true"></i></span><span><i class="fa fa-forward" aria-hidden="true"></i></span>';
+        $('.game_tt_content.text-center')[0].textContent = content;
       }
 
       //Đếm ngược thời gian
@@ -198,7 +201,24 @@ if(typeof user_id !== 'undefined'){
       //Update lại giải thưởng chạy
       if($('#top_users_achievement')[0]){
         if($('#top_users_achievement marquee')[0]){
-          //$('#top_users_achievement marquee span')[0].textContent = ;
+          $('#top_users_achievement marquee span')[0].textContent = response.top_users_achievement[0].USER_NAME;
+          $('#top_users_achievement marquee span')[1].textContent = response.top_users_achievement[1].USER_NAME;
+          $('#top_users_achievement marquee span')[2].textContent = response.top_users_achievement[2].USER_NAME;
+        }else{
+          $('#top_users_achievement')[0].firstChild.remove();
+          var tag = document.createElement('marquee');
+          $('#top_users_achievement')[0].append(tag);
+          var html = '';
+          html += 'Chúc mừng người chơi: <span style="color: #ffbf01;">';
+          html += response.top_users_achievement[0].USER_NAME;
+          html += '</span> giành GIẢI NHẤT,';
+          html += '<span style="color: #ffbf01;">';
+          html += response.top_users_achievement[1].USER_NAME;
+          html += '</span> giành GIẢI NHÌ,';
+          html += '<span style="color: #ffbf01;">';
+          html += response.top_users_achievement[2].USER_NAME;
+          html += '</span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.';
+          $('#top_users_achievement')[0].firstElementChild.innerHTML  = html;
         }
       }
 

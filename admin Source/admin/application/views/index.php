@@ -244,7 +244,7 @@
     </div>
   </div><!-- /.right side hand -->
   <!-- footer -->
-  <footer>
+<!--   <footer>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
       &copy; 2017
       <div class="about-us">
@@ -253,7 +253,7 @@
         <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
       </div>
     </div>
-  </footer><!-- /.footer -->  
+  </footer> --><!-- /.footer -->  
 </div><!-- /.manager content -->
 
 <!-- jQuery -->

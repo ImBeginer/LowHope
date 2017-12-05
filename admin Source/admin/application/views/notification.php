@@ -69,7 +69,7 @@
           <!-- user list panel -->
           <div class="user-list-panel col-sm-12 col-md-5 col-xl-5">
             <div class="function-title no-border">
-              <p class="title">Danh sách thành viên</p>
+              <p class="title font-extra-bold font-extra-big">Danh sách thành viên</p>
             </div>
             <!-- search form -->
             <div class="search-form-panel">
@@ -204,7 +204,7 @@
                <div class="user-pop">
                   <div class="user-detail-panel col-sm-12 col-md-12 col-xl-12">
                     <div class="function-title no-border">
-                      <p class="title">Thông tin chi tiết</p>
+                      <p class="title font-extra-bold font-extra-big">Thông tin chi tiết</p>
                     </div>
 
                     <!-- user detail -->
@@ -298,18 +298,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- footer -->
-    <footer>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-        &copy; 2017
-        <div class="about-us">
-          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-        </div>
-      </div>
-    </footer><!-- /.footer -->      
+    </div>   
   </div><!-- /.right side hand -->
 </div><!-- /.notification content -->
 

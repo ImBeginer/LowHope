@@ -76,7 +76,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Sửa thông tin cá nhân</p>
+          <p class="title font-extra-bold font-extra-big">Sửa thông tin cá nhân</p>
         </div>
         <div id="manager-info-edit" class="manager-info">
           <div class="message"></div>

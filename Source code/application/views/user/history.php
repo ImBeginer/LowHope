@@ -45,13 +45,15 @@
   <!-- custom css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 </head>
-<body onload="infinitySlideShow();">
+<body onload="infinitySlideShow(); user_percent_in_de(winners,losers);">
   <script>
     var base_url = "<?php echo base_url(); ?>";
     <?php if(isset($user_id)){ ?>
       var user_id = <?php echo json_encode($user_id); ?>;
       var is_related_YN = <?php echo json_encode($is_related_YN); ?>;
       var is_related_MUL = <?php echo json_encode($is_related_MUL); ?>;
+      var winners = <?php echo json_encode($user_view_total_game_win); ?>;
+      var losers = <?php echo json_encode($user_view_total_game) - json_encode($user_view_total_game_win); ?>;
     <?php } ?>
   </script>
   <!-- body -->
@@ -612,7 +614,7 @@
                 <!-- user avatar -->
                 <div id="history-username-area" class="user-ava-area">
                   <img class="user-avatar d-inline-block" src="" alt="User's avatar">
-                  <p id="history-username" class="username ellipsis d-inline-block">Pé muội</p>
+                  <p id="history-username" class="username ellipsis d-inline-block"><?php echo $user_view_name; ?></p>
                 </div><!-- /.user avatar -->
 
                 <!-- user percent -->
@@ -624,13 +626,13 @@
                   <div id="decrease" class="user-percent" data-toggle="tooltip" data-placement="top" title="Thua">
                     <span class="de-num-percent">50%</span>
                   </div>
-                  <p class="game-des mt-5">Tham gia: <span class="total-game">115 game</span>,<span class="win">75 thắng</span>,<span class="lose">40 thua</span></p>
+                  <p class="game-des mt-5">Tham gia: <span class="total-game"><?php echo $user_view_total_game; ?> game</span>,<span class="win"><?php echo $user_view_total_game_win; ?> thắng</span>,<span class="lose"><?php echo $user_view_total_game-$user_view_total_game_win; ?> thua.</span></p>
                 </div><!-- /.user percent -->
                 <div class="user-info">
-                  <p class="user-point">Point: 333888</p>
-                  <p class="user-phone">SĐT: 0165.905.3380</p>
-                  <p class="user-email">Email: vinhnvse03927@fpt.edu.vn</p>
-                  <p class="user-address">Địa chỉ: Tân Mai, Hoàng Mai, Hà Nội</p>
+                  <p class="user-point">Point: <?php echo $user_view_point; ?></p>
+                  <p class="user-phone">SĐT: <?php echo $user_view_phone; ?></p>
+                  <p class="user-email">Email: <?php echo $user_view_email; ?></p>
+                  <p class="user-address">Địa chỉ: <?php echo $user_view_address; ?></p>
                 </div>
               </div>
             </div>
