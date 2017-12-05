@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Thay đổi giá trị giải thưởng</title>
+  <title>Edit Manager Infomation</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- jQuery UI -->
@@ -18,13 +18,13 @@
 </head>
 
 <body>
-  <script>
+    <script>
     var base_url = '<?php echo base_url(); ?>';
-    var js_data = '<?php echo json_encode($lNoti); ?>';
-    var listNoti = JSON.parse(js_data );
+    var user_id = '<?php echo $userId; ?>';
+    var role = '<?php echo $role; ?>';
   </script>
 <!-- manager content -->
-<div id="manager-forgot-pass" class="container-fluid">
+<div id="manager-change" class="container-fluid">
    <!-- side bar -->
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
@@ -35,7 +35,7 @@
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
             <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
-            <li class="cursor-pointer"><a href="<?php echo base_url().'ChangePassword/'; ?>">Đổi mật khẩu</a></li>
+            <li class="cursor-pointer c-active"><a href="<?php echo base_url().'ChangePassword/'; ?>">Đổi mật khẩu</a></li>
           </ul>             
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
@@ -43,12 +43,12 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true">
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class=""><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
-          <li class="c-active"><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -61,7 +61,7 @@
   <!-- right side hand -->
   <div class="row">
     <div class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
-      <div id="change-gift-panel" class="main-function">
+      <div class="main-function">
         <!-- icon sidebar -->
         <div class="sidebar-icon-area" title="Sidebar">
           <div id="nav-icon1">
@@ -71,55 +71,31 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Thay đổi giá trị giải thưởng</p>
+          <p class="title">Thay đổi mật khẩu</p>
         </div>
         <div class="manager-info">
-          <!-- nav game list -->
-          <ul id="nav-change-gift" class="nav nav-tabs no-border">
-            <li class="nav-item">
-              <a class="c-yn-game-list nav-link c-avtive active" href="#traditional">Truyền thống</a>
-            </li>                 
-          </ul><!-- /.nav game list  -->
-          <div class="tab-content">
-            <div role="tabpanel" id="traditional" class="tab-pane active">
-              <div class="message"></div>
-              <form action="#!" name="m-forgot-pass">
-                <label for="newpass">Giải nhất:</label>
-                <input type="text" id="new-price-tradi-1st" class="form-control" name="new-price-tradi-1st" value="<?= $award[2]['AWARD_NAME']; ?>">
-                
-                <label for="newpass">Giải nhì:</label>
-                <input type="text" id="new-price-tradi-2nd" class="form-control" name="new-price-tradi-2nd" value="<?= $award[1]['AWARD_NAME']; ?>">
-                
-                <label for="newpass">Giải ba:</label>
-                <input type="text" id="new-price-tradi-3rd" class="form-control" name="new-price-tradi-3rd" value="<?= $award[0]['AWARD_NAME']; ?>">
+          <div class="message"></div>
+          <form action="#!" name="m-change-pass">
+            <label for="oldpass">Mật khẩu cũ</label>
+            <input type="password" id="oldpass" class="form-control" name="oldpass">
 
-                <label for="tradi-send-form">Lựa chọn mẫu thông báo:</label>
-                <select name="tradi-send-form" id="tradi-notifi-form" class="black form-control notifi-form" onchange="selectNoti();">
-                  <option value="0" class="black">Xin mời chọn thông báo:</option>
-                  <?php
-                    foreach ($lNoti as $value) {
-                      ?>
-                        <option value="<?php echo $value['NOTICE_ID']; ?>" class="black"><?php echo $value['TITLE']; ?></option>
-                      <?php
-                    }
-                  ?>
-                </select>
+            <label for="newpass">Mật khẩu mới</label>
+            <input type="password" id="newpass" class="form-control" name="newpass">
 
-                <label for="tradi-gift-notifi">Thông báo:</label>
-                <div class="send-notifi">
-                  <textarea name="tradi-gift-notifi" id="tradi-gift-notifi" class="custome-textarea" readonly></textarea>
-                </div>
-                <div class="text-center m-update-btn-area">
-                  <button type="button" class="btn create cursor-pointer color-white" name="gift-tradi-btn">Lưu</button>
-                </div>
-              </form>
-            </div>         
-          </div>        
+            <label for="confirnewpass">Nhập lại mật khẩu mới</label>
+            <input type="password" id="confirmpass" class="form-control" name="confirnewpass">
+
+            <div class="text-center m-update-btn-area">
+              <button type="button" class="btn m-update-pass-btn" name="m-update-pass-btn">Lưu</button>
+            </div>
+          </form>
+          <div class="more-option">
+            <a class="medium-font-size" href="#!">Thông tin cá nhân</a>&nbsp;<a class="medium-font-size" href="#!">Sửa thông tin</a>
+          </div>
         </div>
-        <div id="dialog-confirm" class="black"></div>
       </div>
     </div>
-    
+
   </div><!-- /.right side hand -->
 </div><!-- /.manager content -->
 
@@ -131,9 +107,10 @@
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
-<script src="<?php echo base_url(); ?>js/forgotPass.js"></script>
+<script src="<?php echo base_url(); ?>js/password.js"></script>
 <script src="<?php echo base_url(); ?>js/checkData.js"></script>
 <script src="<?php echo base_url(); ?>js/ui.js"></script>
-<script src="<?php echo base_url(); ?>js/changeGift.js"></script>
+<script src="<?php echo base_url(); ?>js/ChangePassword.js"></script>
 </body>
 </html>
+

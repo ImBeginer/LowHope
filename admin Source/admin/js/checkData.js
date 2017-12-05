@@ -241,6 +241,10 @@ $(function () {
     if (isValidData ($object)) {
       if (passwordIsMatch($object)) {
         displayMessage ($object.panel, '<p class="valid animated shake">Dữ liệu hợp lệ</p>');
+		//quanth
+        $.getScript(base_url + 'js/ChangePassword.js', function () { 
+			changePass();
+	    });
       }
     }
   });

@@ -112,7 +112,7 @@
                       <td class="text-center"><?php echo $count; ?></td>
                       <td><?php echo $user['USER_NAME']; ?></td>
                       <td>10</td>
-                      <td class="text-center"><?php echo $user['CREATED_DATE']; ?></td>
+                      <td class="text-center"><?php echo $user['CREATE_DATE']; ?></td>
                     </tr>
                 <?php
                     $count++;

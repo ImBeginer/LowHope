@@ -34,10 +34,10 @@
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true">
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
@@ -150,7 +150,7 @@
                       <td class="text-center">100</td>
                       <td class="text-center"><?= $value['PRICE_GUESS']; ?> USD</td>
                       <td class="text-center"><?php if ($active == 1) echo 'Đang cập nhật'; else echo ($result - $value['PRICE_GUESS']); ?></td>
-                      <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/3rd.png'; ?>" alt="1st">
+                      <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/2nd.png'; ?>" alt="1st">
                       </td>
                     </tr>
                   <?php 
