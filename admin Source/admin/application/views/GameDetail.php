@@ -69,7 +69,7 @@
         </div><!-- /.icon sidebar -->        
         <div class="row">
           <div class="function-title">
-            <p class="title"><?php echo $game_name ?></p>
+            <p class="title font-extra-bold font-extra-big"><?php echo $game_name ?></p>
           </div>
           <!-- game info -->
           <div class="game-info">
@@ -112,7 +112,7 @@
                       <td class="text-center"><?php echo $count; ?></td>
                       <td><?php echo $user['USER_NAME']; ?></td>
                       <td>10</td>
-                      <td class="text-center"><?php echo $user['CREATED_DATE']; ?></td>
+                      <td class="text-center"><?php echo $user['CREATE_DATE']; ?></td>
                     </tr>
                 <?php
                     $count++;
@@ -131,18 +131,7 @@
         </div>
       </div>
     </div><!-- /.game-content-detail -->
-    <div id="dialog-confirm" class="black"></div>
-    <!-- footer -->
-    <footer>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-        &copy; 2017
-        <div class="about-us">
-          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-        </div>
-      </div>
-    </footer><!-- /.footer -->    
+    <div id="dialog-confirm" class="black"></div>  
   </div><!-- /.right side hand -->
 </div><!-- /.notification content -->
 
