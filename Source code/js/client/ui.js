@@ -400,12 +400,15 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
   function display_chat () {
     $('#chat-btn').on('click', function () {
       $('#chat-panel').toggleClass('chat-active');
-    });
-
-    $('#chat-panel h5.chat-title span.close').on('click', function () {
-      $('#chat-panel').toggleClass('chat-active');
+      if ($('#chat-panel').hasClass('chat-active')) {
+        $('button#chat-btn i.fa-paper-plane').attr('class', 'fa fa-times fa-lg');
+      } else {
+        $('button#chat-btn i.fa.fa-times').attr('class', 'fa fa-paper-plane');
+      }
     });
   }
+
+  display_chat ();
 
 // CHECK LOGIN MỚI 2/11
 function passwordIsMatch  ($object) {
@@ -483,12 +486,9 @@ $('a.user-login-form').on('click', function () {
         // $('form[name=login-form]').addClass ('animated fadeIn');
       });
   }
-
 });  
-
 // /.CHECK LOGIN MỚI 2/11  
 
-display_chat ();
 // user_percent_mul (8, 3, 5);
 
 // infinitySlideShow ();

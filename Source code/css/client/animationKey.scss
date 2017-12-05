@@ -1,29 +1,53 @@
-@keyframes changewidth {
-  from {
-    -webkit-transform: translate(0);
-    -ms-transform: translate(0);
-    transform: translate(0);
-  }
+// @keyframes changewidth {
+//   from {
+//     -webkit-transform: translate(0);
+//     -ms-transform: translate(0);
+//     transform: translate(0);
+//   }
 
-  to {
-    -webkit-transform: translate(-1800px);
-    -ms-transform: translate(-1800px);    
-    transform: translate(-1800px);
-  }
-}
+//   to {
+//     -webkit-transform: translate(-1800px);
+//     -ms-transform: translate(-1800px);    
+//     transform: translate(-1800px);
+//   }
+// }
 
-@keyframes radioClick {
-  from {
-    height: 0px;
-    width: 0px;
-    opacity: 1;    
-  }
+// @keyframes radioClick {
+//   from {
+//     height: 0px;
+//     width: 0px;
+//     opacity: 1;    
+//   }
 
-  to {
-    height: 50px;
-    width: 50px;
+//   to {
+//     height: 50px;
+//     width: 50px;
+//     opacity: 0;
+//     margin-left: -19px;
+//     margin-top: -18px;
+//   }
+// }
+
+// @keyframes giftMenuStyle {
+//   0% {
+//     opacity: 0;
+//     transform: rotateY(-90deg) translateY(30px);
+//   }
+
+//   100% {
+//     opacity: 1;
+//     transform: rotateY(0deg) translateY(0px);
+//   }
+// }
+
+@keyframes giftMenuStyle2 {
+  0% {
     opacity: 0;
-    margin-left: -19px;
-    margin-top: -18px;
+    transform: rotateX(-90deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg);
   }
 }
