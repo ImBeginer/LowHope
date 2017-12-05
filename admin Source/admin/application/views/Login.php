@@ -26,7 +26,7 @@
     <div class="row">
       <div class="login-panel animated fadeInDown col-sm-6 col-md-6 col-xl-6 col-sm-offset-3 col-md-offset-3 col-xl-offset-3">
         <div class="avtar">
-          <img class="user-ava text-center" src="../img/ava-default.png" alt="avatar">
+          <img class="user-ava text-center" src="<?php echo base_url().'img/lhp.png'; ?>" alt="avatar">
         </div>
         <div class="component">
           <div class="message"></div>

@@ -550,7 +550,7 @@ class User extends CI_Model {
 	}
 
 	/**
-	 * [get_profile_user description]
+	 * [get_profile_user description] Danh sách giải game tt, kết quả tham gia game mini, các game mình tạos
 	 * @param  [type] $profile_userID [description]
 	 * @return [type]                 [description]
 	 */
@@ -650,6 +650,43 @@ class User extends CI_Model {
 
 		return array_merge($his_yes_no, $his_multi);
 	}
+
+	/**
+	 * Tong so game YN thang
+	 */
+	function countYNWin($userID)
+	{
+		$this->db->where('IS_WINNER', true);
+        $this->db->where('USER_ID', $userID);
+        $this->db->from('YN_GAME_LOGS');
+        return $this->db->count_all_results();
+	}
+
+	// Tong so game MUL thang
+	function countMCWin($userID)
+    {
+        $this->db->where('IS_WINNER', true);
+        $this->db->where('USER_ID', $userID);
+        $this->db->from('MULTI_CHOICE_GAME_LOGS');
+        return $this->db->count_all_results();
+    }
+
+    //Tong so game thang: YN + MUL
+    function countWin($userID)
+    {
+        $MC = $this->countMCWin($userID);
+        $YN = $this->countYNWin($userID);
+        return ($MC + $YN);
+    }
+
+    //Tong so game
+    function countNumberTotalGame($userID)
+    {
+        $MC = $this->db->where('USER_ID', $userID)->from('MULTI_CHOICE_GAME_LOGS')->count_all_results();
+        $YN = $this->db->where('USER_ID', $userID)->from('YN_GAME_LOGS')->count_all_results();
+        return ($MC + $YN);
+    }
+
 }
 
 /* End of file User.php */

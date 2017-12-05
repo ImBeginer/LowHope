@@ -6,17 +6,17 @@ var password = (function () {
 		'newpass': 'Mật khẩu mới',
 		'confirmpass': 'Nhập lại mật khẩu',
 		'emptyInputMessage': {
-			'oldpass': 'Mật khẩu cũ không được trống',
-			'newpass': 'Mật khẩu mới không được trống',
-			'confirmpass': 'Mật khẩu xác nhận không được trống',
+			'oldpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
+			'newpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
+			'confirmpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
 		}
 	};
 
 	var validFormat = {
 
-		'oldpass': '^.{6,20}$',
-		'newpass': '^.{6,20}$',
-		'confirmpass': '^.{6,20}$',
+		'oldpass': '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d.*)(?=.*\\W.*)[a-zA-Z0-9\\S]{8,15}$',
+		'newpass': '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d.*)(?=.*\\W.*)[a-zA-Z0-9\\S]{8,15}$',
+		'confirmpass': '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d.*)(?=.*\\W.*)[a-zA-Z0-9\\S]{8,15}$',
 
 	};	
 

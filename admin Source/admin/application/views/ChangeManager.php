@@ -69,7 +69,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Block Manager</p>
+          <p class="title font-extra-bold font-extra-big">Block Manager</p>
         </div>
         <div class="manager-block-list form-in-list row">
           <div class="search-panel">
@@ -135,17 +135,6 @@
       </div>
     </div>
   </div><!-- /.right side hand -->
-  <!-- footer -->
-  <footer>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-      &copy; 2017
-      <div class="about-us">
-        <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-        <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-        <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-      </div>
-    </div>
-  </footer><!-- /.footer -->  
 </div><!-- /.manager content -->
 
 <!-- jQuery -->

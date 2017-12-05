@@ -34,10 +34,10 @@
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true">
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
@@ -67,7 +67,7 @@
         </div><!-- /.icon sidebar -->        
         <div class="row">
           <div class="function-title">
-            <p class="title">Game truyền thống: <?php echo $game_name; ?></p>
+            <p class="title font-extra-bold font-extra-big">Game truyền thống: <?php echo $game_name; ?></p>
           </div>
           <!-- game info -->
           <div class="game-info">
@@ -150,7 +150,7 @@
                       <td class="text-center">100</td>
                       <td class="text-center"><?= $value['PRICE_GUESS']; ?> USD</td>
                       <td class="text-center"><?php if ($active == 1) echo 'Đang cập nhật'; else echo ($result - $value['PRICE_GUESS']); ?></td>
-                      <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/3rd.png'; ?>" alt="1st">
+                      <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/2nd.png'; ?>" alt="1st">
                       </td>
                     </tr>
                   <?php 
@@ -198,17 +198,6 @@
         </div>
       </div>
     </div><!-- /.game-content-detail -->
-    <!-- footer -->
-    <footer>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
-        &copy; 2017
-        <div class="about-us">
-          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
-          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
-          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
-        </div>
-      </div>
-    </footer><!-- /.footer -->    
   </div><!-- /.right side hand -->
 </div><!-- /.notification content -->
 

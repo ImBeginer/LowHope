@@ -71,7 +71,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">Thay đổi giá trị giải thưởng</p>
+          <p class="title font-extra-bold font-extra-big">Thay đổi giá trị giải thưởng</p>
         </div>
         <div class="manager-info">
           <!-- nav game list -->
@@ -85,13 +85,13 @@
               <div class="message"></div>
               <form action="#!" name="m-forgot-pass">
                 <label for="newpass">Giải nhất:</label>
-                <input type="text" id="new-price-tradi-1st" class="form-control" name="new-price-tradi-1st">
+                <input type="text" id="new-price-tradi-1st" class="form-control" name="new-price-tradi-1st" value="<?= $award[2]['AWARD_NAME']; ?>">
                 
                 <label for="newpass">Giải nhì:</label>
-                <input type="text" id="new-price-tradi-2nd" class="form-control" name="new-price-tradi-2nd">
+                <input type="text" id="new-price-tradi-2nd" class="form-control" name="new-price-tradi-2nd" value="<?= $award[1]['AWARD_NAME']; ?>">
                 
                 <label for="newpass">Giải ba:</label>
-                <input type="text" id="new-price-tradi-3rd" class="form-control" name="new-price-tradi-3rd">
+                <input type="text" id="new-price-tradi-3rd" class="form-control" name="new-price-tradi-3rd" value="<?= $award[0]['AWARD_NAME']; ?>">
 
                 <label for="tradi-send-form">Lựa chọn mẫu thông báo:</label>
                 <select name="tradi-send-form" id="tradi-notifi-form" class="black form-control notifi-form" onchange="selectNoti();">
