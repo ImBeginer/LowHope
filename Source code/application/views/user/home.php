@@ -451,8 +451,8 @@
 							<!--author: Phong Huy-->
 							<div id="chartContainer"></div>
 							<!--author: Phong Huy-->
-							<div class="game_tt_content text-center">
-								<?php echo $GAME_TT_CONTENT; ?>
+							<div class="game_tt_content text-center mt-3">
+								<?php echo 'Câu hỏi tuần này: '.$GAME_TT_CONTENT. ' là bao nhiêu? <span><i class="fa fa-forward" aria-hidden="true"></i></span><span><i class="fa fa-forward" aria-hidden="true"></i></span>'; ?>
 							</div>
 						</div><!-- /.chart -->
 						<!-- bet -->
@@ -489,33 +489,68 @@
 		</div>
 	</div><!-- /.content -->
 	<!-- dialog-confirm-bet-game-tt -->
-	<div id="dialog-confirm-bet-game-tt" class="black"></div>
+	<!-- <div id="dialog-confirm-bet-game-tt" class="black"></div> -->
 	<!-- dialog-confirm-bet-game-tt -->
 	<!-- chat -->
 	<div class="chat-icon-area">
-		<div class="icon-and-chat">
-			<!-- Button trigger modal -->
-			<button id="chat-btn" type="button" class="btn btn-primary cursor-pointer">
-				<i class="fa fa-paper-plane" aria-hidden="true"></i>
-			</button>
-			<!-- Chat panel -->
-			<div id="chat-panel">
-				<div class="chat-header">
-					<h5 class="chat-title">Vinh Nguyễn <span class="close" aria-hidden="true">x</span></h5>
-				</div>
-				<div class="chat-body">
-					...
-				</div>
-				<div class="chat-footer">
-					<div class="chat-message-area">
-						<form action="#!" class="chat-message" method="POST">
-							<input type="text" placeholder="Tin nhắn...">
-						</form>
-					</div>
-				</div>
-			</div><!-- /.Chat panel -->
-		</div>
-	</div>
+	    <div class="icon-and-chat">
+	      <!-- Chat panel -->
+	      <div id="chat-panel">
+	        <div class="chat-header">
+	          <h5 class="chat-title">Vinh Nguyễn</h5>         
+	        </div>
+	        <div class="chat-body pre-scrollable">
+	          ...
+	        </div>
+	        <div class="chat-footer">
+	          <div class="chat-message-area">
+	            <form action="#!" class="chat-message" method="POST">
+	              <input type="text" placeholder="Tin nhắn...">
+	            </form>
+	          </div>            
+	        </div>
+	      </div><!-- /.Chat panel -->
+	      <ul class="chat-gift">
+	        <li>
+	          <!-- Button trigger modal -->
+	          <button id="chat-btn" type="button" class="btn btn-primary cursor-pointer">
+	            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+	          </button>
+	        </li>
+	        <li id="sub-gift-menu">
+	          <div id="gift-btn" class="btn btn-primary">
+	            <img src="<?php echo base_url(); ?>images/client/giftbox.png"/>
+	          </div>
+	          <ul class="gift-menu">
+	            <li class="gift-item">
+	              <div class="gift-content">
+	                <figure>
+	                  <img src="<?php echo base_url(); ?>images/client/SH.png" alt="Honda SH">
+	                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhất: 1 xe Honda SH</a></figcaption>
+	                </figure>
+	              </div>
+	            </li>
+	            <li class="gift-item">
+	              <div class="gift-content">
+	                <figure>
+	                  <img src="<?php echo base_url(); ?>images/client/macbook.png" alt="Macbook Pro">
+	                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhì: 1 Macbook Pro</a></figcaption>
+	                </figure>
+	              </div>
+	            </li>
+	            <li class="gift-item">
+	              <div class="gift-content">
+	                <figure>
+	                  <img src="<?php echo base_url(); ?>images/client/iphoneX.png" alt="iPhone X">
+	                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải ba: 1 iPhone X</a></figcaption>
+	                </figure>
+	              </div>
+	            </li>
+	          </ul>
+	        </li>
+	      </ul>
+	    </div>
+  	</div>
 	<!-- end chat -->
 
 	<!-- footer -->

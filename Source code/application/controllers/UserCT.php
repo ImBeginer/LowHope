@@ -288,12 +288,19 @@ class UserCT extends CI_Controller {
 	        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
 	        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
+	        
 			$data['is_history'] = true;
 
 			//data viewer
-	        $user_view = $this->user->getUserById($user->USER_ID);
 	        $data['user_view'] = $this->user->get_user_profile($user->USER_ID);
 			$data['user_view_name'] = $user->USER_NAME;
+			$data['user_view_point'] = $user->USER_POINT;
+			$data['user_view_phone'] = $user->PHONE_NUMBER;
+			$data['user_view_email'] = $user->EMAIL;
+			$data['user_view_address'] = $user->ADDRESS;
+
+			$data['user_view_total_game'] = $this->user->countNumberTotalGame($user->USER_ID);
+			$data['user_view_total_game_win'] = $this->user->countWin($user->USER_ID);
 
 			//data history
 			$data['user_history'] = $this->user->get_user_history($user->USER_ID);
@@ -329,12 +336,20 @@ class UserCT extends CI_Controller {
 	        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
 	        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
 	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
+
 	        $data['is_history'] = false;
 
 	        //data viewer
 	        $user_view = $this->user->getUserById($id_user_view);
 	        $data['user_view'] = $this->user->get_profile_user($id_user_view);
 	        $data['user_view_name'] = $user_view->USER_NAME;
+	        $data['user_view_point'] = $user_view->USER_POINT;
+			$data['user_view_phone'] = $user_view->PHONE_NUMBER;
+			$data['user_view_email'] = $user_view->EMAIL;
+			$data['user_view_address'] = $user_view->ADDRESS;
+
+			$data['user_view_total_game'] = $this->user->countNumberTotalGame($user->USER_ID);
+			$data['user_view_total_game_win'] = $this->user->countWin($user->USER_ID);
 
 			$this->load->view('user/history', $data);
 			
@@ -349,6 +364,13 @@ class UserCT extends CI_Controller {
 	        $user_view = $this->user->getUserById($id_user_view);
 	        $data['user_view'] = $this->user->get_profile_user($id_user_view);
 	        $data['user_view_name'] = $user_view->USER_NAME;
+	        $data['user_view_point'] = $user_view->USER_POINT;
+			$data['user_view_phone'] = $user_view->PHONE_NUMBER;
+			$data['user_view_email'] = $user_view->EMAIL;
+			$data['user_view_address'] = $user_view->ADDRESS;
+
+			$data['user_view_total_game'] = $this->user->countNumberTotalGame($user->USER_ID);
+			$data['user_view_total_game_win'] = $this->user->countWin($user->USER_ID);
 
 	        $this->load->view('user/history', $data);
 		}
