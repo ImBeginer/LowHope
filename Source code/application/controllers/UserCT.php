@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use PHPMailer\PHPMailer\PHPMailer;
 require_once FCPATH .'/vendor/autoload.php';
 class UserCT extends CI_Controller {
 	/**
@@ -41,6 +42,11 @@ class UserCT extends CI_Controller {
 				//set sessionUserID
 		    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
 			    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+
+			    //Đã đặt cược game truyền thống
+		        if($this->game->check_Log_Game_TT($user->USER_ID, $tt_game->GAME_ID)){
+		            $data['price_bet_before'] = $this->game->get_price_bet_before($user->USER_ID, $tt_game->GAME_ID);
+		        }
 
 				$data['USER_NAME'] = $user->USER_NAME;
 				$data['USER_POINT'] = $user->USER_POINT;
@@ -277,33 +283,25 @@ class UserCT extends CI_Controller {
 		$userID = $this->session->userdata('sessionUserId');
 		$user = $this->user->getUserById($userID);
 		if($user){
+
+			$data = array();
+			$data = $this->load_view_profile($userID, $data);
+
 			$data['USER_NAME'] = $user->USER_NAME;
 			$data['USER_POINT'] = $user->USER_POINT;
 
 			//load game active
-	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
 	        $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
 	        $data['top_point'] = $this->user->get_top_point();
 	        $data['user_id'] = $user->USER_ID;
 	        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
 	        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
-	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
-	        
 			$data['is_history'] = true;
 
-			//data viewer
-	        $data['user_view'] = $this->user->get_user_profile($user->USER_ID);
-			$data['user_view_name'] = $user->USER_NAME;
-			$data['user_view_point'] = $user->USER_POINT;
-			$data['user_view_phone'] = $user->PHONE_NUMBER;
-			$data['user_view_email'] = $user->EMAIL;
-			$data['user_view_address'] = $user->ADDRESS;
-
-			$data['user_view_total_game'] = $this->user->countNumberTotalGame($user->USER_ID);
-			$data['user_view_total_game_win'] = $this->user->countWin($user->USER_ID);
-
-			//data history
+			//data history Chỉ những game có người tham gia mới được lọc
 			$data['user_history'] = $this->user->get_user_history($user->USER_ID);
+			//->lấy thêm những game mà không có người chơi
+			$data['games_no_player'] = $this->user->get_games_no_player($user->USER_ID);
 
 	        //echo 'Dang chuan bi lam';
 			$this->load->view('user/history', $data);
@@ -320,60 +318,55 @@ class UserCT extends CI_Controller {
 	public function profile()
 	{
 		$id_user_view = $this->uri->segment(3);
+		
 		if(isset($_SESSION['sessionUserId'])){
 
 			$userID = $this->session->userdata('sessionUserId');
 			$user = $this->user->getUserById($userID);
 
+			$data = array();
+	        $data = $this->load_view_profile($id_user_view, $data);
+
 	        $data['USER_NAME'] = $user->USER_NAME;
 			$data['USER_POINT'] = $user->USER_POINT;
 
 			//load game active
-	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
 	        $data['noti'] = $this->user->get_all_noti_user($user->USER_ID);
 	        $data['top_point'] = $this->user->get_top_point();
 	        $data['user_id'] = $user->USER_ID;
 	        $data['is_related_YN'] = $this->user->is_related_YN($user->USER_ID);
 	        $data['is_related_MUL'] = $this->user->is_related_MUL($user->USER_ID);
-	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
-
 	        $data['is_history'] = false;
-
-	        //data viewer
-	        $user_view = $this->user->getUserById($id_user_view);
-	        $data['user_view'] = $this->user->get_profile_user($id_user_view);
-	        $data['user_view_name'] = $user_view->USER_NAME;
-	        $data['user_view_point'] = $user_view->USER_POINT;
-			$data['user_view_phone'] = $user_view->PHONE_NUMBER;
-			$data['user_view_email'] = $user_view->EMAIL;
-			$data['user_view_address'] = $user_view->ADDRESS;
-
-			$data['user_view_total_game'] = $this->user->countNumberTotalGame($user->USER_ID);
-			$data['user_view_total_game_win'] = $this->user->countWin($user->USER_ID);
 
 			$this->load->view('user/history', $data);
 			
 		}else{
 			//guest view profile
-			//load game active
-	        $data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
-	        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
-	        $data['is_history'] = false;
-
-	        //data viewer
-	        $user_view = $this->user->getUserById($id_user_view);
-	        $data['user_view'] = $this->user->get_profile_user($id_user_view);
-	        $data['user_view_name'] = $user_view->USER_NAME;
-	        $data['user_view_point'] = $user_view->USER_POINT;
-			$data['user_view_phone'] = $user_view->PHONE_NUMBER;
-			$data['user_view_email'] = $user_view->EMAIL;
-			$data['user_view_address'] = $user_view->ADDRESS;
-
-			$data['user_view_total_game'] = $this->user->countNumberTotalGame($user->USER_ID);
-			$data['user_view_total_game_win'] = $this->user->countWin($user->USER_ID);
+			$data = array();
+	        $data = $this->load_view_profile($id_user_view, $data);
 
 	        $this->load->view('user/history', $data);
 		}
+	}
+
+	function load_view_profile($id_user_view, $data)
+	{
+		$data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+        $data['top_users_achievement'] = $this->user->get_user_achievement_before();
+
+        //data viewer
+        $user_view = $this->user->getUserById($id_user_view);
+        $data['user_view'] = $this->user->get_user_profile($id_user_view);
+        $data['user_view_name'] = $user_view->USER_NAME;
+        $data['user_view_point'] = $user_view->USER_POINT;
+		$data['user_view_phone'] = $user_view->PHONE_NUMBER;
+		$data['user_view_email'] = $user_view->EMAIL;
+		$data['user_view_address'] = $user_view->ADDRESS;
+
+		$data['user_view_total_game'] = $this->user->countNumberTotalGame($id_user_view);
+		$data['user_view_total_game_win'] = $this->user->countWin($id_user_view);
+
+		return $data;
 	}
 
 	/**
@@ -400,7 +393,7 @@ class UserCT extends CI_Controller {
 	 */
 	public function sendMail($to, $code)
 	{
-		$mail = new PHPMailer();
+		$mail = new PHPMailer(true);
 		//Tell PHPMailer to use SMTP
 		$mail->isSMTP();
 		$mail->isHTML(true);
@@ -408,17 +401,28 @@ class UserCT extends CI_Controller {
 		// 0 = off (for production use)
 		// 1 = client messages
 		// 2 = client and server messages
-		$mail->SMTPDebug = 2;
+		$mail->SMTPDebug = 0;
+
+		$mail->SMTPOptions = array(
+			'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true
+			)
+		);
+
 		//Ask for HTML-friendly debug output
 		//$mail->Debugoutput = 'html';
 		$mail->CharSet = 'UTF-8';
 		//Set the hostname of the mail server
+		// $mail->Host = 'smtp.gmail.com';
 		$mail->Host = 'smtp.gmail.com';
 		// use
 		// $mail->Host = gethostbyname('smtp.gmail.com');
 		// if your network does not support SMTP over IPv6
 		//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
 		$mail->Port = 587;
+		// $mail->Port = 25;
 		//Set the encryption system to use - ssl (deprecated) or tls
 		$mail->SMTPSecure = 'tls';
 		//Whether to use SMTP authentication
@@ -447,7 +451,7 @@ class UserCT extends CI_Controller {
 		$message .= "</strong> <br><br>";
 		$message .= "Nếu bạn không yêu cầu đặt lại mật khẩu, có thể là có người khác đã điền nhầm địa chỉ email của bạn, nên bạn có thể bỏ qua email này. <br>";
 		$message .= "<hr>";
-		$message .= "Chúc bạn sử dụng web vui vẻ, <br><br>";
+		$message .= "Chúc bạn sử dụng website vui vẻ, <br><br>";
 		$message .= "<strong>LOW HOPE</strong>";
 
 		$mail->Body	= $message;	
@@ -458,6 +462,8 @@ class UserCT extends CI_Controller {
 		//$mail->addAttachment('images/phpmailer_mini.png');
 		//send the message, check for errors
 		if (!$mail->send()) {
+			echo 'Message could not be sent.';
+    		echo 'Mailer Error: ' . $mail->ErrorInfo;
 		    return false;
 		} else {
 		    return true;

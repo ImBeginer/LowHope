@@ -67,9 +67,8 @@ class Login extends CI_Controller {
         $date =  date('Y-m-d',strtotime("-1 days"));
         $time = $date.' 23:59:00';
 
-        // $data['price_yesterday'] = $this->game->getPriceYesterday($time);
-        $data['price_yesterday'] = '99999';
-
+        $data['price_yesterday'] = $this->game->getPriceYesterday($time);
+        // $data['price_yesterday'] = '99999';
 
         //load btc current
         $data['price_current'] = $this->game->getPriceCurrent();
@@ -300,12 +299,16 @@ class Login extends CI_Controller {
 
         $user = $this->user->getUserById($user->USER_ID);
 
-        //load data home page
         $tt_game = $this->game->getGameTT();
-        //set session for userID
+
         
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+        
+        //Đã đặt cược game truyền thống
+        if($this->game->check_Log_Game_TT($user->USER_ID, $tt_game->GAME_ID)){
+            $data['price_bet_before'] = $this->game->get_price_bet_before($user->USER_ID, $tt_game->GAME_ID);
+        }
         
         $data['USER_NAME'] = $user->USER_NAME;
         $data['USER_POINT'] = $user->USER_POINT;

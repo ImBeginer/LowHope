@@ -25,11 +25,8 @@ var pusher_3 = new Pusher('df4ed713f2f76fde17d4', {
 
 var listen_admin = pusher_admin.subscribe('create_noti_channel');
 listen_admin.bind('create_noti_event', function(data) {
-  // body...
   console.log('listen_admin: ' + data);
 });
-
-
 
 /**************************************** NOTIFICATION **********************************************/
 $(document).on('click', '.noti-items', function(event) {
@@ -186,7 +183,7 @@ if(typeof user_id !== 'undefined'){
       if($('.game_tt_content.text-center')[0]){
         var content = 'Câu hỏi tuần này: ';
         content += response.new_game.CONTENT;
-        content += ' là bao nhiêu? <span><i class="fa fa-forward" aria-hidden="true"></i></span><span><i class="fa fa-forward" aria-hidden="true"></i></span>';
+        content += ' là bao nhiêu?';
         $('.game_tt_content.text-center')[0].textContent = content;
       }
 
@@ -196,6 +193,11 @@ if(typeof user_id !== 'undefined'){
         document.getElementById("countDown").style.fontWeight  = 'normal';
         $("#bet-game_tt").prop('disabled', false);
         countDown_End_Date(response.new_game.END_DATE, 0);
+      }
+
+      //Giá dự đoán trước của người chơi
+      if($('#price-bet-before')[0]){
+        $('#price-bet-before')[0].textContent = '(Bạn chưa tham gia dự đoán)';
       }
 
       //Update lại giải thưởng chạy
@@ -479,7 +481,7 @@ function countDown_End_Date(string_end_date,type) {
         // If the count down is over, write some text 
         if (distance < 0) {
           clearInterval(x);
-          document.getElementById("countDown").innerHTML = "EXPIRED";
+          document.getElementById("countDown").innerHTML = "ĐÃ ĐÓNG";
           document.getElementById("countDown").style.color  = 'red';
           document.getElementById("countDown").style.fontWeight  = 'bold';
           document.getElementById("bet-game_tt").disabled = 'true';
@@ -507,7 +509,7 @@ function countDown_End_Date(string_end_date,type) {
         // If the count down is over, write some text 
         if (distance < 0) {
           clearInterval(x);
-          document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
+          document.getElementById("game_mini_countdown").innerHTML = "ĐÃ ĐÓNG";
           document.getElementById("game_mini_countdown").style.color  = 'red';
           document.getElementById("game_mini_countdown").style.fontWeight  = 'bold';
           $('.mini-game-des')[0].firstElementChild.textContent = 'ĐÃ ĐÓNG';

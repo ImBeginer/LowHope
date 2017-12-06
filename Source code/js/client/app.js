@@ -272,6 +272,8 @@ $(document).ready(function() {
 		      	displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không hợp lệ</p>');  
 		    }else {
 		      	//check email co ton tai khong
+		      	
+		      	$emailVal = $emailVal.trim();
 		      	$.ajax({
 		      	  	url: base_url + 'userct/send_confirm_code',
 		      	  	type: 'POST',
@@ -348,31 +350,6 @@ $(document).ready(function() {
 	 */
 	$('#bet-game_tt').on('click', function(event) {
 
-		// $("#dialog-confirm-bet-game-tt").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn sẽ mất 100 point cho để đặt cược. Chơi không?</p>');
-		// $("#dialog-confirm-bet-game-tt").dialog({
-		// 	resizable: false,
-		// 	height: "auto",
-		// 	width: 400,
-		// 	modal: true,
-		// 	draggable: false,
-		// 	buttons: [
-		// 	{
-		// 		text: "Xác nhận",
-		// 		"class": 'confirm-yes-btn btn medium-font-size',
-		// 		click: function() {
-		// 			$( this ).dialog( "close" );
-		// 		}
-		// 	},
-		// 	{
-		// 		text: "Hủy bỏ",
-		// 		"class": 'confirm-cancel-btn btn medium-font-size',
-		// 		click: function() {
-		// 			$( this ).dialog( "close" );
-		// 		}
-		// 	}
-		// 	],
-		// });
-
 	 	var el = $('#point-input').val();
 	 	var price_bet = parseFloat(el)|| 0;
 	 	if(price_bet > 0 && /^\s*(?=.*[1-9])\d*(?:[^,;]+\.\d{1,2})?\s*$/.test(price_bet)){	
@@ -388,6 +365,7 @@ $(document).ready(function() {
 	 			}else if(response.result == 1){
 	 				$('#point-input').val("");
 	 				$('#user-point').text(response.user_point);
+	 				$('#price-bet-before').text('(Bạn đã dự đoán: ' + response.price_bet + ')');
 	 				toatMessage('Success','Bạn đã dự đoán thành công. <br>Cùng chờ có kết quả thôi nào !!!','success');
 	 			}else if(response.result == 2) {
 	 				toatMessage('Warning','Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
