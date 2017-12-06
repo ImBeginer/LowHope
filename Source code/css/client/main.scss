@@ -1070,6 +1070,12 @@ button#chat-btn {
 .chat-icon-area {
   position: fixed;
   top: 20%;
+
+}
+
+.chat-body > div, 
+.chat-body > div > * {
+  color: $black !important;
 }
 
 div#chat-panel {
