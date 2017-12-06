@@ -29,6 +29,7 @@ CREATE TABLE USERS (
   EMAIL varchar(100) NOT NULL,
   PHONE_NUMBER varchar(30),
   ADDRESS nvarchar(255),
+  AVATAR text,
   CREATE_DATE date NOT NULL,
   ATTENDANCE tinyint(1) NOT NULL,
   ACTIVE tinyint(1) NOT NULL ,
