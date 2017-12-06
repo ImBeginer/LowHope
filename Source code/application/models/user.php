@@ -651,6 +651,45 @@ class User extends CI_Model {
 		return array_merge($his_yes_no, $his_multi);
 	}
 
+	/*
+	Các game không có người chơi
+	 */
+	function get_games_no_player($userID)
+	{
+		$condi = array('OWNER_ID' => $userID, 'PLAYER_COUNT'=> 0, 'ACTIVE' =>0);
+		$this->db->select('GAME_ID, TITLE, START_DATE, END_DATE, ACTIVE');
+		$this->db->where($condi);
+
+		$game_yn = $this->db->get('YN_GAMES');
+		if($game_yn !== false && $game_yn->num_rows()>0){
+			$game_yn = $game_yn->result_array();
+			foreach ($game_yn as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'YN';
+				$value = (array)$value;
+			}
+		}else{
+			$game_yn = array();
+		}
+
+		$this->db->select('GAME_ID, TITLE, START_DATE, END_DATE, ACTIVE');
+		$this->db->where($condi);
+
+		$game_mul = $this->db->get('MULTI_CHOICE_GAMES');
+		if($game_mul !== false && $game_mul->num_rows()>0){
+			$game_mul = $game_mul->result_array();
+			foreach ($game_mul as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'MUL';
+				$value = (array)$value;
+			}
+		}else{
+			$game_mul = array();
+		}
+
+		return array_merge($game_yn,$game_mul);
+	}
+
 	/**
 	 * Tong so game YN thang
 	 */

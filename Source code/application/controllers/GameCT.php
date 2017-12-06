@@ -77,7 +77,7 @@ class GameCT extends CI_Controller {
 							$check = $this->game->update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
 							if($check){
 								$user = $this->user->getUserById($USER_ID);
-								$res = array('result'=>1, 'user_point'=>$user->USER_POINT);
+								$res = array('result'=>1, 'user_point'=>$user->USER_POINT, 'price_bet'=>$PRICE);
 								echo json_encode($res);
 							}else{
 								$res = array('result'=>0);
@@ -92,7 +92,7 @@ class GameCT extends CI_Controller {
 								$this->user->updatePoint($USER_ID,$user_point);
 								$userNew = $this->user->getUserById($USER_ID);
 
-								$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT);
+								$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT, 'price_bet'=>$PRICE);
 								echo json_encode($res);
 							}else{
 								$res = array('result'=>0);
