@@ -83,21 +83,29 @@
 	<!-- dialog-confirm-bet-game-tt -->
 	<!-- <div id="dialog-confirm-bet-game-tt" class="black"></div> -->
 	<!-- dialog-confirm-bet-game-tt -->
+
 	<!-- chat -->
 	<div class="chat-icon-area">
 	    <div class="icon-and-chat">
 	      <!-- Chat panel -->
 	      <div id="chat-panel">
 	        <div class="chat-header">
-	          <h5 class="chat-title">Vinh Nguyễn</h5>         
+	          <h5 class="chat-title"><?php echo $USER_NAME; ?></h5>         
 	        </div>
 	        <div class="chat-body pre-scrollable">
-	          ...
+	          <div class="message-row mt-2">
+	          	<div class="user-info" style="width: 25%;float: left;">Coong Coong</div>
+	          	<div class="user-message" style="width: 75%;float: left;word-wrap: break-word;">Xin chao cac ban, dat cua nao day nhi, bao tao voi abc fasadjhakdjhakdhakdhakdhbbbbbbbbbbbbbbbbbbbasdasdsadakdhsad</div>
+	          </div>
+	          <div class="message-row mt-2">
+	          	<div class="user-info" style="width: 25%;float: left;">Coong Coong</div>
+	          	<div class="user-message" style="width: 75%;float: left;word-wrap: break-word;">Xin chao cac ban, dat cua nao day nhi, bao tao voi abc fasadjhakdjhakdhakdhakdhbbbbbbbbbbbbbbbbbbbasdasdsadakdhsad</div>
+	          </div>
 	        </div>
 	        <div class="chat-footer">
 	          <div class="chat-message-area">
 	            <form action="#!" class="chat-message" method="POST">
-	              <input type="text" placeholder="Tin nhắn...">
+	              <input type="text" placeholder="Nhập tin nhắn...">
 	            </form>
 	          </div>            
 	        </div>
