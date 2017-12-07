@@ -125,6 +125,20 @@ class Game extends CI_Model {
 		return $this->db->affected_rows()>0;
 	}
 
+	//Lấy giá bitcoin đã cược trước đấy của người chơi
+	function get_price_bet_before($USER_ID, $GAME_TT_ID)
+	{
+		$condi = array('USER_ID'=>$USER_ID, 'GAME_ID'=>$GAME_TT_ID);
+		$this->db->select('PRICE_GUESS');
+		$this->db->where($condi);
+		$price_bet_before = $this->db->get('SYSTEM_GAME_LOGS');
+		if($price_bet_before !== false && $price_bet_before->num_rows()>0){
+			$price_bet_before = $price_bet_before->row();
+			return $price_bet_before->PRICE_GUESS;
+		}else{
+			return null;
+		}
+	}
 
 	/********************************************* GAME MINI *********************************************/
 	/**

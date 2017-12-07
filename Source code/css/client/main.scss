@@ -257,7 +257,7 @@ button.changepass-btn {
   border: 1px solid $footer-word !important;
 }
 
-#BTC, #SCJ, #PNJ {
+#btc_yesterday, #btc_today {
   // width: 32%;
   p {
     font-size: 130%;
@@ -976,13 +976,13 @@ span.mini-game-status {
   left: -38px;
 }
 
-p.mini-game-title {
+.mini-game-title {
   font-size: 120%;
   font-weight: bold;
 }
 
-p.mini-game-transaction {
-  font-size: 100%;
+.mini-game-transaction {
+  font-size: 80%;
   border-top: 1px solid $footer-word-op;
   border-bottom: 1px solid $footer-word-op;
   padding: 12px 0px;
@@ -1070,6 +1070,12 @@ button#chat-btn {
 .chat-icon-area {
   position: fixed;
   top: 20%;
+
+}
+
+.chat-body > div, 
+.chat-body > div > * {
+  color: $black !important;
 }
 
 div#chat-panel {
@@ -1148,4 +1154,10 @@ li#sub-gift-menu:hover ul.gift-menu {
       animation-delay: 300ms;
     }    
   }
+}
+
+select[name='mul-game'] {
+  height: 35px;
+  margin-top: 10px;
+  transition: all 0.5s;
 }

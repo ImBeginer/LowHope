@@ -77,7 +77,7 @@ class GameCT extends CI_Controller {
 							$check = $this->game->update_Log_Game_TT($GAME_TT_ID,$USER_ID,$PRICE,$DATE);
 							if($check){
 								$user = $this->user->getUserById($USER_ID);
-								$res = array('result'=>1, 'user_point'=>$user->USER_POINT);
+								$res = array('result'=>1, 'user_point'=>$user->USER_POINT, 'price_bet'=>$PRICE);
 								echo json_encode($res);
 							}else{
 								$res = array('result'=>0);
@@ -92,7 +92,7 @@ class GameCT extends CI_Controller {
 								$this->user->updatePoint($USER_ID,$user_point);
 								$userNew = $this->user->getUserById($USER_ID);
 
-								$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT);
+								$res = array('result'=>1, 'user_point'=>$userNew->USER_POINT, 'price_bet'=>$PRICE);
 								echo json_encode($res);
 							}else{
 								$res = array('result'=>0);
@@ -120,7 +120,12 @@ class GameCT extends CI_Controller {
 	function update_session_game_tt()
 	{
 		$gameID = $this->input->post('gameID');
+		$roomID = $this->user->get_room_by_game_id($gameID);
+		
 		$this->session->set_userdata('session_Game_TT_ID', $gameID);
+		//update session room
+		$this->session->set_userdata('session_room', $roomID);
+
 		//game mới
 		$new_game = $this->game->get_game_tt_by_id($gameID);
 		//giải thưởng
@@ -588,6 +593,30 @@ class GameCT extends CI_Controller {
 		}
 	}
 
+	/********************************* CHAT *********************************/
+	/**
+	 * send message to all client and add to database
+	 * @return [type] [description]
+	 */
+	public function send_message_chat()
+	{
+		$userID = $this->session->userdata('sessionUserId');
+		$gameID = $this->session->userdata('session_Game_TT_ID');
+		$roomID = $this->session->userdata('session_room');
+
+		$send_date = date("Y-m-d H:i:s");
+		$message = $this->input->post('message');
+
+		$data['userName'] 	= $this->input->post('userName');
+		$data['avatar']		= $this->input->post('avatar');
+		$data['message']	= $message;
+		$data['send_date'] 	= $send_date;
+		$data['userID'] 	= $userID;
+
+		if($this->user->add_message_chat($roomID, $userID, $message, $send_date) > 0){
+			$this->pusher->trigger('channel_room_chat', 'receive_message', $data);
+		}
+	}
 }
 
 /* End of file GameCT.php */

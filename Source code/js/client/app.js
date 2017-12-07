@@ -272,6 +272,8 @@ $(document).ready(function() {
 		      	displayMessage ('div#user-login-panel', '<p class="error animated shake">Email không hợp lệ</p>');  
 		    }else {
 		      	//check email co ton tai khong
+		      	
+		      	$emailVal = $emailVal.trim();
 		      	$.ajax({
 		      	  	url: base_url + 'userct/send_confirm_code',
 		      	  	type: 'POST',
@@ -348,31 +350,6 @@ $(document).ready(function() {
 	 */
 	$('#bet-game_tt').on('click', function(event) {
 
-		// $("#dialog-confirm-bet-game-tt").html('<p class="black medium-font-size"><i class="fa fa-exclamation-triangle black font-size-150" aria-hidden="true"></i>Bạn sẽ mất 100 point cho để đặt cược. Chơi không?</p>');
-		// $("#dialog-confirm-bet-game-tt").dialog({
-		// 	resizable: false,
-		// 	height: "auto",
-		// 	width: 400,
-		// 	modal: true,
-		// 	draggable: false,
-		// 	buttons: [
-		// 	{
-		// 		text: "Xác nhận",
-		// 		"class": 'confirm-yes-btn btn medium-font-size',
-		// 		click: function() {
-		// 			$( this ).dialog( "close" );
-		// 		}
-		// 	},
-		// 	{
-		// 		text: "Hủy bỏ",
-		// 		"class": 'confirm-cancel-btn btn medium-font-size',
-		// 		click: function() {
-		// 			$( this ).dialog( "close" );
-		// 		}
-		// 	}
-		// 	],
-		// });
-
 	 	var el = $('#point-input').val();
 	 	var price_bet = parseFloat(el)|| 0;
 	 	if(price_bet > 0 && /^\s*(?=.*[1-9])\d*(?:[^,;]+\.\d{1,2})?\s*$/.test(price_bet)){	
@@ -388,6 +365,7 @@ $(document).ready(function() {
 	 			}else if(response.result == 1){
 	 				$('#point-input').val("");
 	 				$('#user-point').text(response.user_point);
+	 				$('#price-bet-before').text('(Bạn đã dự đoán: ' + response.price_bet + ')');
 	 				toatMessage('Success','Bạn đã dự đoán thành công. <br>Cùng chờ có kết quả thôi nào !!!','success');
 	 			}else if(response.result == 2) {
 	 				toatMessage('Warning','Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !<br>(6,00 = 6.00 USD)','warning');
@@ -616,7 +594,7 @@ $(document).ready(function() {
 					if(!is_related_YN){
  						listen_yes_no_game();
  					}
-					set_style_table_log_game();
+					// set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -658,7 +636,7 @@ $(document).ready(function() {
 					if(!is_related_MUL){
 					    listen_multi_game();
 					}
-					set_style_table_log_game();
+					// set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -677,6 +655,30 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+	/*
+	Chat game truyen thong
+	 */
+	$('#send_message_chat').keypress(function(e){
+		if(e.which == 13) {
+        	var message = $('#send_message_chat').val().trim();
+        	var userName = $('#username-btn')[0].textContent.trim();
+        	var avatar = $('.user-avatar img').attr("src");
+        	var send_time = moment(new Date()).format('H:mm');
+
+        	add_message_to_room(avatar, userName, send_time, message);
+
+        	$('#send_message_chat').val("");
+
+        	$.ajax({
+        		url: base_url + 'gamect/send_message_chat',
+        		type: 'POST',
+        		dataType: 'JSON',
+        		data: {message: message, userName: userName, avatar: avatar}
+        	});
+    	}
+	});
+
 });
 
 /**

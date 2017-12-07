@@ -25,11 +25,8 @@ var pusher_3 = new Pusher('df4ed713f2f76fde17d4', {
 
 var listen_admin = pusher_admin.subscribe('create_noti_channel');
 listen_admin.bind('create_noti_event', function(data) {
-  // body...
   console.log('listen_admin: ' + data);
 });
-
-
 
 /**************************************** NOTIFICATION **********************************************/
 $(document).on('click', '.noti-items', function(event) {
@@ -162,7 +159,7 @@ function listen_multi_game() {
   });
 }
 
-//Các kênh lắng nghe thông báo từ server
+//Các kênh lắng nghe thông báo từ game hệ thống
 if(typeof user_id !== 'undefined'){
   //Kênh hệ thống
   var channel_system_game = pusher_3.subscribe('system-game');
@@ -182,11 +179,14 @@ if(typeof user_id !== 'undefined'){
       data: {gameID: data[0].GAME_ID},
     })
     .done(function(response) {
+      //clear chat
+      $('.chat-body.pre-scrollable').empty();
+
       //Nội dung game truyền thống
       if($('.game_tt_content.text-center')[0]){
         var content = 'Câu hỏi tuần này: ';
         content += response.new_game.CONTENT;
-        content += ' là bao nhiêu? <span><i class="fa fa-forward" aria-hidden="true"></i></span><span><i class="fa fa-forward" aria-hidden="true"></i></span>';
+        content += ' là bao nhiêu?';
         $('.game_tt_content.text-center')[0].textContent = content;
       }
 
@@ -196,6 +196,11 @@ if(typeof user_id !== 'undefined'){
         document.getElementById("countDown").style.fontWeight  = 'normal';
         $("#bet-game_tt").prop('disabled', false);
         countDown_End_Date(response.new_game.END_DATE, 0);
+      }
+
+      //Giá dự đoán trước của người chơi
+      if($('#price-bet-before')[0]){
+        $('#price-bet-before')[0].textContent = '(Bạn chưa tham gia dự đoán)';
       }
 
       //Update lại giải thưởng chạy
@@ -250,11 +255,31 @@ if(typeof user_id !== 'undefined'){
     listen_multi_game();
   }
 
+  //add tin nhắn vào bảng chat
+  var channel_room_chat = pusher.subscribe('channel_room_chat');
+  channel_room_chat.bind('receive_message', function(data){
+    if(user_id !== data.userID){
+      var send_time = moment(data.send_date).format('H:mm');  
+      add_message_to_room(data.avatar, data.userName, send_time, data.message);
+    }
+  });
+
 }else{
   console.log('Not user');
 }
 
-/**********************************************************************************************************/
+//data
+var channel_add_data = pusher_3.subscribe('bitcoin_rate');
+channel_add_data.bind('broadcasting', function(data) {
+  if(typeof $('#btc_today p')[0] !== 'undefined'){
+    $('#btc_today p')[0].innerText = data.price + ' USD';
+  }
+});
+
+/*************************************** END NOTI *************************************************************/
+
+
+/*************************************** START ALL ACTIVITIES ************************************************/
 /**
  * update lại table lịch sử log game yes no
  * [channel description]
@@ -266,7 +291,7 @@ channel_log_game_yn.bind('log_game_yes_no_event', function(data) {
   user_percent_in_de(data.ans_yes, data.ans_no);
   format_data_table(data);
   load_table_log_game(data.list_bet_log);
-  set_style_table_log_game();
+  // set_style_table_log_game();
 });
 
 /**
@@ -280,11 +305,11 @@ channel_log_game_mul.bind('log_game_mul_event', function(data) {
   user_percent_mul(data.PRICE_BELOW, data.PRICE_BETWEEN, data.PRICE_ABOVE);
   format_data_table(data);
   load_table_log_game(data.list_bet_log);
-  set_style_table_log_game();
+  // set_style_table_log_game();
 });
 
 /**
-* [channel_create_game_yn description]
+* add item vào giao diện slide khi có game mới được tạo
 * update item to slide
 * @type {[type]}
 */
@@ -304,14 +329,30 @@ channel_create_game_mul.bind('create_game_mul_event', function(data) {
   infinitySlideShow();
 });
 
-
-//data
-var channel_add_data = pusher_3.subscribe('bitcoin_rate');
-channel_add_data.bind('broadcasting', function(data) {
-  if(typeof $('#btc_today p')[0] !== 'undefined'){
-    $('#btc_today p')[0].innerText = data.price + ' USD';
-  }
-});
+function add_message_to_room(avatar, userName, send_time, message){
+  var html = '';
+  html += '<div class="message-box mt-2">';
+  html += '<div class="user-info">';
+  html += '<img src="';
+  html += avatar;
+  html += '"></div>';
+  html += '<div class="user-message">';
+  html += '<div class="user-message-up">';
+  html += '<div class="chat-name float-left">';
+  html += userName;
+  html += '</div>';
+  html += '<div class="chat-time float-right">';
+  html += send_time;
+  html += '</div>';
+  html += '</div>';
+  html += '<div class="user-message-down">';
+  html +=  message;
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+  var element = $.parseHTML(html);
+  $('.chat-body.pre-scrollable')[0].append(element[0]);
+}
 
 /****************************************************************************************************************/
 
@@ -479,7 +520,7 @@ function countDown_End_Date(string_end_date,type) {
         // If the count down is over, write some text 
         if (distance < 0) {
           clearInterval(x);
-          document.getElementById("countDown").innerHTML = "EXPIRED";
+          document.getElementById("countDown").innerHTML = "ĐÃ ĐÓNG";
           document.getElementById("countDown").style.color  = 'red';
           document.getElementById("countDown").style.fontWeight  = 'bold';
           document.getElementById("bet-game_tt").disabled = 'true';
@@ -507,7 +548,7 @@ function countDown_End_Date(string_end_date,type) {
         // If the count down is over, write some text 
         if (distance < 0) {
           clearInterval(x);
-          document.getElementById("game_mini_countdown").innerHTML = "EXPIRED";
+          document.getElementById("game_mini_countdown").innerHTML = "ĐÃ ĐÓNG";
           document.getElementById("game_mini_countdown").style.color  = 'red';
           document.getElementById("game_mini_countdown").style.fontWeight  = 'bold';
           $('.mini-game-des')[0].firstElementChild.textContent = 'ĐÃ ĐÓNG';

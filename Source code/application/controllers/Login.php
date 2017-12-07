@@ -67,9 +67,8 @@ class Login extends CI_Controller {
         $date =  date('Y-m-d',strtotime("-1 days"));
         $time = $date.' 23:59:00';
 
-        // $data['price_yesterday'] = $this->game->getPriceYesterday($time);
-        $data['price_yesterday'] = '99999';
-
+        $data['price_yesterday'] = $this->game->getPriceYesterday($time);
+        // $data['price_yesterday'] = '99999';
 
         //load btc current
         $data['price_current'] = $this->game->getPriceCurrent();
@@ -256,11 +255,12 @@ class Login extends CI_Controller {
                     $USER_NAME = $this->input->post('USER_NAME');
                     $USER_PHONE = $this->input->post('USER_PHONE');
                     $USER_ADDRESS = $this->input->post('USER_ADDRESS');
+                    $AVATAR = $this->session->userdata('userData')['USER_AVATAR'];
                     $CREATED_DATE = date("Y-m-d");
 
                     $USER_PHONE = str_replace('/[^0-9]/', '', $USER_PHONE);
 
-                    $id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS,$CREATED_DATE);
+                    $id = $this->user->addUser($USER_CIF, $USER_NAME, $USER_EMAIL, $USER_PHONE, $USER_ADDRESS, $AVATAR, $CREATED_DATE);
 
                     if($id > 0){
                         
@@ -300,12 +300,23 @@ class Login extends CI_Controller {
 
         $user = $this->user->getUserById($user->USER_ID);
 
-        //load data home page
         $tt_game = $this->game->getGameTT();
-        //set session for userID
+
+        $roomID = $this->user->get_room_by_game_id($tt_game->GAME_ID);
+
         
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+        $this->session->set_userdata('session_room', $roomID);
+
+
+        //load messsage room chat        
+        $data['messages'] = $this->user->get_messsages_chat($roomID);
+        
+        //Đã đặt cược game truyền thống
+        if($this->game->check_Log_Game_TT($user->USER_ID, $tt_game->GAME_ID)){
+            $data['price_bet_before'] = $this->game->get_price_bet_before($user->USER_ID, $tt_game->GAME_ID);
+        }
         
         $data['USER_NAME'] = $user->USER_NAME;
         $data['USER_POINT'] = $user->USER_POINT;

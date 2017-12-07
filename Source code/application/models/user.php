@@ -183,7 +183,7 @@ class User extends CI_Model {
 	 * @param [string] $USER_PHONE   [description]
 	 * @param [string] $USER_ADDRESS [description]
 	 */
-	public function addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS,$CREATED_DATE)
+	public function addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS,$AVATAR,$CREATED_DATE)
 	{
 		$user = array(
 			'ROLE_ID'		=> ROLE_USER,
@@ -193,6 +193,7 @@ class User extends CI_Model {
 			'EMAIL'			=> $USER_EMAIL,
 			'PHONE_NUMBER'	=> $USER_PHONE,
 			'ADDRESS' 		=> $USER_ADDRESS,
+			'AVATAR'		=> $AVATAR,
 			'ATTENDANCE'	=> 0,
 			'ACTIVE'		=> 1,
 			'CREATE_DATE'  => $CREATED_DATE
@@ -651,6 +652,45 @@ class User extends CI_Model {
 		return array_merge($his_yes_no, $his_multi);
 	}
 
+	/*
+	Các game không có người chơi
+	 */
+	function get_games_no_player($userID)
+	{
+		$condi = array('OWNER_ID' => $userID, 'PLAYER_COUNT'=> 0, 'ACTIVE' =>0);
+		$this->db->select('GAME_ID, TITLE, START_DATE, END_DATE, ACTIVE');
+		$this->db->where($condi);
+
+		$game_yn = $this->db->get('YN_GAMES');
+		if($game_yn !== false && $game_yn->num_rows()>0){
+			$game_yn = $game_yn->result_array();
+			foreach ($game_yn as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'YN';
+				$value = (array)$value;
+			}
+		}else{
+			$game_yn = array();
+		}
+
+		$this->db->select('GAME_ID, TITLE, START_DATE, END_DATE, ACTIVE');
+		$this->db->where($condi);
+
+		$game_mul = $this->db->get('MULTI_CHOICE_GAMES');
+		if($game_mul !== false && $game_mul->num_rows()>0){
+			$game_mul = $game_mul->result_array();
+			foreach ($game_mul as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'MUL';
+				$value = (array)$value;
+			}
+		}else{
+			$game_mul = array();
+		}
+
+		return array_merge($game_yn,$game_mul);
+	}
+
 	/**
 	 * Tong so game YN thang
 	 */
@@ -687,6 +727,50 @@ class User extends CI_Model {
         return ($MC + $YN);
     }
 
+    /**********************************CHAT************************************************/
+    /*
+    Lấy thông tin phòng chat
+     */
+    function get_room_by_game_id($gameID)
+    {
+    	$this->db->select('*');
+    	$this->db->where('GAME_ID', $gameID);
+    	$room = $this->db->get('CHAT_ROOMS');
+    	if($room !== false && $room->num_rows()>0){
+    		$room = $room->row();
+    		return $room->ROOM_ID;
+    	}else return null;
+    }
+
+    /*
+    add message to table chat_message
+     */
+    function add_message_chat($roomID, $userID, $message, $send_date)
+    {
+    	$message = array(
+    		'USER_ID' 	=> $userID,
+    		'ROOM_ID' 	=> $roomID,
+    		'CONTENT' 	=> $message,
+    		'SEND_DATE'	=> $send_date
+    	);
+    	$this->db->insert('CHAT_MESSAGES', $message);
+    	return  $this->db->affected_rows();
+    }
+
+    //danh sach tin nhan luc vao trang
+    function get_messsages_chat($roomID)
+    {
+    	$query = 	'Select tb.USER_ID, USERS.USER_NAME, USERS.AVATAR, tb.ROOM_ID, tb.CONTENT, tb.SEND_DATE
+					from (SELECT * FROM lowhope_db.CHAT_MESSAGES where ROOM_ID = '.$this->db->escape($roomID).') as tb
+					join USERS on USERS.USER_ID = tb.USER_ID';
+
+		$messages = $this->db->query($query);
+		if($messages !== false && $messages->num_rows()>0){
+			return $messages->result_array();
+		}else{
+			return array();
+		}
+    }
 }
 
 /* End of file User.php */

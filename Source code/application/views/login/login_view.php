@@ -195,10 +195,10 @@
 			<div class="col-12">
 				<div class="danhmuc">
 					<i class="fa fa-gamepad" aria-hidden="true"></i>
-					<a id="tatca" href="*" class="btn btn-outline-primary">All </a>
-			        <a href=".close" class="btn btn-outline-primary">Closed</a>
-			        <a href=".open" class="btn btn-outline-primary">Opening</a>
-      			</div>
+					<a id="tatca" href="*" class="btn btn-outline-primary">All</a>
+	        <a href=".close" class="btn btn-outline-primary">Closed</a>
+	        <a href=".open" class="btn btn-outline-primary">Opening</a>
+  			</div>
       		</div>
       		<div class="list-minigame">
       			<?php shuffle($all_game); ?>
@@ -218,7 +218,7 @@
 								<?php }else if($value['TYPE'] == 'MUL'){ ?>
 									<a href="<?php echo base_url().'gamect/mul/'.$value['GAME_ID']; ?>">
 								<?php } ?>
-				      				<p class=""><?php echo $value['TITLE']; ?></p>
+				      				<p class="font-color-black font-bold font-big-size"><?php echo $value['TITLE']; ?></p>
 				      				<?php if($value['TYPE'] == 'YN'){ ?>
 				      					<p class="mini-game-transaction">Giá bitcoin trên: <?php echo $value['PRICE_BET']; ?> ?</p>
 				      				<?php }else if($value['TYPE'] == 'MUL') { ?>
@@ -243,14 +243,9 @@
 	</div> <!-- end minigame -->
 
 	<footer>
-    	<div>LowHope &copy; 2017. All Right Reserved.</div>
-  	</footer>
+  	<div>LowHope &copy; 2017. All Right Reserved.</div>
+	</footer>
 
-	<style type="text/css">  
-		.hienlen {
-			background-color: orange!important;
-		}
-	</style>	
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/jquery/jquery-ui/jquery-ui.min.js"></script>
 
