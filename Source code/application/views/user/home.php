@@ -3,6 +3,60 @@
 
 <?php $this->load->view('layout/header'); ?>
 
+<style type="text/css">
+	.message-box{
+		display: flex;
+		position: relative;
+	}
+	.user-info{
+		width: 55px;
+		height: 55px;
+		border-radius: 50%;
+	}
+
+	.user-info img {
+		width: 100%;
+		border-radius: 50%;
+	}
+
+	.user-message {
+		margin-left: 10px;
+		width: 260px;
+		background: beige;
+	    border-radius: 5px;
+	    position: relative;
+	}
+
+	.user-message:before {
+	    content: "";
+	    position: absolute;
+	    width: 16px;
+	    height: 16px;
+	    background-color: beige;
+	    top: 25%;
+	    left: -7px;
+	    transform: rotate(45deg);
+	}
+
+	.user-message div{
+		color: black;
+	}
+
+	.user-message-up {
+	    overflow: hidden;
+	    font-size: 75%;
+	    border-bottom: 0.5px dotted #bdbdad;
+	    position: relative;
+	    margin-left: 5px;
+	    margin-right: 5px;
+	}
+
+	.user-message-down {
+    	position: relative;
+    	margin-left: 5px;
+	}
+</style>
+
 <body onload="countDown_End_Date(tt_game_end_date,0);infinitySlideShow();">
 	<script>
 		var base_url = "<?php echo base_url(); ?>";
@@ -86,76 +140,89 @@
 
 	<!-- chat -->
 	<div class="chat-icon-area">
-	    <div class="icon-and-chat">
-	      <!-- Chat panel -->
-	      <div id="chat-panel">
-	        <div class="chat-header">
-	          <h5 class="chat-title"><?php echo $USER_NAME; ?></h5>         
-	        </div>
-	        <div class="chat-body pre-scrollable">
-	          <div class="message-row mt-2">
-	          	<div class="user-info" style="width: 25%;float: left;">Coong Coong</div>
-	          	<div class="user-message" style="width: 75%;float: left;word-wrap: break-word;">Xin chao cac ban, dat cua nao day nhi, bao tao voi abc fasadjhakdjhakdhakdhakdhbbbbbbbbbbbbbbbbbbbasdasdsadakdhsad</div>
-	          </div>
-	          <div class="message-row mt-2">
-	          	<div class="user-info" style="width: 25%;float: left;">Coong Coong</div>
-	          	<div class="user-message" style="width: 75%;float: left;word-wrap: break-word;">Xin chao cac ban, dat cua nao day nhi, bao tao voi abc fasadjhakdjhakdhakdhakdhbbbbbbbbbbbbbbbbbbbasdasdsadakdhsad</div>
-	          </div>
-	        </div>
-	        <div class="chat-footer">
-	          <div class="chat-message-area">
-	            <form action="#!" class="chat-message" method="POST">
-	              <input type="text" placeholder="Nhập tin nhắn...">
-	            </form>
-	          </div>            
-	        </div>
-	      </div><!-- /.Chat panel -->
-	      <ul class="chat-gift">
-	        <li>
-	          <!-- Button trigger modal -->
-	          <button id="chat-btn" type="button" class="btn btn-primary cursor-pointer">
-	            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-	          </button>
-	        </li>
-	        <li id="sub-gift-menu">
-	          <div id="gift-btn" class="btn btn-primary">
-	            <img src="<?php echo base_url(); ?>images/client/giftbox.png"/>
-	          </div>
-	          <ul class="gift-menu">
-	            <li class="gift-item">
-	              <div class="gift-content">
-	                <figure>
-	                  <img src="<?php echo base_url(); ?>images/client/SH.png" alt="Honda SH">
-	                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhất: 1 xe Honda SH</a></figcaption>
-	                </figure>
-	              </div>
-	            </li>
-	            <li class="gift-item">
-	              <div class="gift-content">
-	                <figure>
-	                  <img src="<?php echo base_url(); ?>images/client/macbook.png" alt="Macbook Pro">
-	                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhì: 1 Macbook Pro</a></figcaption>
-	                </figure>
-	              </div>
-	            </li>
-	            <li class="gift-item">
-	              <div class="gift-content">
-	                <figure>
-	                  <img src="<?php echo base_url(); ?>images/client/iphoneX.png" alt="iPhone X">
-	                  <figcaption class="top-user-name font-medium"><a href="#!">1 Giải ba: 1 iPhone X</a></figcaption>
-	                </figure>
-	              </div>
-	            </li>
-	          </ul>
-	        </li>
-	      </ul>
-	    </div>
-  	</div>
+		<div class="icon-and-chat">
+			<!-- Chat panel -->
+			<div id="chat-panel">
+				<div class="chat-header">
+					<h5 class="chat-title"><?php echo $USER_NAME; ?></h5>         
+				</div>
+				<div class="chat-body pre-scrollable">
+					<?php if(!empty($messages)){ ?>
+					<?php foreach ($messages as $value): ?>
+					<div class="message-box mt-2">
+						<div class="user-info">
+							<img src="<?php echo $value['AVATAR']; ?>"></div>
+						<div class="user-message">
+							<div class="user-message-up">
+								<div class="chat-name float-left"><?php echo $value['USER_NAME']; ?></div>
+								<div class="chat-time float-right">
+									<?php
+										$date = new DateTime($value['SEND_DATE']);
+      									$send_time = $date->format('H:i');
+										echo $send_time; 
+									?>
+								</div>
+							</div>
+							<div class="user-message-down"><?php echo $value['CONTENT']; ?></div>
+						</div>
+					</div>
+					<?php endforeach ?>
+					<?php } ?>
+				</div>
+
+				<div class="chat-footer">
+					<div class="chat-message-area">
+						<input type="text" placeholder="Tin nhắn..." id="send_message_chat">
+					</div>            
+				</div>
+			</div><!-- /.Chat panel -->
+			<ul class="chat-gift">
+				<li>
+					<!-- Button trigger modal -->
+					<button id="chat-btn" type="button" class="btn btn-primary cursor-pointer">
+						<i class="fa fa-paper-plane" aria-hidden="true"></i>
+					</button>
+				</li>
+				<li id="sub-gift-menu">
+					<div id="gift-btn" class="btn btn-primary">
+						<img src="<?php echo base_url(); ?>images/client/giftbox.png"/>
+					</div>
+					<ul class="gift-menu">
+						<li class="gift-item">
+							<div class="gift-content">
+								<figure>
+									<img src="<?php echo base_url(); ?>images/client/SH.png" alt="Honda SH">
+									<figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhất: 1 xe Honda SH</a></figcaption>
+								</figure>
+							</div>
+						</li>
+						<li class="gift-item">
+							<div class="gift-content">
+								<figure>
+									<img src="<?php echo base_url(); ?>images/client/macbook.png" alt="Macbook Pro">
+									<figcaption class="top-user-name font-medium"><a href="#!">1 Giải nhì: 1 Macbook Pro</a></figcaption>
+								</figure>
+							</div>
+						</li>
+						<li class="gift-item">
+							<div class="gift-content">
+								<figure>
+									<img src="<?php echo base_url(); ?>images/client/iphoneX.png" alt="iPhone X">
+									<figcaption class="top-user-name font-medium"><a href="#!">1 Giải ba: 1 iPhone X</a></figcaption>
+								</figure>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
 	<!-- end chat -->
 
 	<?php $this->load->view('layout/footer'); ?>
 	<!-- author="Phong Huy" -->
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>node-server/public/js/nodeClient_highstock.js"></script>
+   
 </body>
 </html>

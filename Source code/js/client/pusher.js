@@ -159,7 +159,7 @@ function listen_multi_game() {
   });
 }
 
-//Các kênh lắng nghe thông báo từ server
+//Các kênh lắng nghe thông báo từ game hệ thống
 if(typeof user_id !== 'undefined'){
   //Kênh hệ thống
   var channel_system_game = pusher_3.subscribe('system-game');
@@ -179,6 +179,9 @@ if(typeof user_id !== 'undefined'){
       data: {gameID: data[0].GAME_ID},
     })
     .done(function(response) {
+      //clear chat
+      $('.chat-body.pre-scrollable').empty();
+
       //Nội dung game truyền thống
       if($('.game_tt_content.text-center')[0]){
         var content = 'Câu hỏi tuần này: ';
@@ -252,11 +255,31 @@ if(typeof user_id !== 'undefined'){
     listen_multi_game();
   }
 
+  //add tin nhắn vào bảng chat
+  var channel_room_chat = pusher.subscribe('channel_room_chat');
+  channel_room_chat.bind('receive_message', function(data){
+    if(user_id !== data.userID){
+      var send_time = moment(data.send_date).format('H:mm');  
+      add_message_to_room(data.avatar, data.userName, send_time, data.message);
+    }
+  });
+
 }else{
   console.log('Not user');
 }
 
-/**********************************************************************************************************/
+//data
+var channel_add_data = pusher_3.subscribe('bitcoin_rate');
+channel_add_data.bind('broadcasting', function(data) {
+  if(typeof $('#btc_today p')[0] !== 'undefined'){
+    $('#btc_today p')[0].innerText = data.price + ' USD';
+  }
+});
+
+/*************************************** END NOTI *************************************************************/
+
+
+/*************************************** START ALL ACTIVITIES ************************************************/
 /**
  * update lại table lịch sử log game yes no
  * [channel description]
@@ -268,7 +291,7 @@ channel_log_game_yn.bind('log_game_yes_no_event', function(data) {
   user_percent_in_de(data.ans_yes, data.ans_no);
   format_data_table(data);
   load_table_log_game(data.list_bet_log);
-  set_style_table_log_game();
+  // set_style_table_log_game();
 });
 
 /**
@@ -282,11 +305,11 @@ channel_log_game_mul.bind('log_game_mul_event', function(data) {
   user_percent_mul(data.PRICE_BELOW, data.PRICE_BETWEEN, data.PRICE_ABOVE);
   format_data_table(data);
   load_table_log_game(data.list_bet_log);
-  set_style_table_log_game();
+  // set_style_table_log_game();
 });
 
 /**
-* [channel_create_game_yn description]
+* add item vào giao diện slide khi có game mới được tạo
 * update item to slide
 * @type {[type]}
 */
@@ -306,14 +329,30 @@ channel_create_game_mul.bind('create_game_mul_event', function(data) {
   infinitySlideShow();
 });
 
-
-//data
-var channel_add_data = pusher_3.subscribe('bitcoin_rate');
-channel_add_data.bind('broadcasting', function(data) {
-  if(typeof $('#btc_today p')[0] !== 'undefined'){
-    $('#btc_today p')[0].innerText = data.price + ' USD';
-  }
-});
+function add_message_to_room(avatar, userName, send_time, message){
+  var html = '';
+  html += '<div class="message-box mt-2">';
+  html += '<div class="user-info">';
+  html += '<img src="';
+  html += avatar;
+  html += '"></div>';
+  html += '<div class="user-message">';
+  html += '<div class="user-message-up">';
+  html += '<div class="chat-name float-left">';
+  html += userName;
+  html += '</div>';
+  html += '<div class="chat-time float-right">';
+  html += send_time;
+  html += '</div>';
+  html += '</div>';
+  html += '<div class="user-message-down">';
+  html +=  message;
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+  var element = $.parseHTML(html);
+  $('.chat-body.pre-scrollable')[0].append(element[0]);
+}
 
 /****************************************************************************************************************/
 

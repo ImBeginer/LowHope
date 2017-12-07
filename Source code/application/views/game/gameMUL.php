@@ -3,7 +3,7 @@
 
 <?php $this->load->view('layout/header');?>
 
-<body onload="countDown_End_Date(end_date_game_mini,1); user_percent_mul(PRICE_BELOW, PRICE_BETWEEN, PRICE_ABOVE);load_table_log_game(list_bet_log); infinitySlideShow(); set_style_table_log_game()"> 
+<body onload="countDown_End_Date(end_date_game_mini,1); user_percent_mul(PRICE_BELOW, PRICE_BETWEEN, PRICE_ABOVE);load_table_log_game(list_bet_log); infinitySlideShow();"> 
   <script>
     var base_url = "<?php echo base_url(); ?>";
     var end_date_game_mini = "<?php echo $game_data->END_DATE; ?>";

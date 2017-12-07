@@ -594,7 +594,7 @@ $(document).ready(function() {
 					if(!is_related_YN){
  						listen_yes_no_game();
  					}
-					set_style_table_log_game();
+					// set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -636,7 +636,7 @@ $(document).ready(function() {
 					if(!is_related_MUL){
 					    listen_multi_game();
 					}
-					set_style_table_log_game();
+					// set_style_table_log_game();
 					toatMessage('Success', 'Chúc mừng bạn đặt cược thành công !', 'success');
 				}else if(response.result == 2){
 					toatMessage('Warning', 'Bạn đã đặt cược game này !<br>Vui lòng chọn game khác để chơi.', 'warning');
@@ -655,6 +655,30 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+	/*
+	Chat game truyen thong
+	 */
+	$('#send_message_chat').keypress(function(e){
+		if(e.which == 13) {
+        	var message = $('#send_message_chat').val().trim();
+        	var userName = $('#username-btn')[0].textContent.trim();
+        	var avatar = $('.user-avatar img').attr("src");
+        	var send_time = moment(new Date()).format('H:mm');
+
+        	add_message_to_room(avatar, userName, send_time, message);
+
+        	$('#send_message_chat').val("");
+
+        	$.ajax({
+        		url: base_url + 'gamect/send_message_chat',
+        		type: 'POST',
+        		dataType: 'JSON',
+        		data: {message: message, userName: userName, avatar: avatar}
+        	});
+    	}
+	});
+
 });
 
 /**

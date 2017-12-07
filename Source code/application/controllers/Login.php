@@ -255,11 +255,12 @@ class Login extends CI_Controller {
                     $USER_NAME = $this->input->post('USER_NAME');
                     $USER_PHONE = $this->input->post('USER_PHONE');
                     $USER_ADDRESS = $this->input->post('USER_ADDRESS');
+                    $AVATAR = $this->session->userdata('userData')['USER_AVATAR'];
                     $CREATED_DATE = date("Y-m-d");
 
                     $USER_PHONE = str_replace('/[^0-9]/', '', $USER_PHONE);
 
-                    $id = $this->user->addUser($USER_CIF,$USER_NAME,$USER_EMAIL,$USER_PHONE,$USER_ADDRESS,$CREATED_DATE);
+                    $id = $this->user->addUser($USER_CIF, $USER_NAME, $USER_EMAIL, $USER_PHONE, $USER_ADDRESS, $AVATAR, $CREATED_DATE);
 
                     if($id > 0){
                         
@@ -301,9 +302,16 @@ class Login extends CI_Controller {
 
         $tt_game = $this->game->getGameTT();
 
+        $roomID = $this->user->get_room_by_game_id($tt_game->GAME_ID);
+
         
         $this->session->set_userdata('sessionUserId', $user->USER_ID);
         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+        $this->session->set_userdata('session_room', $roomID);
+
+
+        //load messsage room chat        
+        $data['messages'] = $this->user->get_messsages_chat($roomID);
         
         //Đã đặt cược game truyền thống
         if($this->game->check_Log_Game_TT($user->USER_ID, $tt_game->GAME_ID)){

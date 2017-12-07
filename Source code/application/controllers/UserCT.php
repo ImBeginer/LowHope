@@ -38,11 +38,17 @@ class UserCT extends CI_Controller {
 		        $user = $this->user->getUserById($user->USER_ID);
 
 				$tt_game = $this->game->getGameTT();
+
+				$roomID = $this->user->get_room_by_game_id($tt_game->GAME_ID);
 				
 				//set sessionUserID
 		    	$this->session->set_userdata('sessionUserId', $user->USER_ID);
 			    $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
+			    $this->session->set_userdata('session_room', $roomID);
 
+			    //load messsage room chat        
+        		$data['messages'] = $this->user->get_messsages_chat($roomID);
+        		
 			    //Đã đặt cược game truyền thống
 		        if($this->game->check_Log_Game_TT($user->USER_ID, $tt_game->GAME_ID)){
 		            $data['price_bet_before'] = $this->game->get_price_bet_before($user->USER_ID, $tt_game->GAME_ID);
