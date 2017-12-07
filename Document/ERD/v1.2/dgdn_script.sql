@@ -128,7 +128,6 @@ CREATE TABLE  CHAT_MESSAGES(
   ROOM_ID int(11),
   CONTENT TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   SEND_DATE datetime NOT NULL,
-  primary key(USER_ID, ROOM_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(ROOM_ID) references CHAT_ROOMS(ROOM_ID)
 ) ENGINE=InnoDB;
