@@ -235,3 +235,37 @@ button.close-update:hover {
 	border-color: $decrease-color !important;
 }
    
+.font-color-black {
+	color: $black !important;
+}
+
+.link-black {
+	color: $black !important;
+	&:hover {
+		color: initial !important;
+	}
+}
+
+.link-blue-1 {
+	color: $facebook-color !important;
+
+}
+
+a.link-blue-1:hover {
+	color: $facebook-color !important;;
+}
+
+.font-bold {
+  font-weight: bold !important;
+}
+
+.font-big-size {
+  font-size: 140% !important;
+}
+
+.hienlen {
+	color: orange!important;
+	&:hover {
+		color: inital;
+	}
+}
