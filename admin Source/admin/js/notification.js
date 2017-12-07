@@ -207,4 +207,5 @@ $('#btn-add-notifi').on('click', function(e) {
 
     $('span.in-num-percent').text($in_per_string + '%');
     $('span.de-num-percent').text($de_per_string + '%');
+  }
   
