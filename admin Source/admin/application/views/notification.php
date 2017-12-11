@@ -17,7 +17,7 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css">
   
 </head>
-<body>
+<body onload="user_percent_in_de();">
   <script>
     var base_url = '<?php echo base_url(); ?>';
     var js_data = '<?php echo json_encode($lNoti); ?>';

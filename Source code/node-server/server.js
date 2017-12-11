@@ -2,17 +2,12 @@ var express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   http = require('http').Server(app),
-  data_controller = require('./controller/dataController.js'),
-  game_controller = require('./controller/gameController.js'),
-  user_controller = require('./controller/userController.js'),
-  coin_model = new(require('./models/coinModel.js'))(),
-  game_model = new(require('./models/gameModel.js'))(),
+  data_controller = new(require('./controller/dataController.js'))(),
+  game_controller = new(require('./controller/gameController.js'))(),
+  user_controller = new(require('./controller/userController.js'))(),
   mysql = require('./models/db.js'),
   coin_router = require('./routers/bitcoin.js'),
-  game_router = require('./routers/game.js'),
-  notice_model = new(require('./models/noticeModel.js'))(),
-  user_model = new(require('./models/userModel.js'))();
-
+  game_router = require('./routers/game.js');
 
 mysql.connect(function(err) {
   if (err) throw err;
@@ -41,7 +36,7 @@ game_controller.sys_game_controller_running();
 game_controller.yn_game_controller_running();
 game_controller.multi_game_controller_running();
 /*=====END======Controllers============*/
-game_controller.sys_game_schedule();
+/* game_controller.sys_game_schedule(); */
 
 
 
