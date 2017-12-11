@@ -23,10 +23,12 @@ DROP TABLE IF EXISTS `CHAT_MESSAGES`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `CHAT_MESSAGES` (
+  `MESSAGES_ID` int(11) NOT NULL,
   `USER_ID` int(11) DEFAULT NULL,
   `ROOM_ID` int(11) DEFAULT NULL,
   `CONTENT` text CHARACTER SET utf8 NOT NULL,
   `SEND_DATE` datetime NOT NULL,
+  PRIMARY KEY (`MESSAGES_ID`),
   KEY `CHAT_MESSAGES_ibfk_1` (`USER_ID`),
   KEY `CHAT_MESSAGES_ibfk_2` (`ROOM_ID`),
   CONSTRAINT `CHAT_MESSAGES_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`),
@@ -40,7 +42,6 @@ CREATE TABLE `CHAT_MESSAGES` (
 
 LOCK TABLES `CHAT_MESSAGES` WRITE;
 /*!40000 ALTER TABLE `CHAT_MESSAGES` DISABLE KEYS */;
-INSERT INTO `CHAT_MESSAGES` (`USER_ID`, `ROOM_ID`, `CONTENT`, `SEND_DATE`) VALUES (1,16,'hello 2','2017-12-07 15:16:09'),(1,16,'helo 3','2017-12-07 15:16:24'),(1,16,'aaaa','2017-12-07 15:36:37'),(20,16,'xin chào cả nhà','2017-12-07 16:26:46'),(4,16,'chào bạn','2017-12-07 16:27:27'),(20,16,'mình giúp gì cho bạn được nhỉ','2017-12-07 16:27:40'),(4,16,'dm','2017-12-07 16:27:50'),(38,16,'chủi nhau gi thế','2017-12-07 16:28:29'),(38,16,'vcl','2017-12-07 16:28:31'),(38,16,'đm đéo có ảnh','2017-12-07 16:28:44'),(20,16,'bị đéo sao vậy','2017-12-07 16:29:22'),(20,16,'đm đm','2017-12-07 16:29:26'),(38,16,'con cặc','2017-12-07 16:29:40'),(25,16,'deo co anh','2017-12-07 16:31:56'),(25,16,'nhu cac','2017-12-07 16:32:31'),(4,16,'haha','2017-12-07 16:43:04'),(4,17,'room moi','2017-12-07 22:22:36'),(39,17,'oke oke','2017-12-08 13:28:14'),(40,17,'xoạc nhau không em','2017-12-08 13:49:14'),(22,17,'hello','2017-12-09 04:02:12'),(23,17,'xoạc luôn','2017-12-09 04:02:58'),(39,17,'oke oke','2017-12-11 11:40:31'),(42,17,'SA','2017-12-11 17:33:17');
 /*!40000 ALTER TABLE `CHAT_MESSAGES` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-11 21:20:30
+-- Dump completed on 2017-12-11 21:30:36
