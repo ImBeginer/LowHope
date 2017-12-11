@@ -57,7 +57,6 @@ CREATE TABLE  NOTIFICATION_DETAILS(
   NOTICE_ID int(11),
   USER_ID int(11),
   TYPE_ID int(2),
-  PRIMARY KEY(NOTICE_ID, USER_ID),
   foreign key(NOTICE_ID) references NOTIFICATION(NOTICE_ID),
   foreign key(USER_ID) references USERS(USER_ID),
   foreign key(TYPE_ID) references NOTIFICATION_TYPE(TYPE_ID),
