@@ -10,6 +10,7 @@ class GameCT extends CI_Controller {
 		//Do your magic here
 		$this->load->model('user');
 		$this->load->model('game');
+		$this->load->library('unit_test');
 
 		$options = array(
 			'cluster' => 'ap1',
@@ -616,6 +617,62 @@ class GameCT extends CI_Controller {
 		if($this->user->add_message_chat($roomID, $userID, $message, $send_date) > 0){
 			$this->pusher->trigger('channel_room_chat', 'receive_message', $data);
 		}
+	}
+
+
+	function unit_test_game_activities()
+	{
+
+		// $this->unit->run($this->game->get_game_tt_by_id(77), $expected = 'is_object','Kiểm tra lấy nội dung game truyền thống theo id.');
+
+		// $this->unit->run($this->game->get_game_tt_by_id(777), $expected = 'is_null','Kiểm tra lấy nội dung game truyền thống theo id.');
+		// 
+		// $this->unit->run($this->game->game_tt_alive(77), $expected = true,'Kiểm tra xem game truyền thống có trong trạng thái active không.');
+
+		// $this->unit->run($this->game->game_tt_alive(72), $expected = false,'Kiểm tra xem game truyền thống có trong trạng thái deactive không.');
+
+		// $this->unit->run($this->game->check_Log_Game_TT(3, 72), $expected = false,'Kiểm tra xem người chơi đã đặt cược chơi game truyền thống hay chưa.');
+
+		// $this->unit->run($this->game->check_Log_Game_TT(4, 72), $expected = true,'Kiểm tra xem người chơi đã đặt cược chơi game truyền thống hay chưa.');
+
+		// $this->unit->run($this->game->update_Log_Game_TT(77, 40, 11000, date("Y-m-d H:i:s")), $expected = true,'Update lại giá bitcoin đã cược của người chơi.');
+		 
+		// $this->unit->run($this->game->update_Log_Game_TT(777, 40, 11000, date("Y-m-d H:i:s")), $expected = false,'Update không thành công giá bitcoin đã cược của người chơi.');
+
+		// $this->unit->run($this->game->add_Log_Game_TT(77, 4, 15000, date("Y-m-d H:i:s")), $expected = true,'Ad giá bitcoin cược của người chơi.');
+		
+		// $this->unit->run($this->game->add_Log_Game_TT(77, 444, 15000, date("Y-m-d H:i:s")), $expected = false,'Ad giá bitcoin cược của người chơi.');
+		 
+		// $this->unit->run($this->game->checkGameYN(4, '2017-12-05 22:58:35', '2017-12-05 23:20:00'), $expected = true,'Kiểm tra người chơi đã tạo game yes/no.');
+
+		// $this->unit->run($this->game->checkGameYN(1, '2017-12-05 22:58:35', '2017-12-05 23:20:00'), $expected = false,'Kiểm tra người chơi chưa tạo game yes/no.');
+		
+		// $this->unit->run($this->game->createGameYN(4, 'Unitest_Tạo game Yes/No', '2017-12-19 22:58:35', 16000,'2017-12-25 23:20:00'), $expected = 80,'Kiểm tra người chơi tạo game yes/no thành công.');
+		 
+		// $this->unit->run($this->game->createGameYN(444, 'Unitest_Tạo game Yes/No', '2017-12-19 22:58:35', 16000,'2017-12-25 23:20:00'), $expected = 0,'Kiểm tra người chơi tạo game yes/no không thành công.');
+		
+		// $this->unit->run($this->game->getGameYN_ById(80), $expected = 'is_object','Kiểm tra lấy thông tin thành công game yes/no theo ID.');
+		 
+		// $this->unit->run($this->game->getGameYN_ById(800), $expected = null, 'Kiểm tra lấy thông tin không thành công game yes/no theo ID.');
+		
+		// $this->unit->run($this->game->isClosed(74, GAME_YN), $expected = true, 'Kiểm tra game yes/no đã đóng theo ID.');
+		
+		// $this->unit->run($this->game->isClosed(80, GAME_YN), $expected = false, 'Kiểm tra game yes/no chưa đóng theo ID.');
+		
+		// $this->unit->run($this->game->isFull(80, GAME_YN), $expected = false, 'Kiểm tra game yes/no đã đủ người theo ID.');
+		 
+		// $this->unit->run($this->game->is_log_game(4, 80, GAME_YN), $expected = false, 'Kiểm tra người đã chơi game yes/no này chưa.');
+		
+		 $this->unit->run($this->game->is_log_game(4, 74, GAME_YN), $expected = true, 'Kiểm tra người đã chơi game yes/no này.');
+		 
+		
+		
+
+
+		
+
+
+		$this->load->view('game/unitTestGame');
 	}
 }
 

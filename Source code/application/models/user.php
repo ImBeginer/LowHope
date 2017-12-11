@@ -44,7 +44,7 @@ class User extends CI_Model {
 			$rows = $result->num_rows();
 			if($rows > 0){
 				$result = $result->row();
-				return $result->USER_CIF?true:false;
+				return ($result->USER_CIF !== "")?true:false;
 			}		
 		}else{
 			throw new Exception('Error from checkUserExist()');

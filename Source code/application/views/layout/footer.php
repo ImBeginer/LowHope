@@ -1,4 +1,4 @@
-<!-- footer -->
+	<!-- footer -->
 	<footer>
 		<div>LowHope &copy; 2017. All Right Reserved.</div>
 	</footer>
@@ -17,7 +17,6 @@
 	<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap-confirmation.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/jquery/moment.js"></script>

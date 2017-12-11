@@ -67,8 +67,10 @@ class Login extends CI_Controller {
         $date =  date('Y-m-d',strtotime("-1 days"));
         $time = $date.' 23:59:00';
 
-        $data['price_yesterday'] = $this->game->getPriceYesterday($time);
-        // $data['price_yesterday'] = '99999';
+        if($this->game->getPriceYesterday($time)){
+            $data['price_yesterday'] = $this->game->getPriceYesterday($time);
+            // $data['price_yesterday'] = '99999';
+        }
 
         //load btc current
         $data['price_current'] = $this->game->getPriceCurrent();
@@ -192,6 +194,8 @@ class Login extends CI_Controller {
                 }else{
                     //add new 
                     echo json_encode(0);
+                    //$this->load->view('user/addUser');
+                    // redirect('login/fb_AddUser');
                 }
             }            
         } catch (Exception $e) {
@@ -260,7 +264,7 @@ class Login extends CI_Controller {
 
                     $USER_PHONE = str_replace('/[^0-9]/', '', $USER_PHONE);
 
-                    $id = $this->user->addUser($USER_CIF, $USER_NAME, $USER_EMAIL, $USER_PHONE, $USER_ADDRESS, $AVATAR, $CREATED_DATE);
+                    $id = $this->user->addUser($USER_CIF, $USER_NAME, $USER_EMAIL, $USER_PHONE, $USER_ADDRESS, $AVATAR, $CREATED_DATE); 
 
                     if($id > 0){
                         

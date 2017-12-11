@@ -36,8 +36,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/animation/animate.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
   <!-- custom css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/client/main.css">
 </head>

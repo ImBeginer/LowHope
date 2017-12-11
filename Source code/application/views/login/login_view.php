@@ -86,6 +86,9 @@
 				</button>
 				<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 					<ul class="nav navbar-nav navbar-right">
+						<li class="func-items nav-item">
+							<a href="<?php echo base_url().'userct/search'; ?>" class="nav-link">Tìm kiếm thử thách</a>
+						</li>
 						<li class="nav-item">
 							<!-- dropdown button -->
 							<div class="dropdown">
@@ -172,7 +175,7 @@
 					<div class="special-index">
 						<div class="row">
 							<div id="btc_yesterday" class="text-center col-sm-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-								<p><?php echo $price_yesterday; ?> USD</p>
+								<p><?php if(isset($price_yesterday)){echo $price_yesterday;}else{echo 'Đang cập nhật';} ?> USD</p>
 								<span>Hôm qua</span>
 							</div>
 							<div id="btc_today" class="text-center col-sm-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">

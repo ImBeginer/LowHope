@@ -43,6 +43,10 @@
 
 		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 			<ul class="nav navbar-nav navbar-right">
+
+				<li class="func-items nav-item">
+					<a href="<?php echo base_url().'userct/search'; ?>" class="nav-link"><i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm thử thách</a>
+				</li>
 				<!-- TODO tao mini game -->
 				<li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
 					<a href="javascript:void(0);" class="nav-link"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thử thách</a>
@@ -370,6 +374,9 @@
 	<?php }else{ ?>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="nav navbar-nav navbar-right">
+          	<li class="func-items nav-item">
+				<a href="<?php echo base_url().'userct/search'; ?>" class="nav-link">Tìm kiếm thử thách</a>
+			</li>
             <li class="func-items nav-item" data-toggle="modal" data-target="#create-game">
               <a href="<?php echo base_url(); ?>" class="nav-link">Đăng Nhập</a>
             </li>
