@@ -22,9 +22,11 @@ class Game extends CI_Model {
 		$this->db->select('*');
 		$this->db->where('UPDATE_AT', $time);
 		$price = $this->db->get('CURRENCY_DETAILS');
-		if($price){
+		if($price !== false && $price->num_rows()>0){
 			$price = $price->row();
 			return $price->PRICE;
+		}else{
+			return null;
 		}
 	}
 
@@ -387,7 +389,7 @@ class Game extends CI_Model {
 		if($result){
 			return $this->db->insert_id();
 		}else{
-			throw new Exception("Error from function createGameYN()");
+			return 0;
 		}
 	}
 
@@ -601,6 +603,41 @@ class Game extends CI_Model {
 		$ans['PRICE_ABOVE'] = $result->PRICE_ABOVE;
 
 		return $ans;
+	}
+
+	function load_all_games()
+	{
+		$query_yn = "select YN_GAMES.GAME_ID, YN_GAMES.TITLE as 'Thử thách', USERS.USER_NAME as 'Người tạo', YN_GAMES.START_DATE as 'Ngày tạo', YN_GAMES.END_DATE as 'Ngày kết thúc', YN_GAMES.ACTIVE as 'Trạng thái' from YN_GAMES join USERS on YN_GAMES.OWNER_ID = USERS.USER_ID";
+
+		$game_yn = $this->db->query($query_yn);
+
+		if($game_yn !== false && $game_yn->num_rows()>0){
+			$game_yn = $game_yn->result_array();
+			foreach ($game_yn as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'Đúng/Sai';
+				$value = (array)$value;
+			}
+		}else{
+			$game_yn = array();
+		}
+
+		$query_mul = "select MULTI_CHOICE_GAMES.GAME_ID, MULTI_CHOICE_GAMES.TITLE as 'Thử thách', USERS.USER_NAME as 'Người tạo', MULTI_CHOICE_GAMES.START_DATE as 'Ngày tạo', MULTI_CHOICE_GAMES.END_DATE as 'Ngày kết thúc', MULTI_CHOICE_GAMES.ACTIVE as 'Trạng thái' from MULTI_CHOICE_GAMES join USERS on MULTI_CHOICE_GAMES.OWNER_ID = USERS.USER_ID";
+
+		$game_mul = $this->db->query($query_mul);
+
+		if($game_mul !== false && $game_mul->num_rows()>0){
+			$game_mul = $game_mul->result_array();
+			foreach ($game_mul as &$value) {
+				$value = (object)$value;
+				$value->TYPE = 'Lựa chọn';
+				$value = (array)$value;
+			}
+		}else{
+			$game_mul = array();
+		}
+
+		return array_merge($game_yn, $game_mul);
 	}
 
 }

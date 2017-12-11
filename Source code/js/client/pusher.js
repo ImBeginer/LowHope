@@ -356,6 +356,49 @@ function add_message_to_room(avatar, userName, send_time, message){
 
 /****************************************************************************************************************/
 
+function load_data_search(data){
+  format_data_search(data);
+  console.log(data);
+
+  $('#all_game').DataTable({
+    language: {
+      "emptyTable": "Hãy là người đầu tiên cược game này.",
+      "zeroRecords": "Rất tiếc, không có dữ liệu phù hợp." ,
+      "paginate": {
+        "previous": "Trước",
+        "next": "Sau"
+      },
+      "lengthMenu": "Hiển thị _MENU_ bản ghi.",
+      "search": "Tìm kiếm ",
+      // "info": "Hiển thị _PAGE_ đến _PAGES_",
+    },
+    bInfo: false,
+    data: data,
+    columns: [
+        { data: "STT" },
+        // { data: "Game id" },
+        { data: "Thử thách" },
+        { data: "Người tạo" },
+        { data: "TYPE" },
+        { data: "Ngày tạo" },
+        { data: "Ngày kết thúc" },
+        { data: "Trạng thái" }
+    ]
+  });
+}
+
+function format_data_search(data){
+  for (var i = 0; i < data.length; i++) {
+    var type = (data[i]['TYPE']=='Đúng/Sai')?'yn/':'mul/';
+    data[i]['STT'] = i+1;
+    data[i]['Thử thách'] = '<a href="'+ base_url + 'gamect/' + type + data[i]['GAME_ID'] +'">' + data[i]['Thử thách'] + '</a>';
+    data[i]['Ngày tạo'] = moment(data[i]['Ngày tạo']).format('H:mm:ss DD-MM-YYYY');
+    data[i]['Ngày kết thúc'] = moment(data[i]['Ngày kết thúc']).format('H:mm:ss DD-MM-YYYY');
+    data[i]['Trạng thái'] = (data[i]['Trạng thái'] == 0)?'Đã đóng':'Đang mở';
+  }
+}
+
+
 /**
  * [loadTable description]
  * @param  {[type]} list_bet_log [description]

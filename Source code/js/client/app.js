@@ -207,6 +207,7 @@ $(document).ready(function() {
 			})
 			.done(function(response) {
 				if(response == 1){
+					//thong bao tai khoan duoc tao
 					window.location.href = base_url + 'userct/home';
 				}else if(response == 2){
 					window.location.href = base_url + 'userct/home';
@@ -247,7 +248,7 @@ $(document).ready(function() {
 		      		}else if(response == 1){
 		      			toatMessage('Success', 'Bạn đã đổi mật khẩu thành công !', 'success');
 		      		}else if(response == 3){
-		      			toatMessage('Warning', 'Mật khẩu mới không hợp lệ.', 'warning');
+		      			toatMessage('Warning', 'Email này không dùng mật khẩu.', 'warning');
 		      		}else{
 		      			toatMessage('Warning', 'Hệ thống đang gặp trục trặc.', 'warning');
 		      		}
@@ -281,12 +282,14 @@ $(document).ready(function() {
 		      	  	data: {email: $emailVal},
 		      	})
 		      	.done(function(response) {
-		      			var res = response.split('<br>');
-		      			res = parseInt(res[res.length-1]);
-			      	  	if(res == 1){
+		      			// var res = response.split('<br>');
+		      			// res = parseInt(res[res.length-1]);
+			      	  	if(response == 1){
 			      	  		toatMessage('Success', 'Mã xác nhận đã được gửi tới email, vui lòng kiểm tra.', 'success');
-			      	  	}else if(res == 2){
+			      	  	}else if(response == 2){
 			      	  		toatMessage('Info', 'Email không tồn tại.', 'info');
+			      	  	}else if(response == 3){
+			      	  		toatMessage('Warning', 'Email này không dùng mật khẩu.', 'warning');
 			      	  	}else{
 			      	  		toatMessage('Warning', 'Hệ thống đang gặp trục trặc.', 'warning');
 			      	  	}

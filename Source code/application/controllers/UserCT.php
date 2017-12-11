@@ -231,21 +231,26 @@ class UserCT extends CI_Controller {
 			// if(preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$', $pass)){
 				//kiem tra email xem co phai la email google hay facebook hay khong,
 				//neu la email google, fb thi khong co quyen doi mat khau
-				$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);
-				//trung ma code
-				if($code === $this->session->userdata('code')){
-					//doi mat khau
-					$pass = md5($pass);
-					$result = $this->user->update_password($email, $pass);
-					if($result > 0){
-						echo json_encode(1);
+				$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);				
+
+				if(!$isMail_FB_GG){
+					//trung ma code
+					if($code === $this->session->userdata('code')){
+						//doi mat khau
+						$pass = md5($pass);
+						$result = $this->user->update_password($email, $pass);
+						if($result > 0){
+							echo json_encode(1);
+						}else{
+							//loi he thong
+							echo json_encode(2);
+						}
 					}else{
-						//loi he thong
-						echo json_encode(2);
-					}
+						//khong trung code
+						echo json_encode(0);
+					}					
 				}else{
-					//khong trung code
-					echo json_encode(0);
+					echo json_encode(3);
 				}
 			// }else{
 			// 	echo json_encode(3);
@@ -262,16 +267,21 @@ class UserCT extends CI_Controller {
 		if(isset($_POST['email'])){
 			$email = $this->input->post('email');
 			$isExist = $this->user->checkUserExist($email);
+			//email ton tai
 			if($isExist){
-				//email ton tai
-				//send mã xác nhận về email
-				$code = $this->random_code();
-				$this->session->set_userdata('code', $code);
-				if($this->sendMail($email, $code)){ //gui thanh cong mail
-					echo json_encode(1);
+				$isMail_FB_GG = $this->user->check_Mail_FB_GG($email);
+				if(!$isMail_FB_GG){
+					//send mã xác nhận về email
+					$code = $this->random_code();
+					$this->session->set_userdata('code', $code);
+					if($this->sendMail($email, $code)){ //gui thanh cong mail
+						echo json_encode(1);
+					}else{
+						//Loi khi gui mail
+						echo json_encode(0);
+					}
 				}else{
-					//Loi khi gui mail
-					echo json_encode(0);
+					echo json_encode(3);
 				}
 			}else{
 				//email khong ton tai
@@ -492,6 +502,12 @@ class UserCT extends CI_Controller {
 	    return implode($pass); //turn the array into a string
 	}
 
+	function search()
+	{
+		$data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
+		$data['all_game'] = $this->game->load_all_games();
+		$this->load->view('user/search', $data);
+	}
 }
 
 /* End of file UserCT.php */
