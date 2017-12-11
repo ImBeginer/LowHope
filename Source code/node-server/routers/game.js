@@ -2,7 +2,7 @@ var express = require('express'),
     router = express.Router(),
 	mysql = require('./../models/db.js'),
 	game_model = new(require('./../models/gameModel.js'))(),
-    game_controller = require('./../controller/gameController.js'),
+    game_controller = new(require('./../controller/gameController.js'))(),
     schedule = require('node-schedule');
 
 router.post('/yngame', function(req, res){
