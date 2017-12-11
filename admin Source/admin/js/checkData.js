@@ -172,7 +172,7 @@ $(function () {
     if ($($data[0]).val() === $($data[1]).val()) {
       return true;
     } else {
-      displayMessage ($object.panel, '<p class="error animated shake">Mật khẩu mới và mật khẩu xác nhận không chính xác ĐCM</p>');
+      displayMessage ($object.panel, '<p class="error animated shake">Mật khẩu mới và mật khẩu xác nhận không chính xác</p>');
       return false;
     }
   }
