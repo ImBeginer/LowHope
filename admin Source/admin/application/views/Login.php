@@ -37,7 +37,7 @@
               <input type="password" class="form-control" id="password" placeholder="Mật khẩu">
             </div>          
             <button type="submit" name="login-info" class="btn login-btn cursor-pointer">Đăng nhập</button>
-            <p class="forgot-password in-blk"><a href="#!" class="forgot-password-link"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Quên mật khẩu</a></p>
+            <p class="forgot-password in-blk"><a href="<?php echo base_url().'ForgotPassword'; ?>" class="forgot-password-link"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Quên mật khẩu</a></p>
         </div>
       </div>
     </div>
