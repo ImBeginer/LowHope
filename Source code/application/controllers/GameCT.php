@@ -626,7 +626,7 @@ class GameCT extends CI_Controller {
 		// $this->unit->run($this->game->get_game_tt_by_id(77), $expected = 'is_object','Kiểm tra lấy nội dung game truyền thống theo id.');
 
 		// $this->unit->run($this->game->get_game_tt_by_id(777), $expected = 'is_null','Kiểm tra lấy nội dung game truyền thống theo id.');
-		// 
+		 
 		// $this->unit->run($this->game->game_tt_alive(77), $expected = true,'Kiểm tra xem game truyền thống có trong trạng thái active không.');
 
 		// $this->unit->run($this->game->game_tt_alive(72), $expected = false,'Kiểm tra xem game truyền thống có trong trạng thái deactive không.');
@@ -660,18 +660,38 @@ class GameCT extends CI_Controller {
 		// $this->unit->run($this->game->isClosed(80, GAME_YN), $expected = false, 'Kiểm tra game yes/no chưa đóng theo ID.');
 		
 		// $this->unit->run($this->game->isFull(80, GAME_YN), $expected = false, 'Kiểm tra game yes/no đã đủ người theo ID.');
-		 
+		
 		// $this->unit->run($this->game->is_log_game(4, 80, GAME_YN), $expected = false, 'Kiểm tra người đã chơi game yes/no này chưa.');
 		
-		 $this->unit->run($this->game->is_log_game(4, 74, GAME_YN), $expected = true, 'Kiểm tra người đã chơi game yes/no này.');
-		 
+		// $this->unit->run($this->game->is_log_game(4, 74, GAME_YN), $expected = true, 'Kiểm tra người đã chơi game yes/no này.');
 		
+		// $this->unit->run($this->game->log_game_yes_no(1, 80, true, date("Y-m-d H:i:s")), $expected = 1, 'Kiểm tra người cược game yes/no thành công.');
 		
-
-
+		// $this->unit->run($this->game->log_game_yes_no(1, 800, true, date("Y-m-d H:i:s")), $expected = -1, 'Kiểm tra người cược game yes/no không thành công.');
 		
-
-
+		// $this->unit->run($this->game->load_games_active(), $expected = 'is_array', 'Kiểm tra danh sách game mini active.');
+		
+		// $this->unit->run($this->game->get_Log_Game_By_Id(71,1), $expected = 'is_array', 'Kiểm tra danh sách những người đã cược game yes/no.');
+		
+		// $this->unit->run($this->game->get_Log_Game_By_Id(35,2), $expected = 'is_array', 'Kiểm tra danh sách những người đã cược game multiple choice.');
+		
+		// $this->unit->run($this->game->getRatioYN(74), $expected = 'is_array', 'Kiểm tra tỉ lệ đặt cược của 1 game yes/no.');
+		
+		// $this->unit->run($this->game->getRatioYN(775), $expected = empty(array()), 'Kiểm tra tỉ lệ đặt cược của 1 game yes/no.');
+		
+		// $this->unit->run($this->game->checkGameMulti(4, '2017-12-11 19:48:12', '2017-12-12 14:22:00'), $expected = false, 'Kiểm tra người chơi đã tạo game multi này chưa.');
+		
+		// $this->unit->run($this->game->checkGameMulti(39, '2017-12-11 19:48:12', '2017-12-12 14:22:00'), $expected = true, 'Kiểm tra người chơi đã tạo game multi này chưa.');
+		
+		// $this->unit->run($this->game->createGameMulti(444, 'Khử thằng Vinh Vạm Vỡ','2017-12-11 19:48:12', '2017-12-29 14:22:00', 14000, 14000), $expected = 0, 'Kiểm tra người chơi không tồn tại tạo game multi.');
+		
+		// $this->unit->run($this->game->getGameMUL_ById(34), $expected = 'is_object', 'Kiểm tra thông tin game multi.');
+		
+		// $this->unit->run($this->game->getGameMUL_ById(344), $expected = null, 'Kiểm tra thông tin game multi không tồn tại.');
+		
+		// $this->unit->run($this->game->getRatioMUL(344), $expected = empty(array()), 'Kiểm tra thông tin tỉ lệ đặt cược game multi không tồn tại.');
+		
+		// $this->unit->run($this->game->getRatioMUL(34), $expected = 'is_array', 'Kiểm tra thành công thông tin tỉ lệ đặt cược game multi.');
 		$this->load->view('game/unitTestGame');
 	}
 }

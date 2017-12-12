@@ -1,11 +1,12 @@
 var user_model = new(require('./../models/userModel.js'))(),
 	schedule = require('node-schedule');
-class UserController{
-	reset_user_attendance(){
+
+module.exports = {
+	reset_user_attendance: function(){
 		schedule.scheduleJob('59 59 23 * * *', function() {
 			user_model.reset_attendance()
 			.then((res)=>{
-				console.log('*(SYSTEM) Reset user attendance!\n');
+				console.log('reset user attendance!\n');
 			})
 			.catch((err)=>{
 				console.log(err);
@@ -13,4 +14,3 @@ class UserController{
 		})
 	}
 }
-module.exports = UserController;

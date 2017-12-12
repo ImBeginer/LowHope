@@ -4,8 +4,8 @@ var request = require('request'),
   coin_model = new(require('./../models/coinModel.js'))(),
   pusher = require('./../third-partyservice/pusher.js'); 
 
-class DataController{
-  getData() {
+module.exports = {
+  getData: function() {
     schedule.scheduleJob('* * * * *', function() {
       request('https://api.coindesk.com/v1/bpi/currentprice.json',
         function(error, response, body) {
@@ -36,5 +36,3 @@ class DataController{
     })
   }
 }
-
-module.exports = DataController;

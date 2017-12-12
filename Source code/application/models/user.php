@@ -44,7 +44,7 @@ class User extends CI_Model {
 			$rows = $result->num_rows();
 			if($rows > 0){
 				$result = $result->row();
-				return ($result->USER_CIF !== "")?true:false;
+				return ($result->USER_CIF !== "" && $result->USER_CIF !== null)?true:false;
 			}		
 		}else{
 			throw new Exception('Error from checkUserExist()');
@@ -68,6 +68,20 @@ class User extends CI_Model {
 		}else{
 			throw new Exception('Error from checkUserExistPlus()');
 		}
+	}
+
+	/**
+	 * [update_avatar description]
+	 * @param  [type] $EMAIL  [description]
+	 * @param  [type] $AVATAR [description]
+	 * @return [type]         [description]
+	 */
+	function update_avatar($EMAIL, $AVATAR)
+	{
+		$avt = array('AVATAR' => $AVATAR);
+		$this->db->where('EMAIL', $EMAIL);
+		$this->db->update('USERS', $avt);
+		return $this->db->affected_rows()>0;
 	}
 
 	/**
@@ -245,7 +259,7 @@ class User extends CI_Model {
 			$user = $user->row();			
 			return $user;
 		}else{
-			throw new Exception('Error from getUserByMail()');
+			return null;
 		}
 	}
 
@@ -299,6 +313,7 @@ class User extends CI_Model {
 
 		$this->db->where('USER_ID', $USER_ID);
 		$this->db->update('USERS', $user);
+		return $this->db->affected_rows();
 	}
 
 	/**
