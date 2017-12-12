@@ -80,11 +80,11 @@
                             </td>
                             <td>
                               <?php if($value['PRIZE'] == 1){ ?>
-                                <img src="../images/client/1st.png" alt="Giải nhất" title="Giải nhất">
+                                <img src="<?php echo base_url(); ?>images/client/1st.png" alt="Giải nhất" title="Giải nhất">
                               <?php }else if($value['PRIZE'] == 2){ ?>
-                                <img src="../images/client/2nd.png" alt="Giải nhì" title="Giải nhì">
+                                <img src="<?php echo base_url(); ?>images/client/2nd.png" alt="Giải nhì" title="Giải nhì">
                               <?php }else if($value['PRIZE'] == 3){ ?>
-                                <img src="../images/client/3rd.png" alt="Giải ba" title="Giải ba">
+                                <img src="<?php echo base_url(); ?>images/client/3rd.png" alt="Giải ba" title="Giải ba">
                               <?php } ?>
                             </td>
                           </tr>
@@ -230,7 +230,7 @@
               <div class="user-info-area">
                 <!-- user avatar -->
                 <div id="history-username-area" class="user-ava-area">
-                  <img class="user-avatar d-inline-block" src="" alt="User's avatar">
+                  <img class="user-avatar d-inline-block" src="<?php if(!empty($user_avatar)){echo $user_avatar;}else{echo base_url().'images/client/ava-default.png';} ?>" alt="User's avatar">
                   <p id="history-username" class="username ellipsis d-inline-block"><?php echo $user_view_name; ?></p>
                 </div><!-- /.user avatar -->
 

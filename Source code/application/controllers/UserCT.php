@@ -13,6 +13,7 @@ class UserCT extends CI_Controller {
 		//Do your magic here
 		$this->load->model('user');
 		$this->load->model('game');
+		$this->load->library('unit_test');
 	}
 
 	/**
@@ -378,6 +379,7 @@ class UserCT extends CI_Controller {
 		$data['user_view_phone'] = $user_view->PHONE_NUMBER;
 		$data['user_view_email'] = $user_view->EMAIL;
 		$data['user_view_address'] = $user_view->ADDRESS;
+		$data['user_avatar'] = $user_view->AVATAR;
 
 		$data['user_view_total_game'] = $this->user->countNumberTotalGame($id_user_view);
 		$data['user_view_total_game_win'] = $this->user->countWin($id_user_view);
@@ -507,6 +509,57 @@ class UserCT extends CI_Controller {
 		$data['ALL_GAME_ACTIVE'] = $this->game->load_games_active();
 		$data['all_game'] = $this->game->load_all_games();
 		$this->load->view('user/search', $data);
+	}
+
+	function unit_test_user()
+	{
+		// $this->unit->run($this->user->updateUser(39,'Vinh Hăm Bẹn', 'Hoàng Mai', '0898989898'), $expected = 1,'Kiểm tra update thông tin người chơi theo id.');
+		
+		// $this->unit->run($this->user->updateUser(399,'Vinh Hăm Bẹn', 'Hoàng Mai', '0898989898'), $expected = 0,'Kiểm tra update thông tin người chơi không tồn tại theo id.');
+		
+		// $this->unit->run($this->user->checkUserExist('aa@gmail.com'), $expected = false,'Kiểm tra email người chơi không tồn tại.');
+		
+		// $this->unit->run($this->user->checkUserExist('duycong2509@gmail.com'), $expected = true,'Kiểm tra email người chơi tồn tại.');
+		
+		// $this->unit->run($this->user->check_Mail_FB_GG('duycong2509@gmail.com'), $expected = true,'Kiểm tra email người chơi có phải là email google hay facebook đã đăng nhập.');
+	 
+		// $this->unit->run($this->user->check_Mail_FB_GG('thanhtung24fpt@gmail.com'), $expected = false,'Kiểm tra email người chơi có phải là email google hay facebook đã đăng nhập.');
+		
+		// $this->unit->run($this->user->getUserByMail('thanhtung24fpt@gmail.com'), $expected = 'is_object','Kiểm tra thành công thông tin người chơi tồn tại qua email.');
+		
+		// $this->unit->run($this->user->getUserByMail('aaaaa@gmail.com'), $expected = null,'Kiểm tra thành công thông tin người chơi không tồn tại qua email.');
+		
+		// $this->unit->run($this->user->add_other_user('unit_test_add_user_1@gmail.com', '123a123@A', date("Y-m-d")), $expected = 48,'Kiểm tra thành công thêm mới người chơi vào hệ thống.');
+		
+		// $this->unit->run($this->user->update_seen_notifi(5, 4, 72, 1, '2017-12-06 16:30:01'), $expected = 1,'Kiểm tra thành công update trạng thái thông báo của người chơi.');
+		
+		// $this->unit->run($this->user->update_seen_notifi(5, 4, 72, 1, '2017-12-06 16:30:01'), $expected = 0,'Kiểm tra thành công update trạng thái thông báo của người chơi.');
+		
+		// $this->unit->run($this->user->get_all_noti_not_seen(1), $expected = 4,'Kiểm tra thành công số lượng thông báo chưa đọc.');
+		
+		// $this->unit->run($this->user->get_all_noti_not_seen(1111), $expected = 0,'Kiểm tra thành công số lượng thông báo chưa đọc.');
+		
+		// $this->unit->run($this->user->get_noti_content(5, 4, 72, 1, '2017-12-06 16:30:01'), $expected = 'is_object', 'Kiểm tra thành công lấy nội dung của thông báo.');
+		
+		// $this->unit->run($this->user->get_noti_content(555, 4, 72, 1, '2017-12-06 16:30:01'), $expected = null, 'Kiểm tra thành công lấy nội dung của thông báo không tồn tại.');
+	
+		// $this->unit->run($this->user->update_password('tungntse03924@fpt.edu.vn', '123a123@A'), $expected = 1, 'Kiểm tra việc update password của người chơi thành công.');
+		
+		// $this->unit->run($this->user->update_password('ldccc@gmail.com', '123a123@A'), $expected = 0, 'Kiểm tra việc update password của người chơi không tôn tại thành công.');
+		
+		// $this->unit->run($this->sendMail('vinhnguyenvan1995@gmail.com', '1234567A'), $expected = 0, 'Kiểm tra việc gửi email thành công.');
+		
+
+		
+
+		
+		
+
+		
+
+		
+
+		$this->load->view('user/unitTestUser');
 	}
 }
 

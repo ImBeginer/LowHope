@@ -123,6 +123,7 @@ class Login extends CI_Controller {
         }else {
             if($this->session->userdata('userGGExist')){
                 try {
+                    $this->user->update_avatar($this->session->userdata('userData')['USER_EMAIL'], $this->session->userdata('userData')['USER_AVATAR']);
                     $user = $this->user->getUserByMail($this->session->userdata('userData')['USER_EMAIL']);
                     //check isPlayer                    
                     if($user->ROLE_ID == ROLE_USER){
@@ -180,12 +181,14 @@ class Login extends CI_Controller {
             $userFBExist = $this->user->checkUserExist($userFBData['USER_EMAIL']);
             if($userFBExist){                
                 //truong hop trung email 
+                $this->user->update_avatar($this->session->userdata('userData')['USER_EMAIL'], $this->session->userdata('userData')['USER_AVATAR']);
                 //go home
                 echo json_encode(1);
             }else{ //neu khong trung email
                 //kiem tra xem nick fb co thay doi gi ko
                 $userFBChanged = $this->user->checkFBUserChanged($userFBData['USER_CIF']);
                 if($userFBChanged){
+                    $this->user->update_avatar($this->session->userdata('userData')['USER_EMAIL'], $this->session->userdata('userData')['USER_AVATAR']);
                     //truong hop email có bị thay đổi do CIF không thay đổi đc
                     // update lại user fb này
                     $this->user->updateFBUser($userFBData['USER_CIF'],$userFBData['USER_NAME'],$userFBData['USER_EMAIL']);

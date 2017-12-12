@@ -528,7 +528,8 @@ class Game extends CI_Model {
 		if($result){
 			return $this->db->insert_id();
 		}else{
-			throw new Exception("Error from function createGameMulti()");
+			// throw new Exception("Error from function createGameMulti()");
+			return 0;
 		}
 	}
 
