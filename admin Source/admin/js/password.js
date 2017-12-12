@@ -6,9 +6,9 @@ var password = (function () {
 		'newpass': 'Mật khẩu mới',
 		'confirmpass': 'Nhập lại mật khẩu',
 		'emptyInputMessage': {
-			'oldpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
-			'newpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
-			'confirmpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
+			'oldpass': 'Mật khẩu không được để trống',
+			'newpass': 'Mật khẩu không được để trống',
+			'confirmpass': 'Mật khẩu không được để trống',
 		}
 	};
 
@@ -22,9 +22,9 @@ var password = (function () {
 
 	var invalidFormatMessage = {
 
-		'oldpass': 'Mật khẩu cũ phải nhiều hơn 6 và ít hơn 20 ký tự',
-		'newpass': 'Mật khẩu mới phải nhiều hơn 6 và ít hơn 20 ký tự',
-		'confirmpass': 'Mật khẩu xác nhận phải nhiều hơn 6 và ít hơn 20 ký tự',
+		'oldpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
+		'newpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
+		'confirmpass': 'Mật khẩu phải có độ dài từ 8 tới 12 kí tự, chứa ít nhất một chữ cái thường, một chữ hoa, một số, một kí tự đặc biệt và không chứa khoảng trắng',
 
 	};
 
