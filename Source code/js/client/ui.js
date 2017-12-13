@@ -319,7 +319,7 @@ $('button[name=game-btn-mul]').on('click', function () {
     $in_div.css({'display': 'none'});
     $de_div.css({'display': 'none'});
 
-    return false;
+    return;
   }    
 
   if ($total_user !== 0 && $total_user > 0) {
@@ -354,7 +354,7 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
     $be_div.css({'display': 'none'});
     $up_div.css({'display': 'none'});
 
-    return false;
+    return;
   }  
 
   if ($total !== 0 && $total > 0) {
@@ -377,6 +377,8 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
   $('.game-mul span.be-num-percent').text($be_per_string + '%');
   $('.game-mul span.de-num-percent').text($up_per_string + '%');
 }
+
+user_percent_mul(0, 0, 0);
 
   // select all notifi
   $('input#checkbox-all-box').on ('click', function () {

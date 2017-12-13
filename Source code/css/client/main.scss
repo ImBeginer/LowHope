@@ -10,6 +10,7 @@
 @import 'userUpdateInfo';
 @import 'queries';
 @import 'animationKey';
+@import 'jqueryTable';
 /*author: Phong Huy*/
 div#highcharts-8znetyt-0 tspan {
   font-size: initial !important;
@@ -46,7 +47,7 @@ nav#my-navbar {
     color: $white;
     outline: none;
   }
-  background-color: $infinite-color !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
   border-bottom: 1px solid $footer-word-op;
   width: 100%;
   min-width: 1009px;
@@ -83,9 +84,9 @@ li.top-bar-items {
 
 ul#user-func-dropdown,
 ul#user-notifi {
-  background-color: $footer;
-  border-bottom: 3px solid $break-line;
-  border-top: 3px solid $break-line;
+  background-color: rgba(0,0,0,1);
+  // border-bottom: 3px solid $break-line;
+  // border-top: 3px solid $break-line;
   li a {
     color: $white !important;
   }
@@ -227,10 +228,10 @@ button.login-btn:hover {
   border-color: $facebook-color !important;
 }
 
-button.changepass-btn:hover {
-  background-color: $google-color !important;
-  border-color: $google-color !important; 
-}
+// button.changepass-btn:hover {
+//   background-color: $google-color !important;
+//   border-color: $google-color !important; 
+// }
 
 input.dark-form:focus {
   background: initial;
@@ -305,11 +306,11 @@ p.game-closing {
   position: relative;
 }
 .game-opening {
-  background-color: $opening-color;
+  background-color: $closing-color;
 }
 
 .game-closing {
-  background-color: $closing-color;
+  background-color: $opening-color;
 }
 
 a.title {
@@ -1160,4 +1161,12 @@ select[name='mul-game'] {
   height: 35px;
   margin-top: 10px;
   transition: all 0.5s;
+}
+
+figcaption.top-user-name {
+  width: 170px;
+  max-width: 170px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

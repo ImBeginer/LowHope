@@ -409,14 +409,17 @@ function load_table_log_game(list_bet_log) {
   if(el.hasClass('table')){
     el.DataTable({
       language: {
-        "emptyTable": "Hãy là người đầu tiên cược game này.",
-        "zeroRecords": "Rất tiếc, không có dữ liệu phù hợp." ,
-        "paginate": {
-          "previous": "Trước",
-          "next": "Sau"
-        }
+      "emptyTable": "Hãy là người đầu tiên cược game này.",
+      "zeroRecords": "Rất tiếc, không có dữ liệu phù hợp." ,
+      "paginate": {
+        "previous": "Trước",
+        "next": "Sau"
       },
-      autoWidth: true,
+      "lengthMenu": "Hiển thị _MENU_ bản ghi.",
+      "search": "Tìm kiếm ",
+      // "info": "Hiển thị _PAGE_ đến _PAGES_",
+    },
+    bInfo: false,
       columns: [
         { data: 'ANS_TIME' },
         { data: 'USER_NAME' }     
@@ -624,6 +627,13 @@ function user_percent_in_de ($in_num = 0, $de_num = 0) {
     $de_user = $de_num;
     $total_user = parseInt($in_user) + parseInt($de_user);
 
+    if ($total_user === 0) {
+      $in_div.css({'display': 'none'});
+      $de_div.css({'display': 'none'});
+
+      return;
+    }  
+
     if ($total_user !== 0 && $total_user > 0) {
         $in_div_width = Math.round(($percent_width * $in_user) / $total_user);
         $de_div_width = $percent_width - $in_div_width;
@@ -655,6 +665,15 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
     $be_div = $('#between');
     $up_div = $('#decrease');
     $lo_div_width = $be_div_width = $up_div_width = 0;
+
+    if ($total === 0) {
+      $lo_div.css({'display': 'none'});
+      $be_div.css({'display': 'none'});
+      $up_div.css({'display': 'none'});
+
+      return false;
+    }  
+
 
     if ($total !== 0 && $total > 0) {
       $lo_div_width = Math.round(($percent_width * $lower) / $total);
