@@ -182,7 +182,7 @@
 								<p><?php echo $price_current; ?> USD</p>
 								<span>Hôm nay</span>                
 							</div>
-							<div id="" class="text-center col-sm-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+							<div id="btc_tomorrow" class="text-center col-sm-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 								<p>???</p>
 								<span>Ngày mai</span>
 							</div>

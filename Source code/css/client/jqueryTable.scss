@@ -1,0 +1,115 @@
+select option, select {
+  color: $black;
+  font-size: 85%;
+}
+
+input[type="search"] {
+  color: #000;
+  font-size: 85%;
+  border: 1px solid rgba(0,0,0,0.8);
+  border-radius: 3px;
+  padding: 3px 10px;
+}
+
+div#game-transaction  {
+	a {
+    display: inline-block !important;
+	}
+	label {
+    font-size: 85%;
+	}
+}
+
+table#list-bet-log tbody td {
+  border: none;
+}
+
+table#list-bet-log,
+table#list-bet-log th {
+  border: 1px solid #85C1E9;
+}
+
+table#list-bet-log {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+table#list-bet-log th, 
+table#list-bet-log tbody tr td,
+table#list-bet-log tbody tr td p {
+  font-size: 85%;
+}
+
+table#list-bet-log th {
+	border: none;
+	border-bottom: 1px solid #85C1E9;
+}
+
+table#list-bet-log tbody tr:nth-child(even) {
+  background-color: #363653;
+}
+
+table#list-bet-log tbody tr:hover,
+table#all_game tbody tr:hover td {
+  background-color: #29293D;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: linear-gradient(to bottom, #EAFAF1 0%, #D5F5E3 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background: linear-gradient(to bottom, #EAFAF1 0%, #ABEBC6 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: linear-gradient(to bottom, #EAFAF1 0%, #ABEBC6 100%);
+}	
+
+table#all_game tr, table#all_game td {
+  background-color: #24243A;
+  font-size: 90%;
+}
+
+table#all_game {
+	.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+	  background: linear-gradient(to bottom, #EAFAF1 0%, #D5F5E3 100%);
+	}	
+
+	.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	  background: linear-gradient(to bottom, #EAFAF1 0%, #ABEBC6 100%);
+	}	
+
+}
+
+#all_game_wrapper {
+	label {
+		font-size: 85%;
+	}
+}
+
+div#all_game_paginate a {
+  color: #00C9B7 !important;
+}
+
+table.dataTable.no-footer {
+	border-bottom: none;
+}
+
+table.dataTable.display tbody td {
+	border-top: 1px solid rgba(221, 221, 221, 0.2);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 1px 10px;
+  font-size: 85%;
+}
+
+table#all_game tbody tr td:nth-child(5), 
+table#all_game tbody tr td:nth-child(6) {
+  font-size: 70%;
+}
+
+table#all_game thead tr th {
+  font-size: 85%;
+}
