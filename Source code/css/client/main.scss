@@ -258,7 +258,9 @@ button.changepass-btn {
   border: 1px solid $footer-word !important;
 }
 
-#btc_yesterday, #btc_today {
+#btc_yesterday,
+#btc_today, 
+#btc_tomorrow {
   // width: 32%;
   p {
     font-size: 130%;
