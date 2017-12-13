@@ -57,7 +57,7 @@
                   <?php if($game_data->ACTIVE == 1){ ?>
                   <span class="mini-game-status game-opening">ĐANG MỞ</span>
                   <?php }else{ ?>
-                  <span class="mini-game-status game-opening">ĐÃ ĐÓNG</span>
+                  <span class="mini-game-status game-closing">ĐÃ ĐÓNG</span>
                   <?php } ?>
                   <p class="mini-game-title font-big-size"><?php echo $game_data->TITLE; ?></p>
                   <p class="mini-game-transaction"><?php echo 'Point hiện tại: '.$game_data->TOTAL_AMOUNT; ?></p>

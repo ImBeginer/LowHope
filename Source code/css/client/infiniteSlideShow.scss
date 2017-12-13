@@ -4,7 +4,7 @@ section#hot-mini-game-area {
   overflow: hidden;
   height: 83px;
   max-height: 83px;
-  background-color: $infinite-color;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 div#hot-mini-game-content {
@@ -71,5 +71,5 @@ span.icon-bullet {
   font-size: 50%;
 }
 .prob span:last-child {
-  font-size: 140%;
+  font-size: 180%;
 }
