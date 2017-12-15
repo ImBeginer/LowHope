@@ -333,12 +333,14 @@ $('button[name=game-btn-mul]').on('click', function () {
   $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
   $de_per_string = 100 - $in_per_string;
 
-  $in_div.css({'width': $in_div_width + 'px'});
-  $de_div.css({'width': $de_div_width + 'px'});
+  $in_div.css({'width': $in_per_string + '%'});
+  $de_div.css({'width': $de_per_string + '%'});
 
   $('span.in-num-percent').text($in_per_string + '%');
   $('span.de-num-percent').text($de_per_string + '%');
 }
+
+// user_percent_in_de(333, 997);
 
 function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
   $total = $lower + $between + $upper;
@@ -369,16 +371,16 @@ function user_percent_mul ($lower = 0, $between = 0, $upper = 0) {
   $be_per_string = Math.round(($be_div_width / $percent_width) * 100);
   $up_per_string = 100 - $lo_per_string - $be_per_string;
 
-  $lo_div.css({'width': $lo_div_width + 'px'});
-  $be_div.css({'width': $be_div_width + 'px'});
-  $up_div.css({'width': $up_div_width + 'px'});
+  $lo_div.css({'width': $lo_per_string + '%'});
+  $be_div.css({'width': $be_per_string + '%'});
+  $up_div.css({'width': $up_per_string + '%'});
 
   $('.game-mul span.in-num-percent').text($lo_per_string + '%');
   $('.game-mul span.be-num-percent').text($be_per_string + '%');
   $('.game-mul span.de-num-percent').text($up_per_string + '%');
 }
 
-user_percent_mul(0, 0, 0);
+user_percent_mul(1, 1, 1);
 
   // select all notifi
   $('input#checkbox-all-box').on ('click', function () {

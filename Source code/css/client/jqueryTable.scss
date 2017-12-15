@@ -113,3 +113,19 @@ table#all_game tbody tr td:nth-child(6) {
 table#all_game thead tr th {
   font-size: 85%;
 }
+
+table#mini-game-table tbody td a {
+  color: #2151F3 !important;
+}
+
+table#mini-game-table tbody tr {
+  background-color: #e9ecef;
+}
+
+table#mini-game-table tbody tr:nth-child(even) {
+  background-color: #CACDD1;
+}
+
+table#mini-game-table tr td div {
+  color: #000;
+}
