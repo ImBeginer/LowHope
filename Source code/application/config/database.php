@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1',
+	'hostname' => '35.185.45.47:3306',
 	'username' => 'lowhope',
 	'password' => 'p123',
 	'database' => 'lowhope_db',
