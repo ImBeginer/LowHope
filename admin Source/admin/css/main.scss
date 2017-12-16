@@ -15,6 +15,7 @@
 @import 'adminFunc';
 @import 'sidebarIcon';
 @import 'queries';
+@import 'systemGame';
 @import 'jqueryData';
 
 /********************SIDEBAR*******************/
@@ -392,4 +393,12 @@ button[name='m-forgot-pass-btn'] {
 div#manager-forgot-pass p.title {
   font-family: $font-extra-bold;
   font-size: 130%;  
+}
+
+table.user-join {
+  .active-func a, 
+  .user-func a, 
+  .deactive-func a {
+    font-size: 150%;
+  }
 }

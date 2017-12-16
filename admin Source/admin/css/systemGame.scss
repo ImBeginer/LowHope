@@ -1,0 +1,27 @@
+input.input-no-border {
+  border: none;
+  background-color: transparent;
+  width: 85%;
+	-webkit-transition: all .4s;
+  				transition: all .4s;
+	padding: 0 !important; 
+}
+
+input.input-no-border:focus {
+  outline: none;
+  border-bottom: 2px solid #73C6B6;
+  border-bottom-width: 2px;
+  padding: 8px 10px !important;  
+}
+
+input.input-no-border:hover {
+  color: #4F9D8E;
+}
+
+.display-none {
+	display: none;
+}
+
+input.input-no-border:focus ~ i.update-system-game {
+  display: inline-block;
+}

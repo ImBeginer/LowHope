@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Culture game list</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- jQuery UI -->
+  <link rel="stylesheet" type="text/css" href="../assets/jquery/jquery-ui/jquery-ui.min.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="../assets/bootstrap/bootstrapv3.min.css">
+  <!-- Animate -->
+  <link rel="stylesheet" type="text/css" href="../assets/animation/animate.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+
+<!-- notification content -->
+<div class="notification-content container-fluid">
+  <!-- side bar -->
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="sidebar-content nav nav-sidebar">
+        <li class="manager-avatar c-active">
+          <a class="manager-link" href="#!"><img src="../img/ava-default.png" alt="avatar"></a>
+          <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option">Vinh Nguyễn</div>
+          <ul class="sub-menu collapse" id="user-option">
+            <li class="cursor-pointer"><a href="#!">Thông tin cá nhân</a></li>
+            <li class="cursor-pointer"><a href="#!">Sửa thông tin</a></li>
+            <li class="cursor-pointer"><a href="#!">Đổi mật khẩu</a></li>
+          </ul>             
+        </li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website"><a href="#!">Tổng quát</a></li>        
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="#!">Gửi thông báo</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game truyền thống"><a href="#!">Lịch sử</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+
+        <li data-toggle="collapse" data-target="#admin-option" class="c-active" aria-expanded="true">
+          <a href="#!">Quản lý</a>
+        </li>
+        <ul class="sub-menu collapse" id="admin-option">
+          <li class="c-active"><a href="#!">Block Manager</a></li>
+          <li><a href="#!">Unblock Manager</a></li>
+          <li><a href="#!">Giải thưởng</a></li>
+        </ul>      
+      </ul>
+      <div class="manager-option-area c-active" title="Đăng xuất">
+        <a class="log-out cursor-pointer">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div><!-- /.side bar -->
+  <!-- right side hand -->
+  <div class="row">
+    <!-- game-content-detail -->
+    <div id="game-content-detail" class="right-side-hand col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 game-content">
+      <div class="main-function">
+        <!-- icon sidebar -->
+        <div class="sidebar-icon-area" title="Sidebar">
+          <div id="nav-icon1">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>      
+        </div><!-- /.icon sidebar -->        
+        <div class="row">
+          <div class="function-title">
+            <p class="title title font-extra-bold font-extra-big">Demo game hệ thống</p>
+          </div>
+          <!-- game info -->
+          <div class="game-info">
+            <!-- user join -->
+            <table class="user-join">
+              <thead>
+                <tr>
+                  <th class="text-center wd-4">#</th>
+                  <th>Ngày tạo</th>
+                  <th>Ngày kết thúc</th>
+                  <th class="text-center">Tiêu đề</th>
+                  <th class="text-center">Trạng thái</th>
+                </tr>                
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">1</a></td>
+                  <td>31/10/2017</td>
+                  <td>7/11/2017</td>
+                  <td class="text-center"><input type="text" class="input-no-border" value="Game hệ thống demo 1"><i class="fa fa-check cursor-pointer display-none update-system-game" aria-hidden="true"></i></td>
+                  <td class="text-center"><p class="tag active-func"><a id="999" class="deactive-game" href="#!">DEACTIVE</a></p></td>
+                </tr>
+                <tr>
+                  <td class="text-center wd-4"><a href="#!">2</a></td>
+                  <td>31/10/2017</td>
+                  <td>7/11/2017</td>
+                  <td class="text-center"><input type="text" class="input-no-border" value="Game hệ thống demo 2"><i class="fa fa-check cursor-pointer display-none update-system-game" aria-hidden="true"></i></td>
+                  <td class="text-center"><p class="tag deactive-func"><a id="999" class="deactive-game" href="#!">ACTIVE</a></p></td>
+                </tr>                
+              </tbody>
+            </table><!-- /.user join -->
+          </div><!-- /.game info -->
+        </div>
+      </div>
+    </div><!-- /.game-content-detail -->
+    <!-- footer -->
+    <footer>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
+        &copy; 2017
+        <div class="about-us">
+          <a class="black medium-font-size" href="#!">Về chúng tôi</a>
+          <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
+          <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
+        </div>
+      </div>
+    </footer><!-- /.footer -->    
+  </div><!-- /.right side hand -->
+</div><!-- /.notification content -->
+
+<!-- jQuery -->
+<script src="../assets/jquery/jquery-1.12.0.min.js"></script>
+<script src="../assets/jquery/jquery-ui/jquery-ui.min.js"></script>
+<!-- Bootstrap -->
+<script src="../assets/popper/popper.min.js"></script>
+<script src="../assets/bootstrap/bootstrap.min.js"></script>
+
+<script src="../js/checkData.js"></script>
+<script src="../js/ui.js"></script>
+</body>
+</html>
