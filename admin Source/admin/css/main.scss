@@ -15,6 +15,7 @@
 @import 'adminFunc';
 @import 'sidebarIcon';
 @import 'queries';
+@import 'systemGame';
 @import 'jqueryData';
 
 /********************SIDEBAR*******************/
@@ -283,6 +284,8 @@ p.game-created-date .decrease {
 
 div.user-ava p.user-point {
   margin-left: 135px;
+  max-width: 110px;
+  width: 110px;
 }
 
 p.user-point,
@@ -370,4 +373,32 @@ button.search-btn {
 ul#admin-option > li,
 ul#user-option > li {
   padding-left: 14px;
+}
+
+i.fa.fa-sign-in {
+  margin: 0 10px;
+}
+
+div#manager-forgot-pass a {
+  font-size: 83%;
+}
+
+button[name='m-forgot-pass-btn'] {
+  transition: all .3s;
+  &:hover {
+    background-color: #58D68D;
+  }
+}
+
+div#manager-forgot-pass p.title {
+  font-family: $font-extra-bold;
+  font-size: 130%;  
+}
+
+table.user-join {
+  .active-func a, 
+  .user-func a, 
+  .deactive-func a {
+    font-size: 150%;
+  }
 }

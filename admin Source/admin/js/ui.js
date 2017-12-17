@@ -66,8 +66,8 @@ $(function () {
     $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
     $de_per_string = 100 - $in_per_string;
 
-    $in_div.css({'width': $in_div_width + 'px'});
-    $de_div.css({'width': $de_div_width + 'px'});
+    $in_div.css({'width': $in_per_string + '%'});
+    $de_div.css({'width': $de_per_string + '%'});
 
     $('span.in-num-percent').text($in_per_string + '%');
     $('span.de-num-percent').text($de_per_string + '%');
