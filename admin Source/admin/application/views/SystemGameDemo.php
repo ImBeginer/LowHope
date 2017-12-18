@@ -92,7 +92,7 @@
                     <td><?= $value['END_DATE']; ?></td>
                     <td class="text-center"><p><?= $value['CONTENT']; ?></p></td>
                     <td class="text-center">
-                      <button class="btn btn-ban" name="btn-ban" value="<?= $value['GAME_ID']; ?>" data-toggle="confirmation">
+                      <button id="btn-system-game" class="btn btn-ban" name="btn-ban" value="<?= $value['GAME_ID']; ?>" data-toggle="confirmation">
                         <i class="fa fa-ban" aria-hidden="true"></i>
                       </button>
                     </td>

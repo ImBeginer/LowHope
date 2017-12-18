@@ -37,3 +37,7 @@ function toatMessage(heading,text,icon) {
 		hideAfter: 5000
 	});
 }
+
+$('#btn-system-game').on('click', function () {
+	alert($(this).val());
+});

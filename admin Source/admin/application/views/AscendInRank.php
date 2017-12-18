@@ -88,7 +88,7 @@
                       <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png'; ?>" alt="Ảnh đại diện">
                       <p class="user-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
                       <p class="text-right tag user-tag">USER</p>
-                      <p class="status">Tích cực: <?= $value['USER_POINT'] ?> điểm</p>
+                      <p class="status"><?= $value['USER_POINT'] ?> điểm</p>
                       <button class="btn btn-unban" name="btn-unban" value="<?= $value['USER_ID']; ?>" data-toggle="confirmation">
                         <i class="fa fa-check" aria-hidden="true"></i>
                       </button>                    
@@ -103,7 +103,7 @@
           <div class="function-title no-border">
             <p class="title">Danh sách người quản lý</p>
           </div>
-          <div class="pre-scrollable pre-padding">
+          <div class="height-medium pre-scrollable pre-padding">
             <div class="tab-content">
               <!-- all user list -->
               <ul id="all-manager-list" class="user-list">
@@ -111,7 +111,7 @@
                   <li class="">
                     <div class="user-ava">
                       <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png'; ?>" alt="Ảnh đại diện">
-                      <p class="ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
+                      <p class="manager-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
                       <p class="text-right tag manager-tag">MANAGER</p>
                       <p class="status">Trạng thái: <?php if ($value['ACTIVE'] == 1): ?>
                             <?= 'Hoạt động' ?>
