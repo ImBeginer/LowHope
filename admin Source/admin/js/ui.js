@@ -31,7 +31,7 @@ $(function () {
   });
 
   $currentYear = new Date().getFullYear();
-  $("div.create-game-option #game-date-yn, div.create-game-option #game-date-mul").datepicker({
+  $("div.create-game-option #game-date-yn, div.create-game-option #game-date-mul, input#system-game-date").datepicker({
     yearRange: $currentYear + ':' + ($currentYear + 3) ,
     changeYear: true,
     changeMonth: true,

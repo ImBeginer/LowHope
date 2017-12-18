@@ -81,6 +81,8 @@
                   <th>Ngày tạo</th>
                   <th>Ngày kết thúc</th>
                   <th class="text-center">Tiêu đề</th>
+                  <th class="text-center">Ngày</th>
+                  <th class="text-center">Thời gian</th>
                   <th class="text-center">Thao tác</th>
                 </tr>                
               </thead>
@@ -91,6 +93,8 @@
                     <td><?= $value['START_DATE']; ?></td>
                     <td><?= $value['END_DATE']; ?></td>
                     <td class="text-center"><p><?= $value['CONTENT']; ?></p></td>
+                    <td><input type="text" id="system-game-date" class="form-control d-inline-block"></td>
+                    <td><input type="time" class="form-control d-inline-block" id="sytem-game-time" placeholder="1"></td>
                     <td class="text-center">
                       <button id="btn-system-game" class="btn btn-ban" name="btn-ban" value="<?= $value['GAME_ID']; ?>" data-toggle="confirmation">
                         <i class="fa fa-ban" aria-hidden="true"></i>
@@ -115,6 +119,7 @@
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
-<!-- <script src="<?php echo base_url(); ?>js/checkData.js"></script> -->
+<script src="<?php echo base_url(); ?>js/SystemGameDemo.js"></script>
+<script src="<?php echo base_url(); ?>js/ui.js"></script>
 </body>
 </html>
