@@ -45,7 +45,7 @@ class ChangeGiftModel extends CI_Model {
             );
             $this->db->where('AWARD_ID', $value['AWARD_ID']);
 			$check = $this->db->update('AWARD', $data); 
-			if (count($check) < 0)  {
+			if (!$check)  {
 				return false;
 			}
     	}
@@ -66,7 +66,7 @@ class ChangeGiftModel extends CI_Model {
 		   'AWARD_NAME' => $win_1st,
 		   'ACTIVE' => 1
 		);
-		if (count($this->db->insert('AWARD', $data)) < 0 ) {
+		if ($this->db->insert('AWARD', $data)->affected_rows() == 0 ) {
 			return false;
 		}
 		$data = array(
@@ -74,7 +74,7 @@ class ChangeGiftModel extends CI_Model {
 		   'AWARD_NAME' => $win_2nd,
 		   'ACTIVE' => 1
 		);
-		if (count($this->db->insert('AWARD', $data)) < 0 ) {
+		if ($this->db->insert('AWARD', $data)->affected_rows() == 0 ) {
 			return false;
 		}
 		$data = array(
@@ -82,7 +82,7 @@ class ChangeGiftModel extends CI_Model {
 		   'AWARD_NAME' => $win_3rd,
 		   'ACTIVE' => 1
 		);
-		if (count($this->db->insert('AWARD', $data)) < 0 ) {
+		if ($this->db->insert('AWARD', $data)->affected_rows() == 0 ) {
 			return false;
 		}
 		return true;
@@ -126,7 +126,7 @@ class ChangeGiftModel extends CI_Model {
 			   'SEEN' => 0
 			);
 			$result = $this->db->insert('NOTIFICATION_DETAILS', $data); 
-			if (count($result) < 0) {
+			if ($this->db->affected_rows() > 0) {
 				return false;
 			}
     	}

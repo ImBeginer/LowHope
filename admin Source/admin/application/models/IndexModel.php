@@ -83,6 +83,7 @@ class IndexModel extends CI_Model {
     	$this->db->limit(10);
         $this->db->select('*');
         $this->db->from('USERS');
+        $this->db->where('ROLE_ID', 3);
         $this->db->order_by("USER_POINT", "desc"); 
         $result = $this->db->get()->result_array();
         return ($result);

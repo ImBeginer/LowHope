@@ -84,7 +84,7 @@
                   <p class="game-close-in cursor-pointer"><?php echo count($player) ?><i class="fa fa-user" aria-hidden="true"></i></p>
                 </td>                  
                 <td data-toggle="tooltip" data-placement="top" title="Tổng giao dịch">
-                  <p class="game-created-date cursor-pointer"><?php echo (count($player) * 500); ?><i class="fa fa-gavel" aria-hidden="true"></i></p>
+                  <p class="game-created-date cursor-pointer"><?php echo (count($player) * 100); ?><i class="fa fa-gavel" aria-hidden="true"></i></p>
                 </td>
                 <td data-toggle="tooltip" data-placement="top" title="Kết quả giá bitcoin">
                   <p class="game-created-date cursor-pointer"><?php if ($active == 1) echo 'đang cập nhật'; else echo $result; ?><i class="fa fa-flag-checkered" aria-hidden="true"></i></p>
@@ -107,9 +107,9 @@
               <tbody>
                 <?php if ($active == 1): ?>
                   <!-- game finished not yet -->
-                  <?php foreach ($player as $value): ?>
+                  <?php $count = 1; foreach ($player as $value): ?>
                     <tr>
-                      <td class="text-center wd-4">2</td>
+                      <td class="text-center wd-4"><?= $count ?></td> 
                       <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
                       <td><?= $value['DATE_GUESS']; ?></td>
                       <td class="text-center">100</td>

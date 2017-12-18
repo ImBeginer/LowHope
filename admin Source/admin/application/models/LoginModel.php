@@ -18,7 +18,7 @@ class LoginModel extends CI_Model {
         // $this->db->where('ROLE_ID', 1);
         // $this->db->or_where('ROLE_ID', 2);
 
-        $query = "select * from USERS where EMAIL = ".$this->db->escape($email)." and  (ROLE_ID = 1 or ROLE_ID = 2)";
+        $query = "select * from USERS where EMAIL = ".$this->db->escape($email)." and  (ROLE_ID = 1 or ROLE_ID = 2) and (ACTIVE = 1)";
         $result = $this->db->query($query)->row();
         // $this->db->where('PASSWORD', $password);
         // $result = $this->db->get()->row();

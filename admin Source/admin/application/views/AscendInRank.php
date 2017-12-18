@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sửa thông tin</title>
+  <title>Thăng cấp người dùng</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- jQuery UI -->
@@ -20,16 +20,10 @@
 <body>
   <script>
     var base_url = '<?php echo base_url(); ?>';
-    var user_name_original = '<?php echo $userName ?>';
-    var phone_original = '<?php echo $user_phone ?>';
-    var address_original = '<?php echo $user_address ?>';
-    var email_original = '<?php echo $user_email ?>';
-    var user_id = "<?php echo $userId; ?>";
-
   </script>
 <!-- manager content -->
-<div id="manager-edit-info" class="container-fluid">
-  <!-- side bar -->
+<div id="manager-index" class="container-fluid">
+   <!-- side bar -->
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
@@ -38,7 +32,7 @@
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
-            <li class="cursor-pointer" c-active><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
+            <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
             <li class="cursor-pointer"><a href="<?php echo base_url().'ChangePassword/'; ?>">Đổi mật khẩu</a></li>
           </ul>             
         </li>
@@ -47,13 +41,13 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
-          <a href="#!">Quản lý</a>
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+          <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
-          <li class="c-active"><a href="#!">Block Manager</a></li>
-          <li><a href="#!">Unblock Manager</a></li>
-          <li><a href="#!">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
+          <li class=""><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class="c-active"><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -76,34 +70,65 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title font-extra-bold font-extra-big">Sửa thông tin cá nhân</p>
+          <p class="title font-extra-bold font-extra-big">Thăng cấp người dùng</p>
         </div>
-        <div id="manager-info-edit" class="manager-info">
-          <div class="message"></div>
-          <form action="#!" name="m-update-info">
-            <label for="mname">Họ tên</label>
-            <input type="text" id="m-name" class="form-control" name="mname" value="<?php echo $userName ?>">
+        <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="search-panel">
+            <input class="manger-block-search" type="text" placeholder="Tìm kiếm" name="manager-unblock-search" id="input-user-name">
+            <button class="btn search-btn" name="search-btn"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
+          </div>       
+          <div class="pre-scrollable pre-padding">
+            <div class="tab-content">
+              <!-- all user list -->
+              <ul id="all-manager-blocked-list" class="user-list">
 
-            <label for="mphone">Số điện thoại</label>
-            <input type="text" id="m-phone" class="form-control" name="mphone" value="<?php echo $user_phone ?>">
-
-            <label for="maddress">Địa chỉ</label>
-            <input type="text" id="m-address" class="form-control" name="maddress" value="<?php echo $user_address ?>">
-
-<!--             <label for="memail">Email</label>
-            <input type="text" id="m-email" class="form-control" name="memail" value="<?php echo $user_email ?>"> -->
-
-            <div class="text-center m-update-btn-area">
-              <button type="button" class="btn m-update-btn" name="m-update-info-btn" >Lưu</button>
+                <?php foreach ($user as $value): ?>
+                  <li class="users">
+                    <div class="user-ava">
+                      <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png'; ?>" alt="Ảnh đại diện">
+                      <p class="user-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
+                      <p class="text-right tag user-tag">USER</p>
+                      <p class="status">Tích cực: <?= $value['USER_POINT'] ?> điểm</p>
+                      <button class="btn btn-unban" name="btn-unban" value="<?= $value['USER_ID']; ?>" data-toggle="confirmation">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button>                    
+                    </div>
+                  </li>
+                <?php endforeach ?>                                           
+              </ul><!-- /.all user list -->
             </div>
-          </form>
-          <div class="more-option">
-            <a class="medium-font-size" href="<?php echo base_url().'ManagerInfo'; ?>">Thông tin cá nhân</a>&nbsp;<a class="medium-font-size" href="<?php echo base_url().'ChangePassword/'; ?>">Đổi mật khẩu</a>
+          </div>               
+        </div>        
+        <div class="manager-block-list form-in-list col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="function-title no-border">
+            <p class="title">Danh sách người quản lý</p>
           </div>
+          <div class="pre-scrollable pre-padding">
+            <div class="tab-content">
+              <!-- all user list -->
+              <ul id="all-manager-list" class="user-list">
+                <?php foreach ($manager as $value): ?>
+                  <li class="">
+                    <div class="user-ava">
+                      <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png'; ?>" alt="Ảnh đại diện">
+                      <p class="ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
+                      <p class="text-right tag manager-tag">MANAGER</p>
+                      <p class="status">Trạng thái: <?php if ($value['ACTIVE'] == 1): ?>
+                            <?= 'Hoạt động' ?>
+                        <?php else: ?>
+                          <?= 'Ngừng hoạt động' ?>
+                        <?php endif ?>
+                      </p>
+                    </div>
+                  </li>
+                <?php endforeach ?>                               
+              </ul><!-- /.all user list -->
+            </div>
+          </div>          
         </div>
+        <div id="dialog-confirm" class="black"></div>
       </div>
     </div>
-
   </div><!-- /.right side hand -->
 </div><!-- /.manager content -->
 
@@ -114,10 +139,8 @@
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
-
-<script src="<?php echo base_url(); ?>js/managerInfo.js"></script>
-<script src="<?php echo base_url(); ?>js/checkData.js"></script>
-<script src="<?php echo base_url(); ?>js/ui.js"></script>
-<script src="<?php echo base_url(); ?>js/EditManagerInfo.js"></script>
+<script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap-confirmation.min.js"></script>
+<!-- Custom JS -->
+<script src="<?php echo base_url(); ?>js/AscendInRank.js"></script>
 </body>
 </html>

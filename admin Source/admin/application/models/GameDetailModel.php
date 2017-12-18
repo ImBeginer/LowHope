@@ -39,11 +39,11 @@ class GameDetailModel extends CI_Model {
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    function getNameOwner($id)
+    function getOwner($id)
     {
         $this->db->select('*')->from('USERS')->where('USER_ID', $id);
         $result = $this->db->get()->row();
-        return ($result->USER_NAME);
+        return ($result);
     }
 
     /**
@@ -80,6 +80,57 @@ class GameDetailModel extends CI_Model {
             }
         }
         return false;
+    }
+
+        /**
+     * [getPassword description]
+     * @param  [type] $email [description]
+     * @return [type]        [description]
+     */
+    function getPassword($email)
+    {
+        return $this->db->select('*')->from('USERS')->where('EMAIL', $email)->get()->row();
+    }
+
+    /**
+     * [payBack description]
+     * @param  [type] $user_id [description]
+     * @param  [type] $money   [description]
+     * @return [type]          [true to update success or false]
+     */
+    function payBack($user_id, $money) {
+        $user = $this->getOwner($user_id);
+        $user_point = $user->USER_POINT;
+        $new_point = $user_point + $money;
+        $data = array(
+           'USER_POINT' => $new_point
+        );
+
+        $this->db->where('USER_ID', $user_id);
+        $result = $this->db->update('USERS', $data); 
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function sentNoti($user_id, $game_id, $game_type)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d H:i:s', time());
+        $type = 2;
+        if ($game_type == 'YN') {
+            $type = 1;
+        }
+        $data = array(
+           'USER_ID' => $user_id ,
+           'GAME_ID' => $game_id ,
+           'TYPE_ID' => $type,
+           'SEND_DATE' => $date,
+           'SEEN' => 0
+        );
+
+        $this->db->insert('NOTIFICATION_DETAILS', $data); 
     }
 }
 

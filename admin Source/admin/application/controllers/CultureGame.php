@@ -37,12 +37,6 @@ class CultureGame extends CI_Controller {
             redirect(base_url().'Login','refresh');
         }
     }     
-
-    function test()
-    {
-        print_r($this->CultureGameModel->getAllCultureGame());
-    }
-   
 }
 
 

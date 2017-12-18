@@ -69,7 +69,7 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title font-extra-bold font-extra-big">Block Manager</p>
+          <p class="title font-extra-bold font-extra-big">Khoá hoặc mở khóa người quản lý</p>
         </div>
         <div class="manager-block-list form-in-list row">
           <div class="search-panel">
@@ -84,13 +84,13 @@
           <div class="pre-scrollable pre-padding">
             <div class="tab-content">
               <!-- all user list -->
-              <ul id="all-manager-list" class="user-list" id="users">
+              <ul id="all-manager-list" class="user-list" id="users-list">
 
                 <?php foreach ($active_manager as $value): ?>
-                  <li id="users-1" class="users">
+                  <li class="users">
                   <div class="user-ava">
                     <img class="img-in-list" src="<?php echo base_url(); ?>img/ava-default.png" alt="Ảnh đại diện">
-                    <p class="user-name ellipsis cursor-pointer" id="user-name"><?= $value['USER_NAME']; ?></p>
+                    <p class="user-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
                     <button class="btn btn-ban" name="btn-ban" value="<?= $value['USER_ID'] ?>" data-toggle="confirmation">
@@ -114,10 +114,10 @@
               <ul id="all-manager-blocked-list" class="user-list" id="users"> 
 
                 <?php foreach ($deactive_manager as $value): ?>
-                  <li id="users-1" class="users">
+                  <li class="users">
                     <div class="user-ava">
                       <img class="img-in-list" src="<?php echo base_url(); ?>img/ava-default.png" alt="Ảnh đại diện">
-                      <p class="user-name ellipsis cursor-pointer" id="user-name"><?= $value['USER_NAME']; ?></p>
+                      <p class="user-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
                       <p class="text-right tag block-tag">MANAGER</p>
                       <p class="status">Trạng thái: Block</p>
                       <button class="btn btn-unban" name="btn-unban" value="<?= $value['USER_ID'] ?>" data-toggle="confirmation">

@@ -5,7 +5,9 @@ class ForgotPasswordModel extends CI_Model {
 
     function checkRole($email)
     {
-        $result = $this->db->select("*")->from("USERS")->where("ROLE_ID", 1)->or_where("ROLE_ID", 2)->get()->row();
+        $query = "select * from USERS where EMAIL = ".$this->db->escape($email)." and  (ROLE_ID = 1 or ROLE_ID = 2)";
+        $result = $this->db->query($query)->row();
+        // $result = $this->db->select("*")->from("USERS")->where("ROLE_ID", 1)->or_where("ROLE_ID", 2)->get()->row();
         if (count($result) > 0) {
             return true;
         } 
@@ -18,8 +20,8 @@ class ForgotPasswordModel extends CI_Model {
                'PASSWORD' => $pass
             );
 		$this->db->where('EMAIL', $email);
-		$this->db->update('USERS', $data); 
-		if ($this->db->affected_rows() > 0)
+		$result = $this->db->update('USERS', $data); 
+		if ($result)
 		{
 		  return true;
 		}

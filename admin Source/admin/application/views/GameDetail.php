@@ -13,9 +13,13 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
   <!-- custom css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css">
 </head>
 <body onload="countDown_End_Date('<?php echo $end_date; ?>');">
+  <script>
+    var base_url = '<?php echo base_url(); ?>';
+  </script>
 
 <!-- notification content -->
 <div class="notification-content container-fluid">
@@ -122,7 +126,7 @@
             </table><!-- /.user join -->
 
             <div class="game-func">
-              <p class="tag active-func"><a id="999" class="deactive-game" href="#!">DEACTIVE</a></p>
+              <p class="tag active-func"><a id="<?php echo $game_id;?>" game_type="<?php echo $game_type; ?>" class="deactive-game" href="#!">DEACTIVE</a></p>
               <p class="tag user-func"><a id="user-id" ><?php echo $owner; ?></a></p>
               <p class="tag open-tag"><?php if ($active == 1) { echo "Đang mở"; } else { echo "Đã đóng"; }?></p>
             </div>
@@ -141,6 +145,7 @@
 <!-- Bootstrap -->
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
 <script src="<?php echo base_url(); ?>js/ui.js"></script>
 <script src="<?php echo base_url(); ?>js/gameDetail.js"></script>

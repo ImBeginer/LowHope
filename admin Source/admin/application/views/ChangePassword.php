@@ -90,7 +90,7 @@
             </div>
           </form>
           <div class="more-option">
-            <a class="medium-font-size" href="#!">Thông tin cá nhân</a>&nbsp;<a class="medium-font-size" href="#!">Sửa thông tin</a>
+            <a class="medium-font-size" href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a>&nbsp;<a class="medium-font-size" href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a>
           </div>
         </div>
       </div>

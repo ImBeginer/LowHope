@@ -59,14 +59,6 @@ class EditManagerInfo extends CI_Controller {
             echo json_encode(0);
         }
     }
-
-    function test()
-    {
-        print_r($this->EditManagerModel->getInfoById(3)->PHONE_NUMBER);
-        print_r($this->EditManagerModel->getInfoById(3)->ADDRESS);
-        print_r($this->EditManagerModel->getInfoById(3)->EMAIL);
-    }
-   
 }
 
 

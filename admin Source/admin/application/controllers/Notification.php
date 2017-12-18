@@ -1,6 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use PHPMailer\PHPMailer\PHPMailer;
 require_once FCPATH .'/vendor/autoload.php';
 class Notification extends CI_Controller {
 
@@ -72,7 +73,7 @@ class Notification extends CI_Controller {
             'cluster' => 'ap1',
             'encrypted' => true
              );
-        $this->  $pusher = new Pusher\Pusher(
+        $this->pusher = new Pusher\Pusher(
             'efd4e401d751e081f0f0',
             '3e978574da9ec9e3dbfb',
             '415653',
@@ -90,18 +91,6 @@ class Notification extends CI_Controller {
         }
     }   
 
-    function test() {
-        $query = $this->NotiModel->getInformationById(5);
-
-        $total = $this->NotiModel->countNumberTotalGame(5);
-        $win = $this->NotiModel->countWin(5);
-
-        $query = (object) array_merge( (array)$query, array( 'TOTAL' => $total ) );
-        $query = (object) array_merge( (array)$query, array( 'WIN' => $win ) );
-
-        echo json_encode ($query);
-    }
-
     /**
      *
      *
@@ -118,8 +107,6 @@ class Notification extends CI_Controller {
         $query = (object) array_merge( (array)$query, array( 'CHAMPION' => $champion ) );
 
         echo json_encode ($query);
-
-
     }
 
     /**
@@ -143,19 +130,6 @@ class Notification extends CI_Controller {
         // $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
 
         echo json_encode($result);
-    }
-
-    /**
-     * [getDateTime description]
-     * @return [type] [description]
-     */
-    public function getDateTime()
-    {
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $date = date('m/d/Y h:i:s a', time());
-        // $timezone = date_default_timezone_get();
-        // echo "The current server timezone is: " . $timezone;
-        print($date);
     }
 
     /**

@@ -66,8 +66,8 @@ $(function () {
     $in_per_string = Math.round(($in_div_width / $percent_width) * 100);
     $de_per_string = 100 - $in_per_string;
 
-    $in_div.css({'width': $in_per_string + '%'});
-    $de_div.css({'width': $de_per_string + '%'});
+    $in_div.css({'width': $in_div_width + 'px'});
+    $de_div.css({'width': $de_div_width + 'px'});
 
     $('span.in-num-percent').text($in_per_string + '%');
     $('span.de-num-percent').text($de_per_string + '%');
@@ -154,6 +154,10 @@ $(function () {
             $( this ).dialog( "close" );
             console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
             console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+            //quanth
+            $.getScript(base_url + 'js/changeGift.js', function () { 
+              checkPermission($('input#admin-email').val(), $('input#admin-pass').val());
+            });
           }
         },
         {
@@ -169,6 +173,7 @@ $(function () {
 
   $('.game-func p.tag.active-func a.deactive-game').on ('click', function (event) {
     $gameId = $(this).attr('id');
+    $gameType = $(this).attr('game_type');
     $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
     $("#dialog-confirm").dialog({
       resizable: false,
@@ -182,8 +187,14 @@ $(function () {
           "class": 'confirm-yes-btn btn medium-font-size',
           click: function() {
             $( this ).dialog( "close" );
-            console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
-            console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+            // console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
+            // console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+            // console.log ('GAME ID: ' +  $gameId);
+            // console.log ('GAME TYPE: ' +  $gameType);
+            //quanth
+            $.getScript(base_url + 'js/gameDetail.js', function () { 
+              checkPermission($('input#admin-email').val(), $('input#admin-pass').val(), $gameId, $gameType);
+            });
           }
         },
         {
@@ -241,7 +252,7 @@ $(function () {
           click: function() {
             $( this ).dialog( "close" );
             console.log ('ADMIN EMAIL MUL: ' + $('input#admin-email').val());
-            console.log ('ADMIN PASS MUL: ' +  $('input#admin-pass').val());
+            console.log ('ADMIN PASS MUL: ' +  $('input#admin-pass').val()); 
           }
         },
         {
@@ -355,6 +366,7 @@ $(function () {
     select_all (3, $parentPanel, $isChecked);
   });
 
-  user_percent_in_de (280, 220);
+  // user_percent_in_de (280, 220);
 
 });
+

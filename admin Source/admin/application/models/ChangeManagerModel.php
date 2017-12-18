@@ -34,10 +34,11 @@ class ChangeManagerModel extends CI_Model {
 
 		$this->db->where('USER_ID', $id);
 		$result = $this->db->update('USERS', $data); 
-		if (count($result) > 0) {
-			return true;
-		}
-		return false;
+		if ($result)
+        {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -53,9 +54,10 @@ class ChangeManagerModel extends CI_Model {
 
 		$this->db->where('USER_ID', $id);
 		$result = $this->db->update('USERS', $data); 
-		if (count($result) > 0) {
-			return true;
-		}
-		return false;
+		if ($result)
+        {
+            return true;
+        }
+        return false;
     }
 }
