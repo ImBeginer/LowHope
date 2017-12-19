@@ -30,25 +30,25 @@
           <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
-            <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Th�ng tin c� nh�n</a></li>
-            <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">S?a th�ng tin</a></li>
-            <li class="cursor-pointer"><a href="<?php echo base_url().'ChangePassword/'; ?>">�?i m?t kh?u</a></li>
+            <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
+            <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
+            <li class="cursor-pointer"><a href="<?php echo base_url().'ChangePassword/'; ?>">Ðổi mật khẩu</a></li>
           </ul>             
         </li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="T?ng qu�t v? website" ><a href="<?php echo base_url().'Home/'; ?>">T?ng qu�t</a></li>        
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="G?i th�ng b�o d?n ngu?i choi"><a href="<?php echo base_url().'Notification/'; ?>">G?i th�ng b�o</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="L?ch s? game"><a href="<?php echo base_url().'CultureGame/'; ?>">L?ch s?</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="T?o game cho ngu?i choi"><a href="#!">T?o game</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người choi"><a href="#!">Tạo game</a></li>
 
         <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
-          <a>Qu?n l�</a>
+          <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class=""><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
-          <li class="c-active"><a href="<?php echo base_url().'ChangeGift'; ?>">Gi?i thu?ng</a></li>
+          <li class="c-active"><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
         </ul>      
       </ul>
-      <div class="manager-option-area c-active" title="�ang xu?t">
+      <div class="manager-option-area c-active" title="Ðăng xuất">
         <a class="log-out cursor-pointer" href="<?php echo base_url().'Login/logOut'; ?>">
           <i class="fa fa-power-off" aria-hidden="true"></i>
         </a>
@@ -68,16 +68,16 @@
           </div>      
         </div><!-- /.icon sidebar -->        
         <div class="function-title">
-          <p class="title">T?o th? th�ch</p>
+          <p class="title">Tạo thử thách</p>
         </div>
         <div class="create-game-option col-md-6 col-md-offset-3">
           <!-- nav creat game -->
           <ul id="nav-game" class="nav nav-tabs">
             <li class="nav-item">
-              <a class="c-yn-game nav-link c-avtive active" href="#yes-no-game">��ng/Sai</a>
+              <a class="c-yn-game nav-link c-avtive active" href="#yes-no-game">Ðúng/Sai</a>
             </li>
             <li class="nav-item">
-              <a class="c-mul-game nav-link c-avtive " href="#multi-choice-game">L?a ch?n</a>
+              <a class="c-mul-game nav-link c-avtive " href="#multi-choice-game">Lựa chọn</a>
             </li>        
           </ul><!-- /.nav create game --> 
           <!-- tab game -->
@@ -87,23 +87,23 @@
               <div class="user-form form" action="#!">
                 <form action="#!" name="m-create-yn-game">
                   <div class="form-group">
-                    <label for="game-title">T�n game</label>
-                    <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="T�n game �t nh?t ph?i ch?a t? 6 k� t?.">
+                    <label for="game-title">Tên game</label>
+                    <input type="text" class="form-control d-inline-block" id="game-title" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="Tên game ít nhất phải chứa từ 6 ký tự.">
                   </div>
                   <div class="form-group d-inline-block">
-                    <label for="game-date">V�o ng�y</label>
-                    <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required data-toggle="tooltip" data-placement="left" title="Ng�y k?t th�c b?t d?u t? h�m nay.">
+                    <label for="game-date">Vào ngày</label>
+                    <input type="text" class="form-control d-inline-block" id="game-date-yn" readonly required data-toggle="tooltip" data-placement="left" title="Ngày kết thúc bắt đầu từ hôm nay.">
                   </div>
                   <div class="form-group d-inline-block">
-                    <label for="game-time">K?t th�c v�o l�c</label>
-                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Th?i gian k?t th�c ph?i l?n hon th?i gian hi?n t?i.">
+                    <label for="game-time">Kết thúc vào lúc</label>
+                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Thời gian kết thúc phải lớn hon thời gian hiện tại.">
                   </div>
                   <div class="form-group">
-                    <label for="game-bitcoin-price">Gi� Bitcoin tr�n (�on v?: USD)</label>
-                        <input type="number" class="form-control" id="game-bitcoin-price" placeholder="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Gi� bitcoin ph?i l?n hon 0 v� t?i da 2 ch? s? h�ng th?p ph�n !(6,00 = 6.00 USD)">
+                    <label for="game-bitcoin-price">Giá Bitcoin trên (Ðơn vị: USD)</label>
+                        <input type="number" class="form-control" id="game-bitcoin-price" placeholder="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
                   </div> 
                   <div class="form-group submit-area">
-                    <button type="reset" class="btn btn-height close-update cursor-pointer color-white">X�a</button>
+                    <button type="reset" class="btn btn-height close-update cursor-pointer color-white">Xóa</button>
                     <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="create-game-btn-yes-no" name="m-create-yn-game">T?o</button>
                   </div>
                 </form>
@@ -114,38 +114,38 @@
                 <div class="message"></div>
                 <form action="#!" name="m-create-mul-game">
                   <div class="form-group">
-                    <label for="game-title">T�n game</label>
-                    <input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="T�n game �t nh?t ph?i ch?a t? 6 k� t?.">
+                    <label for="game-title">Tên game</label>
+                    <input type="text" class="form-control d-inline-block" id="game-title-mul" pattern="^.{6,}$" required data-toggle="tooltip" data-placement="bottom" title="Tên game ít nhất phải chứa từ 6 ký tự.">
                   </div>              
                   <div class="form-group d-inline-block">
-                    <label for="game-date">V�o ng�y</label>
-                    <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required data-toggle="tooltip" data-placement="left" title="Ng�y k?t th�c b?t d?u t? h�m nay.">
+                    <label for="game-date">Vào ngày</label>
+                    <input type="text" class="form-control d-inline-block" id="game-date-mul" readonly required data-toggle="tooltip" data-placement="left" title="Ngày kết thúc bắt đầu từ hôm nay.">
                   </div>
                   <div class="form-group d-inline-block">
-                    <label for="game-time">K?t th�c v�o l�c</label>
-                    <input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Th?i gian k?t th�c ph?i l?n hon th?i gian hi?n t?i.">
+                    <label for="game-time">Kết thúc vào lúc</label>
+                    <input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Thời gian kết thúc phải lớn hon thời gian hiện tại.">
                   </div>
                   <div class="form-group">
-                    <label for="">Gi� Bitcoin ? (�on v?: USD)</label>
+                    <label for="">Giá Bitcoin ? (Ðơn vị: USD)</label>
                   </div>              
                   <div class="form-group d-inline-block mr-3">
-                    <label class="d-block" for="game-bitcoin-price-lower">Du?i</label>
-                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Gi� bitcoin ph?i l?n hon 0 v� t?i da 2 ch? s? h�ng th?p ph�n !(6,00 = 6.00 USD)">
+                    <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-lower" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
                   </div> 
                   <div class="form-group d-inline-block mr-3">
-                    <label class="d-block" for="game-bitcoin-price-upper">Tr�n</label>
-                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="1"  step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Gi� bitcoin ph?i l?n hon 0 v� t?i da 2 ch? s? h�ng th?p ph�n !(6,00 = 6.00 USD)">    
+                    <label class="d-block" for="game-bitcoin-price-upper">Trên</label>
+                    <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-upper" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="1"  step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">    
                   </div>            
                   <div class="form-group d-inline-block mr-3">  
-                    <label class="d-block" for="game-bitcoin-price-between">N?m gi?a</label>
+                    <label class="d-block" for="game-bitcoin-price-between">Nằm giữa</label>
                     <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-upper" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" disabled>
                   </div>
                   <div class="form-group d-inline-block mr-3">
                     <input type="number" class="form-control d-inline-block" id="game-bitcoin-price-between-lower" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" placeholder="0.01" min="0" step="0.01" disabled>    
                   </div>                              
                   <div class="form-group submit-area">
-                    <button type="reset" class="btn btn-height close-update cursor-pointer color-white">X�a</button>
-                    <button type="button" class="btn game-btn-mul create btn-height cursor-pointer color-white" id="create-game-btn-mul" name="m-create-mul-game">T?o</button>
+                    <button type="reset" class="btn btn-height close-update cursor-pointer color-white">Xóa</button>
+                    <button type="button" class="btn game-btn-mul create btn-height cursor-pointer color-white" id="create-game-btn-mul" name="m-create-mul-game">Tạo</button>
                   </div>
                 </form>
               </div>
@@ -160,9 +160,9 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 footer-content medium-font-size">
       &copy; 2017
       <div class="about-us">
-        <a class="black medium-font-size" href="#!">V? ch�ng t�i</a>
-        <a class="black medium-font-size" href="#!">C�c di?u kho?n v� ch�nh s�ch</a>
-        <a class="black medium-font-size" href="#!">Hu?ng d?n s? d?ng</a>
+        <a class="black medium-font-size" href="#!">Về chúng tôi</a>
+        <a class="black medium-font-size" href="#!">Các điều khoản và chính sách</a>
+        <a class="black medium-font-size" href="#!">Hướng dẫn sử dụng</a>
       </div>
     </div>
   </footer><!-- /.footer -->  
