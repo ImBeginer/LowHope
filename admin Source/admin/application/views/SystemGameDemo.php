@@ -17,7 +17,9 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css">
 </head>
 <body>
-
+  <script>
+    var base_url = '<?php echo base_url(); ?>';
+  </script>
 <!-- notification content -->
 <div class="notification-content container-fluid">
   <!-- side bar -->
@@ -93,7 +95,9 @@
                     <td><?= $value['START_DATE']; ?></td>
                     <td><?= $value['END_DATE']; ?></td>
                     <td class="text-center"><p><?= $value['CONTENT']; ?></p></td>
-                    <td><input type="text" id="system-game-date" class="form-control d-inline-block"></td>
+                    <td>
+                      <input type="text" id="system-game-date" class="form-control d-inline-block">
+                    </td>
                     <td><input type="time" class="form-control d-inline-block" id="sytem-game-time" placeholder="1"></td>
                     <td class="text-center">
                       <button id="btn-system-game" class="btn btn-ban" name="btn-ban" value="<?= $value['GAME_ID']; ?>" data-toggle="confirmation">

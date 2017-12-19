@@ -50,7 +50,9 @@ class SystemGameDemo extends CI_Controller {
     function changePermission()
     {
         $id = $this->input->post('id');
-        $check = $this->AscendInRankModel->updateManager($id);
+        $sys_date = $this->input->post('date');
+        $end_date = date('Y-m-d H:i:s', (double)$sys_date/1000);
+        $check = $this->SystemGameDemoModel->updateSysGameTime($id, $end_date);
         if ($check) {
             echo json_encode(1);
         } else {

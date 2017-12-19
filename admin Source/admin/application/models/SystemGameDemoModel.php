@@ -17,13 +17,13 @@ class SystemGameDemoModel extends CI_Model {
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    function updateManager($id)
+    function updateSysGameTime($id, $sys_date)
     {
     	$data = array(
-           'ROLE_ID' => 2
+           'END_DATE' => $sys_date
         );
-		$this->db->where('USER_ID', $id);
-		$result = $this->db->update('USERS', $data); 
+		$this->db->where('GAME_ID', $id);
+		$result = $this->db->update('SYSTEM_GAMES', $data); 
 		if ($result)
         {
             return true;
