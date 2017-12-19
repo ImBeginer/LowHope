@@ -11,17 +11,6 @@ class Notification extends CI_Controller {
     {
         parent::__construct();   
         $this->load->model('NotiModel');
-       
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
-        $this->pusher = new Pusher\Pusher(
-        '35555731a8560ac49e3b',
-        'e6cb4dae14bbeda5149c',
-        '429809',
-        $options
-        );
 
     }       
 
