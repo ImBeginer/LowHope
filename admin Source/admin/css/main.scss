@@ -283,7 +283,7 @@ p.game-created-date .decrease {
 }
 
 div.user-ava p.user-point {
-  margin-left: 135px;
+  // margin-left: 135px;
   max-width: 110px;
   width: 110px;
 }
@@ -402,3 +402,22 @@ table.user-join {
     font-size: 150%;
   }
 }
+
+ul#all-manager-blocked-list button[name='btn-unban'],
+#all-manager-list button[name='btn-ban'] {
+  float: right;
+  margin-right: 10px;
+  margin-left: 0;
+  margin-top: 3px;
+}
+
+ul#all-manager-blocked-list .user-name {
+  width: 100%;
+  max-width: 200px;
+}
+
+ul#all-manager-list p.user-name {
+  max-width: 176px;
+  width: 100%;
+}
+
