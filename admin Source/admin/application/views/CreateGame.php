@@ -104,7 +104,7 @@
                   </div> 
                   <div class="form-group submit-area">
                     <button type="reset" class="btn btn-height close-update cursor-pointer color-white">Xóa</button>
-                    <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="create-game-btn-yes-no" name="m-create-yn-game">T?o</button>
+                    <button type="button" class="btn game-btn-yes-no create btn-height cursor-pointer color-white" id="create-game-btn-yes-no" name="m-create-yn-game">Tạo</button>
                   </div>
                 </form>
               </div>
