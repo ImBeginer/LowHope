@@ -28,7 +28,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
+          <a class="manager-link" href="#!"><img src="<?php if ($avatar == '') echo base_url().'img/ava-default.png'; else echo $avatar; ?>" alt="avatar"></a>
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
@@ -39,14 +39,15 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="<?php echo base_url().'CreateGame/'; ?>">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true" <?php if($role_id != 1) echo 'style="display: none;"'; ?>>
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
           <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -89,7 +90,7 @@
                 <?php foreach ($active_manager as $value): ?>
                   <li class="users">
                   <div class="user-ava">
-                    <img class="img-in-list" src="<?php echo base_url(); ?>img/ava-default.png" alt="Ảnh đại diện">
+                    <img class="img-in-list" src="<?php if ($value['AVATAR'] == '') echo base_url().'img/ava-default.png'; else echo $value['AVATAR']; ?>" alt="Ảnh đại diện">
                     <p class="user-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
                     <p class="text-right tag manager-tag">MANAGER</p>
                     <p class="status">Trạng thái: Hoạt động</p>
@@ -116,7 +117,7 @@
                 <?php foreach ($deactive_manager as $value): ?>
                   <li class="users">
                     <div class="user-ava">
-                      <img class="img-in-list" src="<?php echo base_url(); ?>img/ava-default.png" alt="Ảnh đại diện">
+                      <img class="img-in-list" src="<?php if ($value['AVATAR'] == '') echo base_url().'img/ava-default.png'; else echo $value['AVATAR']; ?>" alt="Ảnh đại diện">
                       <p class="user-name ellipsis cursor-pointer"><?= $value['USER_NAME']; ?></p>
                       <p class="text-right tag block-tag">MANAGER</p>
                       <p class="status">Trạng thái: Block</p>

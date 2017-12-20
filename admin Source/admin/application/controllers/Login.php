@@ -53,6 +53,7 @@ class Login extends CI_Controller {
             $user['USER_NAME'] = $result->USER_NAME;
             $user['ROLE_ID'] = $result->ROLE_ID;
             $user['EMAIL'] = $result->EMAIL;
+            $user['AVATAR'] = $result->AVATAR;
 
             $this->session->set_userdata('loggedIn', true);
             $this->session->set_userdata('user', $user);

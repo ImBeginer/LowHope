@@ -32,6 +32,8 @@ class AscendInRank extends CI_Controller {
             if ($role_id != 1) {
                 redirect(base_url().'Login','refresh');
             }
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             $data['manager'] = $this->AscendInRankModel->getAllManager();
             $data['user'] = $this->AscendInRankModel->getAllUserOderByPoint();
 

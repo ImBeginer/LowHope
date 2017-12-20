@@ -44,9 +44,9 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="<?php echo base_url().'CreateGame/'; ?>">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="" aria-expanded="true" <?php if($role_id != 1) echo 'style="display: none;"'; ?>>
           <a href="#!">Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">

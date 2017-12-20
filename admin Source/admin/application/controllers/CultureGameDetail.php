@@ -54,6 +54,8 @@ class CultureGameDetail extends CI_Controller {
             $user = $this->session->userdata('user');   
             $user_name = $user['USER_NAME'];
             
+            $role_id = $user['ROLE_ID'];
+            $data['role_id'] = $role_id;
 
             //create data object to sent to view
             $data['userName'] = $user_name;

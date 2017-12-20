@@ -39,7 +39,12 @@ class Notification extends CI_Controller {
 
             $user = $this->session->userdata('user');   
             $user_name = $user['USER_NAME'];
+            $role_id = $user['ROLE_ID'];
+            $avatar = $user['AVATAR'];
+
+            $data['avatar'] = $avatar;
             $data['userName'] = $user_name;
+            $data['role_id'] = $role_id;
             
             /**
              * SEND DATA TO VIEW
@@ -112,12 +117,6 @@ class Notification extends CI_Controller {
             $data = $this->NotiModel->getDetailNoti($contentId, $lUserId);
             $this->sentPusherNoti($data);
         }
-
-        // sent noti to pusher
-        // userid, content, title, datetime
-        // query === true => sent success
-        // $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
-
         echo json_encode($result);
     }
 
@@ -132,3 +131,4 @@ class Notification extends CI_Controller {
         echo json_encode ($query);
     }
 }
+

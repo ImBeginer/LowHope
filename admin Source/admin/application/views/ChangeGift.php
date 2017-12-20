@@ -30,7 +30,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
+          <a class="manager-link" href="#!"><img src="<?php if ($avatar == '') echo base_url().'img/ava-default.png'; else echo $avatar; ?>" alt="avatar"></a>
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
@@ -49,6 +49,7 @@
         <ul class="sub-menu collapse" id="admin-option">
           <li class=""><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
           <li class="c-active"><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">

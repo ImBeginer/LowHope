@@ -45,6 +45,9 @@ class GameDetail extends CI_Controller {
             $end_date = $game_info->END_DATE;
             $user = $this->session->userdata('user');   
             $user_name = $user['USER_NAME'];
+
+            $role_id = $user['ROLE_ID'];
+            $data['role_id'] = $role_id;
             
 
             //create data object to sent to view
@@ -147,6 +150,12 @@ class GameDetail extends CI_Controller {
         } catch (Exception $e) {
             echo json_encode(0);
         }
+    }
+
+    function test()
+    {
+        $lUserId = array(4, 1);
+        print_r($this->GameDetailModel->getDetailNoti(72, $lUserId));
     }
 }
 

@@ -30,7 +30,11 @@ class EditManagerInfo extends CI_Controller {
             $user_phone = $user_detail->PHONE_NUMBER;
             $user_address = $user_detail->ADDRESS;
             $user_email = $user_detail->EMAIL;
+            $role_id = $user['ROLE_ID'];
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             
+            $data['role_id'] = $role_id;
             $data['userName'] = $user_name;
             $data['userId'] = $user_id;
             $data['user_phone'] = $user_phone;

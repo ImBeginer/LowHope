@@ -30,7 +30,8 @@ class ChangePassword extends CI_Controller {
             if ($role_id != 1) {
                 redirect(base_url().'Login','refresh');
             }
-
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             $data['userName'] = $user_name;
             $data['userId'] = $user_id;
             $data['role'] = $role_id;

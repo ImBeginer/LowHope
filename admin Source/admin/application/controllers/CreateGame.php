@@ -27,11 +27,14 @@ class CreateGame extends CI_Controller {
             $user_name = $user['USER_NAME'];
             $user_id = $user['USER_ID'];
             $role_id = $user['ROLE_ID'];
-            if ($role_id != 1) {
-                redirect(base_url().'Login','refresh');
-            }
+            // if ($role_id != 1) {
+            //     redirect(base_url().'Login','refresh');
+            // }
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             $data['userName'] = $user_name;
             $data['userId'] = $user_id;
+            $data['role_id'] = $role_id;
 
 			$this->load->view('CreateGame', $data);
 		}else{

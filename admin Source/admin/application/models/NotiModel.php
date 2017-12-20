@@ -2,36 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once FCPATH .'/vendor/autoload.php';
-class NotiModel extends CI_Model {
-
-    /**
-     * [sentPusherNoti sent info to pusher]
-     * @param  [type] $data [description]
-     * @return [type]       [description]
-     */
-    function sentPusherNoti($data) {
-        try {
-            $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-             );
-        $this->  $pusher = new Pusher\Pusher(
-            'efd4e401d751e081f0f0',
-            '3e978574da9ec9e3dbfb',
-            '415653',
-            $options
-          );
-        
-        $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
-        if ($query == true) {
-            return true;
-        } else {
-            return fail;
-        }
-        } catch (Exception $e) {
-            return false;
-        }
-    }   
+class NotiModel extends CI_Model { 
 
     /**
      * load first when login
@@ -72,7 +43,7 @@ class NotiModel extends CI_Model {
         // $this->db->select('*');
         // $this->db->from('ACHIEVEMENT');  
         // $this->db->order_by("GET_AT", "desc"); 
-        $result = $this->db->select('ACHIEVEMENT.USER_ID, USERS.USER_NAME, USERS.CREATE_DATE')->from('ACHIEVEMENT')->join('USERS','ACHIEVEMENT.USER_ID = USERS.USER_ID')->order_by("GET_AT", "desc");    
+        $result = $this->db->select('ACHIEVEMENT.USER_ID, USERS.USER_NAME, USERS.CREATE_DATE, USERS.AVATAR')->from('ACHIEVEMENT')->join('USERS','ACHIEVEMENT.USER_ID = USERS.USER_ID')->order_by("GET_AT", "desc");    
 
         $result = $this->db->get()->result_array();
         // print_r($result);
