@@ -109,8 +109,8 @@ class Notification extends CI_Controller {
         $result = $this->NotiModel->sentNotification($lUserId, $contentId);
 
         if ($result == 1) {
-            $content = $this->NotiModel->getNotiById($contentId);
-            $this->sentPusherNoti($content);
+            $data = $this->NotiModel->getDetailNoti($contentId, $lUserId);
+            $this->sentPusherNoti($data);
         }
 
         // sent noti to pusher

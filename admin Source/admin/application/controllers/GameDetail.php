@@ -10,17 +10,6 @@ class GameDetail extends CI_Controller {
     {
         parent::__construct();   
         $this->load->model('GameDetailModel');
-       
-       $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
-        $this->pusher = new Pusher\Pusher(
-        '35555731a8560ac49e3b',
-        'e6cb4dae14bbeda5149c',
-        '429809',
-        $options
-        );
     }
 
     /**
@@ -84,11 +73,34 @@ class GameDetail extends CI_Controller {
         }
     }     
 
-    // function sentNoti($user_list, $game_id, $game_type) {
-    //     foreach ($user_list as $user) {
-    //         $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type);
-    //     }
-    // }
+    /**
+     * [sentPusherNoti sent info to pusher]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    function sentPusherNoti($data) {
+        try {
+            $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+             );
+        $this->pusher = new Pusher\Pusher(
+            'efd4e401d751e081f0f0',
+            '3e978574da9ec9e3dbfb',
+            '415653',
+            $options
+          );
+        
+        $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
+        if ($query == true) {
+            return true;
+        } else {
+            return false;
+        }
+        } catch (Exception $e) {
+            return false;
+        }
+    }   
 
 
     function checkPermission() {
@@ -109,15 +121,26 @@ class GameDetail extends CI_Controller {
                     echo json_encode(1);
                     return;
                 } else {
+                    $lUserId = array();
                     foreach ($user_list as $user) {
+                        array_push($lUserId, $user['USER_ID']);
                         $MONEY = 10;
-                        $this->GameDetailModel->payBack($user['USER_ID'], $MONEY);
-                        // insert noti
-                        $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type);
+                        $check = $this->GameDetailModel->payBack($user['USER_ID'], $MONEY);
+                        if ($check) {
+                            // insert noti
+                            $checkSendNoti = $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type);
+                            if ($checkSendNoti) {
+                            } else {
+                                echo json_encode(2);
+                            }
+                        } else {
+                            echo json_encode(2);
+                        }
                     }
                     //sent noti
+                    $this->sentPusherNoti($this->GameDetailModel->getDetailNoti(72, $lUserId));
+                    echo json_encode(1);
                 }
-                
             } else {
                 echo json_encode(2);
             }
@@ -125,9 +148,6 @@ class GameDetail extends CI_Controller {
             echo json_encode(0);
         }
     }
-
-
-   
 }
 
 

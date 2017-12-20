@@ -115,6 +115,21 @@ class NotiModel extends CI_Model {
     }
 
     /**
+     * [getDetailNoti description]
+     * @param  [type] $noti_id [description]
+     * @return [type]          [description]
+     */
+    public function getDetailNoti($noti_id, $lUserId)
+    {
+        $this->db->select('*');
+        $this->db->from('NOTIFICATION_DETAILS');
+        $this->db->join('NOTIFICATION', 'NOTIFICATION.NOTICE_ID = NOTIFICATION_DETAILS.NOTICE_ID');
+        $this->db->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id);
+        $this->db->where_in('NOTIFICATION_DETAILS.USER_ID', $lUserId);
+        return ($this->db->get()->result_array());
+    }
+
+    /**
      * [sentNotification description]
      * @param  [type] $lId     [list id user]
      * @param  [type] $content [content]
@@ -133,11 +148,9 @@ class NotiModel extends CI_Model {
                 'SEND_DATE' => $date,
                 'SEEN' => '0'    
                 ); 
-                $result = $this->db->insert('NOTIFICATION_DETAILS', $data);
-                // $content = $this->getNotiById($contentId)->CONTENT;
-                // $data['CONTENT'] = $content;
-                // $result = $this->sentPusherNoti($data);
-                if (count($result) == 0) {
+                $this->db->insert('NOTIFICATION_DETAILS', $data);
+                $check = $this->db->affected_rows();
+                if ($check == 0) {
                     return 0;
                 }
             }

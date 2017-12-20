@@ -108,7 +108,7 @@ class GameDetailModel extends CI_Model {
 
         $this->db->where('USER_ID', $user_id);
         $result = $this->db->update('USERS', $data); 
-        if (count($result) > 0) {
+        if ($result) {
             return true;
         }
         return false;
@@ -123,14 +123,35 @@ class GameDetailModel extends CI_Model {
             $type = 1;
         }
         $data = array(
-           'USER_ID' => $user_id ,
-           'GAME_ID' => $game_id ,
-           'TYPE_ID' => $type,
-           'SEND_DATE' => $date,
-           'SEEN' => 0
+            'NOTICE_ID' => 9,
+            'USER_ID' => $user_id ,
+            'GAME_ID' => $game_id ,
+            'TYPE_ID' => $type,
+            'SEND_DATE' => $date,
+            'SEEN' => 0
         );
 
         $this->db->insert('NOTIFICATION_DETAILS', $data); 
+        $check = $this->db->affected_rows();
+        if ($check > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * [getDetailNoti description]
+     * @param  [type] $noti_id [description]
+     * @return [type]          [description]
+     */
+    public function getDetailNoti($game_id, $lUserId)
+    {
+        $this->db->select('*');
+        $this->db->from('NOTIFICATION_DETAILS');
+        $this->db->join('NOTIFICATION', 'NOTIFICATION.NOTICE_ID = NOTIFICATION_DETAILS.NOTICE_ID');
+        $this->db->where('NOTIFICATION_DETAILS.GAME_ID', $game_id);
+        $this->db->where_in('NOTIFICATION_DETAILS.USER_ID', $lUserId);
+        return ($this->db->get()->result_array());
     }
 }
 
