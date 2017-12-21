@@ -42,7 +42,13 @@
       <div class="container-fluid" id="top_users_achievement">
         <?php if(!empty($top_users_achievement)){ ?>
         <marquee behavior="scroll" direction="left">
-          Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php if(count($top_users_achievement) == 1){ ?>
+            Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php }else if(count($top_users_achievement) == 2){?>
+            Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php }else if(count($top_users_achievement) == 3){?>
+            Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php } ?>
         </marquee>
         <?php } ?>
       </div>
@@ -52,7 +58,7 @@
         <!-- content -->
         <div class="content">
           <div class="row">
-            <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
               <div class="mini-game-panel">
                 <div class="mini-game-des">
                   <?php if($game_data->ACTIVE == 1){ ?>
@@ -142,7 +148,7 @@
               </div>
             </div> <!-- end content game -->
 
-            <div id="mgyn-contact-area" class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div id="mgyn-contact-area" class="col-6 col-sm-6 col-md-6 col-lg-6">
               <div class="row">
                 <div class="col-sm-12 mb-3 giaodich">
                   <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">

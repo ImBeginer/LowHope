@@ -172,6 +172,15 @@ class User extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function update_seen_notifi_no_game($noti_id, $userID, $type_id, $send_date)
+	{
+		$condi = array('NOTICE_ID'=> $noti_id, 'USER_ID'=> $userID, 'TYPE_ID'=>$type_id, 'SEND_DATE'=> $send_date);
+		$field =  array('SEEN'=> 1);
+		$this->db->where($condi);
+		$this->db->update('NOTIFICATION_DETAILS', $field);
+		return $this->db->affected_rows();
+	}
+
 	/**
 	 * [get_noti_content description]
 	 * @param  [type] $noti_id   [description]
@@ -182,6 +191,16 @@ class User extends CI_Model {
 	public function get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date)
 	{
 		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id)->where('NOTIFICATION_DETAILS.USER_ID', $userID)->where('NOTIFICATION_DETAILS.GAME_ID', $game_id)->where('NOTIFICATION_DETAILS.TYPE_ID', $type_id)->where('NOTIFICATION_DETAILS.SEND_DATE', $send_date);
+		$result = $this->db->get();
+		if($result !== FALSE && $result->num_rows()>0){
+			$result = $result->row();
+			return $result;
+		}else{ return null;}
+	}
+
+	public function get_noti_content_no_game($noti_id, $userID, $type_id, $send_date)
+	{
+		$result = $this->db->select('NOTIFICATION_DETAILS.NOTICE_ID, NOTIFICATION.TITLE, NOTIFICATION.CONTENT, NOTIFICATION_DETAILS.SEND_DATE, NOTIFICATION_DETAILS.SEEN')->from('NOTIFICATION_DETAILS')->join('NOTIFICATION', 'NOTIFICATION_DETAILS.NOTICE_ID = NOTIFICATION.NOTICE_ID')->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id)->where('NOTIFICATION_DETAILS.USER_ID', $userID)->where('NOTIFICATION_DETAILS.TYPE_ID', $type_id)->where('NOTIFICATION_DETAILS.SEND_DATE', $send_date);
 		$result = $this->db->get();
 		if($result !== FALSE && $result->num_rows()>0){
 			$result = $result->row();
@@ -769,7 +788,7 @@ class User extends CI_Model {
     		'SEND_DATE'	=> $send_date
     	);
     	$this->db->insert('CHAT_MESSAGES', $message);
-    	return  $this->db->affected_rows();
+    	return $this->db->affected_rows();
     }
 
     //danh sach tin nhan luc vao trang

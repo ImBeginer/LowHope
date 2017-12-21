@@ -8,7 +8,7 @@ var pusher = new Pusher('711b956416d9d15de4b8', {
 
 //key moi: efd4e401d751e081f0f0
 //Pusher Quan
-var pusher_admin = new Pusher('35555731a8560ac49e3b', {
+var pusher_admin = new Pusher('efd4e401d751e081f0f0', {
   cluster: 'ap1',
   encrypted: true,
   disableStats:true
@@ -23,10 +23,7 @@ var pusher_3 = new Pusher('df4ed713f2f76fde17d4', {
 
 /*********************************************** ADMIN **********************************************/
 
-var listen_admin = pusher_admin.subscribe('create_noti_channel');
-listen_admin.bind('create_noti_event', function(data) {
-  console.log('listen_admin: ' + data);
-});
+
 
 /**************************************** NOTIFICATION **********************************************/
 $(document).on('click', '.noti-items', function(event) {
@@ -76,6 +73,8 @@ function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
         }else if(response.noti_content.CONTENT.indexOf('ENDGAME') >= 0){
           response.noti_content.CONTENT = response.noti_content.CONTENT.replace('ENDGAME', 'Game-id: ' + game_id);
           response.noti_content.CONTENT += ' Xem chi tiết tại <a href="'+ base_url +'userct/history">đây</a>';
+        }else if(response.noti_content.CONTENT.indexOf('CLOSE_GAME') >= 0){
+          response.noti_content.CONTENT = response.noti_content.CONTENT.replace('CLOSE_GAME', 'Game-id: ' + game_id);          
         }
 
         $('#notifi-title').prepend('<h5 class="modal-title" id="notifi-popup-title"><i class="fa fa-info-circle" style="color:black" aria-hidden="true"></i> '+response.noti_content.TITLE+'</h5>');
@@ -89,6 +88,37 @@ function set_and_get_noti(noti_id, game_id, type_id, send_date, function_name) {
       console.log("set_and_get_noti: error");
     });
 }
+
+// //add thông báo vào danh sách thông báo
+// function add_noti_admin(noti_id, noti_seen, game_type, game_id, noti_title, send_date, user_point) {
+//   send_date = moment(send_date).format('H:mm:ss DD-MM-YYYY');
+//   //Xóa không có thông báo
+//   if($('ul#user-notifi li.noti-nothing')[0]){
+//     $('ul#user-notifi li.noti-nothing')[0].remove();
+//   }
+
+//   var html = '';
+//   html += '<li class="noti-items" data-noID="'+ noti_id +'" data-seen="'+ noti_seen +'" data-gameType="'+ game_type +'" data-gameID="'+ game_id +'" class="btn btn-primary" data-toggle="modal" data-target="#notifi-popup">';
+//   html += '<div class="noti-content ellipsis">';
+//   html += '<a href="#!">';
+//   html += '<p class="notifi-title" class="ellipsis">';
+//   html += '<div id="circle-read-1" class="green-circle d-inline-block" data-is-read="false"></div> ';
+//   html +=  noti_title;
+//   html += '<div class="time-area">';
+//   html += '<span class="time-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>';
+//   html += '<span class="send-date"> ' + send_date + '</span>';
+//   html += '</div>';
+//   html += '</p>';
+//   html += '</a>';
+//   html += '</div>';
+//   html += '</li>';
+
+//   var num_noti = parseInt($('.notifi-num p')[0].textContent);
+//   num_noti++;  
+//   $('.notifi-num p')[0].innerText = num_noti;
+//   $('#user-notifi').prepend(html);
+//   // $('#user-point').text(user_point);
+// }
 
 //add thông báo vào danh sách thông báo
 function add_noti(noti_id, noti_seen, game_type, game_id, noti_title, send_date, user_point) {
@@ -161,6 +191,16 @@ function listen_multi_game() {
 
 //Các kênh lắng nghe thông báo từ game hệ thống
 if(typeof user_id !== 'undefined'){
+  //admin
+  var listen_admin = pusher_admin.subscribe('create_noti_channel');
+  listen_admin.bind('create_noti_event', function(data) {
+    $.each(data, function(key, value) {
+    if(user_id == value.USER_ID){
+        add_noti(value.NOTICE_ID, value.SEEN, value.TYPE_ID, value.GAME_ID, value.TITLE, value.SEND_DATE, value.USER_POINT);
+      }
+    });
+  });
+
   //Kênh hệ thống
   var channel_system_game = pusher_3.subscribe('system-game');
   //Tất cả người chơi
@@ -205,15 +245,25 @@ if(typeof user_id !== 'undefined'){
 
       //Update lại giải thưởng chạy
       if($('#top_users_achievement')[0]){
-        if($('#top_users_achievement marquee')[0]){
-          $('#top_users_achievement marquee span')[0].textContent = response.top_users_achievement[0].USER_NAME;
-          $('#top_users_achievement marquee span')[1].textContent = response.top_users_achievement[1].USER_NAME;
-          $('#top_users_achievement marquee span')[2].textContent = response.top_users_achievement[2].USER_NAME;
-        }else{
-          $('#top_users_achievement')[0].firstChild.remove();
-          var tag = document.createElement('marquee');
-          $('#top_users_achievement')[0].append(tag);
-          var html = '';
+
+        $('#top_users_achievement')[0].firstChild.remove();
+        var tag = document.createElement('marquee');
+        $('#top_users_achievement')[0].append(tag);
+
+        var html = '';
+
+        if(response.top_users_achievement.length == 1){
+          html += 'Chúc mừng người chơi: <span style="color: #ffbf01;">';
+          html += response.top_users_achievement[0].USER_NAME;
+          html += '</span> giành GIẢI NHẤT, trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.';
+        }else if(response.top_users_achievement.length == 2){
+          html += 'Chúc mừng người chơi: <span style="color: #ffbf01;">';
+          html += response.top_users_achievement[0].USER_NAME;
+          html += '</span> giành GIẢI NHẤT,';
+          html += '<span style="color: #ffbf01;">';
+          html += response.top_users_achievement[1].USER_NAME;
+          html += '</span> giành GIẢI NHÌ, trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.';
+        }else if(response.top_users_achievement.length == 3){
           html += 'Chúc mừng người chơi: <span style="color: #ffbf01;">';
           html += response.top_users_achievement[0].USER_NAME;
           html += '</span> giành GIẢI NHẤT,';
@@ -223,8 +273,9 @@ if(typeof user_id !== 'undefined'){
           html += '<span style="color: #ffbf01;">';
           html += response.top_users_achievement[2].USER_NAME;
           html += '</span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.';
-          $('#top_users_achievement')[0].firstElementChild.innerHTML  = html;
         }
+        $('#top_users_achievement')[0].firstElementChild.innerHTML  = html;
+
       }
 
     })
@@ -273,6 +324,12 @@ var channel_add_data = pusher_3.subscribe('bitcoin_rate');
 channel_add_data.bind('broadcasting', function(data) {
   if(typeof $('#btc_today p')[0] !== 'undefined'){
     $('#btc_today p')[0].innerText = data.price + ' USD';
+  }
+
+  if(typeof $('#bitcoin-predict')[0] !== 'undefined'){
+    var n = parseFloat(data.price_preiction); 
+    var price_preiction = Math.round(n * 100)/100;
+    $('#bitcoin-predict p')[0].innerText = 'Giá tham khảo: ' + price_preiction + ' USD';
   }
 });
 

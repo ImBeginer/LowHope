@@ -26,7 +26,7 @@
 </section>
 	<!-- /.infinite slideshow -->
 	<!-- navbar -->
-<nav id="my-navbar" class="navbar navbar-expand">
+<nav id="my-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="<?php
 	if ($this->session->userdata('loggedInGooge')) {
 		echo base_url() . 'login/user';
@@ -37,12 +37,12 @@
 	}else echo base_url();?>"><img style="width: 135px;" src="<?php echo base_url(); ?>images/client/lhp.png"></a>
 
 	<?php if($this->session->userdata('loggedInGooge') || $this->session->userdata('loggedInFB') || $this->session->userdata('loggedOther')){ ?>
-<!-- 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		</button> -->
+		</button>
 
-		<div class="nav-menu navbar-collapse" id="navbarSupportedContent">
-			<ul class="nav navbar-nav navbar-right ml-auto">
+		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+			<ul class="nav navbar-nav navbar-right">
 
 				<li class="func-items nav-item">
 					<a href="<?php echo base_url().'userct/search'; ?>" class="nav-link"><i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm thử thách</a>

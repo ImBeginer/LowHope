@@ -316,7 +316,6 @@ class Login extends CI_Controller {
         $this->session->set_userdata('session_Game_TT_ID', $tt_game->GAME_ID);
         $this->session->set_userdata('session_room', $roomID);
 
-
         //load messsage room chat        
         $data['messages'] = $this->user->get_messsages_chat($roomID);
         
