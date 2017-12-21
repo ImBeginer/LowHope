@@ -32,6 +32,11 @@ class EditNotificationModel extends CI_Model {
                'CREATE_DATE' => $date
             );
             $this->db->insert('NOTIFICATION', $data); 
+            $result = $check = $this->db->affected_rows();
+            if ($result > 0) {
+                return true;
+            }
+            return false;
         } else {
             $data = array(
                 'TITLE' => $title,
@@ -40,11 +45,12 @@ class EditNotificationModel extends CI_Model {
             );
             $this->db->where('NOTICE_ID', $id);
             $result = $this->db->update('NOTIFICATION', $data); 
+            if ($result) {
+                return true;
+            }
+            return false;
         }
-        if (count($result) > 0) {
-            return true;
-        }
-        return false;
+        
     }
 
     function deleteNoti($id)
