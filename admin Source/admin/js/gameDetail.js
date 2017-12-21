@@ -41,6 +41,7 @@ function checkPermission(email, password, game_id, game_type) {
     console.log(response);
     if (response == 1) {
       toatMessage('Success', '<b>Cập nhật thành công!</b>', 'success');
+      location.reload();
     } else if (response == 2){
       toatMessage('Error', '<b>Email hoặc mật khẩu không đủ quyền hạn! Vui lòng thử lại sau!</b>', 'error');
     } else {

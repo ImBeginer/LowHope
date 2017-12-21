@@ -127,7 +127,7 @@
             </table><!-- /.user join -->
 
             <div class="game-func">
-              <p class="tag active-func"><a id="<?php echo $game_id;?>" game_type="<?php echo $game_type; ?>" class="deactive-game" href="#!">DEACTIVE</a></p>
+              <p class="tag active-func"><a id="<?php echo $game_id;?>" game_type="<?php echo $game_type; ?>" class="deactive-game" style="<?php if ($active == 1) { echo ""; } else { echo 'display:none;'; }?>">DEACTIVE</a></p>
               <p class="tag user-func"><a id="user-id" ><?php echo $owner; ?></a></p>
               <p class="tag open-tag"><?php if ($active == 1) { echo "Đang mở"; } else { echo "Đã đóng"; }?></p>
             </div>

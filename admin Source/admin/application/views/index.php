@@ -186,10 +186,10 @@
             <!-- nav game list -->
             <ul id="nav-game-list" class="nav nav-tabs no-border">
               <li class="nav-item">
-                <a class="c-yn-game-list nav-link c-avtive active" href="#yes-no-game-list">Đúng/Sai</a>
+                <a class="c-yn-game-list nav-link c-avtive active" href="#yes-no-game-list">Yes/No</a>
               </li>
               <li class="nav-item">
-                <a class="c-mul-game-list nav-link c-avtive " href="#multi-choice-game-list">Lựa chọn</a>
+                <a class="c-mul-game-list nav-link c-avtive " href="#multi-choice-game-list">Q/A</a>
               </li>        
             </ul><!-- /.nav game list  --> 
             <div class="pre-scrollable pre-padding">

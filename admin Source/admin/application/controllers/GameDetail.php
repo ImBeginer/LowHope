@@ -123,7 +123,12 @@ class GameDetail extends CI_Controller {
                 // pay back money
                 $user_list = $this->GameDetailModel->getJoinerList($game_type, $game_id);
                 if ($user_list == false) {
-                    echo json_encode(1);
+                    $check_close = $this->GameDetailModel->closeGame($game_id, $game_type);
+                    if ($check_close) {
+                        echo json_encode(1);
+                        return;
+                    }
+                    echo json_encode(2);
                     return;
                 } else {
                     $lUserId = array();
@@ -134,24 +139,29 @@ class GameDetail extends CI_Controller {
                         $MONEY = 10;
                         $check = $this->GameDetailModel->payBack($user['USER_ID'], $MONEY);
                         if ($check) {
-                            $this->GameDetailModel->closeGame($game_id, $game_type);
-                            // insert noti
-                            $checkSendNoti = $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type, $date);
-                            if ($checkSendNoti) {
+                            $check_close = $this->GameDetailModel->closeGame($game_id, $game_type);
+                            if ($check_close) {
+                                $checkSendNoti = $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type, $date);
+                                if ($checkSendNoti) {
+                                } else {
+                                    echo json_encode(0);
+                                }
                             } else {
-                                echo json_encode(2);
+                                echo json_encode(0);
                             }
+                            // insert noti
+                            
                         } else {
-                            echo json_encode(2);
+                            echo json_encode(0);
                         }
                     }
                     //sent noti
-                    $type = 2;
-                    if ($game_type == 'YN') {
-                        $type = 1;
-                    }
-                    $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type, $date);
-                    $this->sentPusherNoti($data);
+                    // $type = 2;
+                    // if ($game_type == 'YN') {
+                    //     $type = 1;
+                    // }
+                    // $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type, $date);
+                    // $this->sentPusherNoti($data);
                     echo json_encode(1);
                 }
             } else {
@@ -164,8 +174,9 @@ class GameDetail extends CI_Controller {
 
     function test()
     {
-        $lUserId = array(4, 1);
-        print_r($this->GameDetailModel->getDetailNoti(72, $lUserId, 1, '2017-12-06 16:30:01'));
+        // $lUserId = array(4, 1);
+        // print_r($this->GameDetailModel->getDetailNoti(72, $lUserId, 1, '2017-12-06 16:30:01'));
+        echo $this->GameDetailModel->closeGame(106, 'YN');
     }
 }
 
