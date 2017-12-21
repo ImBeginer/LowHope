@@ -209,7 +209,7 @@ div#user-login-panel {
   
   input {
     font-size: 85%;
-    color: white;
+    // color: white;
   }
   .message {
     padding: 0 20px;
@@ -1170,4 +1170,9 @@ figcaption.top-user-name {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+ul.chat-gift #sub-gift-menu .top-user-name {
+  width: 100%;
+  max-width: 240px;
 }
