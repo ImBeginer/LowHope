@@ -124,43 +124,51 @@
                 <?php else: ?>
                   <!-- game finished -->
                   <!-- find 1st -->
-                  <?php foreach ($player as $value): 
-                    if ($value['USER_ID'] == $user_champion_id[0]) {
-                  ?>
-                    <tr>
-                      <td class="text-center wd-4">1</td>
-                      <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
-                      <td><?= $value['DATE_GUESS']; ?></td>
-                      <td class="text-center">100</td>
-                      <td class="text-center"><?= $value['PRICE_GUESS']; ?> USD</td>
-                      <td class="text-center"><?php if ($active == 1) echo 'Đang cập nhật'; else echo ($result - $value['PRICE_GUESS']); ?></td>
-                      <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/1st.png'; ?>" alt="1st">
-                      </td>
-                    </tr>
-                  <?php 
-                    }
-                  endforeach ?>
+                  <?php if (isset($user_champion_id[0])): ?>
+                    <?php 
+                      foreach ($player as $value): 
+                      if ($value['USER_ID'] == $user_champion_id[0]) {
+                    ?>
+                      <tr>
+                        <td class="text-center wd-4">1</td>
+                        <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
+                        <td><?= $value['DATE_GUESS']; ?></td>
+                        <td class="text-center">100</td>
+                        <td class="text-center"><?= $value['PRICE_GUESS']; ?> USD</td>
+                        <td class="text-center"><?php if ($active == 1) echo 'Đang cập nhật'; else echo ($result - $value['PRICE_GUESS']); ?></td>
+                        <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/1st.png'; ?>" alt="1st">
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    endforeach ?>
+                  <?php endif ?>
+                  
                   <!-- find 2nd -->
-                  <?php foreach ($player as $value): 
+                  <?php if (isset($user_champion_id[1])): ?>
+                    <?php foreach ($player as $value): 
                     if ($value['USER_ID'] == $user_champion_id[1]) {
-                  ?>
-                    <tr>
-                      <td class="text-center wd-4">2</td>
-                      <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
-                      <td><?= $value['DATE_GUESS']; ?></td>
-                      <td class="text-center">100</td>
-                      <td class="text-center"><?= $value['PRICE_GUESS']; ?> USD</td>
-                      <td class="text-center"><?php if ($active == 1) echo 'Đang cập nhật'; else echo ($result - $value['PRICE_GUESS']); ?></td>
-                      <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/2nd.png'; ?>" alt="1st">
-                      </td>
-                    </tr>
-                  <?php 
-                    }
-                  endforeach ?>
+                    ?>
+                      <tr>
+                        <td class="text-center wd-4">2</td>
+                        <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
+                        <td><?= $value['DATE_GUESS']; ?></td>
+                        <td class="text-center">100</td>
+                        <td class="text-center"><?= $value['PRICE_GUESS']; ?> USD</td>
+                        <td class="text-center"><?php if ($active == 1) echo 'Đang cập nhật'; else echo ($result - $value['PRICE_GUESS']); ?></td>
+                        <td class="text-center"><img class="img-in-list rank" src="<?php echo base_url().'img/2nd.png'; ?>" alt="1st">
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    endforeach ?>
+                  <?php endif ?>
+                  
                   <!-- find 3rd -->
-                  <?php foreach ($player as $value): 
+                  <?php if (isset($user_champion_id[2])): ?>
+                    <?php foreach ($player as $value): 
                     if ($value['USER_ID'] == $user_champion_id[2]) {
-                  ?>
+                    ?>
                     <tr>
                       <td class="text-center wd-4">3</td>
                       <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
@@ -174,6 +182,8 @@
                   <?php 
                     }
                   endforeach ?>
+                  <?php endif ?>
+
                   <!-- show anyone is not champion -->
                   <?php $count = 4; foreach ($player as $value): 
                     if ($value['USER_ID'] != $user_champion_id[0] && $value['USER_ID'] != $user_champion_id[1] && $value['USER_ID'] != $user_champion_id[2]) {
