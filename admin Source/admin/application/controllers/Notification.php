@@ -111,10 +111,12 @@ class Notification extends CI_Controller {
     {
         $lUserId = $this->input->post('userId');
         $contentId = $this->input->post('noticeId');
-        $result = $this->NotiModel->sentNotification($lUserId, $contentId);
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d H:i:s', time());
+        $result = $this->NotiModel->sentNotification($lUserId, $contentId, $date);
 
         if ($result == 1) {
-            $data = $this->NotiModel->getDetailNoti($contentId, $lUserId);
+            $data = $this->NotiModel->getDetailNoti($contentId, $lUserId, $date);
             $this->sentPusherNoti($data);
         }
         echo json_encode($result);
