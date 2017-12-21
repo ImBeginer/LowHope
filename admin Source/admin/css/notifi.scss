@@ -133,8 +133,8 @@ ul.user-list {
 
 	p.user-name {
 	  font-size: 75%;
-    width: 130px;
-	  max-width: 130px;
+    width: 215px; 
+    max-width: 215px;
 	  vertical-align: middle;
 	}
 
@@ -281,5 +281,10 @@ select#notifi-form option {
 
 select#notifi-form:focus {
   outline: none;
+}
+
+ul#all-manager-list p.manager-name {
+  max-width: 180px;
+  width: 100%;
 }
 

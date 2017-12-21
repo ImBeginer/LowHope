@@ -31,7 +31,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
+          <a class="manager-link" href="#!"><img src="<?php if ($avatar == '') echo base_url().'img/ava-default.png'; else echo $avatar; ?>" alt="avatar"></a>
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
@@ -42,14 +42,15 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="<?php echo base_url().'CreateGame/'; ?>">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true" <?php if($role_id != 1) echo 'style="display: none;"'; ?>>
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
           <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -114,7 +115,7 @@
                       ?>
                         <li id="users" class="users">
                           <div class="user-ava">
-                            <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
+                            <img class="img-in-list" src="<?php if ($key['AVATAR'] == '') echo base_url().'img/ava-default.png'; else echo $key['AVATAR']; ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
                             <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
@@ -141,11 +142,11 @@
                     <ul id="new-user-list" class="user-list">
 
                       <?php 
-                        foreach ($lNewMember   as $key) {
+                        foreach ($lNewMember as $key) {
                       ?>
                         <li id="users" class="users">
                           <div class="user-ava">
-                            <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
+                            <img class="img-in-list" src="<?php if ($key['AVATAR'] == '') echo base_url().'img/ava-default.png'; else echo $key['AVATAR']; ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
                             <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
@@ -172,12 +173,12 @@
                     <ul id="top-user-list" class="user-list">
 
                       <?php 
-                        foreach ($lChampions   as $key) {
+                        foreach ($lChampions as $key) {
                       ?>
 
                         <li id="users" class="users">
                           <div class="user-ava">
-                            <img class="img-in-list" src="<?php echo base_url().'img/ava-default.png' ?>" alt="Ảnh đại diện">
+                            <img class="img-in-list" src="<?php if ($key['AVATAR'] == '') echo base_url().'img/ava-default.png'; else echo $key['AVATAR']; ?>" alt="Ảnh đại diện">
                             <p class="user-name ellipsis cursor-pointer" id="user-name" onclick="getInformationById(<?php echo $key['USER_ID'] ?>);"><?php echo $key['USER_NAME'] ?></p>
                             <p class="text-right tag user-tag">USER</p>
                             <p class="user-date text-right"><?php echo $key['CREATE_DATE'] ?></p>
@@ -279,10 +280,10 @@
                   <label class="form-check-label">
                     <input id="notifi-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="0" checked>Thông báo
                   </label>
-                  <label class="form-check-label">  
+                  <label class="form-check-label" style="display: none;">  
                     <input id="mail-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="1">Mail
                   </label> 
-                  <label class="form-check-label">  
+                  <label class="form-check-label" style="display: none;">  
                     <input id="both-radio" class="form-check-input radio-cus" type="radio" name="send-option" value="1">Cả hai
                   </label>                                   
                 </div>

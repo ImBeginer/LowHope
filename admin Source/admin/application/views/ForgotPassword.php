@@ -22,27 +22,25 @@
     var base_url = '<?php echo base_url(); ?>';
   </script>
 <!-- manager content -->
-<div id="manager-forgot-pass" class="container-fluid">
+<div id="manager-forgot-pass" class="login-content container-fluid">
   <!-- right side hand -->
   <div class="row">
-    <div class="right-side-hand col-sm-12 col-md-12 col-xl-12 col-12 main-content">
-      <div class="main-function">      
-        <div class="function-title">
-          <p class="title">Quên mật khẩu</p>
-        </div>
-        <div class="manager-info">
-          <div class="message"></div>
-          <form action="#!" name="m-forgot-pass">
+    <div class="login-panel animated fadeInDown col-xs-8 col-xs-offset-2 col-sm-8 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+      <div class="function-title">
+        <p class="title">Quên mật khẩu</p>
+      </div>
+      <div class="component">
+        <div class="message"></div>
+        <form action="#!" name="m-forgot-pass">
 
-            <label for="newpass">Nhập Email</label>
-            <input type="email" id="fgemail" class="form-control" name="email" placeholder="abc@gmail.com">
+          <label for="newpass">Nhập Email</label>
+          <input type="email" id="fgemail" class="form-control" name="email" placeholder="abc@gmail.com">
 
-            <div class="text-center m-update-btn-area">
-              <a href="<?php echo base_url().'Login';  ?>" class="signin-link"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a>
-              <button type="button" class="btn m-forgot-pass-btn" name="m-forgot-pass-btn">Gửi mật khẩu về email</button>
-            </div>
-          </form>
-        </div>
+          <div class="text-center m-update-btn-area">
+            <a href="<?php echo base_url().'Login';  ?>" class="signin-link"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a>
+            <button type="button" class="btn m-forgot-pass-btn" name="m-forgot-pass-btn">Gửi mật khẩu về email</button>
+          </div>
+        </form>
       </div>
     </div>
 

@@ -1,6 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use PHPMailer\PHPMailer\PHPMailer;
 require_once FCPATH .'/vendor/autoload.php';
 class Notification extends CI_Controller {
 
@@ -10,17 +11,6 @@ class Notification extends CI_Controller {
     {
         parent::__construct();   
         $this->load->model('NotiModel');
-       
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
-        $this->pusher = new Pusher\Pusher(
-        '35555731a8560ac49e3b',
-        'e6cb4dae14bbeda5149c',
-        '429809',
-        $options
-        );
 
     }       
 
@@ -49,7 +39,12 @@ class Notification extends CI_Controller {
 
             $user = $this->session->userdata('user');   
             $user_name = $user['USER_NAME'];
+            $role_id = $user['ROLE_ID'];
+            $avatar = $user['AVATAR'];
+
+            $data['avatar'] = $avatar;
             $data['userName'] = $user_name;
+            $data['role_id'] = $role_id;
             
             /**
              * SEND DATA TO VIEW
@@ -72,7 +67,7 @@ class Notification extends CI_Controller {
             'cluster' => 'ap1',
             'encrypted' => true
              );
-        $this->  $pusher = new Pusher\Pusher(
+        $this->pusher = new Pusher\Pusher(
             'efd4e401d751e081f0f0',
             '3e978574da9ec9e3dbfb',
             '415653',
@@ -90,18 +85,6 @@ class Notification extends CI_Controller {
         }
     }   
 
-    function test() {
-        $query = $this->NotiModel->getInformationById(5);
-
-        $total = $this->NotiModel->countNumberTotalGame(5);
-        $win = $this->NotiModel->countWin(5);
-
-        $query = (object) array_merge( (array)$query, array( 'TOTAL' => $total ) );
-        $query = (object) array_merge( (array)$query, array( 'WIN' => $win ) );
-
-        echo json_encode ($query);
-    }
-
     /**
      *
      *
@@ -118,8 +101,6 @@ class Notification extends CI_Controller {
         $query = (object) array_merge( (array)$query, array( 'CHAMPION' => $champion ) );
 
         echo json_encode ($query);
-
-
     }
 
     /**
@@ -130,32 +111,15 @@ class Notification extends CI_Controller {
     {
         $lUserId = $this->input->post('userId');
         $contentId = $this->input->post('noticeId');
-        $result = $this->NotiModel->sentNotification($lUserId, $contentId);
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d H:i:s', time());
+        $result = $this->NotiModel->sentNotification($lUserId, $contentId, $date);
 
         if ($result == 1) {
-            $content = $this->NotiModel->getNotiById($contentId);
-            $this->sentPusherNoti($content);
+            $data = $this->NotiModel->getDetailNoti($contentId, $lUserId, $date);
+            $this->sentPusherNoti($data);
         }
-
-        // sent noti to pusher
-        // userid, content, title, datetime
-        // query === true => sent success
-        // $query = $this->pusher->trigger('create_noti_channel', 'create_noti_event', $data);
-
         echo json_encode($result);
-    }
-
-    /**
-     * [getDateTime description]
-     * @return [type] [description]
-     */
-    public function getDateTime()
-    {
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $date = date('m/d/Y h:i:s a', time());
-        // $timezone = date_default_timezone_get();
-        // echo "The current server timezone is: " . $timezone;
-        print($date);
     }
 
     /**
@@ -169,3 +133,4 @@ class Notification extends CI_Controller {
         echo json_encode ($query);
     }
 }
+

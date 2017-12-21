@@ -84,7 +84,7 @@ li.top-bar-items {
 
 ul#user-func-dropdown,
 ul#user-notifi {
-  background-color: rgba(0,0,0,1);
+  background-color: $black;
   // border-bottom: 3px solid $break-line;
   // border-top: 3px solid $break-line;
   li a {
@@ -93,7 +93,7 @@ ul#user-notifi {
 }
 
 div#user-login-panel {
-  background-color: $footer;
+  background-color: $black;
 }
 
 li.func-items a,
@@ -206,11 +206,10 @@ li.noti-items a {
 
 /*********************CONTENT AREA************************/
 div#user-login-panel {
-  border-top: 2px solid $footer-word;
-  border-bottom: 2px solid $footer-word;
+  
   input {
     font-size: 85%;
-    color: white;
+    // color: white;
   }
   .message {
     padding: 0 20px;
@@ -218,7 +217,7 @@ div#user-login-panel {
 }
 
 input.dark-form {
-  background-color: $dark-form;
+  // background-color: $dark-form;
   border: initial;
   border-bottom: 1px solid $footer-word-op;  
 }
@@ -1171,4 +1170,14 @@ figcaption.top-user-name {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+ul.chat-gift #sub-gift-menu .top-user-name {
+  width: 100%;
+  max-width: 240px;
+}
+
+li#sub-gift-menu figcaption.top-user-name {
+    width: 100%;
+    max-width: 240px;
 }

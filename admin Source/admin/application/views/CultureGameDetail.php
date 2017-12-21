@@ -35,14 +35,15 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
         <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="<?php echo base_url().'CreateGame/'; ?>">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true" <?php if($role_id != 1) echo 'style="display: none;"'; ?>>
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
           <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
@@ -84,7 +85,7 @@
                   <p class="game-close-in cursor-pointer"><?php echo count($player) ?><i class="fa fa-user" aria-hidden="true"></i></p>
                 </td>                  
                 <td data-toggle="tooltip" data-placement="top" title="Tổng giao dịch">
-                  <p class="game-created-date cursor-pointer"><?php echo (count($player) * 500); ?><i class="fa fa-gavel" aria-hidden="true"></i></p>
+                  <p class="game-created-date cursor-pointer"><?php echo (count($player) * 100); ?><i class="fa fa-gavel" aria-hidden="true"></i></p>
                 </td>
                 <td data-toggle="tooltip" data-placement="top" title="Kết quả giá bitcoin">
                   <p class="game-created-date cursor-pointer"><?php if ($active == 1) echo 'đang cập nhật'; else echo $result; ?><i class="fa fa-flag-checkered" aria-hidden="true"></i></p>
@@ -107,9 +108,9 @@
               <tbody>
                 <?php if ($active == 1): ?>
                   <!-- game finished not yet -->
-                  <?php foreach ($player as $value): ?>
+                  <?php $count = 1; foreach ($player as $value): ?>
                     <tr>
-                      <td class="text-center wd-4">2</td>
+                      <td class="text-center wd-4"><?= $count ?></td> 
                       <td><a href="#!"><?= $value['USER_NAME']; ?></a></td>
                       <td><?= $value['DATE_GUESS']; ?></td>
                       <td class="text-center">100</td>

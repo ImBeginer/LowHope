@@ -27,28 +27,29 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
+          <a class="manager-link" href="#!"><img src="<?php if ($avatar == '') echo base_url().'img/ava-default.png'; else echo $avatar; ?>" alt="avatar"></a>
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
             <li class="cursor-pointer"><a href="<?php echo base_url().'EditManagerInfo/'; ?>">Sửa thông tin</a></li>
-            <li class="cursor-pointer"><a href="<?php echo base_url().'ChangePassword/'; ?>">Đổi mật khẩu</a></li>
+            <li class="cursor-pointer"><a href="<?php echo base_url().'ChangePassword/'; ?>">Ðổi mật khẩu</a></li>
           </ul>             
         </li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+        <li class="cursor-pointer c-active" data-toggle="tooltip" data-placement="top" title="Tạo game cho người choi"><a href="<?php echo base_url().'CreateGame/'; ?>">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer" aria-expanded="true" <?php if($role_id != 1) echo 'style="display: none;"'; ?>>
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class=""><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
           <li class="c-active"><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
-      <div class="manager-option-area c-active" title="Đăng xuất">
+      <div class="manager-option-area c-active" title="Ðăng xuất">
         <a class="log-out cursor-pointer" href="<?php echo base_url().'Login/logOut'; ?>">
           <i class="fa fa-power-off" aria-hidden="true"></i>
         </a>
@@ -74,7 +75,7 @@
           <!-- nav creat game -->
           <ul id="nav-game" class="nav nav-tabs">
             <li class="nav-item">
-              <a class="c-yn-game nav-link c-avtive active" href="#yes-no-game">Đúng/Sai</a>
+              <a class="c-yn-game nav-link c-avtive active" href="#yes-no-game">Ðúng/Sai</a>
             </li>
             <li class="nav-item">
               <a class="c-mul-game nav-link c-avtive " href="#multi-choice-game">Lựa chọn</a>
@@ -96,10 +97,10 @@
                   </div>
                   <div class="form-group d-inline-block">
                     <label for="game-time">Kết thúc vào lúc</label>
-                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Thời gian kết thúc phải lớn hơn thời gian hiện tại.">
+                    <input type="time" class="form-control d-inline-block" id="game-time" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Thời gian kết thúc phải lớn hon thời gian hiện tại.">
                   </div>
                   <div class="form-group">
-                    <label for="game-bitcoin-price">Giá Bitcoin trên (Đơn vị: USD)</label>
+                    <label for="game-bitcoin-price">Giá Bitcoin trên (Ðơn vị: USD)</label>
                         <input type="number" class="form-control" id="game-bitcoin-price" placeholder="0" pattern="/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/" min="0" step="0.01" required data-toggle="tooltip" data-placement="bottom" title="Giá bitcoin phải lớn hơn 0 và tối đa 2 chữ số hàng thập phân !(6,00 = 6.00 USD)">
                   </div> 
                   <div class="form-group submit-area">
@@ -123,10 +124,10 @@
                   </div>
                   <div class="form-group d-inline-block">
                     <label for="game-time">Kết thúc vào lúc</label>
-                    <input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Thời gian kết thúc phải lớn hơn thời gian hiện tại.">
+                    <input type="time" class="form-control d-inline-block" id="game-time-mul" min="1" max="24" placeholder="1" required data-toggle="tooltip" data-placement="bottom" title="Thời gian kết thúc phải lớn hon thời gian hiện tại.">
                   </div>
                   <div class="form-group">
-                    <label for="">Giá Bitcoin ? (Đơn vị: USD)</label>
+                    <label for="">Giá Bitcoin ? (Ðơn vị: USD)</label>
                   </div>              
                   <div class="form-group d-inline-block mr-3">
                     <label class="d-block" for="game-bitcoin-price-lower">Dưới</label>

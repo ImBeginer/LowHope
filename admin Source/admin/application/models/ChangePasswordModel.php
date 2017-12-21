@@ -23,8 +23,9 @@ class ChangePasswordModel extends CI_Model {
     {
         $data = array( 'PASSWORD' => $password );
         $this->db->where('USER_ID', $userId);
-        $result = $this->db->update('USERS', $data); 
-        if (count($result) > 0) {
+        $result = $this->db->update('USERS', $data);
+        if ($result)
+        {
             return true;
         }
         return false;

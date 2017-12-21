@@ -27,11 +27,14 @@ class CreateGame extends CI_Controller {
             $user_name = $user['USER_NAME'];
             $user_id = $user['USER_ID'];
             $role_id = $user['ROLE_ID'];
-            if ($role_id != 1) {
-                redirect(base_url().'Login','refresh');
-            }
+            // if ($role_id != 1) {
+            //     redirect(base_url().'Login','refresh');
+            // }
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             $data['userName'] = $user_name;
             $data['userId'] = $user_id;
+            $data['role_id'] = $role_id;
 
 			$this->load->view('CreateGame', $data);
 		}else{
@@ -54,7 +57,7 @@ class CreateGame extends CI_Controller {
 				$start_date = date('Y-m-d H:i:s');
 
 				if($price_bet && (double)$price_bet > 0 && preg_match('/^\d+(\.(\d{1,2}))?$/', $price_bet)){
-					//ngày hiện tại nhỏ hơn ngày kết thúc
+					//ng�y hi?n t?i nh? hon ng�y k?t th�c
 					if(strtotime($end_date) > strtotime($start_date)){
 						if(!$this->CreateGameModel->checkGameYN($userID, $start_date, $end_date)){
 
@@ -62,7 +65,7 @@ class CreateGame extends CI_Controller {
 
 							$game = $this->CreateGameModel->getGameYN_ById($gameID);
 
-							//call pusher để update item slide
+							//call pusher d? update item slide
 							$data['gameID'] = $gameID;
 							$data['game_title'] = $game_title;
 							$data['user_create'] = $user['USER_NAME'];
@@ -115,7 +118,7 @@ class CreateGame extends CI_Controller {
 
 							$game = $this->CreateGameModel->getGameMUL_ById($gameID);
 
-							//call pusher để update item slide
+							//call pusher d? update item slide
 							$data['gameID'] = $gameID;
 							$data['game_title'] = $game_title;
 							$data['user_create'] = $user['USER_NAME'];

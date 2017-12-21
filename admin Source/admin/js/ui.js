@@ -31,7 +31,7 @@ $(function () {
   });
 
   $currentYear = new Date().getFullYear();
-  $("div.create-game-option #game-date-yn, div.create-game-option #game-date-mul").datepicker({
+  $("div.create-game-option #game-date-yn, div.create-game-option #game-date-mul, input#system-game-date, #system-game-date").datepicker({
     yearRange: $currentYear + ':' + ($currentYear + 3) ,
     changeYear: true,
     changeMonth: true,
@@ -154,6 +154,10 @@ $(function () {
             $( this ).dialog( "close" );
             console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
             console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+            //quanth
+            $.getScript(base_url + 'js/changeGift.js', function () { 
+              checkPermission($('input#admin-email').val(), $('input#admin-pass').val());
+            });
           }
         },
         {
@@ -169,6 +173,7 @@ $(function () {
 
   $('.game-func p.tag.active-func a.deactive-game').on ('click', function (event) {
     $gameId = $(this).attr('id');
+    $gameType = $(this).attr('game_type');
     $("#dialog-confirm").html('<div class="change-gift-pass-panel"><span class="black admin-confirm"><i class="fa fa-exclamation" aria-hidden="true"></i>Xác nhận danh tính</span><input type="text" name="admin-email" placeholder="Tài khoản email" id="admin-email" class="form-control black"><input type="password" name="admin-pass" placeholder="Mật khẩu" id="admin-pass" class="form-control black"></div>');
     $("#dialog-confirm").dialog({
       resizable: false,
@@ -182,8 +187,14 @@ $(function () {
           "class": 'confirm-yes-btn btn medium-font-size',
           click: function() {
             $( this ).dialog( "close" );
-            console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
-            console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+            // console.log ('ADMIN EMAIL TRADI: ' + $('input#admin-email').val());
+            // console.log ('ADMIN PASS TRADI: ' +  $('input#admin-pass').val());
+            // console.log ('GAME ID: ' +  $gameId);
+            // console.log ('GAME TYPE: ' +  $gameType);
+            //quanth
+            $.getScript(base_url + 'js/gameDetail.js', function () { 
+              checkPermission($('input#admin-email').val(), $('input#admin-pass').val(), $gameId, $gameType);
+            });
           }
         },
         {
@@ -241,7 +252,7 @@ $(function () {
           click: function() {
             $( this ).dialog( "close" );
             console.log ('ADMIN EMAIL MUL: ' + $('input#admin-email').val());
-            console.log ('ADMIN PASS MUL: ' +  $('input#admin-pass').val());
+            console.log ('ADMIN PASS MUL: ' +  $('input#admin-pass').val()); 
           }
         },
         {
@@ -355,6 +366,7 @@ $(function () {
     select_all (3, $parentPanel, $isChecked);
   });
 
-  user_percent_in_de (280, 220);
+  // user_percent_in_de (280, 220);
 
 });
+

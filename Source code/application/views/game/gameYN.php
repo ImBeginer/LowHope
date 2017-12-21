@@ -52,7 +52,7 @@
         <!-- content -->
         <div class="content">
           <div class="row">
-            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <div class="mini-game-panel">
                 <div class="mini-game-des">
                   <?php if($game_data->ACTIVE == 1){ ?>
@@ -142,7 +142,7 @@
               </div>
             </div> <!-- end content game -->
 
-            <div id="mgyn-contact-area" class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="mgyn-contact-area" class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <div class="row">
                 <div class="col-sm-12 mb-3 giaodich">
                   <a data-toggle="collapse" href="#game-transaction" aria-expanded="true" aria-controls="game-transaction">

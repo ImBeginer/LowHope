@@ -28,6 +28,10 @@ class CultureGame extends CI_Controller {
                 die();
             }
             $user = $this->session->userdata('user');   
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
+            $role_id = $user['ROLE_ID'];
+            $data['role_id'] = $role_id;
             $user_name = $user['USER_NAME'];
             $data['userName'] = $user_name;
             $data['game_info'] = $game_info;
@@ -37,12 +41,6 @@ class CultureGame extends CI_Controller {
             redirect(base_url().'Login','refresh');
         }
     }     
-
-    function test()
-    {
-        print_r($this->CultureGameModel->getAllCultureGame());
-    }
-   
 }
 
 

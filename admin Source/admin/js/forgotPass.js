@@ -2,44 +2,31 @@ var forgotPass = (function () {
 
 	var inputID = {
 
-		'fgnewpass': 'Mật khẩu mới',
-		'fgconfirmpass': 'Xác nhận mật khẩu',
-		'fgconfirmcode': 'Mã xác nhận',
+		'fgemail': 'Email',
 		'emptyInputMessage': {
-			'fgnewpass': 'Mật khẩu mới không được trống',
-			'fgconfirmpass': 'Xác nhận mật khẩu không được trống',
-			'fgconfirmcode': 'Mã xác nhận không được trống',
+			'fgemail': 'Email không được trống',
 		}
 	};
 
 	var validFormat = {
 
-		'fgnewpass': '^.{6,20}$',
-		'fgconfirmpass': '^.{6,20}$',
-		'fgconfirmcode': '^.{6,20}$',
+		'fgemail': '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
 
 	};	
 
 	var invalidFormatMessage = {
 
-		'fgnewpass': 'Mật khẩu cũ phải nhiều hơn 6 và ít hơn 20 ký tự',
-		'fgconfirmpass': 'Mật khẩu mới phải nhiều hơn 6 và ít hơn 20 ký tự',
-		'fgconfirmcode': 'Mật khẩu xác nhận phải nhiều hơn 6 và ít hơn 20 ký tự',
+		'fgemail': 'Vui lòng nhập đúng email!',
 
 	};
 
 	var inputs = function () {
-		return ['input#fgnewpass', 'input#fgconfirmpass', 'input#fgconfirmcode'];
+		return ['input#fgemail'];
 	};
-
-	var confirmpass = function () {
-		return ['input#fgnewpass', 'input#fgconfirmpass'];
-	}
 
 	return {
 
 		inputs: inputs(),
-		confirmpass: confirmpass(),
 		inputID: inputID,
 		validFormat: validFormat,
 		panel: '.manager-info',

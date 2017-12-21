@@ -30,6 +30,9 @@ class ChangeManager extends CI_Controller {
             if ($role_id != 1) {
                 redirect(base_url().'Login','refresh');
             }
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
+            $data['role_id'] = $role_id;
 
             $data['active_manager'] = $this->ChangeManagerModel->getActiveManager();
             $data['deactive_manager'] = $this->ChangeManagerModel->getDeactiveManager();

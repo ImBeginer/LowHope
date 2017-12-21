@@ -37,9 +37,15 @@ class Home extends CI_Controller {
                 $string .= $value.',';
             }
             $user = $this->session->userdata('user');   
+            
+            $role_id = $user['ROLE_ID'];
+            $data['role_id'] = $role_id;
+            
             $user_name = $user['USER_NAME'];
-
             $data['userName'] = $user_name;
+
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             
             // get quantity of member
             $data['allMember'] = $this->IndexModel->getNumberMember();

@@ -63,16 +63,21 @@ function toatMessage(heading,text,icon) {
 	});
 }
 
+	/**
+	 * [description]
+	 * @param  {[type]} ) {               var value [description]
+	 * @return {[type]}   [description]
+	 */
   $('button.search-btn').on('click', function () {
     var value = $('#manager-search').val();
-	var elems = document.querySelectorAll("#user-name");
-    var items = document.querySelectorAll("#users");
+	var elems = document.querySelectorAll(".user-name");
+    var items = document.querySelectorAll(".users");
     for (i = 0; i < elems.length; i++) {
-        items[i].style.display = "block";
+        items[i].style.display = "list-item";
     }
     var i = 0;
     for (i = 0; i < elems.length; i++) {
-        if (elems[i].textContent.toLowerCase().indexOf(search.toLowerCase()) === -1) {
+        if (elems[i].textContent.toLowerCase().indexOf(value.toLowerCase()) === -1) {
             items[i].style.display = "none";
         }
     }

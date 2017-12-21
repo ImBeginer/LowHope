@@ -39,11 +39,11 @@ class GameDetailModel extends CI_Model {
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    function getNameOwner($id)
+    function getOwner($id)
     {
         $this->db->select('*')->from('USERS')->where('USER_ID', $id);
         $result = $this->db->get()->row();
-        return ($result->USER_NAME);
+        return ($result);
     }
 
     /**
@@ -80,6 +80,98 @@ class GameDetailModel extends CI_Model {
             }
         }
         return false;
+    }
+
+        /**
+     * [getPassword description]
+     * @param  [type] $email [description]
+     * @return [type]        [description]
+     */
+    function getPassword($email)
+    {
+        return $this->db->select('*')->from('USERS')->where('EMAIL', $email)->get()->row();
+    }
+
+    function closeGame($game_id, $game_type)
+    {
+        $type = 2;
+        if ($game_type == 'YN') {
+            $type = 1;
+        }
+        $data = array(
+            'ACTIVE' => 0
+        );
+
+        $this->db->where('GAME_ID', $game_id);
+        if ($type == 1) {
+            return ($this->db->update('YN_GAMES', $data));
+        } else {
+            return ($this->db->update('MULTI_CHOICE_GAMES', $data));
+        }
+
+    }
+
+    /**
+     * [payBack description]
+     * @param  [type] $user_id [description]
+     * @param  [type] $money   [description]
+     * @return [type]          [true to update success or false]
+     */
+    function payBack($user_id, $money) {
+        $user = $this->getOwner($user_id);
+        $user_point = $user->USER_POINT;
+        $new_point = $user_point + $money;
+        $data = array(
+           'USER_POINT' => $new_point
+        );
+
+        $this->db->where('USER_ID', $user_id);
+        $result = $this->db->update('USERS', $data); 
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
+
+    function sentNoti($user_id, $game_id, $game_type, $date)
+    {
+        $type = 2;
+        if ($game_type == 'YN') {
+            $type = 1;
+        }
+        $data = array(
+            'NOTICE_ID' => 9,
+            'USER_ID' => $user_id ,
+            'GAME_ID' => $game_id ,
+            'TYPE_ID' => $type,
+            'SEND_DATE' => $date,
+            'SEEN' => 0
+        );
+
+        $this->db->insert('NOTIFICATION_DETAILS', $data); 
+        $check = $this->db->affected_rows();
+        if ($check > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * [getDetailNoti description]
+     * @param  [type] $noti_id [description]
+     * @return [type]          [description]
+     */
+    public function getDetailNoti($game_id, $lUserId, $game_type, $date)
+    {
+        $this->db->select('*');
+        $this->db->from('NOTIFICATION_DETAILS');
+        $this->db->join('NOTIFICATION', 'NOTIFICATION.NOTICE_ID = NOTIFICATION_DETAILS.NOTICE_ID');
+        $this->db->join('USERS', 'USERS.USER_ID = NOTIFICATION_DETAILS.USER_ID');
+        $this->db->where('NOTIFICATION_DETAILS.GAME_ID', $game_id);
+        $this->db->where('NOTIFICATION_DETAILS.SEND_DATE', $date);
+        $this->db->where('NOTIFICATION_DETAILS.TYPE_ID', $game_type);
+        $this->db->where_in('NOTIFICATION_DETAILS.USER_ID', $lUserId);
+        return ($this->db->get()->result_array());
     }
 }
 

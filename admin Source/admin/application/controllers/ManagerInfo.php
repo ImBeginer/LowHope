@@ -32,6 +32,11 @@ class ManagerInfo extends CI_Controller {
             $user_email = $user_detail->EMAIL;
             $user_created_date = $user_detail->CREATE_DATE;
             
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
+            $role_id = $user['ROLE_ID'];
+            $data['role_id'] = $role_id;
+            
             $data['user_name'] = $user_name;
             $data['user_id'] = $user_id;
             $data['user_phone'] = $user_phone;

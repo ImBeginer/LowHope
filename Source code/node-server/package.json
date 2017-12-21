@@ -16,6 +16,7 @@
     "node-schedule": "^1.2.5",
     "pusher": "^1.5.1",
     "q": "^1.5.1",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "simple-statistics": "^5.2.0"
   }
 }

@@ -13,9 +13,13 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
   <!-- custom css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css">
 </head>
 <body onload="countDown_End_Date('<?php echo $end_date; ?>');">
+  <script>
+    var base_url = '<?php echo base_url(); ?>';
+  </script>
 
 <!-- notification content -->
 <div class="notification-content container-fluid">
@@ -24,7 +28,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="sidebar-content nav nav-sidebar">
         <li class="manager-avatar c-active">
-          <a class="manager-link" href="#!"><img src="<?php echo base_url().'img/ava-default.png'; ?>" alt="avatar"></a>
+          <a class="manager-link" href="#!"><img src="<?php if ($avatar == '') echo base_url().'img/ava-default.png'; else echo $avatar; ?>" alt="avatar"></a>
           <div class="manager-name ellipsis collapsed cursor-pointer" data-toggle="collapse" data-target="#user-option"><?php echo $userName ?></div>
           <ul class="sub-menu collapse" id="user-option">
             <li class="cursor-pointer"><a href="<?php echo base_url().'ManagerInfo/'; ?>">Thông tin cá nhân</a></li>
@@ -35,15 +39,16 @@
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tổng quát về website" ><a href="<?php echo base_url().'Home/'; ?>">Tổng quát</a></li>        
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Gửi thông báo đến người chơi"><a href="<?php echo base_url().'Notification/'; ?>">Gửi thông báo</a></li>
         <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Lịch sử game"><a href="<?php echo base_url().'CultureGame/'; ?>">Lịch sử</a></li>
-        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="#!">Tạo game</a></li>
+        <li class="cursor-pointer" data-toggle="tooltip" data-placement="top" title="Tạo game cho người chơi"><a href="<?php echo base_url().'CreateGame/'; ?>">Tạo game</a></li>
 
-        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true">
+        <li data-toggle="collapse" data-target="#admin-option" class="cursor-pointer c-active" aria-expanded="true" <?php if($role_id != 1) echo 'style="display: none;"'; ?>>
           <a>Quản lý</a>
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class="c-active"><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
           <li><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
-        </ul>      
+          <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
+        </ul>    
       </ul>
       <div class="manager-option-area c-active" title="Đăng xuất">
         <a class="log-out cursor-pointer" href="<?php echo base_url().'Login/logOut'; ?>">
@@ -122,7 +127,7 @@
             </table><!-- /.user join -->
 
             <div class="game-func">
-              <p class="tag active-func"><a id="999" class="deactive-game" href="#!">DEACTIVE</a></p>
+              <p class="tag active-func"><a id="<?php echo $game_id;?>" game_type="<?php echo $game_type; ?>" class="deactive-game" href="#!">DEACTIVE</a></p>
               <p class="tag user-func"><a id="user-id" ><?php echo $owner; ?></a></p>
               <p class="tag open-tag"><?php if ($active == 1) { echo "Đang mở"; } else { echo "Đã đóng"; }?></p>
             </div>
@@ -141,6 +146,7 @@
 <!-- Bootstrap -->
 <script src="<?php echo base_url(); ?>assets/popper/popper.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/bootstrap/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/jquery/jquery.toast.min.js"></script>
 
 <script src="<?php echo base_url(); ?>js/ui.js"></script>
 <script src="<?php echo base_url(); ?>js/gameDetail.js"></script>
