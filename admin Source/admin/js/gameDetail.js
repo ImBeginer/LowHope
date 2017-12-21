@@ -27,7 +27,7 @@ function countDown_End_Date(string_end_date) {
 
 function checkPermission(email, password, game_id, game_type) {
   $.ajax({
-    url: base_url + 'GameDetail/test',
+    url: base_url + 'GameDetail/checkPermission',
     type: 'POST',
     dataType: 'text',
     data: {
