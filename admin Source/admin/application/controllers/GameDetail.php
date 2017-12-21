@@ -141,7 +141,12 @@ class GameDetail extends CI_Controller {
                         }
                     }
                     //sent noti
-                    $this->sentPusherNoti($this->GameDetailModel->getDetailNoti(72, $lUserId));
+                    $type = 2;
+                    if ($game_type == 'YN') {
+                        $type = 1;
+                    }
+                    $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type);
+                    $this->sentPusherNoti();
                     echo json_encode(1);
                 }
             } else {
@@ -155,7 +160,7 @@ class GameDetail extends CI_Controller {
     function test()
     {
         $lUserId = array(4, 1);
-        print_r($this->GameDetailModel->getDetailNoti(72, $lUserId));
+        print_r($this->GameDetailModel->getDetailNoti(72, $lUserId, 1));
     }
 }
 

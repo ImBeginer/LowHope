@@ -144,12 +144,14 @@ class GameDetailModel extends CI_Model {
      * @param  [type] $noti_id [description]
      * @return [type]          [description]
      */
-    public function getDetailNoti($game_id, $lUserId)
+    public function getDetailNoti($game_id, $lUserId, $game_type)
     {
         $this->db->select('*');
         $this->db->from('NOTIFICATION_DETAILS');
         $this->db->join('NOTIFICATION', 'NOTIFICATION.NOTICE_ID = NOTIFICATION_DETAILS.NOTICE_ID');
+        $this->db->join('USERS', 'USERS.USER_ID = NOTIFICATION_DETAILS.USER_ID');
         $this->db->where('NOTIFICATION_DETAILS.GAME_ID', $game_id);
+        $this->db->where('NOTIFICATION_DETAILS.TYPE_ID', $game_type);
         $this->db->where_in('NOTIFICATION_DETAILS.USER_ID', $lUserId);
         return ($this->db->get()->result_array());
     }
