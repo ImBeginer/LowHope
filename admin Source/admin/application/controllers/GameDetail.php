@@ -156,12 +156,12 @@ class GameDetail extends CI_Controller {
                         }
                     }
                     //sent noti
-                    // $type = 2;
-                    // if ($game_type == 'YN') {
-                    //     $type = 1;
-                    // }
-                    // $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type, $date);
-                    // $this->sentPusherNoti($data);
+                    $type = 2;
+                    if ($game_type == 'YN') {
+                        $type = 1;
+                    }
+                    $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type, $date);
+                    $this->sentPusherNoti($data);
                     echo json_encode(1);
                 }
             } else {
