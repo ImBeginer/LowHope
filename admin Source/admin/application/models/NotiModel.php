@@ -90,13 +90,14 @@ class NotiModel extends CI_Model {
      * @param  [type] $noti_id [description]
      * @return [type]          [description]
      */
-    public function getDetailNoti($noti_id, $lUserId)
+    public function getDetailNoti($noti_id, $lUserId, $date)
     {
         $this->db->select('*');
         $this->db->from('NOTIFICATION_DETAILS');
         $this->db->join('NOTIFICATION', 'NOTIFICATION.NOTICE_ID = NOTIFICATION_DETAILS.NOTICE_ID');
         $this->db->join('USERS', 'USERS.USER_ID = NOTIFICATION_DETAILS.USER_ID');
         $this->db->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id);
+        $this->db->where('NOTIFICATION_DETAILS.SEND_DATE', $date);
         $this->db->where_in('NOTIFICATION_DETAILS.USER_ID', $lUserId);
         return ($this->db->get()->result_array());
     }
@@ -107,11 +108,9 @@ class NotiModel extends CI_Model {
      * @param  [type] $content [content]
      * @return [type]          [1 is sucess 2 is fail]
      */
-    public function sentNotification($lUserId, $contentId)
+    public function sentNotification($lUserId, $contentId, $date)
     {
         try {
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $date = date('Y-m-d H:i:s', time());
             foreach ($lUserId as $id) {
 
                 $data = array(
