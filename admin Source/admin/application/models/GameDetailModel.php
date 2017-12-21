@@ -103,7 +103,11 @@ class GameDetailModel extends CI_Model {
         );
 
         $this->db->where('GAME_ID', $game_id);
-        return ($this->db->update('MULTI_CHOICE_GAMES', $data)); 
+        if ($type == 1) {
+            return ($this->db->update('YN_GAMES', $data));
+        } else {
+            return ($this->db->update('MULTI_CHOICE_GAMES', $data));
+        }
 
     }
 
