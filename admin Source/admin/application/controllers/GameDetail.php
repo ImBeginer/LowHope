@@ -148,7 +148,7 @@ class GameDetail extends CI_Controller {
                         $type = 1;
                     }
                     $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type, $date);
-                    $this->sentPusherNoti();
+                    $this->sentPusherNoti($data);
                     echo json_encode(1);
                 }
             } else {
@@ -162,7 +162,7 @@ class GameDetail extends CI_Controller {
     function test()
     {
         $lUserId = array(4, 1);
-        print_r($this->GameDetailModel->getDetailNoti(72, $lUserId, 1));
+        print_r($this->GameDetailModel->getDetailNoti(72, $lUserId, 1, '2017-12-06 16:30:01'));
     }
 }
 
