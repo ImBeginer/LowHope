@@ -92,6 +92,21 @@ class GameDetailModel extends CI_Model {
         return $this->db->select('*')->from('USERS')->where('EMAIL', $email)->get()->row();
     }
 
+    function closeGame($game_id, $game_type)
+    {
+        $type = 2;
+        if ($game_type == 'YN') {
+            $type = 1;
+        }
+        $data = array(
+            'ACTIVE' => 0
+        );
+
+        $this->db->where('GAME_ID', $game_id);
+        return ($this->db->update('MULTI_CHOICE_GAMES', $data)); 
+
+    }
+
     /**
      * [payBack description]
      * @param  [type] $user_id [description]

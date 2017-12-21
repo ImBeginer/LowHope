@@ -132,6 +132,7 @@ class GameDetail extends CI_Controller {
                         $MONEY = 10;
                         $check = $this->GameDetailModel->payBack($user['USER_ID'], $MONEY);
                         if ($check) {
+                            $this->GameDetailModel->closeGame($game_id, $game_type);
                             // insert noti
                             $checkSendNoti = $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type, $date);
                             if ($checkSendNoti) {
