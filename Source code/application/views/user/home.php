@@ -76,10 +76,16 @@
 	<!-- top users achievement -->
 	<div class="container-fluid" id="top_users_achievement">
 		<?php if(!empty($top_users_achievement)){ ?>
-		<marquee behavior="scroll" direction="left">
-			Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
-		</marquee>
-		<?php } ?>
+        <marquee behavior="scroll" direction="left">
+          <?php if(count($top_users_achievement) == 1){ ?>
+            Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php }else if(count($top_users_achievement) == 2){?>
+            Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php }else if(count($top_users_achievement) == 3){?>
+            Chúc mừng người chơi: <span style="color: #ffbf01;"><?php echo $top_users_achievement[0]['USER_NAME']; ?></span> giành GIẢI NHẤT, <span style="color: #ffbf01;"><?php echo $top_users_achievement[1]['USER_NAME']; ?></span> giành GIẢI NHÌ, <span style="color: #ffbf01;"><?php echo $top_users_achievement[2]['USER_NAME']; ?></span> giành GIẢI BA trong game hệ thống tuần trước. Game hệ thống mới đã được cập nhật, mọi người nhanh tay đặt cược để nhận những giải thưởng giá trị khác.
+          <?php } ?>
+        </marquee>
+        <?php } ?>
 	</div>
 	<!-- end top users achievement -->
 	<!-- content -->
@@ -99,6 +105,7 @@
 						</div><!-- /.chart -->
 						<!-- bet -->
 						<div class="bet-panel mt-1 col-md-2 col-lg-2 col-xl-2">
+							<div id="bitcoin-predict"><p>Giá tham khảo: </p></div>
 							<div class="time-remaining-area">
 								<span class="time-label">THỜI GIAN CÒN LẠI</span><br/>
 								<i class="fa fa-clock-o" aria-hidden="true"></i>

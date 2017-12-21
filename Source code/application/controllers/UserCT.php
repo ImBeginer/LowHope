@@ -177,12 +177,19 @@ class UserCT extends CI_Controller {
 
 			$userID = $this->session->userdata('sessionUserId');
 			
-			//1. Set seen
-			$result = $this->user->update_seen_notifi($noti_id, $userID, $game_id, $type_id, $send_date);
-			$noti_not_seen = $this->user->get_all_noti_not_seen($userID);
-
-			//2.Get content
-			$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
+			if($game_id == null || $game_id == "" || $game_id == 'null'){
+				//1. Set seen
+				$result = $this->user->update_seen_notifi_no_game($noti_id, $userID, $type_id, $send_date);
+				$noti_not_seen = $this->user->get_all_noti_not_seen($userID);
+				//2.Get content
+				$noti_content = $this->user->get_noti_content_no_game($noti_id, $userID, $type_id, $send_date);
+			}else{
+				//1. Set seen
+				$result = $this->user->update_seen_notifi($noti_id, $userID, $game_id, $type_id, $send_date);
+				$noti_not_seen = $this->user->get_all_noti_not_seen($userID);
+				//2.Get content
+				$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
+			}
 
 			if($noti_content){
 				echo json_encode(array('noti_content'=>$noti_content, 'noti_not_seen'=>$noti_not_seen));
@@ -208,7 +215,11 @@ class UserCT extends CI_Controller {
 
 			$userID = $this->session->userdata('sessionUserId');
 			
-			$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
+			if($game_id == null || $game_id == "" || $game_id == 'null'){
+				$noti_content = $this->user->get_noti_content_no_game($noti_id, $userID, $type_id, $send_date);
+			}else{
+				$noti_content = $this->user->get_noti_content($noti_id, $userID, $game_id, $type_id, $send_date);
+			}
 
 			if($noti_content){
 				echo json_encode(array('noti_content'=>$noti_content));
