@@ -95,6 +95,7 @@ class NotiModel extends CI_Model {
         $this->db->select('*');
         $this->db->from('NOTIFICATION_DETAILS');
         $this->db->join('NOTIFICATION', 'NOTIFICATION.NOTICE_ID = NOTIFICATION_DETAILS.NOTICE_ID');
+        $this->db->join('USERS', 'USERS.USER_ID = NOTIFICATION_DETAILS.USER_ID');
         $this->db->where('NOTIFICATION_DETAILS.NOTICE_ID', $noti_id);
         $this->db->where_in('NOTIFICATION_DETAILS.USER_ID', $lUserId);
         return ($this->db->get()->result_array());
@@ -115,8 +116,8 @@ class NotiModel extends CI_Model {
 
                 $data = array(
                 'NOTICE_ID' => $contentId,
-                'TYPE_ID' => 4, 
                 'USER_ID' =>  $id,
+                'TYPE_ID' => 4, 
                 'SEND_DATE' => $date,
                 'SEEN' => '0'    
                 ); 
