@@ -115,6 +115,7 @@ class NotiModel extends CI_Model {
 
                 $data = array(
                 'NOTICE_ID' => $contentId,
+                'TYPE_ID' => 4, 
                 'USER_ID' =>  $id,
                 'SEND_DATE' => $date,
                 'SEEN' => '0'    
