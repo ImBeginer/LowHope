@@ -45,7 +45,7 @@
         </li>
         <ul class="sub-menu collapse" id="admin-option">
           <li class=""><a href="<?php echo base_url().'ChangeManager'; ?>">Block or Unblock Manager</a></li>
-          <li class="c-active"><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
+          <li class=""><a href="<?php echo base_url().'ChangeGift'; ?>">Giải thưởng</a></li>
           <li class=""><a href="<?php echo base_url().'AscendInRank'; ?>">Thăng cấp</a></li>
         </ul>      
       </ul>
