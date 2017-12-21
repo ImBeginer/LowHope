@@ -125,13 +125,15 @@ class GameDetail extends CI_Controller {
                     return;
                 } else {
                     $lUserId = array();
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    $date = date('Y-m-d H:i:s', time());
                     foreach ($user_list as $user) {
                         array_push($lUserId, $user['USER_ID']);
                         $MONEY = 10;
                         $check = $this->GameDetailModel->payBack($user['USER_ID'], $MONEY);
                         if ($check) {
                             // insert noti
-                            $checkSendNoti = $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type);
+                            $checkSendNoti = $this->GameDetailModel->sentNoti($user['USER_ID'], $game_id, $game_type, $date);
                             if ($checkSendNoti) {
                             } else {
                                 echo json_encode(2);
@@ -145,7 +147,7 @@ class GameDetail extends CI_Controller {
                     if ($game_type == 'YN') {
                         $type = 1;
                     }
-                    $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type);
+                    $data = $this->GameDetailModel->getDetailNoti($game_id, $lUserId, $type, $date);
                     $this->sentPusherNoti();
                     echo json_encode(1);
                 }
