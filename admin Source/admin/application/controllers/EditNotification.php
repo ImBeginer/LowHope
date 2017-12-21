@@ -27,6 +27,9 @@ class EditNotification extends CI_Controller {
 
             $role_id = $user['ROLE_ID'];
             $data['role_id'] = $role_id;
+
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             
             $data['userName'] = $user['USER_NAME'];
             $this->load->view('EditNotification', $data);
