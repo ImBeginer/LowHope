@@ -623,7 +623,7 @@ class GameCT extends CI_Controller {
 	function unit_test_game_activities()
 	{
 
-		// $this->unit->run($this->game->get_game_tt_by_id(77), $expected = 'is_object','Kiểm tra lấy nội dung game truyền thống theo id.');
+		//$this->unit->run($this->game->get_game_tt_by_id(77), $expected = 'is_object','Kiểm tra lấy nội dung game truyền thống theo id.');
 
 		// $this->unit->run($this->game->get_game_tt_by_id(777), $expected = 'is_null','Kiểm tra lấy nội dung game truyền thống theo id.');
 		 
@@ -651,7 +651,7 @@ class GameCT extends CI_Controller {
 		 
 		// $this->unit->run($this->game->createGameYN(444, 'Unitest_Tạo game Yes/No', '2017-12-19 22:58:35', 16000,'2017-12-25 23:20:00'), $expected = 0,'Kiểm tra người chơi tạo game yes/no không thành công.');
 		
-		// $this->unit->run($this->game->getGameYN_ById(80), $expected = 'is_object','Kiểm tra lấy thông tin thành công game yes/no theo ID.');
+		$this->unit->run($this->game->getGameYN_ById(1147), $expected = 'is_object','Kiểm tra lấy thông tin thành công game yes/no theo ID.');
 		 
 		// $this->unit->run($this->game->getGameYN_ById(800), $expected = null, 'Kiểm tra lấy thông tin không thành công game yes/no theo ID.');
 		

@@ -34,6 +34,8 @@ class SystemGameDemo extends CI_Controller {
             }
             $data['currentGame'] = $this->SystemGameDemoModel->getCurrentGame();
 
+            $avatar = $user['AVATAR'];
+            $data['avatar'] = $avatar;
             $data['userName'] = $user_name;
             $data['userId'] = $user_id;
 

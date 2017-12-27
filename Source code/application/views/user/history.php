@@ -232,7 +232,7 @@
               <?php } ?>
             </div>
 
-            <div id="history-user-info" class="col-3 col-sm-3 col-md-3 col-lg-3" style="height: 400px">
+            <div id="history-user-info" class="col-3 col-sm-3 col-md-3 col-lg-3" style="height: 260px">
               <div class="user-info-area">
                 <!-- user avatar -->
                 <div id="history-username-area" class="user-ava-area">
